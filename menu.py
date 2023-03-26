@@ -12,6 +12,12 @@ import nuke
 import pbKnobDefaults
 import pbSnippets
 
+#Import all nodes from another script
+#nuke.loadToolset("/home/user/Templates/script.nk")
+
+
+nuke.menu(‘Nodes’).addCommand( “Time/FrameHold”, “nuke.createNode(‘FrameHold’)[‘first_frame’].setValue( nuke.frame() )”, icon=’FrameHold.png’)
+
 
 #confirm full file loaded properly
 nuke.tprint('pb tools Loaded!')
