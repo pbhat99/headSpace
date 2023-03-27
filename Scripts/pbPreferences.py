@@ -1,5 +1,6 @@
 #----------------------------------------------------------------------------------------------------------
 # pb Preferences
+# Inspired :) from W_Hotbox
 #----------------------------------------------------------------------------------------------------------
 
 def addToPreferences(knobObject, tooltip = None):
@@ -45,13 +46,13 @@ def deletePreferences():
 
     firstLaunch = True
     for i in preferencesNode.knobs().keys():
-        if 'hotbox' in i:
+        if 'pb Tools' in i:
             preferencesNode.removeKnob(preferencesNode.knob(i))
             firstLaunch = False
 
     #remove TabKnob
     try:
-        preferencesNode.removeKnob(preferencesNode.knob('hotboxLabel'))
+        preferencesNode.removeKnob(preferencesNode.knob('pbLabel'))
     except:
         pass
 
@@ -63,14 +64,14 @@ def addPreferences():
     Add knobs to the preferences needed for this module to work properly.
     '''
     
-    addToPreferences(nuke.Tab_Knob('hotboxLabel','W_hotbox'))
-    addToPreferences(nuke.Text_Knob('hotboxGeneralLabel','<b>General</b>'))
+    addToPreferences(nuke.Tab_Knob('pbLabel','pbTools'))
+    addToPreferences(nuke.Text_Knob('pbGeneralLabel','<b>pb Tools</b>'))
 
     #version knob to check whether the hotbox was updated
-    knob = nuke.String_Knob('hotboxVersion','version')
-    knob.setValue(version)
-    addToPreferences(knob)
-    preferencesNode.knob('hotboxVersion').setVisible(False)
+    # knob = nuke.String_Knob('hotboxVersion','version')
+    # knob.setValue(version)
+    # addToPreferences(knob)
+    # preferencesNode.knob('hotboxVersion').setVisible(False)
 
     #location knob
     knob = nuke.File_Knob('hotboxLocation','Hotbox location')

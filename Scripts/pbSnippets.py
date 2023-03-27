@@ -11,8 +11,9 @@ def disableGUI():
 nuke.menu('Nuke').addCommand('-{ pb }-/GUI Disable','disableGUI()','shift+d')
 
 
-
+#------------------------------------------------------------------------------
 #paste clipboard to stickyNote
+#------------------------------------------------------------------------------
 def pasteNote():
   try:
      from PySide2 import QtWidgets
@@ -27,8 +28,9 @@ def pasteNote():
 nuke.menu('Nodes').addCommand('Other/StickyNote','pasteNote()','alt+n')
 
 
-
+#------------------------------------------------------------------------------
 # label replaced by rename
+#------------------------------------------------------------------------------
 def nLabel():
     lbl = nuke.selectedNode().knob('label').getValue()
     txt = nuke.getInput('Change label', lbl)
