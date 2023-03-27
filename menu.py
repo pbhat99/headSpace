@@ -19,7 +19,7 @@ import pbSnippets
 #nuke.loadToolset("/home/user/Templates/script.nk")
 
 
-nuke.menu(‘Nodes’).addCommand( “Time/FrameHold”, “nuke.createNode(‘FrameHold’)[‘first_frame’].setValue( nuke.frame() )”, icon=’FrameHold.png’)
+nuke.menu('Nodes').addCommand( "Time/FrameHold", "nuke.createNode('FrameHold')['first_frame'].setValue( nuke.frame() )", icon='FrameHold.png')
 
 
 #confirm full file loaded properly
