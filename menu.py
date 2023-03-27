@@ -13,10 +13,17 @@ import W_hotboxManager
 
 #my knobdefaults & snippets
 import pbKnobDefaults
-import pbSnippets
+
 
 #Import all nodes from another script
 #nuke.loadToolset("/home/user/Templates/script.nk")
+
+
+
+from pbSnippets import *
+nuke.menu('Nuke').addCommand('-{ pb }-/GUI Disable','disableGUI()','shift+d')
+nuke.menu('Nodes').addCommand('Other/StickyNote','pasteNote()','alt+n')
+nuke.menu("Nuke").addCommand("Edit/Node/Label", "nLabel()","n")
 
 
 nuke.menu('Nodes').addCommand( "Time/FrameHold", "nuke.createNode('FrameHold')['first_frame'].setValue( nuke.frame() )", icon='FrameHold.png')

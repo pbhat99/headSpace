@@ -1,4 +1,10 @@
+import nuke
+
+
+
+#------------------------------------------------------------------------------
 #  $GUI Toggle
+#------------------------------------------------------------------------------
 def disableGUI():
 	for dis in nuke.selectedNodes():
 		if dis['disable'].hasExpression():
@@ -8,7 +14,7 @@ def disableGUI():
 			dis['disable'].setExpression('[python {1-nuke.executing()}]')
 	return
 
-nuke.menu('Nuke').addCommand('-{ pb }-/GUI Disable','disableGUI()','shift+d')
+
 
 
 #------------------------------------------------------------------------------
@@ -25,7 +31,7 @@ def pasteNote():
   sn = nuke.createNode("StickyNote")
   sn.knob('label').setValue(clipboard)
 
-nuke.menu('Nodes').addCommand('Other/StickyNote','pasteNote()','alt+n')
+
 
 
 #------------------------------------------------------------------------------
@@ -37,4 +43,4 @@ def nLabel():
     if txt:
         for n in nuke.selectedNodes():
             n['label'].setValue(txt)
-nuke.menu("Nuke").addCommand("Edit/Node/Label", "nLabel()","n")
+
