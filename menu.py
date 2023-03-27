@@ -8,6 +8,9 @@ nuke.tprint('Loading Custom Tools by Prasannakumar T Bhat')
 import os
 import nuke
 
+import W_hotbox
+import W_hotboxManager
+
 #my knobdefaults & snippets
 import pbKnobDefaults
 import pbSnippets
