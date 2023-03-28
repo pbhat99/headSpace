@@ -10,6 +10,9 @@ import nuke
 
 import W_hotbox
 import W_hotboxManager
+import comma
+import KnobScripter
+
 
 #my knobdefaults & snippets
 import pbKnobDefaults
@@ -27,6 +30,8 @@ nuke.menu("Nuke").addCommand("Edit/Node/Label", "nLabel()","n")
 
 
 nuke.menu('Nodes').addCommand( "Time/FrameHold", "nuke.createNode('FrameHold')['first_frame'].setValue( nuke.frame() )", icon='FrameHold.png')
+
+
 
 
 #confirm full file loaded properly
