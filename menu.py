@@ -20,12 +20,16 @@ import pbKnobDefaults
 #Import all nodes from another script
 #nuke.loadToolset("/home/user/Templates/script.nk")
 
+# comma tool
 nuke.menu("Nodes").addCommand('Other/Comma','import comma ; comma.makeComma()',',',icon='Comma.png',index=6)
 
-from pbSnippets import *
-nuke.menu('Nuke').addCommand('-{ pb }-/GUI Disable','disableGUI()','shift+d')
-nuke.menu('Nodes').addCommand('Other/StickyNote','pasteNote()','alt+n')
-nuke.menu("Nuke").addCommand("Edit/Node/Label", "nLabel()","n")
+# dot create and align tool
+nuke.menu('Nuke').addCommand('-{ pb }-/Align Dots', "import AlignDots ; AlignDots.AlignDots()", 'Shift+.', shortcutContext=2)
+
+# pbSnippets 
+nuke.menu('Nuke').addCommand('-{ pb }-/GUI Disable','import pbSnippets ; pbSnippets.disableGUI()','shift+d')
+nuke.menu('Nodes').addCommand('Other/StickyNote','import pbSnippets ; pbSnippets.pasteNote()','alt+n')
+nuke.menu("Nuke").addCommand("Edit/Node/Label", "import pbSnippets ; pbSnippets.nLabel()","n")
 
 #framehold to current frame as default
 nuke.menu('Nodes').addCommand( "Time/FrameHold", "nuke.createNode('FrameHold')['first_frame'].setValue( nuke.frame() )", icon='FrameHold.png')

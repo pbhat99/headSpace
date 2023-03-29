@@ -13,6 +13,7 @@ Most of the tools are sourced from [Nukepedia.com ](https://www.nukepedia.com/) 
 - **KnobScripter** 3.0 https://github.com/adrianpueyo/KnobScripter/tree/release-v3.0.0
 - **MenuMaker** https://github.com/Shrinks99/menumaker
 - **Comma** 1.2 (fixed for nuke 14) https://www.nukepedia.com/gizmos/other/comma
+- **AlignDots** 1.4 https://www.nukepedia.com/python/nodegraph/aligndots
 
 
 
