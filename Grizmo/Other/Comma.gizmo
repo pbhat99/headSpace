@@ -1,3 +1,5 @@
+# comma tool
+#fixed for py3
 Dot {
  name Comma
  help "Comma v1.2 by Adrian Pueyo\n\nIntelligent Dot that connects itself when needed, displays cool information and colours about what it’s connected to, lets you have a quick access to the nodes you want, customise its appearance and save it as a preset.\n\n7 July 2018\nadrianpueyo.com, 2016-2018"

@@ -18,5 +18,3 @@ def makeComma():
             nuke.createNode("Comma")
     else:
         nuke.createNode("Comma")
-
-nuke.menu("Nodes").addCommand('Other/Comma','comma.makeComma()',',',icon='Comma.png',index=6)
