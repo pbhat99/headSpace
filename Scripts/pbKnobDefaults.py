@@ -41,7 +41,7 @@ nuke.knobDefault('Multiply.invert_mask','0')
 
 nuke.knobDefault('Blur.channels','rgba')
 nuke.knobDefault('Blur.size','2')
-#nuke.knobDefault('Blur.label','[value size]')
+nuke.knobDefault('Blur.autolabel',"nuke.thisNode().name() + ' (' + str(nuke.thisNode()['size'].value()) + ')' ")
 
 nuke.knobDefault("STMap.uv","rgb")
 nuke.knobDefault('Read.auto_alpha','true')
@@ -62,4 +62,5 @@ nuke.knobDefault('Constant.channels','rgba')
 
 nuke.knobDefault("Write.label", "[ lindex [split [filename] /] end-2]")
 
-nuke.knobDefault('Shuffle2.label','[value in1]')
+nuke.knobDefault("Shuffle2.autolabel","nuke.thisNode().name() + ' (' + str(nuke.thisNode()['in1'].value()) + '->' + str(nuke.thisNode()['out1'].value()) + ')'")
+nuke.knobDefault("Shuffle.autolabel","nuke.thisNode().name() + ' (' + str(nuke.thisNode()['in1'].value()) + '->' + str(nuke.thisNode()['out1'].value()) + ')'")
