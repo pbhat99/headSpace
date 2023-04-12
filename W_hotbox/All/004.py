@@ -2,10 +2,13 @@
 #
 # AUTOMATICALLY GENERATED FILE TO BE USED BY W_HOTBOX
 #
-# NAME: Set IP
+# NAME: Toggle Invert Mask
 #
 #----------------------------------------------------------------------------------------------------------
 
-sn = nuke.selectedNode().name()
-print (sn)
-nuke.toNode('Viewer1').knob("input_process_node").setValue(sn)
+for i in nuke.selectedNodes():
+    maskKnob = i.knob('invert_mask')
+    if maskKnob == None:
+        maskKnob = i.knob('invertMask')
+    if maskKnob != None:
+        maskKnob.setValue(1-maskKnob.value())

@@ -1,0 +1,40 @@
+set cut_paste_input [stack 0]
+version 10.0 v6
+push $cut_paste_input
+Group {
+ name Erode_Round
+ selected true
+ xpos -514
+ ypos -116
+ addUserKnob {20 ErodeFineRound}
+ addUserKnob {7 Size t "Erode size" R -10 10}
+ addUserKnob {26 ""}
+ addUserKnob {41 "Local GPU: " T BlinkScript2.gpuName}
+ addUserKnob {41 "Use GPU if Available" T BlinkScript2.useGPUIfAvailable}
+ addUserKnob {26 ""}
+}
+ Input {
+  inputs 0
+  name Input1
+  selected true
+  xpos -410
+  ypos -357
+ }
+ BlinkScript {
+  recompileCount 18
+  ProgramGroup 1
+  KernelDescription "2 \"ErodeFineRound\" iterate componentWise ac729eb169b7252755e4efc3cf2bf94f592820b5ef6410c6829158dbcab7c402 2 \"src\" Read Ranged2D \"dst\" Write Point 1 \"Size\" Float 1 AAAgQA== 1 \"size\" 1 1 3 \"srcrangeMin\" Int 2 1 AAAAAAAAAAA= \"srcrangeMax\" Int 2 1 AAAAAAAAAAA= \"s\" Float 1 1 AAAAAA=="
+  kernelSource "kernel ErodeFineRound : public ImageComputationKernel<eComponentWise>\n\{\n  Image<eRead, eAccessRanged2D, eEdgeClamped> src;\n  Image<eWrite, eAccessPoint> dst;\n\nparam:\n  float size;\n\nlocal:\n  float s; // Absolute size\n\n  void define() \{\n    defineParam(size, \"Size\", 2.50f);  \n  \}\n\n  void init() \{\n    //Set the range we need to access from the source \n    s = fabs(size); // Absolute size\n    src.setRange(-ceil(s), -ceil(s), ceil(s), ceil(s));\n\n  \}\n\n  void process() \{\n    float sample_val; // Value of the current pixel being sampled\n    float val = src(0,0); // Value, initialized as the current pixel value, then updated in loop \n    float2 v; // position vector\n    float2 s_v; // scaled position vector\n\n    // Loop\n    for(int j = -ceil(s); j <= ceil(s); j++) \{\n      for(int i = -ceil(s); i <= ceil(s); i++) \{\n        v = float2(float(i), float(j));\n        float len = length(v);\n        if (len <= s) \{\n          sample_val = src(i, j);\n        \}\n        else if (len < s + 1.0f) \{\n          s_v = v/len*s;\n          sample_val = bilinear(src, s_v.x, s_v.y);\n        \}\n        else \{\n          continue;\n        \}\n\n        if(size >= 0) \{\n          val = max(sample_val, val);\n        \}\n        else \{\n          val = min(sample_val, val);\n        \}\n      \}\n    \}\n    dst() = val;\n  \}\n\};"
+  rebuild ""
+  ErodeFineRound_Size {{parent.Size}}
+  rebuild_finalise ""
+  name BlinkScript2
+  xpos -410
+  ypos -258
+ }
+ Output {
+  name Output1
+  xpos -410
+  ypos -182
+ }
+end_group

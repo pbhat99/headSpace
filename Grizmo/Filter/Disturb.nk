@@ -1,0 +1,219 @@
+set cut_paste_input [stack 0]
+version 11.2 v6
+push $cut_paste_input
+Group {
+name Disturb
+tile_color 0x262626ff
+selected true
+xpos -139
+ypos 1680
+addUserKnob {20 User}
+addUserKnob {14 size l Size t "Noise size" R 0 100}
+size 55
+addUserKnob {14 strength l Strength t "Strength of the effect" R 0 100}
+strength 0.05
+addUserKnob {14 blur l Blur t "Blur the internal STMap to smooth out the result" R 0 100}
+addUserKnob {7 evolution l Evolution t "Animate the noise pattern"}
+evolution 1
+addUserKnob {6 maskcontrol l "Mask input affects strength" t "The mask will affect the strength of the disturb effect itself, rather than mixing the result with the input" +STARTLINE}
+maskcontrol true
+}
+Input {
+inputs 0
+name mask
+xpos 882
+ypos -127
+number 1
+}
+Dot {
+name Dot8
+xpos 916
+ypos 289
+}
+set N949cd820 [stack 0]
+Dot {
+name Dot7
+xpos 916
+ypos 637
+}
+Shuffle {
+red black
+green black
+blue black
+alpha white
+name Shuffle2
+xpos 748
+ypos 634
+disable {{"\[exists input1]==1&&\[value this.parent.maskcontrol]==0?1:0"}}
+}
+Input {
+inputs 0
+name Input
+xpos 0
+ypos -124
+}
+Dot {
+name Dot3
+xpos 34
+ypos -42
+}
+set N29477890 [stack 0]
+Dot {
+name Dot6
+xpos -110
+ypos -42
+}
+AdjBBox {
+numpixels {{(Multiply1.value.r)*2000} {(Multiply1.value.g)*2000}}
+name AdjBBox1
+xpos -144
+ypos 400
+}
+set C94ee92a0 [stack 0]
+Dot {
+name Dot5
+xpos -110
+ypos 531
+}
+set Ndd6b97d0 [stack 0]
+push $N949cd820
+Shuffle {
+red black
+green black
+blue black
+alpha white
+name Shuffle3
+xpos 756
+ypos 286
+disable {{"\[exists input1]==1&&\[value this.parent.maskcontrol]==1?1:0"}}
+}
+push $N29477890
+Dot {
+name Dot1
+xpos 597
+ypos -42
+}
+Shuffle {
+red black
+green black
+blue black
+alpha black
+name Shuffle1
+xpos 563
+ypos -3
+}
+clone $C94ee92a0 {
+xpos 563
+ypos 47
+selected false
+}
+set N9cfcce0 [stack 0]
+Dot {
+name Dot4
+xpos 413
+ypos 51
+}
+set Nf31fb3a0 [stack 0]
+Noise {
+cliptype bbox
+size {{"\[value this.parent.size.h]"}}
+zoffset {{evolution+10}}
+gamma 1
+center {1600 900}
+name Noise3
+xpos 431
+ypos 119
+}
+Add {
+value -0.5
+name Add2
+xpos 431
+ypos 159
+}
+push $Nf31fb3a0
+Noise {
+cliptype bbox
+size {{"\[value this.parent.size.w]"}}
+zoffset {{evolution}}
+gamma 1
+center {1600 900}
+name Noise2
+xpos 314
+ypos 115
+}
+Add {
+value -0.5
+name Add1
+xpos 314
+ypos 156
+}
+ShuffleCopy {
+inputs 2
+green green
+blue black
+alpha black
+name ShuffleCopy1
+xpos 376
+ypos 233
+}
+Multiply {
+value {{"log10(1+\[value this.parent.strength.w])"} {"log10(1+\[value this.parent.strength.h])"} 0 0}
+name Multiply1
+xpos 376
+ypos 280
+}
+push $N9cfcce0
+Expression {
+expr0 (x+0.5)/width
+expr1 (y+0.5)/height
+expr2 0
+name Expression2
+xpos 563
+ypos 231
+}
+Merge2 {
+inputs 2+1
+operation plus
+name Merge7
+xpos 563
+ypos 286
+}
+Blur {
+size {{blur} {blur}}
+name Blur1
+xpos 563
+ypos 343
+}
+Dot {
+name Dot2
+xpos 597
+ypos 403
+}
+push $N29477890
+STMap {
+inputs 2
+uv rgb
+name STMap2
+xpos 0
+ypos 393
+}
+CopyBBox {
+inputs 2
+name CopyBBox1
+xpos 0
+ypos 527
+}
+push $Ndd6b97d0
+Dissolve {
+inputs 2+1
+which 1
+name Dissolve1
+xpos 0
+ypos 628
+}
+Output {
+name Output1
+xpos 0
+ypos 725
+}
+end_group

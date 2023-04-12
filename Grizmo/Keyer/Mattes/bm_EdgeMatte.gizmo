@@ -1,0 +1,115 @@
+set cut_paste_input [stack 0]
+version 13.1 v2
+push $cut_paste_input
+Group {
+ name bm_EdgeMatte
+ help "Created to \"edgeDetect\" mattes. Probably better gizmos out there that do the same thngSimple gizmo to get a clean, controllable outline (like Edge Detect) from any matte. Useful for isolating edgeExtends and the like."
+ tile_color 0x212121ff
+ selected true
+ xpos -160
+ ypos 186
+ addUserKnob {20 Options}
+ addUserKnob {26 ""}
+ addUserKnob {4 filterType l Filter M {Box Triangle Quadratic Gaussian}}
+ addUserKnob {26 ""}
+ addUserKnob {14 innerEdge l "Inner Edge" R 0 100}
+ innerEdge 2
+ addUserKnob {14 innerBlur l "Inner Blur" R 0 100}
+ addUserKnob {14 outerEdge l "Outer Edge" R 0 100}
+ outerEdge 2
+ addUserKnob {14 outerBlur l "Outer Blur" R 0 100}
+ addUserKnob {26 ""}
+ addUserKnob {12 edgeTranslate l Translate}
+ addUserKnob {7 edgeShift l "Erode / Dilate" R -20 20}
+ addUserKnob {14 globalBlur l "Global Blur" R 0 100}
+ addUserKnob {26 ""}
+ addUserKnob {7 edgeRotate l INVISIBLE +INVISIBLE R -180 180}
+ addUserKnob {14 edgeScale l INVISIBLE +INVISIBLE R 0 100}
+ edgeScale 1
+ addUserKnob {12 edgeCentre l INVISIBLE +INVISIBLE}
+ edgeCentre {1024 778}
+ addUserKnob {26 version_info l "" +STARTLINE T "<font color='#777'><b>bm_EdgeMatte v2.0</b></font><font color='#555'> created by </font><b><a href=\"https://github.com/BenMcEwan/nuke_public\" style=\"color:#777;\">Ben McEwan</a></b>.<br>\n<font color='#555'><b>Last updated:</b> 23rd January, 2018.</font>"}
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos 542
+  ypos 483
+ }
+ Dot {
+  name Dot1
+  label "  "
+  note_font "Arial Black"
+  note_font_size 16
+  xpos 576
+  ypos 523
+ }
+set N8370f400 [stack 0]
+ FilterErode {
+  channels alpha
+  size {{innerEdge} {innerEdge}}
+  filter {{filterType}}
+  name FilterErode2
+  xpos 487
+  ypos 584
+ }
+ Blur {
+  channels alpha
+  size {{innerBlur} {innerBlur}}
+  name Blur1
+  xpos 487
+  ypos 622
+ }
+push $N8370f400
+ FilterErode {
+  channels alpha
+  size {{-outerEdge} {-outerEdge}}
+  filter {{filterType}}
+  name FilterErode1
+  xpos 608
+  ypos 585
+ }
+ Blur {
+  channels alpha
+  size {{outerBlur} {outerBlur}}
+  name Blur2
+  xpos 608
+  ypos 623
+ }
+ Merge2 {
+  inputs 2
+  operation stencil
+  name Merge1
+  xpos 538
+  ypos 686
+ }
+ FilterErode {
+  channels alpha
+  size {{edgeShift}}
+  name FilterErode3
+  xpos 538
+  ypos 751
+ }
+ Blur {
+  channels alpha
+  size {{globalBlur} {globalBlur}}
+  name Blur3
+  xpos 538
+  ypos 789
+ }
+ Transform {
+  translate {{edgeTranslate i} {edgeTranslate i}}
+  rotate {{edgeRotate i}}
+  scale {{edgeScale i} {edgeScale i}}
+  center {{edgeCentre} {edgeCentre}}
+  shutteroffset centred
+  name Transform1
+  xpos 538
+  ypos 827
+ }
+ Output {
+  name Output1
+  xpos 538
+  ypos 898
+ }
+end_group

@@ -1,0 +1,224 @@
+set cut_paste_input [stack 0]
+version 11.2 v6
+push $cut_paste_input
+Group {
+name Keychew
+selected true
+xpos 10
+ypos 382
+addUserKnob {20 User l "Key Chew"}
+addUserKnob {26 line l "" +STARTLINE}
+addUserKnob {41 from0 l channel T Copy1.from0}
+addUserKnob {41 chew T MASTER.chew}
+addUserKnob {41 dilate -STARTLINE T MASTER.dilate}
+addUserKnob {41 chewContrast T MASTER.chewContrast}
+addUserKnob {41 blur T MASTER.blur}
+addUserKnob {26 ""}
+addUserKnob {41 edgeMatte l "edge matte" T SwitchEdge.edgeMatte}
+addUserKnob {41 outside T ColorLookupEdge1.outside}
+addUserKnob {41 inside -STARTLINE T ColorLookupEdge1.inside}
+}
+Input {
+inputs 0
+name Input1
+xpos -165
+ypos -352
+}
+set N3dd2b470 [stack 0]
+Dot {
+name Dot2
+xpos -264
+ypos -354
+}
+Dot {
+name Dot1
+xpos -264
+ypos -275
+}
+set Nfb780650 [stack 0]
+push $N3dd2b470
+Copy {
+inputs 2
+from0 {{{Copy1.from0}}}
+to0 rgba.alpha
+bbox B
+name Copy2
+selected true
+xpos -165
+ypos -279
+disable {{"\[python nuke.thisGroup().inputs()==0]"}}
+}
+set N14264330 [stack 0]
+Blur {
+channels alpha
+size {{abs(MASTER.chewExp) x1004 8}}
+filter quadratic
+name Blur1
+xpos -36
+ypos -290
+addUserKnob {20 User}
+addUserKnob {7 Chew R -300 300}
+Chew 106
+}
+Dot {
+name Dot6
+xpos -7
+ypos -202
+}
+set Ne2e97240 [stack 0]
+Dot {
+name Dot8
+xpos -127
+ypos -198
+}
+ColorLookup {
+channels alpha
+lut {master {}
+  red {}
+  green {}
+  blue {}
+  alpha {curve 0 x0.009999999776 1 x1 1 x1 0}}
+name ColorLookupEdge1
+xpos -155
+ypos -129
+addUserKnob {20 User}
+addUserKnob {7 outsideTCL}
+outsideTCL {{"\[animation lut.alpha x 1 \[value outside]]+0"}}
+addUserKnob {7 outside}
+outside 0.01
+addUserKnob {7 inside}
+inside 1
+addUserKnob {7 insideTCL}
+insideTCL {{"\[animation lut.alpha x 2 \[value inside]]+0"}}
+}
+push $Ne2e97240
+Switch {
+inputs 2
+which {{edgeMatte}}
+name SwitchEdge
+xpos -36
+ypos -123
+addUserKnob {20 User}
+addUserKnob {6 edgeMatte l "edge matte" +STARTLINE}
+}
+Dot {
+name Dot3
+xpos -8
+ypos -64
+}
+set N14145940 [stack 0]
+Dot {
+name Dot7
+xpos 185
+ypos 9
+}
+push $N14145940
+Dot {
+name Dot4
+xpos 39
+ypos 13
+}
+Invert {
+channels alpha
+name Invert1
+xpos 11
+ypos 171
+}
+Switch {
+inputs 2
+which {{MASTER.dilate}}
+name Switch1
+xpos 157
+ypos 177
+}
+Grade {
+channels {-rgba.red -rgba.green rgba.blue rgba.alpha}
+white {{abs(MASTER.chewExp)+1 x1004 1.32}}
+gamma {{1/abs(MASTER.chewExp/(1-MASTER.chewContrast+10)+1)}}
+black_clamp false
+name Grade3
+xpos 157
+ypos 243
+}
+set Nf9d93380 [stack 0]
+push $N14145940
+Dot {
+name Dot5
+xpos -20
+ypos 360
+}
+push $Nf9d93380
+Merge2 {
+inputs 2
+operation minus
+Achannels alpha
+Bchannels alpha
+output alpha
+name Min
+xpos 139
+ypos 356
+}
+set Nb486f2d0 [stack 0]
+Switch {
+inputs 2
+which {{MASTER.dilate}}
+name Switch3
+xpos 147
+ypos 463
+}
+Clamp {
+channels alpha
+name Clamp5
+xpos 115
+ypos 595
+}
+Blur {
+channels rgba
+size {{MASTER.blur} {MASTER.blur}}
+filter box
+crop false
+name Blur11
+xpos 115
+ypos 644
+}
+push $Nfb780650
+Copy {
+inputs 2
+from0 rgba.alpha
+to0 rgba.alpha
+name Copy1
+xpos -332
+ypos 638
+}
+Output {
+name Output1
+xpos -332
+ypos 841
+}
+NoOp {
+inputs 0
+name MASTER
+xpos 684
+ypos -384
+addUserKnob {20 User}
+addUserKnob {6 dilate -STARTLINE}
+addUserKnob {7 chewContrast R -10 10}
+addUserKnob {14 chew R 0 100}
+addUserKnob {14 chewExp R 0 100}
+chewExp {{dilate==1?chew:1-chew}}
+addUserKnob {14 blur R 0 100}
+addUserKnob {6 edgeMatte +STARTLINE}
+addUserKnob {7 outside}
+addUserKnob {7 inside}
+}
+push $Nb486f2d0
+push $N14264330
+Viewer {
+inputs 2
+frame_range 1001-1083
+input_process false
+name Viewer1
+xpos 213
+ypos -298
+}
+end_group

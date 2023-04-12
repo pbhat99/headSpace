@@ -1,0 +1,133 @@
+set cut_paste_input [stack 0]
+version 11.2 v6
+push $cut_paste_input
+Group {
+name Organic_edges
+selected true
+xpos -11059
+ypos -1336
+addUserKnob {20 User}
+addUserKnob {41 scale T Noise1.scale}
+addUserKnob {41 uv_scale l "UV scale" T IDistort1.uv_scale}
+addUserKnob {41 uv_offset l "UV offset" T IDistort1.uv_offset}
+addUserKnob {41 Blur l "UV Blur" T Blur1.size}
+addUserKnob {41 size l Erode T FilterErode1.size}
+addUserKnob {41 size_1 l "Overall Blur" T Blur2.size}
+addUserKnob {26 website l www.karthikc.com}
+}
+Input {
+inputs 0
+name Input1
+xpos -143
+ypos -191
+}
+Dot {
+name Dot1
+xpos -109
+ypos -127
+}
+set N10410ad0 [stack 0]
+Shuffle {
+red black
+green black
+blue black
+alpha white
+name Shuffle1
+xpos -355
+ypos -131
+}
+set N10415300 [stack 0]
+Noise {
+size 85
+scale 0.1
+center {1024 778}
+name Noise1
+xpos -415
+ypos -74
+}
+set C10425f30 [stack 0]
+Shuffle {
+red black
+blue black
+alpha black
+name Shuffle2
+xpos -415
+ypos -30
+}
+push $N10415300
+clone $C10425f30 {
+xpos -279
+ypos -72
+selected false
+}
+Shuffle {
+green black
+blue black
+alpha black
+name Shuffle3
+xpos -279
+ypos -31
+}
+Merge2 {
+inputs 2
+operation plus
+name Merge1
+xpos -350
+ypos 40
+}
+Blur {
+name Blur1
+xpos -350
+ypos 66
+}
+set N1047d580 [stack 0]
+push $N10410ad0
+Copy {
+inputs 2
+from0 rgba.red
+to0 forward.u
+from1 rgba.green
+to1 forward.v
+name Copy1
+xpos -143
+ypos 54
+}
+IDistort {
+channels rgba
+uv forward
+uv_offset 0.25
+uv_scale 5
+name IDistort1
+xpos -143
+ypos 151
+}
+FilterErode {
+channels rgba
+size 0
+name FilterErode1
+xpos -143
+ypos 189
+}
+Blur {
+name Blur2
+selected true
+xpos -137
+ypos 215
+}
+set N104ae650 [stack 0]
+Output {
+name Output1
+xpos -143
+ypos 267
+}
+push $N1047d580
+push $N104ae650
+Viewer {
+inputs 2
+frame 1
+frame_range 1-100
+name Viewer1
+xpos -37
+ypos 245
+}
+end_group
