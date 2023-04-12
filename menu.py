@@ -26,6 +26,9 @@ nuke.menu("Nodes").addCommand('Other/Comma','import comma ; comma.makeComma()','
 # dot create and align tool
 nuke.menu('Nuke').addCommand('-{ pb }-/Align Dots', "import AlignDots ; AlignDots.AlignDots()", 'Shift+.', shortcutContext=2)
 
+#better backdrop & stickyNotes
+nuke.menu('Nuke').addCommand('-{ pb }-/GrayAutoBackdrop', 'import GrayAutoBackdrop ; GrayAutoBackdrop.GrayAutoBackdrop()', 'alt+b', shortcutContext=2)
+
 # pbSnippets 
 nuke.menu('Nuke').addCommand('-{ pb }-/GUI Disable','import pbSnippets ; pbSnippets.disableGUI()','shift+d')
 nuke.menu('Nodes').addCommand('Other/StickyNote','import pbSnippets ; pbSnippets.pasteNote()','alt+n')
