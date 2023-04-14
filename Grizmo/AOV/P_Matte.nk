@@ -1,1 +1,0 @@
- knobChanged "\nn = nuke.thisNode()\nk = nuke.thisKnob()\ns = nuke.toNode('SphereMatte')\nr = nuke.toNode('Start_End')\n\nif k.name() == \"falloffType\":\n    n\['falloff'].setVisible( k.value() != 'None' )\n    n\['exp'].setVisible( k.value() == 'Exponential' )\n\n"
