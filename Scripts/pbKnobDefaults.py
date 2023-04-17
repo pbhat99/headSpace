@@ -30,20 +30,21 @@ nuke.knobDefault('PostageStamp.label','[file tail [knob [topnode].file]]')
 nuke.knobDefault('PostageStamp.hide_input','1')
 nuke.knobDefault('DirBlurWrapper.BlurType','linear')
 nuke.knobDefault('DirBlurWrapper.BlurLayer','rgba')
-nuke.knobDefault('Merge.bbox','B')
+nuke.knobDefault('Merge2.bbox','B')
+
+nuke.knobDefault('Keymix.bbox','B')
 
 nuke.knobDefault('zoom_window_behaviour', '3')
 
-#nuke.knobDefault('Multiply.label','[value value]')
 nuke.knobDefault('Multiply.value','0')
 nuke.knobDefault('Multiply.invert_mask','0')
 
 
 nuke.knobDefault('Blur.channels','rgba')
 nuke.knobDefault('Blur.size','2')
-nuke.knobDefault('Blur.autolabel',"nuke.thisNode().name() + ' (' + str(nuke.thisNode()['size'].value()) + ')' ")
 
 nuke.knobDefault("STMap.uv","rgb")
+
 nuke.knobDefault('Read.auto_alpha','true')
 nuke.knobDefault('Viewer.full_frame_processing','true')
 nuke.knobDefault('Viewer.gl_lighting','true')
@@ -54,7 +55,13 @@ nuke.knobDefault('Radial.cliptype','no clip')
 nuke.knobDefault('RotoPaint.cliptype','no clip')
 
 nuke.knobDefault('FilterErode.filter','gaussian')
+
+nuke.knobDefault('Defocus.channels','rgba')
+nuke.knobDefault('Keymix.channels','rgba')
 nuke.knobDefault('Constant.channels','rgba')
+nuke.knobDefault('Dilate.channels','rgba')
+nuke.knobDefault('Erode.channels','rgba')
+nuke.knobDefault('FilterErode.channels','rgba')
 
 #nuke.knobDefault("Write.mov.colorspace", "MillView")
 #nuke.knobDefault("Write.mov.codec","apch")
@@ -62,5 +69,44 @@ nuke.knobDefault('Constant.channels','rgba')
 
 nuke.knobDefault("Write.label", "[ lindex [split [filename] /] end-2]")
 
-nuke.knobDefault("Shuffle2.autolabel","nuke.thisNode().name() + ' (' + str(nuke.thisNode()['in1'].value()) + '->' + str(nuke.thisNode()['out1'].value()) + ')'")
-nuke.knobDefault("Shuffle.autolabel","nuke.thisNode().name() + ' (' + str(nuke.thisNode()['in1'].value()) + '->' + str(nuke.thisNode()['out1'].value()) + ')'")
+#nuke.knobDefault("Shuffle2.autolabel","nuke.thisNode().name() + ' (' + str(nuke.thisNode()['in1'].value()) + '->' + str(nuke.thisNode()['out1'].value()) + ')'")
+#nuke.knobDefault("Shuffle.autolabel","nuke.thisNode().name() + ' (' + str(nuke.thisNode()['in1'].value()) + '->' + str(nuke.thisNode()['out1'].value()) + ')'")
+
+
+
+
+
+
+def nodeAutoLabel():
+    n = nuke.thisNode()
+    if n.Class() == "Blur":
+        autoLabel = n.name() + ' (' + str(n['size'].value()) + ')' 
+        if not n['channels'].value() == 'rgba':
+            autoLabel = autoLabel + '\n' + n['channels'].value()
+        if n['label'].value():
+            autoLabel = autoLabel + '\n' + n['label'].value()
+        return autoLabel
+
+    if n.Class() == "Defocus":
+        autoLabel = n.name() + ' (' + str(n['defocus'].value()) + ')' 
+        if not n['channels'].value() == 'rgba':
+            autoLabel = autoLabel + '\n' + n['channels'].value()
+        if n['label'].value():
+            autoLabel = autoLabel + '\n' + n['label'].value()
+        return autoLabel
+
+    if n.Class() == "Shuffle2":
+        autoLabel = n.name() + ' (' + str(n['in1'].value()) + '->' + str(n['out1'].value()) + ')'
+        if n['label'].value():
+            autoLabel = autoLabel + '\n' + n['label'].value()
+        return autoLabel
+
+    if n.Class() == "FilterErode" or n.Class() == "Dilate" or n.Class() == "Erode":
+        autoLabel = n.name() + ' (' + str(n['size'].value()) + ')'
+        if n['label'].value():
+            autoLabel = autoLabel + '\n' + n['label'].value()
+        return autoLabel
+ 
+nuke.addAutolabel(nodeAutoLabel)
+
+
