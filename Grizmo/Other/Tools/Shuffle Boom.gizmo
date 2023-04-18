@@ -1,0 +1,25 @@
+NoOp {
+ name Shuffle_Boom
+ knobChanged "#n = nuke.thisNode()\n#n\['sOut'].setEnabled(False)\n#\n#if n.input(0) == None:\n#  print ('no input')\n#else:\n#  print ('input is ' + n.input(0).name())\n#  n\['sOut'].setEnabled(True)\n"
+ selected true
+ addUserKnob {20 User l "Shuffle Boom" t "by Prasannakuma T Bhat\npbhat99(at)gmail.com\nv0.6"}
+ addUserKnob {6 alphaFromAlpha l "alpha from RGBA" +STARTLINE}
+ alphaFromAlpha true
+ addUserKnob {6 pStamp l PostageStamp -STARTLINE}
+ pStamp true
+ addUserKnob {6 newShuffle l "New Shuffle" -STARTLINE}
+ newShuffle true
+ addUserKnob {6 cryptoNode l "Exclude Crypto Channels" +STARTLINE}
+ cryptoNode true
+ addUserKnob {26 cExclude l "" -STARTLINE T "\[Excluded]"}
+ addUserKnob {26 ""}
+ addUserKnob {22 sOut l "Shuffle Them All" T "layers = None\ncrypto = None\n\nimport fnmatch\n\n\nnode = nuke.thisNode()\n\n\nchannels = node.channels()\nlayers = list( set(\[c.split('.')\[0] for c in channels]) )\ncrypto = fnmatch.filter(layers, '*crypto*')\n\nif node.knob('cryptoNode').value() == True :\n    layers = list(set(layers) - set(crypto))\n    layers.sort()\nelse:\n    layers.sort()\n\nprint (layers)\n\n\nfor y in layers:\n    shuffle_node = nuke.createNode(\"Shuffle\")\n    shuffle_node\['in'].setValue(y)\n    shuffle_node\['label'].setValue(\"\[value in]\")\n    shuffle_node\['postage_stamp'].setValue(node.knob('pStamp').value())\n    shuffle_node.setInput(0, node)\n    if node.knob('alphaFromAlpha').value() == True :\n        shuffle_node\['in2'].setValue('alpha')\n        shuffle_node\['alpha'].setValue('red2')\n#nuke.delete(nuke.thisNode())\n  \n" +STARTLINE}
+ addUserKnob {4 cList l = M {__alpha __beauty_lpe __clearcoat_albedo __clearcoat_roughness __depth __diffuse_albedo __diffuse_roughness __diffuse_transmittance __direct_incandescent __distance __global_matte0 __global_matte1 __global_matte2 __global_matte3 __global_matte4 __global_matte5 __global_matte6 __global_matte7 __global_matte8 __global_matte9 __incandescent __indirect_incandescent __light_grp0 __light_grp0_direct_diffuse __light_grp0_direct_diffuse_unoccluded __light_grp0_direct_specular __light_grp0_indirect_diffuse __light_grp0_indirect_specular __light_grp1 __light_grp1_direct_diffuse __light_grp1_direct_specular __light_grp1_indirect_diffuse __light_grp1_indirect_specular __motion_vector __normal_camera __normal_object __normal_world __position_object __position_reference __position_world __reflection __refraction __specular_albedo __specular_roughness __specular_transmittance rgba}}
+ cList rgba
+ addUserKnob {22 cListFetch l Fetch -STARTLINE T "import fnmatch\n\nnode = nuke.thisNode()\n\n\nchannels = node.channels()\nlayers = list( set(\[c.split('.')\[0] for c in channels]) )\ncrypto = fnmatch.filter(layers, '*crypto*')\n\nif node.knob('cryptoNode').value() == True :\n    layers = list(set(layers) - set(crypto))\n    layers.sort()\nelse:\n    layers.sort()\n\nprint (layers)\n\n\nnode\['cList'].setValues(layers)\nif crypto == \[]:\n    node\['cExclude'].setValue('\[none Found!]')\nelse:\n    node\['cExclude'].setValue('\[Excluded]')"}
+ addUserKnob {22 previousChannel l < +STARTLINE}
+ addUserKnob {22 nextChannel l > -STARTLINE}
+ addUserKnob {22 shuffleSelected l "Shuffle it" -STARTLINE T "shuffle_node = nuke.createNode(\"Shuffle\")\nshuffle_node\['in'].setValue(node.knob('cList').value())\nshuffle_node\['label'].setValue(\"\[value in]\")\nshuffle_node\['postage_stamp'].setValue(node.knob('pStamp').value())\nshuffle_node.setInput(0, node)\nif node.knob('alphaFromAlpha').value() == True :\n    shuffle_node\['in2'].setValue('alpha')\n    shuffle_node\['alpha'].setValue('red2')"}
+ addUserKnob {26 text l "" +STARTLINE}
+ addUserKnob {26 text_1 l "" +STARTLINE +INVISIBLE T "(c) Prasannakumar T Bhat\nv0.6"}
+}
