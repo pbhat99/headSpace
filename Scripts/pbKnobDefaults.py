@@ -25,13 +25,12 @@ m.addCommand ("Open Recent Comp/@recent_file22", "nuke.scriptOpen(nuke.recentFil
 
 
 # Personal Default Node Settings
-nuke.knobDefault('Erode.channels','rgba')
 nuke.knobDefault('PostageStamp.label','[file tail [knob [topnode].file]]')
 nuke.knobDefault('PostageStamp.hide_input','1')
 nuke.knobDefault('DirBlurWrapper.BlurType','linear')
 nuke.knobDefault('DirBlurWrapper.BlurLayer','rgba')
-nuke.knobDefault('Merge2.bbox','B')
 
+nuke.knobDefault('Merge2.bbox','B')
 nuke.knobDefault('Keymix.bbox','B')
 
 nuke.knobDefault('zoom_window_behaviour', '3')
@@ -39,8 +38,7 @@ nuke.knobDefault('zoom_window_behaviour', '3')
 nuke.knobDefault('Multiply.value','0')
 nuke.knobDefault('Multiply.invert_mask','0')
 
-
-nuke.knobDefault('Blur.channels','rgba')
+nuke.knobDefault('EXPTool.mode','0')
 nuke.knobDefault('Blur.size','2')
 
 nuke.knobDefault("STMap.uv","rgb")
@@ -48,7 +46,6 @@ nuke.knobDefault("STMap.uv","rgb")
 nuke.knobDefault('Read.auto_alpha','true')
 nuke.knobDefault('Viewer.full_frame_processing','true')
 nuke.knobDefault('Viewer.gl_lighting','true')
-#nuke.knobDefault('BackdropNode.note_font_size','99')
 
 nuke.knobDefault('Roto.cliptype','no clip')
 nuke.knobDefault('Radial.cliptype','no clip')
@@ -57,32 +54,41 @@ nuke.knobDefault('RotoPaint.cliptype','no clip')
 nuke.knobDefault('FilterErode.filter','gaussian')
 
 nuke.knobDefault('Defocus.channels','rgba')
+nuke.knobDefault('Blur.channels','rgba')
+nuke.knobDefault('Multiply.channels','rgba')
+nuke.knobDefault('Add.channels','rgba')
+nuke.knobDefault('Gamma.channels','rgba')
+nuke.knobDefault('Dissolve.channels','rgba')
 nuke.knobDefault('Keymix.channels','rgba')
 nuke.knobDefault('Constant.channels','rgba')
 nuke.knobDefault('Dilate.channels','rgba')
 nuke.knobDefault('Erode.channels','rgba')
 nuke.knobDefault('FilterErode.channels','rgba')
 
-#nuke.knobDefault("Write.mov.colorspace", "MillView")
+#nuke.knobDefault("Write.mov.colorspace", "")
 #nuke.knobDefault("Write.mov.codec","apch")
 #nuke.knobDefault("Write.mov.mov64_codec", "apch")
 
 nuke.knobDefault("Write.label", "[ lindex [split [filename] /] end-2]")
 
-#nuke.knobDefault("Shuffle2.autolabel","nuke.thisNode().name() + ' (' + str(nuke.thisNode()['in1'].value()) + '->' + str(nuke.thisNode()['out1'].value()) + ')'")
-#nuke.knobDefault("Shuffle.autolabel","nuke.thisNode().name() + ' (' + str(nuke.thisNode()['in1'].value()) + '->' + str(nuke.thisNode()['out1'].value()) + ')'")
+
+p = nuke.toNode('preferences')
+p['maxPanels'].setValue('2')
+p['reopenMovesPanel'].setValue(True)
+p['ExpandSelection'].setValue(True)
+p['ArrowColorUp'].setValue(0xff0000ff) # red color
 
 
 
 
 
 
-def nodeAutoLabel():
+def pbAutoLabel():
     n = nuke.thisNode()
     if n.Class() == "Blur":
         autoLabel = n.name() + ' (' + str(n['size'].value()) + ')' 
         if not n['channels'].value() == 'rgba':
-            autoLabel = autoLabel + '\n' + n['channels'].value()
+            autoLabel = autoLabel + '\n' + ' (' + n['channels'].value() + ')'
         if n['label'].value():
             autoLabel = autoLabel + '\n' + n['label'].value()
         return autoLabel
@@ -90,7 +96,7 @@ def nodeAutoLabel():
     if n.Class() == "Defocus":
         autoLabel = n.name() + ' (' + str(n['defocus'].value()) + ')' 
         if not n['channels'].value() == 'rgba':
-            autoLabel = autoLabel + '\n' + n['channels'].value()
+            autoLabel = autoLabel + '\n' + ' (' + n['channels'].value() + ')'
         if n['label'].value():
             autoLabel = autoLabel + '\n' + n['label'].value()
         return autoLabel
@@ -106,7 +112,29 @@ def nodeAutoLabel():
         if n['label'].value():
             autoLabel = autoLabel + '\n' + n['label'].value()
         return autoLabel
+
+    if n.Class() == "Multiply" or n.Class() == "Add" or n.Class() == "Gamma":
+        autoLabel = n.name() + ' (' + str(n['value'].value()) + ')'
+        if not n['channels'].value() == 'rgba':
+            autoLabel = autoLabel + '\n' + ' (' + n['channels'].value() + ')'
+        if n['label'].value():
+            autoLabel = autoLabel + '\n' + n['label'].value()
+        return autoLabel
+
+    if n.Class() == "EXPTool":
+        autoLabel = n.name() + ' (' + str(n['red'].value()) + ')'
+        if not n['red'].value() == n['green'].value() == n['blue'].value():
+            autoLabel = n.name() + '\n' + ' (' + str(n['red'].value()) + ',' + str(n['green'].value()) + ',' + str(n['blue'].value()) + ')'
+        if n['label'].value():
+            autoLabel = autoLabel + '\n' + n['label'].value()
+        return autoLabel
+
+    if n.Class() == "Switch" or n.Class() == "Dissolve":
+        autoLabel = n.name() + ' (' + str(n['which'].value()) + ')'
+        if n['label'].value():
+            autoLabel = autoLabel + '\n' + n['label'].value()
+        return autoLabel
  
-nuke.addAutolabel(nodeAutoLabel)
+nuke.addAutolabel(pbAutoLabel)
 
 
