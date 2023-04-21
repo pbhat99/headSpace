@@ -7,19 +7,35 @@ Most of the tools are sourced from [Nukepedia.com ](https://www.nukepedia.com/) 
 
 
 ## List of python tools In this repo:
-- pbKnobDefaults
-- pbSnippets
+- pbKnobDefaults - Custom knobdefaults & autolabel setup for myself
+- pbSnippets - short snippets from me
 - **W_hotbox** 1.9 (with default & custom buttons) https://www.nukepedia.com/python/ui/w_hotbox
+- **W_Scaletree** 2.2 https://www.nukepedia.com/python/nodegraph/w_scaletree
+- **W_Align** 1.1 https://www.nukepedia.com/python/nodegraph/w_smartalign
 - **KnobScripter** 3.0 https://github.com/adrianpueyo/KnobScripter/tree/release-v3.0.0
 - **MenuMaker** https://github.com/Shrinks99/menumaker
 - **Comma** 1.2 (fixed for nuke 14) https://www.nukepedia.com/gizmos/other/comma
 - **AlignDots** 1.4 https://www.nukepedia.com/python/nodegraph/aligndots
+- **GrayAutoBackdrop** 1.2 https://www.nukepedia.com/python/nodegraph/grayautobackdrop
 
 
 
 ## List of Grizmos In this repo:
 ### Keyer
+#### Matte
+- bm_EdgeMatte
+- Erode (round)
+- Erode_Fine
+- KeyChew
+- Organic_edges
+#### Additives
 - **ScreenXchange** (with added logtolin option)
+### Transform
+- aeTransform
+### Channel
+- P_Matte
+
+
 
 ### Other
 - **comma** 
