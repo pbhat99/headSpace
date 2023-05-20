@@ -7,8 +7,8 @@
 #----------------------------------------------------------------------------------------------------------
 
 for i in nuke.selectedNodes():
-    i.knob('in').setValue('rgba')
-    for channel in ['red','green','blue','alpha']:
-        i.knob(channel).setValue('green')
-
+    i['in1'].setValue('rgba')
+    
+    i["mappings"].setValue([('rgba.green', 'rgba.red'), ('rgba.green', 'rgba.green'),('rgba.green', 'rgba.blue'),('rgba.green', 'rgba.alpha')])
+    
     i.knob('tile_color').setValue(12517631)

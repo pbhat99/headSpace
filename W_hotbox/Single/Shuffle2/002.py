@@ -2,13 +2,13 @@
 #
 # AUTOMATICALLY GENERATED FILE TO BE USED BY W_HOTBOX
 #
-# NAME: Green
+# NAME: Blue
 #
 #----------------------------------------------------------------------------------------------------------
 
 for i in nuke.selectedNodes():
-    i.knob('in').setValue('rgba')
-    for channel in ['red','green','blue','alpha']:
-        i.knob(channel).setValue('green')
-
-    i.knob('tile_color').setValue(12517631)
+    i['in1'].setValue('rgba')
+    
+    i["mappings"].setValue([('rgba.blue', 'rgba.red'), ('rgba.blue', 'rgba.green'),('rgba.blue', 'rgba.blue'),('rgba.blue', 'rgba.alpha')])
+    
+    i.knob('tile_color').setValue(4177919)
