@@ -2,6 +2,7 @@ nuke.pluginAddPath('./Scripts')
 nuke.pluginAddPath('./Grizmo')
 nuke.pluginAddPath('./icons')
 nuke.pluginAddPath('./KnobScripter')
+#nuke.pluginAddPath('./NukeSurvivalToolkit')
 #nuke.pluginAddPath('./Cattery')
 
 
