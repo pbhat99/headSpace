@@ -8,10 +8,9 @@
 
 L = nuke.layers()
 for i in nuke.selectedNodes():
-     inValue = i.knob("in").value()
+     inValue = i.knob("in1").value()
      index = L.index(inValue) + 1
      if index >= len(L): index = 0
      nextIn = L[index]
-     i.knob("in").setValue(nextIn)
+     i.knob("in1").setValue(nextIn)
      i.knob("label").setValue(nextIn)
-
