@@ -30,9 +30,12 @@ nuke.menu('Nuke').addCommand('-{ pb }-/NodeGraph/Align Dots', "import AlignDots 
 nuke.menu('Nuke').addCommand('-{ pb }-/GrayAutoBackdrop', 'import GrayAutoBackdrop ; GrayAutoBackdrop.GrayAutoBackdrop()', 'alt+b', shortcutContext=2)
 
 # pbSnippets 
-nuke.menu('Nuke').addCommand('-{ pb }-/GUI Disable','import pbSnippets ; pbSnippets.disableGUI()','shift+d')
 nuke.menu('Nodes').addCommand('Other/StickyNote','import pbSnippets ; pbSnippets.pasteNote()','alt+n')
-nuke.menu("Nuke").addCommand("-{ pb }-/NodeGraph/Change Label", "import pbSnippets ; pbSnippets.nLabel()","n")
+nuke.menu('Nuke').addCommand('-{ pb }-/GUI Disable','import pbSnippets ; pbSnippets.disableGUI()','shift+d')
+nuke.menu("Nuke").addCommand('-{ pb }-/Change Label', 'import pbSnippets ; pbSnippets.nLabel()','n')
+nuke.menu("Nuke").addCommand('-{ pb }-/Convert Gizmo','import pbSnippets ; pbSnippets.convertGizmosToGroups()','Ctrl+shift+g')
+nuke.menu("Nuke").addCommand('-{ pb }-/NodeGraph/Mirror horizontally', 'import pbSnippets ; pbSnippets.MirrorNodes(nuke.selectedNodes(), direction="x", axis="last").start()')
+nuke.menu("Nuke").addCommand('-{ pb }-/NodeGraph/Mirror vertically', 'import pbSnippets ; pbSnippets.MirrorNodes(nuke.selectedNodes(), direction="y", axis="last").start()')
 
 #framehold to current frame as default
 nuke.menu('Nodes').addCommand( "Time/FrameHold", "nuke.createNode('FrameHold')['first_frame'].setValue( nuke.frame() )", icon='FrameHold.png')
