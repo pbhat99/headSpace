@@ -7,8 +7,14 @@ Most of the tools are sourced from [Nukepedia.com ](https://www.nukepedia.com/) 
 
 
 ## List of python tools In this repo:
-- pbKnobDefaults - Custom knobdefaults & autolabel setup for myself
-- pbSnippets - short snippets from me
+- **pbKnobDefaults** - Custom knobdefaults & autolabel setup for myself
+- **pbSnippets** - short snippets from me
+  - $GUI toggle
+  - paste clipboard to stickyNote
+  - change node Label
+  - Gizmo to group converter by Victor Perez
+  - Mirror nodes by Frank Rueter
+
 - **W_hotbox** 1.9 (with default & custom buttons) https://www.nukepedia.com/python/ui/w_hotbox
 - **W_Scaletree** 2.2 https://www.nukepedia.com/python/nodegraph/w_scaletree
 - **W_Align** 1.1 https://www.nukepedia.com/python/nodegraph/w_smartalign
@@ -17,8 +23,7 @@ Most of the tools are sourced from [Nukepedia.com ](https://www.nukepedia.com/) 
 - **Comma** 1.2 (fixed for nuke 14) https://www.nukepedia.com/gizmos/other/comma
 - **AlignDots** 1.4 https://www.nukepedia.com/python/nodegraph/aligndots
 - **GrayAutoBackdrop** 1.2 https://www.nukepedia.com/python/nodegraph/grayautobackdrop
-
-
+- **CycleOperations** 1.5 https://www.nukepedia.com/python/nodegraph/cycleoperations
 
 ## List of Grizmos In this repo:
 ### Keyer
