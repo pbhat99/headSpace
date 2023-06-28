@@ -197,4 +197,4 @@ class MirrorNodes( threading.Thread ):
                     nuke.executeInMainThreadWithResult( n.setXpos, int(curPos) )
                 else:
                     nuke.executeInMainThreadWithResult( n.setYpos, int(curPos) )
-            time.sleep(.02)
+            time.sleep(.01)

@@ -51,5 +51,10 @@ nuke.menu('Nuke').addCommand('-{ pb }-/NodeGraph/Align Down', 'import W_smartAli
 nuke.menu('Nuke').addCommand('-{ pb }-/NodeGraph/W_scaleTree', 'import W_scaleTree ; W_scaleTree.scaleTreeFloatingPanel()', 'alt+`')
 
 
+
+nuke.menu('Nuke').addCommand('-{ pb }-/Cycle Forwards', "import CycleOperations ; CycleOperations.CycleOperations()", "]", shortcutContext=2)
+nuke.menu('Nuke').addCommand('-{ pb }-/Cycle Backwards', "import CycleOperations ; CycleOperations.CycleOperations(False)", "[", shortcutContext=2)
+
+
 #confirm full file loaded properly
 nuke.tprint('pb tools Loaded!')
