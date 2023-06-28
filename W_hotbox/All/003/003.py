@@ -2,14 +2,8 @@
 #
 # AUTOMATICALLY GENERATED FILE TO BE USED BY W_HOTBOX
 #
-# NAME: Copy Class
+# NAME: Count Selection
 #
 #----------------------------------------------------------------------------------------------------------
 
-from PySide import QtGui
-
-nodeClasses = ' '.join(sorted([i.Class() for i in nuke.selectedNodes()]))
-
-QtGui.QApplication.clipboard().setText(nodeClasses)
-
-	
+nuke.message('%s / %s nodes selected'%(len(nuke.selectedNodes()),len(nuke.allNodes())))

@@ -2,9 +2,14 @@
 #
 # AUTOMATICALLY GENERATED FILE TO BE USED BY W_HOTBOX
 #
-# NAME: Show Properties
+# NAME: Copy Class
 #
 #----------------------------------------------------------------------------------------------------------
 
-for i in nuke.selectedNodes():
-        i.showControlPanel()
+from PySide import QtGui
+
+nodeClasses = ' '.join(sorted([i.Class() for i in nuke.selectedNodes()]))
+
+QtGui.QApplication.clipboard().setText(nodeClasses)
+
+	

@@ -2,8 +2,10 @@
 #
 # AUTOMATICALLY GENERATED FILE TO BE USED BY W_HOTBOX
 #
-# NAME: Count Selection
+# NAME: Nodes to py
 #
 #----------------------------------------------------------------------------------------------------------
 
-nuke.message('%s / %s nodes selected'%(len(nuke.selectedNodes()),len(nuke.allNodes())))
+import nodes_to_python
+
+nuke.display('nodes_to_python.create_python()', nuke.root(), 'Selected nodes as Python',1000)
