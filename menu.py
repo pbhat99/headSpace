@@ -21,7 +21,7 @@ import pbKnobDefaults
 #nuke.loadToolset("/home/user/Templates/script.nk")
 
 # comma tool
-nuke.menu("Nodes").addCommand('Other/Comma','import comma ; comma.makeComma()',',',icon='Comma.png',index=6)
+nuke.menu("Nuke").addCommand('-{ pb }-/Comma','import comma ; comma.makeComma()',',',icon='Comma.png')
 
 # dot create and align tool
 nuke.menu('Nuke').addCommand('-{ pb }-/NodeGraph/Align Dots', "import AlignDots ; AlignDots.AlignDots()", 'Shift+.', shortcutContext=2)
@@ -36,10 +36,6 @@ nuke.menu("Nuke").addCommand('-{ pb }-/Change Label', 'import pbSnippets ; pbSni
 nuke.menu("Nuke").addCommand('-{ pb }-/Convert Gizmo','import pbSnippets ; pbSnippets.convertGizmosToGroups()','Ctrl+shift+g')
 nuke.menu("Nuke").addCommand('-{ pb }-/NodeGraph/Mirror horizontally', 'import pbSnippets ; pbSnippets.MirrorNodes(nuke.selectedNodes(), direction="x", axis="last").start()')
 nuke.menu("Nuke").addCommand('-{ pb }-/NodeGraph/Mirror vertically', 'import pbSnippets ; pbSnippets.MirrorNodes(nuke.selectedNodes(), direction="y", axis="last").start()')
-
-#framehold to current frame as default
-nuke.menu('Nodes').addCommand( "Time/FrameHold", "nuke.createNode('FrameHold')['first_frame'].setValue( nuke.frame() )", icon='FrameHold.png')
-
 
 #W_smartAlign
 nuke.menu('Nuke').addCommand('-{ pb }-/NodeGraph/Align Left', 'import W_smartAlign ; W_smartAlign.alignNodes("left")',"Alt+Shift+left", shortcutContext=2)
@@ -60,11 +56,21 @@ nuke.menu('Nuke').addCommand('-{ pb }-/Cycle Backwards', "import CycleOperations
 nuke.menu("Nuke").addCommand('-{ pb }-/Channel HotBox', 'import channel_hotbox ; channel_hotbox.start()', 'alt+q')
 
 
+
+
+
 #reduce keyframes
 nuke.menu('Animation').addCommand( '-{ pb }-/Reduce Keyframes', "import reduceKeyframes ; reduceKeyframes.doReduceKeyframes()" )
 
 #AnimationMaker
 nuke.menu('Animation').addCommand( '-{ pb }-/Animation Maker', 'import AnimationMaker ; AnimationMaker.showWindow()','',icon='ParticleBounce.png')
+
+
+
+
+#framehold to current frame as default
+nuke.menu('Nodes').addCommand( "Time/FrameHold", "nuke.createNode('FrameHold')['first_frame'].setValue( nuke.frame() )", icon='FrameHold.png')
+
 
 
 #confirm full file loaded properly
