@@ -60,5 +60,12 @@ nuke.menu('Nuke').addCommand('-{ pb }-/Cycle Backwards', "import CycleOperations
 nuke.menu("Nuke").addCommand('-{ pb }-/Channel HotBox', 'import channel_hotbox ; channel_hotbox.start()', 'alt+q')
 
 
+#reduce keyframes
+nuke.menu('Animation').addCommand( '-{ pb }-/Reduce Keyframes', "import reduceKeyframes ; reduceKeyframes.doReduceKeyframes()" )
+
+#AnimationMaker
+nuke.menu('Animation').addCommand( '-{ pb }-/Animation Maker', 'import AnimationMaker ; AnimationMaker.showWindow()','',icon='ParticleBounce.png')
+
+
 #confirm full file loaded properly
 nuke.tprint('pb tools Loaded!')
