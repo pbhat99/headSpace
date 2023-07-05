@@ -26,7 +26,7 @@ Most of the tools are sourced from [Nukepedia.com ](https://www.nukepedia.com/) 
 - **CycleOperations** v1.5 https://www.nukepedia.com/python/nodegraph/cycleoperations
 - **Animation Maker** v1.4 https://www.nukepedia.com/python/ui/animation-maker/
 - **reduceKeyframes** v1.2 (fixed for nuke 14) https://richardfrazer.com/tools-tutorials/keyframe-reduction-script-for-nuke/
-
+- **WrapItUp** v1.9 https://maxvanleeuwen.com/project/collect-nuke-scripts-wrapitup/
 
 ## List of Grizmos In this repo:
 ### Keyer

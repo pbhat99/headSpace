@@ -52,8 +52,11 @@ nuke.menu('Nuke').addCommand('-{ pb }-/Cycle Forwards', "import CycleOperations 
 nuke.menu('Nuke').addCommand('-{ pb }-/Cycle Backwards', "import CycleOperations ; CycleOperations.CycleOperations(False)", "[", shortcutContext=2)
 
 
-#channel hotbox
+#Channel Hotbox
 nuke.menu("Nuke").addCommand('-{ pb }-/Channel HotBox', 'import channel_hotbox ; channel_hotbox.start()', 'alt+q')
+
+#WrapItUp - pack nuke script with dependencies
+nuke.menu("Nuke").addCommand('-{ pb }-/WrapItUp', 'import WrapItUp ; WrapItUp.WrapItUp( nodenamefolder=False, fonts=False, parentdircount=2, gizmos=False)')
 
 
 
