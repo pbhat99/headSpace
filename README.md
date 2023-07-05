@@ -24,12 +24,9 @@ Most of the tools are sourced from [Nukepedia.com ](https://www.nukepedia.com/) 
 - **AlignDots** v1.4 https://www.nukepedia.com/python/nodegraph/aligndots
 - **GrayAutoBackdrop** v1.2 https://www.nukepedia.com/python/nodegraph/grayautobackdrop
 - **CycleOperations** v1.5 https://www.nukepedia.com/python/nodegraph/cycleoperations
-- **reduceKeyframes** v1.2 (fixed for nuke 14) https://richardfrazer.com/tools-tutorials/keyframe-reduction-script-for-nuke/
-- **Comma** 1.2 (fixed for nuke 14) https://www.nukepedia.com/gizmos/other/comma
-- **AlignDots** 1.4 https://www.nukepedia.com/python/nodegraph/aligndots
-- **GrayAutoBackdrop** 1.2 https://www.nukepedia.com/python/nodegraph/grayautobackdrop
-- **CycleOperations** 1.5 https://www.nukepedia.com/python/nodegraph/cycleoperations
 - **Animation Maker** v1.4 https://www.nukepedia.com/python/ui/animation-maker/
+- **reduceKeyframes** v1.2 (fixed for nuke 14) https://richardfrazer.com/tools-tutorials/keyframe-reduction-script-for-nuke/
+
 
 ## List of Grizmos In this repo:
 ### Keyer
