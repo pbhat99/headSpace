@@ -24,6 +24,7 @@ Most of the tools are sourced from [Nukepedia.com ](https://www.nukepedia.com/) 
 - **AlignDots** 1.4 https://www.nukepedia.com/python/nodegraph/aligndots
 - **GrayAutoBackdrop** 1.2 https://www.nukepedia.com/python/nodegraph/grayautobackdrop
 - **CycleOperations** 1.5 https://www.nukepedia.com/python/nodegraph/cycleoperations
+- **Animation Maker** v1.4 https://www.nukepedia.com/python/ui/animation-maker/
 
 ## List of Grizmos In this repo:
 ### Keyer
