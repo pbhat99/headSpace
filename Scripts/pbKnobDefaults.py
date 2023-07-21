@@ -86,7 +86,7 @@ p['ArrowColorUp'].setValue(0xff0000ff) # red color
 
 def pbAutoLabel():
 
-    #Icons visiblillity (from nuke autolable)
+    #Icons visiblillity (from nuke autolabal)
     ind = nuke.expression("(keys?1:0)+(has_expression?2:0)+(clones?8:0)+(viewsplit?32:0)")
     if int(nuke.numvalue("maskChannelInput", 0)) :
         ind += 4
@@ -162,7 +162,7 @@ def pbAutoLabel():
 
 
 
-    #add mask and premult info irrispective of nodeClass (from nuke autolable)
+    #add mask and premult info irrispective of nodeClass (from nuke autolabal)
 
     layer = nuke.value("this.output", nuke.value("this.channels", "-"))
     mask = nuke.value("this.maskChannelInput", "none")
@@ -184,7 +184,7 @@ def pbAutoLabel():
 
 
 
-    #append user label if exists-----------------
+    #append user label if exists (from nuke autolabal)-----------------
     label = nuke.value("label")
     if not label:
         label = ""
@@ -202,3 +202,4 @@ def pbAutoLabel():
  
 nuke.addAutolabel(pbAutoLabel)
 
+#.singleValue()
