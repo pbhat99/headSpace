@@ -43,9 +43,14 @@ def pasteNote():
 def nLabel():
     lbl = nuke.selectedNode().knob('label').getValue()
     txt = nuke.getInput('Change label', lbl)
-    if txt:
-        for n in nuke.selectedNodes():
-            n['label'].setValue(txt)
+    for n in nuke.selectedNodes():
+        n['label'].setValue(txt)
+        if n.Class() == 'Dot':
+            n['note_font_size'].setValue(55)
+        elif n.Class() == 'BackdropNode' or n.Class() == 'StickyNote':
+            n['note_font_size'].setValue(200)
+        else:
+            pass
 
 
 
@@ -198,3 +203,17 @@ class MirrorNodes( threading.Thread ):
                 else:
                     nuke.executeInMainThreadWithResult( n.setYpos, int(curPos) )
             time.sleep(.01)
+
+
+
+
+
+
+
+
+# def convert2decimal(num):
+#     if num % 1 == 0:
+#         num = "{0:0.0f}".format(num)
+#     else:
+#         num = "{0:.2f}".format(num).rstrip("-0b").rstrip("-.b")
+#     return num
