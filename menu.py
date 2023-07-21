@@ -16,6 +16,10 @@ import KnobScripter
 #my knobdefaults & snippets
 import pbKnobDefaults
 
+#TabTabTab (tab with menu items search)
+import tabtabtab
+nuke.menu("Nuke").addCommand('-{ pb }-/TabTabTab', tabtabtab.main, 'Ctrl+Tab', shortcutContext=2)
+
 
 #Import all nodes from another script
 #nuke.loadToolset("/home/user/Templates/script.nk")
