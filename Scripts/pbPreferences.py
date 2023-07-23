@@ -46,7 +46,7 @@ def deletePreferences():
 
     firstLaunch = True
     for i in preferencesNode.knobs().keys():
-        if 'pb Tools' in i:
+        if 'pb' in i:
             preferencesNode.removeKnob(preferencesNode.knob(i))
             firstLaunch = False
 
