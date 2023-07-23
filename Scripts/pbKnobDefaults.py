@@ -4,7 +4,7 @@ import math
 
 #more recent items
 menubar = nuke.menu("Nuke");
-m = menubar.addMenu("File")
+m = menubar.findItem("File")
 m.addCommand ("Open Recent Comp/@recent_file7", "nuke.scriptOpen(nuke.recentFile(7))", "")
 m.addCommand ("Open Recent Comp/@recent_file8", "nuke.scriptOpen(nuke.recentFile(8))", "")
 m.addCommand ("Open Recent Comp/@recent_file9", "nuke.scriptOpen(nuke.recentFile(9))", "")

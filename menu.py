@@ -2,16 +2,22 @@
 #This is the main menu.py file to load into nuke
 
 #Let me confirm loading of this file in nuke terminal
-nuke.tprint('Loading Custom Tools by Prasannakumar T Bhat')
+nuke.tprint('Loading Custom Tools by Prasannakumar T Bhat\n' + __file__)
+
+
 
 #importing important modules
 import os
 import nuke
 
+# Maya like hotbox control for Nuke
 import W_hotbox
 import W_hotboxManager
-import KnobScripter
+nuke.toNode('preferences')['hotboxLocation'].setValue(__file__.replace('menu.py', 'W_hotbox'))
+nuke.toNode('preferences')['hotboxIconLocation'].setValue(__file__.replace('menu.py', 'W_hotbox/icons'))
 
+# Advanced script editor inside nuke
+import KnobScripter
 
 #my knobdefaults & snippets
 import pbKnobDefaults

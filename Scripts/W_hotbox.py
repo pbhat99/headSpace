@@ -897,7 +897,7 @@ def addPreferences():
 
     #icons knob
     knob = nuke.File_Knob('hotboxIconLocation','Icons location')
-    knob.setValue(homeFolder +'/W_hotbox/icons')
+    #knob.setValue(homeFolder +'/W_hotbox/icons')
 
     tooltip = "The folder on disk the where the Hotbox related icons are stored. Make sure this path links to the folder containing the PNG files."
     addToPreferences(knob, tooltip)
