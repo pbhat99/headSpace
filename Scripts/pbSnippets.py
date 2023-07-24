@@ -208,7 +208,13 @@ class MirrorNodes( threading.Thread ):
 
 
 
+def openWeb(webLink):
+    from webbrowser import open as openUrl
+    openUrl(webLink)
 
+
+def openDoc(docLink):
+    webbrowser.open(docLink)
 
 
 # def convert2decimal(num):
