@@ -114,7 +114,8 @@ def pbAutoLabel():
     #Custom values added here per node class-----------------------------
 
     n = nuke.thisNode()
-    autoLabel = n.name()
+    if n.Class() != 'Dot' or 'BackdropNode' or 'StickyNote':
+        autoLabel = n.name()
     if n.Class() == "Blur":
         autoLabel += ' (' + str(math.ceil(n['size'].value())) + ')' 
         if not n['channels'].value() == 'rgba':

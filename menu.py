@@ -77,7 +77,7 @@ import KnobScripter
 
 nuke.menu("Nuke").menu('-{ pb }-').addSeparator()
 # help docs
-nuke.menu("Nuke").addCommand('-{ pb }-/Help/GitHub', 'import pbSnippets ; pbSnippets.openWeb("https://github.com/pbhat99")', icon='pbicon.png')
+nuke.menu("Nuke").addCommand('-{ pb }-/Help/GitHub', 'import pbSnippets ; pbSnippets.openWeb("https://github.com/pbhat99/pb.nuke/releases")', icon='pbicon.png')
 
 
 
