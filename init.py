@@ -1,9 +1,27 @@
-nuke.pluginAddPath('./Scripts')
-nuke.pluginAddPath('./Grizmo')
-nuke.pluginAddPath('./icons')
-nuke.pluginAddPath('./KnobScripter')
-nuke.pluginAddPath('./stamps')
+import os
+import nuke
+
+#Let me confirm loading of this file in nuke terminal
+nuke.tprint('Loading Custom Tools by Prasannakumar T Bhat\n' + __file__)
+
+#This will add all folders to the nuke plugin path.
+#This will ease updating folder or delete conflicting script.
+
+def initAddPath():
+    directory = os.path.dirname(__file__) #folder path of this file location
+    file_paths = []
+    results = next(os.walk(directory, followlinks=False))[1] #list of only one level walk
+    results.sort(reverse=True)
+    for dirpath in results:
+        if dirpath[0] != "." and dirpath[0] != "_":
+            nuke.pluginAddPath(dirpath) # adding available paths
+            nuke.tprint(dirpath + ' is added to pluginpath') #kind of debugging log used terminal :)
+        else:
+            nuke.tprint(dirpath + ' is NOT added to pluginpath') #kind of debugging log used terminal :)
+
+initAddPath()
+
+
+
 #nuke.pluginAddPath('./Cattery')
-
-
 #nuke.ViewerProcess.register("Title_of_Gizmo",nuke.Node,("Your_Saved_Gizmo_Name", ""))

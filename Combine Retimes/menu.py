@@ -1,0 +1,1 @@
+nuke.menu("Nuke").addCommand('-{ pb }-/Convert/Combine Retimes', 'import combine_retimes ; combine_retimes.combineRetimes()', '')

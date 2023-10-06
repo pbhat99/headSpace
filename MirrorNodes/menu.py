@@ -1,0 +1,3 @@
+nuke.menu("Nuke").addCommand('-{ pb }-/NodeGraph/Mirror horizontally', 'import mirrorNodes ; mirrorNodes.MirrorNodes(nuke.selectedNodes(), direction="x", axis="last").start()', icon='pbicon.png')
+nuke.menu("Nuke").addCommand('-{ pb }-/NodeGraph/Mirror vertically', 'import mirrorNodes ; mirrorNodes.MirrorNodes(nuke.selectedNodes(), direction="y", axis="last").start()', icon='pbicon.png')
+nuke.menu("Nuke").menu('-{ pb }-/NodeGraph').addSeparator()

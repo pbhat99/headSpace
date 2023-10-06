@@ -399,7 +399,7 @@ def CycleOperations(forwards = True):
 			anyChannelKnob(i, 'channel', forwards)
 		elif i.Class() == 'Multiply':
 			anyChannelKnob(i, 'channel', forwards)
-		elif i.Class() == 'Log2Lin':
+		elif i.Class() == 'Log2Lin' or i.Class() == 'OCIOLogConvert':
 			anyListKnob(i, 'operation', forwards)
 
 

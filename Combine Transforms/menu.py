@@ -1,0 +1,1 @@
+nuke.menu("Nuke").addCommand('-{ pb }-/Convert/Combine Transforms', 'import mergeTransforms ; mergeTransforms.start()', '')

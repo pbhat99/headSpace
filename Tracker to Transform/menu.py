@@ -1,0 +1,1 @@
+nuke.menu("Nuke").addCommand('-{ pb }-/Convert/Convert tracker To Transform','import trackerToTransform ; trackerToTransform.trackerToTransform()', icon='pbicon.png')

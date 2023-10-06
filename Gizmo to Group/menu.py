@@ -1,0 +1,1 @@
+nuke.menu("Nuke").addCommand('-{ pb }-/Convert/Convert Gizmo to group','import gizmoToGroup ; gizmoToGroup.convertGizmosToGroups()','Ctrl+shift+g', icon='pbicon.png')

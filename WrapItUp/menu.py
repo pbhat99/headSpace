@@ -1,0 +1,2 @@
+#WrapItUp - pack nuke script with dependencies
+nuke.menu("Nuke").addCommand('-{ pb }-/WrapItUp', 'import WrapItUp ; WrapItUp.WrapItUp( nodenamefolder=False, fonts=False, parentdircount=2, gizmos=False)', icon='pbicon.png')
