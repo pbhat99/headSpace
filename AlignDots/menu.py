@@ -1,2 +1,4 @@
 # dot create and align tool
-nuke.menu('Nuke').addCommand('-{ pb }-/NodeGraph/Align Dots', "import AlignDots ; AlignDots.AlignDots()", 'Shift+.', shortcutContext=2, icon='pbicon.png')
+mainMenu = os.path.dirname(__file__).split('/')[-2] + '/NodeGraph/Align Dots'
+
+nuke.menu('Nuke').addCommand(mainMenu, "import AlignDots ; AlignDots.AlignDots()", 'Shift+.', shortcutContext=2, icon='pbicon.png')

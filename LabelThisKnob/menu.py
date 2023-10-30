@@ -1,1 +1,1 @@
-nuke.menu('Animation').addCommand('-{ pb }-/label this','import labelThisKnob ; labelThisKnob.labelThis()')
+nuke.menu('Animation').addCommand('label this','import labelThisKnob ; labelThisKnob.labelThis()')

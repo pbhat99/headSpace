@@ -583,7 +583,7 @@ def main():
     import weakref
     _tabtabtab_instance = weakref.proxy(t)
 
-
+'''
 if __name__ == '__main__':
     try:
         import nuke
@@ -594,3 +594,4 @@ if __name__ == '__main__':
         app = QtGui.QApplication(sys.argv)
         main()
         app.exec_()
+'''

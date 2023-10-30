@@ -1,6 +1,6 @@
 # Replaces Trackers used in script with baked Transforms.
 # Can take a while to process.
-# Sven Ahlström, sven.ahlstrom@gmail.com
+# Sven Ahlström, sven.ahlstrom(a)gmail.com
 
 import nuke
 

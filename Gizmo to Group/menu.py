@@ -1,1 +1,2 @@
-nuke.menu("Nuke").addCommand('-{ pb }-/Convert/Convert Gizmo to group','import gizmoToGroup ; gizmoToGroup.convertGizmosToGroups()','Ctrl+shift+g', icon='pbicon.png')
+mainMenu = os.path.dirname(__file__).split('/')[-2]
+nuke.menu("Nuke").addCommand(mainMenu + '/Generate/Convert Gizmo to group','import gizmoToGroup ; gizmoToGroup.convertGizmosToGroups()','Ctrl+shift+g', icon='pbicon.png')

@@ -2,8 +2,8 @@ import nuke
 import welcomeScreen
 import welcome_helper
 
-
-nuke.menu('Nuke').addCommand('-{ pb }-/Welcome Screen', 'welcomeScreen.main()')
+mainMenu = os.path.dirname(__file__).split('/')[-2]
+nuke.menu('Nuke').addCommand(mainMenu + '/Welcome Screen', 'welcomeScreen.main()')
 
 
 def addRecent():
@@ -15,4 +15,4 @@ nuke.addOnScriptSave(addRecent)
 nuke.addOnScriptClose(addRecent)
 
 
-nuke.tprint('welcomescreen log')
+#nuke.tprint('welcomescreen log')

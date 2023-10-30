@@ -1,2 +1,4 @@
 # comma tool
-nuke.menu("Nuke").addCommand('-{ pb }-/Utilities/Comma','import comma ; comma.makeComma()',',',icon='Comma.png')
+mainMenu = os.path.dirname(__file__).split('/')[-2]
+
+nuke.menu("Nuke").addCommand(mainMenu + '/Utilities/Comma','import comma ; comma.makeComma()',',',icon='Comma.png')
