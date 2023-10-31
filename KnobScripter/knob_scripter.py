@@ -2206,5 +2206,5 @@ nuke.KnobScripterPane = KnobScripterPane
 logging.debug("KS LOADED")
 ksShortcut = "alt+z"
 addKnobScripterPane()
-nuke.menu('Nuke').addCommand('-{ pb }-/Knob Scripter', showKnobScripter, ksShortcut)
+nuke.menu('Nuke').addCommand('Edit/Knob Scripter', showKnobScripter, ksShortcut)
 nuke.menu('Nuke').addCommand('Edit/Node/Update KnobScripter Context', updateContext).setVisible(False)
