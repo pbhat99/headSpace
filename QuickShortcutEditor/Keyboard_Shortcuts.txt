@@ -1,0 +1,25 @@
+# QuickShortcutEditor v1.3 - Max van Leeuwen - http://www.nukepedia.com/python/ui/QuickShortcutEditor
+# maxvanleeuwen.com
+#
+#
+# Here you can (re)assign keyboard shortcuts for all items in Nuke.
+# Using a slightly better text editor than Notepad is recommended!
+# Simply enter the item path and the Keyboard Shortcut, and optionally the Shortcut context (default is 0).
+#
+# Keep columns separated by one or multiple tabs (as many tabs as you like)! See the two examples down below.
+#
+#
+# Nuke item paths:					Nodes/ 	=	Nodes menu (left of screen)
+#									Nuke/ 	=	Nuke menu (top of screen)
+#
+# Shortcut contexts (optional!):	0 = Window, 1 = Application, 2 = DAG/nodegraph
+#
+#
+# ----------------------------------------------------------------------------------------------------------
+# Item path (start with Nodes/ or Nuke/)				Shortcut				Shortcut context (optional)
+# ----------------------------------------------------------------------------------------------------------
+
+
+Nodes/Filter/Blur										b						2
+
+Nuke/Edit/Clone											alt+K

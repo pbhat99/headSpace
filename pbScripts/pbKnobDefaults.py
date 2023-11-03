@@ -42,6 +42,8 @@ nuke.knobDefault('EXPTool.mode','0')
 nuke.knobDefault('Blur.size','2')
 
 nuke.knobDefault("STMap.uv","rgb")
+nuke.knobDefault("BackdropNode.note_font_size","50")
+nuke.knobDefault("Dot.note_font_size","50")
 
 nuke.knobDefault('Read.auto_alpha','true')
 nuke.knobDefault('Viewer.full_frame_processing','true')

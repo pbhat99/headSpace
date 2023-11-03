@@ -62,6 +62,9 @@ def pbAutoLabel():
     elif n.Class() == "Switch" or n.Class() == "Dissolve":
         autoLabel += ' (' + str(n['which'].value()) + ')'
 
+    elif n.Class() == "BackdropNode" or n.Class() == "Dot":
+        autoLabel = ''
+
     elif n.Class() == "TimeOffset":
         frame = nuke.frame()
         if n["reverse_input"].value():

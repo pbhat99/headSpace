@@ -1,0 +1,9 @@
+NoOp {
+name xScreenSaver
+selected true
+xpos -1830
+ypos 5146
+addUserKnob {20 User}
+addUserKnob {26 text l "" +STARTLINE T "xScreenSaver setting modifications"}
+addUserKnob {22 xScreenDissable l Dissable T "import os\n\ndef exportScriptFunction():\n    filePath = os.path.expanduser('~') + \"/.xscreensaver\"\n    \n    if filePath is not None:\n        fileName = (os.path.basename(filePath))\n        \n        data = \"\"\n        with open(filePath, \"r\") as f:\n            data = f.read()\n            \n        #replace data\n        data = data.replace(\"lock:\t\tTrue\", \"lock:\t\tFalse\", 1) #disable lock\n        #data = data.replace(\" xpos \" + str(xPos) + \"\\n\", \"\", 1)\n    \n        with open(filePath, \"w\") as f:\n            f.write(data)\n    print (\"Disabled\")\n\nexportScriptFunction()" +STARTLINE}
+}
