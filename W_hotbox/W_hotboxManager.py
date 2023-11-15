@@ -331,7 +331,6 @@ class HotboxManager(QtWidgets.QWidget):
 
         self.scriptEditorScript.setFont(scriptEditorFont)
         self.scriptEditorScript.setTabStopWidth(4 * QtGui.QFontMetrics(scriptEditorFont).width(' '))
-        self.setWindowFlags(QtCore.Qt.WindowStaysOnTopHint)
 
         #assemble
         self.scriptEditorLayout.addLayout(self.archiveButtonsLayout)

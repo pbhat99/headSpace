@@ -10,5 +10,4 @@ KS3/py_state.txt
 *.autosave
 ScriptEditorHistory.xml
 Cattery/*
-*.json
 Scripts/pbPreferences.py

@@ -32,7 +32,7 @@ def pbAutoLabel():
 
     n = nuke.thisNode()
     if n.Class() != 'Dot' or 'BackdropNode' or 'StickyNote':
-        autoLabel = n.name()
+        autoLabel = ''
     if n.Class() == "Blur":
         autoLabel += ' (' + str(math.ceil(n['size'].value())) + ')' 
         if not n['channels'].value() == 'rgba':
@@ -61,9 +61,6 @@ def pbAutoLabel():
 
     elif n.Class() == "Switch" or n.Class() == "Dissolve":
         autoLabel += ' (' + str(n['which'].value()) + ')'
-
-    elif n.Class() == "BackdropNode" or n.Class() == "Dot":
-        autoLabel = ''
 
     elif n.Class() == "TimeOffset":
         frame = nuke.frame()
