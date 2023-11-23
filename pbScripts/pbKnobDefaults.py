@@ -28,7 +28,7 @@ m.addCommand ("Open Recent Comp/@recent_file22", "nuke.scriptOpen(nuke.recentFil
 nuke.knobDefault('PostageStamp.label','[file tail [knob [topnode].file]]')
 nuke.knobDefault('PostageStamp.hide_input','1')
 nuke.knobDefault('DirBlurWrapper.BlurType','linear')
-nuke.knobDefault('DirBlurWrapper.BlurLayer','rgba')
+
 
 nuke.knobDefault('Merge2.bbox','B')
 nuke.knobDefault('Keymix.bbox','B')
@@ -41,20 +41,23 @@ nuke.knobDefault('Multiply.invert_mask','0')
 nuke.knobDefault('EXPTool.mode','0')
 nuke.knobDefault('Blur.size','2')
 
-nuke.knobDefault("STMap.uv","rgb")
-nuke.knobDefault("BackdropNode.note_font_size","50")
-nuke.knobDefault("Dot.note_font_size","50")
+# font sizes
+nuke.knobDefault("BackdropNode.note_font_size","55")
+nuke.knobDefault("Dot.note_font_size","55")
+nuke.knobDefault("StickyNote.note_font_size","55")
 
 nuke.knobDefault('Read.auto_alpha','true')
 nuke.knobDefault('Viewer.full_frame_processing','true')
 nuke.knobDefault('Viewer.gl_lighting','true')
 
+# No Clip to format
 nuke.knobDefault('Roto.cliptype','no clip')
 nuke.knobDefault('Radial.cliptype','no clip')
 nuke.knobDefault('RotoPaint.cliptype','no clip')
 
 nuke.knobDefault('FilterErode.filter','gaussian')
 
+# channels to rgba
 nuke.knobDefault('Defocus.channels','rgba')
 nuke.knobDefault('Blur.channels','rgba')
 nuke.knobDefault('Multiply.channels','rgba')
@@ -66,10 +69,17 @@ nuke.knobDefault('Constant.channels','rgba')
 nuke.knobDefault('Dilate.channels','rgba')
 nuke.knobDefault('Erode.channels','rgba')
 nuke.knobDefault('FilterErode.channels','rgba')
+nuke.knobDefault('DirBlurWrapper.BlurLayer','rgba')
+nuke.knobDefault("STMap.uv","rgb")
 
 #nuke.knobDefault("Write.mov.colorspace", "")
 #nuke.knobDefault("Write.mov.codec","apch")
 #nuke.knobDefault("Write.mov.mov64_codec", "apch")
+
+# copy to layerCopy
+nuke.knobDefault('Copy.from0','none')
+nuke.knobDefault('Copy.to0','none')
+nuke.knobDefault('Copy.channels','alpha')
 
 nuke.knobDefault("Write.label", "[ lindex [split [filename] /] end-2]")
 
