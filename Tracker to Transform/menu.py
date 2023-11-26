@@ -1,2 +1,0 @@
-mainMenu = os.path.dirname(__file__).split('/')[-2]
-nuke.menu("Nuke").addCommand(mainMenu + '/Generate/Convert tracker To Transform','import trackerToTransform ; trackerToTransform.trackerToTransform()', icon='pbicon.png')

@@ -75,16 +75,24 @@ nuke.knobDefault("STMap.uv","rgb")
 #nuke.knobDefault("Write.mov.colorspace", "")
 #nuke.knobDefault("Write.mov.codec","apch")
 #nuke.knobDefault("Write.mov.mov64_codec", "apch")
+nuke.knobDefault("Write.label", "[ lindex [split [filename] /] end-2]")
 
 # copy to layerCopy
 nuke.knobDefault('Copy.from0','none')
 nuke.knobDefault('Copy.to0','none')
 nuke.knobDefault('Copy.channels','alpha')
 
-nuke.knobDefault("Write.label", "[ lindex [split [filename] /] end-2]")
+# B to alpha
+nuke.knobDefault('Shuffle.in2','alpha')
+#nuke.knobDefault('Shuffle2.in2','alpha')
+
+nuke.knobDefault('Remove.channels','rgba')
 
 #framehold to current frame as default
 nuke.menu('Nodes').addCommand( "Time/FrameHold", "nuke.createNode('FrameHold')['first_frame'].setValue( nuke.frame() )", icon='FrameHold.png')
+
+#keep default to rgba
+nuke.menu('Nodes').addCommand( "Channel/Keep(Remove)", "nuke.createNode('Remove')['operation'].setValue('keep')", icon='Remove.png')
 
 
 p = nuke.toNode('preferences')

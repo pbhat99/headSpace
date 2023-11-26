@@ -31,12 +31,18 @@ def pbAutoLabel():
     #Custom values added here per node class-----------------------------
 
     n = nuke.thisNode()
+    autoLabel = nuke.thisNode().name()
+
     if n.Class() != 'Dot' or 'BackdropNode' or 'StickyNote':
-        autoLabel = ''
+        autoLabel = label
+
+    if label != '':
+        label = '\n' + label
+
     if n.Class() == "Blur":
         autoLabel += ' (' + str(math.ceil(n['size'].value())) + ')' 
         if not n['channels'].value() == 'rgba':
-            autoLabel += '\n' + ' (' + n['channels'].value() + ')'
+            autoLabel += '\n' + ' (' + n['channels'].value() + ')' + label
 
     elif n.Class() == "Defocus":
         autoLabel += ' (' + str(math.ceil(n['defocus'].value())) + ')' 
@@ -52,7 +58,7 @@ def pbAutoLabel():
     elif n.Class() == "Multiply" or n.Class() == "Add" or n.Class() == "Gamma":
         autoLabel += ' (' + str(n['value'].value()) + ')'
         if not n['channels'].value() == 'rgba':
-            autoLabel += '\n' + ' (' + n['channels'].value() + ')'
+            autoLabel += '\n' + ' (' + n['channels'].value() + ')' + label
 
     elif n.Class() == "EXPTool":
         autoLabel += ' (' + str(n['red'].value()) + ')'
@@ -100,20 +106,6 @@ def pbAutoLabel():
     # if filePath != "none":
     #     layer += ( " \n " + unpremult)
 
-
-
-    #append user label if exists (from nuke autolabal)-----------------
-    label = nuke.value("label")
-    if not label:
-        label = ""
-    else:
-        try:
-          label = nuke.tcl("subst", label)
-          autoLabel += '\n' + label
-        except:
-          pass
-
-    
 
     return autoLabel
 
