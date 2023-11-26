@@ -1,35 +1,39 @@
 #------------------------------------------------------------------------------
 
-#  $GUI Toggle
-# 
+# $GUI Tool
+# by Prasannakumar T Bhat
+# This handle GUI expression.
+# if scanlineRender is selected sets the expression for sample knob (hope nobody wants to disable this :P )
+# for all other nodes it sets $gui expression for disable knob if exists
+# if knobs already has any expression, it clears that.
+# if no node is selected drops a gui Handler node to control the script
 
 #------------------------------------------------------------------------------
 def guiTool():
-    if not nuke.selectedNodes():
-        nuke.createNode("Blur")
+    try:
+        sel = nuke.selectedNode()
 
-    for node in nuke.selectedNodes():
-        disable_knob = node['disable']
-
-        if node.Class() == 'ScanlineRender':
-            samples_knob = node['samples']
-
-            current_expr = samples_knob.toScript()
-
-            if samples_knob.toScript() == {'$gui ? 1 : 8'}:
-                samples_knob.clearAnimated()
-                samples_knob.setValue(0)
+        if sel.Class() == 'ScanlineRender':
+            if sel['samples'].hasExpression():
+                sel['samples'].clearAnimated()
+                sel['label'].setValue('')
             else:
-                samples_knob.setExpression('$gui ? 1 : 8')
-
-        current_expr = disable_knob.toScript()
-
-        if disable_knob.toScript() == {'$gui'}:
-            disable_knob.clearAnimated()
-            disable_knob.setValue(0)
+                smpl = int(sel['samples'].value())
+                sel['samples'].setExpression('$gui ? %s : 16'%(smpl))
+                sel['label'].setValue('<b>GUI Sample</b>')
+        elif sel.knob('disable'):
+            if sel['disable'].hasExpression():
+                sel['disable'].clearAnimated()
+                sel['disable'].setValue(0)
+                sel['label'].setValue('')
+            else:
+                sel['disable'].setExpression('$gui') # for general use
+                #sel['disable'].setExpression('[python {1-nuke.executing()}]') # if u need local render support
+                sel['label'].setValue('<b>GUI disabled</b>')
         else:
-            disable_knob.setExpression('$gui')
-
+            pass
+    except:
+        nuke.createNode("guiHandler")
 
 
 

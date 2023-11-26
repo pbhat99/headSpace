@@ -1,0 +1,20 @@
+NoOp {
+ name GUI_handler
+ tile_color 0x4642ffff
+ selected true
+ hide_input true
+ addUserKnob {20 Handler l "\$gui Handler"}
+ addUserKnob {22 auto l "auto find \$gui nodes" T "list = ''\n\nfor node in nuke.allNodes():\n    for knob in node.knobs():\n        if node\[knob].hasExpression():\n            if '\$gui' in node\[knob].toScript():\n\n                list = list + node.name() + '\\n'\n\nnuke.thisNode()\['list'].setValue(list)" +STARTLINE}
+ addUserKnob {22 add l "add to list" -STARTLINE T "list = nuke.thisNode()\['list'].value()\nfor i in nuke.selectedNodes():\n    if i.name() in list:\n        pass\n    else:\n        list = list + i.name() + '\\n'\nnuke.thisNode()\['list'].setValue(list)"}
+ addUserKnob {22 clear l "clear list" -STARTLINE T "nuke.thisNode()\['list'].setValue('')"}
+ addUserKnob {26 ""}
+ addUserKnob {1 list}
+ addUserKnob {26 ""}
+ addUserKnob {22 highlight l "highlight list" T "for n in nuke.allNodes():\n    if n.name() in nuke.thisNode()\['list'].value():\n        n.setSelected(True)\n    else:\n        n.setSelected(False)" +STARTLINE}
+ addUserKnob {22 color l "change node color" -STARTLINE T "for n in nuke.allNodes():\n    if n.name() in nuke.thisNode()\['list'].value():\n        n.setSelected(True)\n    else:\n        n.setSelected(False)        \nnukescripts.color_nodes()"}
+ addUserKnob {22 label_1 l "mark  label" -STARTLINE T "for n in nuke.allNodes():\n    if n.name() in nuke.thisNode()\['list'].value():\n        n\['label'].setValue('gui Expression')"}
+ addUserKnob {22 remove l "remove \$gui" T "# Remove \$gui expression\nfor n in nuke.allNodes():\n    if n.name() in nuke.thisNode()\['list'].value():\n        for knobname in n.knobs():\n            knob = n\[knobname]\n            # Test is knob is multi-dimensional\n            try:\n                knobwidth = knob.width()\n            except AttributeError:\n                knobwidth=1\n            for idx in range(knobwidth):\n                if knob.hasExpression(idx):\n                    knob_expr = knob.animation(idx).expression()\n                    if '\$gui' in knob_expr:\n                        print (\"WORKING ON:\", knob.name(), idx)\n    \n                        new_knob_expr = knob_expr.replace(\"\$gui\", \"0\")\n    \n                        print (n.name() + '.' + knob.name() + \": \" + knob_expr)\n                        print (n.name() + '.' + knob.name() + \": \" + new_knob_expr)\n    \n                        knob.setExpression(new_knob_expr, idx)\n                        print (\"New Expression is: \", new_knob_expr)\n                        knob.clearAnimated(idx)\n    \n" +STARTLINE}
+ addUserKnob {22 rcolor l "Reset  node  color" -STARTLINE T "for n in nuke.allNodes():\n    if n.name() in nuke.thisNode()\['list'].value():\n        n\['tile_color'].setValue(0)"}
+ addUserKnob {22 clearlabel l "clear label" -STARTLINE T "for n in nuke.allNodes():\n    if n.name() in nuke.thisNode()\['list'].value():\n        n\['label'].setValue('')"}
+ addUserKnob {26 ""}
+}
