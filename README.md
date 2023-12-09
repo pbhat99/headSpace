@@ -7,10 +7,10 @@ Most of the tools are sourced from [Nukepedia.com](https://www.nukepedia.com/) &
 
 ## Installation:
  1. Copy the entire directory to your nuke plugin path (.nuke folder in your user folder)
-   ```bash
-   Linux: /home/user/.nuke
-   Mac OS X: /Users/user/.nuke
-   Windows: \Users\user\.nuke
+   ```python
+   Linux: /home/<username>/.nuke
+   Mac OS X: /Users/<username>/.nuke
+   Windows: C:\Users\<username>\.nuke
    ```
 
  2. Add the below lines to init.py file (if none create one)
