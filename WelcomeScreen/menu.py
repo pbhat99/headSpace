@@ -2,8 +2,8 @@ import nuke
 import welcomeScreen
 import welcome_helper
 
-mainMenu = os.path.dirname(__file__).split('/')[-2]
-nuke.menu('Nuke').addCommand(mainMenu + '/Welcome Screen', 'welcomeScreen.main()')
+mainMenu = menuMaker()
+nuke.menu('Nuke').addCommand(mainMenu + 'Welcome Screen', 'welcomeScreen.main()')
 
 
 def addRecent():
