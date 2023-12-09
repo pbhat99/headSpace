@@ -1,8 +1,8 @@
 import os
 import nuke
 
-#Let me confirm loading of this file in nuke terminal
-nuke.tprint('Loading Custom Tools by Prasannakumar T Bhat\n' + __file__)
+
+
 
 #This will add all folders to the nuke plugin path.
 #This will ease updating folder or delete conflicting script.
@@ -15,11 +15,13 @@ def initAddPath():
     for dirpath in results:
         if dirpath[0] != "." and dirpath[0] != "_":
             nuke.pluginAddPath(dirpath) # adding available paths
-            nuke.tprint(dirpath + ' is added to pluginpath') #kind of debugging log used terminal :)
-        else:
-            nuke.tprint(dirpath + ' is NOT added to pluginpath') #kind of debugging log used terminal :)
 
-initAddPath()
+
+if nuke.GUI:
+    nuke.tprint('Loading Custom Tools by Prasannakumar T Bhat\n' + __file__) # Let me confirm loading of this file in nuke terminal
+    initAddPath()
+else:
+    nuke.tprint('skipped (no GUI)')
 
 
 

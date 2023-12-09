@@ -82,9 +82,10 @@ nuke.knobDefault('Copy.from0','none')
 nuke.knobDefault('Copy.to0','none')
 nuke.knobDefault('Copy.channels','alpha')
 
-# B to alpha
-nuke.knobDefault('Shuffle.in2','alpha')
-#nuke.knobDefault('Shuffle2.in2','alpha')
+# B to alpha 
+#nuke.knobDefault('Shuffle.in2','alpha') # crashing neke on node creation
+nuke.knobDefault('Shuffle.onCreate',"nk = nuke.thisNode()['in2'].setValue('alpha')")
+nuke.knobDefault('Shuffle2.onCreate',"nk = nuke.thisNode()['in2'].setValue('alpha')")
 
 nuke.knobDefault('Remove.channels','rgba')
 

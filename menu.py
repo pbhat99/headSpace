@@ -38,7 +38,6 @@ p.addCommand( '-', '', '')
 # About
 about = 'HeadSpace v0.2.1 \n \n Collected by: Prasannakumar T Bhat \n \n Last Updated : 25 Nov 2023'
 nuke.menu('Nuke').addCommand(mainMenu + '/Help/About', 'nuke.message(about)', icon='pbicon.png')
-
 # Help
 nuke.menu('Nuke').addCommand(mainMenu + '/Help/GitHub', 'import pbSnippets ; pbSnippets.openWeb("https://github.com/pbhat99/pb.nuke/releases")', icon='pbicon.png')
 

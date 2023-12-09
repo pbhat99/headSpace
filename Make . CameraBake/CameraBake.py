@@ -1,3 +1,4 @@
+import nuke
 def cameraBake():
 	#### by jaimex127@gmail.com ####
 	
@@ -64,7 +65,7 @@ def cameraBake():
         else:
             nuke.message('Select a Camera')
 
-cameraBake()
+#cameraBake()
 
 
 			

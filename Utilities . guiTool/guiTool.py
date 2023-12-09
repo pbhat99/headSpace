@@ -10,30 +10,35 @@
 
 #------------------------------------------------------------------------------
 def guiTool():
-    try:
-        sel = nuke.selectedNode()
+    
+    selNodes = nuke.selectedNodes()
+
+    if selNodes == []:
+        nuke.createNode("guiHandler")
+
+    for sel in selNodes:
 
         if sel.Class() == 'ScanlineRender':
             if sel['samples'].hasExpression():
                 sel['samples'].clearAnimated()
-                sel['label'].setValue('')
+                #sel['label'].setValue('')
             else:
                 smpl = int(sel['samples'].value())
                 sel['samples'].setExpression('$gui ? %s : 16'%(smpl))
-                sel['label'].setValue('<b>GUI Sample</b>')
+                #sel['label'].setValue('<b>GUI Sample</b>')
+
         elif sel.knob('disable'):
             if sel['disable'].hasExpression():
                 sel['disable'].clearAnimated()
                 sel['disable'].setValue(0)
-                sel['label'].setValue('')
+                #sel['label'].setValue('')
             else:
                 sel['disable'].setExpression('$gui') # for general use
                 #sel['disable'].setExpression('[python {1-nuke.executing()}]') # if u need local render support
-                sel['label'].setValue('<b>GUI disabled</b>')
+                #sel['label'].setValue('<b>GUI disabled</b>')
+
         else:
             pass
-    except:
-        nuke.createNode("guiHandler")
 
 
 
