@@ -25,7 +25,8 @@ nukeMenu.addCommand('Edit/Node/W_scaleTree', 'W_scaleTree.scaleTreeFloatingPanel
 #----------------------------------------------------------------------------------------------------------
 
 #Location of the icons
-iconFolder = os.getenv('HOME') + '/.nuke/Scripts/W_scaleTree icons'
+#iconFolder = os.getenv('HOME') + '/.nuke/Scripts/W_scaleTree icons'
+iconFolder = os.path.dirname(__file__) + '/W_scaleTree_icons'
 
 #----------------------------------------------------------------------------------------------------------
 
