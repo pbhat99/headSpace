@@ -6,11 +6,11 @@ I will try to keep it updated when the new version of tool is released.
 Most of the tools are sourced from [Nukepedia.com](https://www.nukepedia.com/) & I don't own them.
 
 ## Installation:
- 1. Copy the entire directory to your nuke plugin path (.nuke folder in your user folder)
+ 1. Copy the entire directory to your nuke plugin path (Suggested .nuke folder in your user folder) [More info...](https://support.foundry.com/hc/en-us/articles/207271649-Q100048-Nuke-Directory-Locations)
    ```python
-   Linux: /home/<username>/.nuke
-   Mac OS X: /Users/<username>/.nuke
-   Windows: C:\Users\<username>\.nuke
+   Linux : /home/<username>/.nuke
+   Mac : /Users/<username>/.nuke
+   Windows : C:\Users\<username>\.nuke
    ```
 
  2. Add the below lines to init.py file (if none create one)
