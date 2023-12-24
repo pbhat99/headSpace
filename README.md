@@ -3,7 +3,7 @@
 All tools are tested on nukex 12 & nukex14 on windows 11 OS environment.
 Some of the tools & Grizmos are tweaked for my needs & ease of use from my perspective.
 I will try to keep it updated when the new version of tool is released.
-Most of the tools are sourced from [Nukepedia.com](https://www.nukepedia.com/) & I don't own them.
+Most of the tools are sourced from [Nukepedia](https://www.nukepedia.com/) & I don't own them.
 
 ## Installation:
  1. Copy the entire directory to your nuke plugin path (Suggested .nuke folder in your user folder) [More info...](https://support.foundry.com/hc/en-us/articles/207271649-Q100048-Nuke-Directory-Locations)
@@ -29,15 +29,15 @@ Most of the tools are sourced from [Nukepedia.com](https://www.nukepedia.com/) &
 ## List of tools In this repo:
 
 - **axis Menu:**
-  - animated snap3D - Custom knobdefaults & autolabel setup for myself
+  - [animated snap3D](http://www.nukepedia.com/python/3d/animatedsnap3d)
 
 - **animation Menu:**
-  - Animation Maker https://www.nukepedia.com/python/ui/animation-maker/
-  - Reduce keyframes https://richardfrazer.com/tools-tutorials/keyframe-reduction-script-for-nuke/
+  - [Animation Maker](https://www.nukepedia.com/python/ui/animation-maker/) 
+  - [Reduce keyframes](https://richardfrazer.com/tools-tutorials/keyframe-reduction-script-for-nuke/) 
 
 - **Viewer Menu:**
-  - h_viewerShortcuts
-  - createShuffle
+  - [QuickCreate](https://www.nukepedia.com/python/ui/quickcreate-for-nuke) 
+  - [createShuffle](https://www.nukepedia.com/python/nodegraph/shufflefromviewer) 
 
 - **Nuke Menubar:**
   - **Help->**
@@ -45,15 +45,15 @@ Most of the tools are sourced from [Nukepedia.com](https://www.nukepedia.com/) &
     - Github
   - **DAG->**
    - Align Read Nodes
-   - Align Dots https://www.nukepedia.com/python/nodegraph/aligndots
-   - Mirror Nodes
-   - W_Scaletree https://www.nukepedia.com/python/nodegraph/w_scaletree
-   - W_Align v1.1 https://www.nukepedia.com/python/nodegraph/w_smartalign
+   - [Align Dots](https://www.nukepedia.com/python/nodegraph/aligndots) 
+   - [Mirror Nodes](https://www.nukepedia.com/python/nodegraph/mirrornodes) 
+   - [W_Scaletree](https://www.nukepedia.com/python/nodegraph/w_scaletree) 
+   - [W_Align](https://www.nukepedia.com/python/nodegraph/w_smartalign)
 
   - **Utilities->**
-    - Comma https://www.nukepedia.com/gizmos/other/comma
-    - Cycle Operations https://www.nukepedia.com/python/nodegraph/cycleoperations
-    - GrayAutoBackdrop https://www.nukepedia.com/python/nodegraph/grayautobackdrop
+    - [Comma](https://www.nukepedia.com/gizmos/other/comma) 
+    - [Cycle Operations](https://www.nukepedia.com/python/nodegraph/cycleoperations) 
+    - [GrayAutoBackdrop](https://www.nukepedia.com/python/nodegraph/grayautobackdrop) 
     - GUI Tool
     - reLabeler
 
@@ -70,12 +70,12 @@ Most of the tools are sourced from [Nukepedia.com](https://www.nukepedia.com/) &
     - Clone via Expressions
 
   - Channel Hotbox
-  - Tab Tab Tab (Modified for searching nuke menubar & viewer menu only)
-  - Welcome Screen
-  - WrapItUp https://maxvanleeuwen.com/project/collect-nuke-scripts-wrapitup/
-  - W_hotbox  https://www.nukepedia.com/python/ui/w_hotbox (with default & custom buttons)
-  - KnobScripter https://github.com/adrianpueyo/KnobScripter/tree/release-v3.0.0
-  - Stamps 
+  - [Tab Tab Tab](http://www.nukepedia.com/python/ui/tabtabtab) 
+  - [Welcome Screen](http://www.nukepedia.com/python/ui/welcomescreen) 
+  - [WrapItUp](https://maxvanleeuwen.com/project/collect-nuke-scripts-wrapitup/) 
+  - [W_hotbox](https://www.nukepedia.com/python/ui/w_hotbox)   (with default & custom buttons)
+  - [KnobScripter](https://github.com/adrianpueyo/KnobScripter/tree/release-v3.0.0) 
+  - [Stamps](https://adrianpueyo.com/stamps/) 
 
 
 - **GRiZMOS:**
@@ -85,7 +85,7 @@ Most of the tools are sourced from [Nukepedia.com](https://www.nukepedia.com/) &
   - pixelfudger3
   - etc
 
-- **No visible menu:**
+- **No UI:**
   - Drag & drop
     - DropDataHandler
     - gizmoDropper
