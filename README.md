@@ -1,9 +1,5 @@
 # headSpace tools for nuke
-   This includes various pythhon tools & nuke Grizmos to work as a efficient compositor.
-All tools are tested on nukex 12 & nukex14 on windows 11 OS environment.
-Some of the tools & Grizmos are tweaked for my needs & ease of use from my perspective.
-I will try to keep it updated when the new version of tool is released.
-Most of the tools are sourced from [Nukepedia](https://www.nukepedia.com/) & I don't own them.
+   This includes various python tools & nuke Grizmos to work as a efficient compositor. All tools are tested on nukex 12 & nukex14 on windows 11 OS environment. Some of the tools & Grizmos are tweaked for my needs & ease of use from my perspective. I will try to keep it updated when the new version of tool is released. Most of the tools are sourced from [Nukepedia](https://www.nukepedia.com/) & I don't own them.
 
 ## Installation:
  1. Copy the entire directory to your nuke plugin path (Suggested .nuke folder in your user folder) [More info...](https://support.foundry.com/hc/en-us/articles/207271649-Q100048-Nuke-Directory-Locations)
@@ -21,12 +17,12 @@ Most of the tools are sourced from [Nukepedia](https://www.nukepedia.com/) & I d
 
 ## Customization:
 - You can change this main folder name whatever you want, It will show same name in nuke menubar.
-- for submenus youu need to add '<space><dot><space>' in folder name
+- for submenus you need to add 'space-dot-space' in folder name
 - If something is not working or incase of error Just delete that folder inside main folder. Its totally independent.
 - Gizmos are Auto populated according to folder structure along with icon having same name.
-- 
+- Works best along with [Nuke servival toolkit](https://github.com/CreativeLyons/NukeSurvivalToolkit_publicRelease) (not included in this)
 
-## List of tools In this repo:
+## List of python tools In this repo:
 
 - **axis Menu:**
   - [animated snap3D](http://www.nukepedia.com/python/3d/animatedsnap3d)
@@ -55,7 +51,7 @@ Most of the tools are sourced from [Nukepedia](https://www.nukepedia.com/) & I d
     - [Cycle Operations](https://www.nukepedia.com/python/nodegraph/cycleoperations) 
     - [GrayAutoBackdrop](https://www.nukepedia.com/python/nodegraph/grayautobackdrop) 
     - GUI Tool
-    - reLabeler
+    - [reLabeler](https://www.nukepedia.com/python/nodegraph/ku_labler) 
 
   - **Make->**
     - Camera Bake
@@ -64,12 +60,12 @@ Most of the tools are sourced from [Nukepedia](https://www.nukepedia.com/) & I d
     - Combine retimes
     - Combine transforms
     - Gizmos to Group
-    - Nuke vector Matrix
-    - Roto to rotopaint
+    - [Nuke vector Matrix](https://erwanleroy.com/nuke-vector-matrix-toolset-beta-release/)
+    - [Roto to rotopaint](https://www.nukepedia.com/python/nodegraph/roto-to-rotopaint)
     - Tracker to Transform
     - Clone via Expressions
 
-  - Channel Hotbox
+  - [Channel Hotbox](https://www.nukepedia.com/python/ui/channel-hotbox)
   - [Tab Tab Tab](http://www.nukepedia.com/python/ui/tabtabtab) 
   - [Welcome Screen](http://www.nukepedia.com/python/ui/welcomescreen) 
   - [WrapItUp](https://maxvanleeuwen.com/project/collect-nuke-scripts-wrapitup/) 
