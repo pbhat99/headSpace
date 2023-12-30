@@ -23,6 +23,26 @@ if nuke.GUI:
 else:
     nuke.tprint('skipped (no GUI)')
 
+def savePreferencesToFile():
+    '''
+    Save current preferences to the prefencesfile in the .nuke folder.
+    Pythonic alternative to the 'ok' button of the preferences panel.
+    '''
+
+    nukeFolder = os.path.expanduser('~') + '/.nuke/'
+    preferencesFile = nukeFolder + 'preferences%i.%i.nk' %(nuke.NUKE_VERSION_MAJOR,nuke.NUKE_VERSION_MINOR)
+
+    preferencesNode = nuke.toNode('preferences')
+
+    customPrefences = preferencesNode.writeKnobs( nuke.WRITE_USER_KNOB_DEFS | nuke.WRITE_NON_DEFAULT_ONLY | nuke.TO_SCRIPT | nuke.TO_VALUE )
+    customPrefences = customPrefences.replace('\n','\n  ')
+
+    preferencesCode = 'Preferences {\n inputs 0\n name Preferences%s\n}' %customPrefences 
+
+    # write to file
+    openPreferencesFile = open( preferencesFile , 'w' )
+    openPreferencesFile.write( preferencesCode )
+    openPreferencesFile.close()
 
 
 #nuke.pluginAddPath('./Cattery')
