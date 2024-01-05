@@ -13,13 +13,16 @@
    ```python
    nuke.pluginAddPath('./headSpace')
    ```
- 
+
+## Compatibility:
+- Actively testing on **NukeX 12.2v11** and It will not cause any effect on launching letest versions of NukeX.
+- Works on Windows (11) & linux (ubuntu & centOS). Not tested on Mac yet (but it should work)
 
 ## Customization:
-- You can change this main folder name whatever you want, It will show same name in nuke menubar.
+- You can change this main folder name (headSpace) whatever you want (usually your name :P ), It will show same name in nuke menubar.
 - for submenus you need to add 'space-dot-space' in folder name
-- If something is not working or incase of error Just delete that folder inside main folder. Its totally independent.
-- Gizmos are Auto populated according to folder structure along with icon having same name.
+- If something is not working, incase of error or your company already has that tool, Just delete that folder located inside main folder. Its totally independent.
+- Gizmos(or toolsets with .nk extensions) are Auto populated according to folder structure along with icon having same name.
 - Works best along with [Nuke servival toolkit](https://github.com/CreativeLyons/NukeSurvivalToolkit_publicRelease) (not included in this)
 
 ## List of python tools In this repo:
@@ -90,4 +93,11 @@
   - KnobDefaults
 
 
+## Credits:
+- All goes to respected owners.
+- I will be happy if you thank me.
 
+## Disclaimer:
+- all the tools here are publically availbale on the internet.
+- Some tools are modified to better fit & usability
+- Use at your own risk. I didn't responsible for damage.
