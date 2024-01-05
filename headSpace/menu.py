@@ -21,6 +21,13 @@ def menuMaker():
 		menu = main + '/'
 	return menu
 
+def openWeb(webLink):
+    from webbrowser import open as openUrl
+    openUrl(webLink)
+
+
+def openDoc(docLink):
+    webbrowser.open(docLink)
 
 # Submenu's
 mainMenu = os.path.dirname(__file__).split('/')[-1]
@@ -36,10 +43,10 @@ p.addCommand( '-', '', '')
 
 
 # About
-about = 'HeadSpace v0.2.1 \n \n Collected by: Prasannakumar T Bhat \n \n Last Updated : 25 Nov 2023'
+about = 'HeadSpace v0.2.2 \n \n Collected by: Prasannakumar T Bhat \n \n Last Updated : 05 Jan 2024'
 nuke.menu('Nuke').addCommand(mainMenu + '/Help/About', 'nuke.message(about)', icon='pbicon.png')
 # Help
-nuke.menu('Nuke').addCommand(mainMenu + '/Help/GitHub', 'import pbSnippets ; pbSnippets.openWeb("https://github.com/pbhat99/pb.nuke/releases")', icon='pbicon.png')
+nuke.menu('Nuke').addCommand(mainMenu + '/Help/GitHub', 'openWeb("https://github.com/pbhat99/pb.nuke/releases")', icon='pbicon.png')
 
 
 
