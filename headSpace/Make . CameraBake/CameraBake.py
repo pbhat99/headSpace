@@ -1,33 +1,33 @@
-import nuke
 def cameraBake():
-	#### by jaimex127@gmail.com ####
-	
+    #### by jaimex127@gmail.com ####
+    ### Updated to work in Nuke13 ###
+    
     #### get Script Name ####
     current_script = nuke.root().name()
 
-	#### check if Script is Saved ####
-		
+    #### check if Script is Saved ####
+        
     if  current_script == 'Root':
         nuke.message('You need to save the Script')
-		
-		
+        
+        
     else:    
         split_file_path = current_script.split('/')
         file_path_edited = split_file_path[:-1]
         join_file_path = ('/').join(file_path_edited)
-		
-		#### Build the FilePath where the Camera is Saved (Change this to save the Camera where you want)####
+        
+        #### Build the FilePath where the Camera is Saved (Change this to save the Camera where you want)####
         tmpcam_filepath = join_file_path + '/camTMP.abc'
     
-		#### Get the Script fps####
+        #### Get the Script fps####
         current_script_fps = nuke.root().fps()
     
-		#### Get all the info of the Selected Camera, Create a new one with the same values and paste the animation ####
-		
-        if nuke.selectedNodes('Camera2'):
-            axiscamera = nuke.selectedNodes('Camera2')[0]
+        #### Get all the info of the Selected Camera, Create a new one with the same values and paste the animation ####
+        
+        if nuke.selectedNodes('Camera3'):
+            axiscamera = nuke.selectedNodes('Camera3')[0]
             axiscamera['selected'].setValue(0)
-            camera = nuke.createNode('Camera2')
+            camera = nuke.createNode('Camera3')
             camera['useMatrix'].setValue(1)
             camera['focal'].fromScript(axiscamera['focal'].toScript())
             camera['haperture'].fromScript(axiscamera['haperture'].toScript())
@@ -35,11 +35,11 @@ def cameraBake():
             camera['near'].fromScript(axiscamera['near'].toScript())
             camera['far'].fromScript(axiscamera['far'].toScript())
             
-            for i in xrange(0,16):
+            for i in range(0,16):
                 nuke.animation('%s.matrix.%s' % (camera['name'].value() , i), 'generate', (str(nuke.root()['first_frame'].value()), str(nuke.root()['last_frame'].value()), '1', 'y', 'parent.%s.world_matrix.%s' % (axiscamera['name'].value(),i) ))
         
-		#### Create a Scene and things needed to Export the Camera ####   
-		
+        #### Create a Scene and things needed to Export the Camera ####   
+        
             scene = nuke.createNode('Scene')
             wg = nuke.createNode('WriteGeo')
             wg['file'].setValue(tmpcam_filepath)
@@ -66,6 +66,3 @@ def cameraBake():
             nuke.message('Select a Camera')
 
 #cameraBake()
-
-
-			
