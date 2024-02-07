@@ -63,6 +63,7 @@ nuke.knobDefault('Blur.channels','rgba')
 nuke.knobDefault('Multiply.channels','rgba')
 nuke.knobDefault('Add.channels','rgba')
 nuke.knobDefault('Gamma.channels','rgba')
+nuke.knobDefault('Invert.channels','rgba')
 nuke.knobDefault('Dissolve.channels','rgba')
 nuke.knobDefault('Keymix.channels','rgba')
 nuke.knobDefault('Constant.channels','rgba')
@@ -87,13 +88,15 @@ nuke.knobDefault('Copy.channels','alpha')
 nuke.knobDefault('Shuffle.onCreate',"nk = nuke.thisNode()['in2'].setValue('alpha')")
 nuke.knobDefault('Shuffle2.onCreate',"nk = nuke.thisNode()['in2'].setValue('alpha')")
 
+#remove/keep
 nuke.knobDefault('Remove.channels','rgba')
+nuke.knobDefault('Remove.label', '[if {[value channels] == "rgb"} {return "(rgb)\n"} [if {[value channels] == "rgba"} {return "(rgba)\n"}]] [if {[value channels2] !="none"} {return ([value channels2])\n} {}] [if {[value channels3] !="none"} {return ([value channels3])\n} {}] [if {[value channels4] !="none"} {return ([value channels4])\n} {}]') 
+nuke.menu('Nodes').addCommand( "Channel/Keep(Remove)", "nuke.createNode('Remove')['operation'].setValue('keep')", icon='Remove.png')
 
 #framehold to current frame as default
 nuke.menu('Nodes').addCommand( "Time/FrameHold", "nuke.createNode('FrameHold')['first_frame'].setValue( nuke.frame() )", icon='FrameHold.png')
 
-#keep default to rgba
-nuke.menu('Nodes').addCommand( "Channel/Keep(Remove)", "nuke.createNode('Remove')['operation'].setValue('keep')", icon='Remove.png')
+
 
 
 p = nuke.toNode('preferences')
