@@ -2,25 +2,10 @@ import nuke
 import os
 import math
 
-#more recent items
-m = nuke.menu("Nuke").findItem("File")
-m.addCommand ("Open Recent Comp/@recent_file7", "nuke.scriptOpen(nuke.recentFile(7))", "")
-m.addCommand ("Open Recent Comp/@recent_file8", "nuke.scriptOpen(nuke.recentFile(8))", "")
-m.addCommand ("Open Recent Comp/@recent_file9", "nuke.scriptOpen(nuke.recentFile(9))", "")
-m.addCommand ("Open Recent Comp/@recent_file10", "nuke.scriptOpen(nuke.recentFile(10))", "")
-m.addCommand ("Open Recent Comp/@recent_file11", "nuke.scriptOpen(nuke.recentFile(11))", "")
-m.addCommand ("Open Recent Comp/@recent_file12", "nuke.scriptOpen(nuke.recentFile(12))", "")
-m.addCommand ("Open Recent Comp/@recent_file13", "nuke.scriptOpen(nuke.recentFile(13))", "")
-m.addCommand ("Open Recent Comp/@recent_file14", "nuke.scriptOpen(nuke.recentFile(14))", "")
-m.addCommand ("Open Recent Comp/@recent_file15", "nuke.scriptOpen(nuke.recentFile(15))", "")
-m.addCommand ("Open Recent Comp/@recent_file16", "nuke.scriptOpen(nuke.recentFile(16))", "")
-m.addCommand ("Open Recent Comp/@recent_file17", "nuke.scriptOpen(nuke.recentFile(17))", "")
-m.addCommand ("Open Recent Comp/@recent_file18", "nuke.scriptOpen(nuke.recentFile(18))", "")
-m.addCommand ("Open Recent Comp/@recent_file19", "nuke.scriptOpen(nuke.recentFile(19))", "")
-m.addCommand ("Open Recent Comp/@recent_file20", "nuke.scriptOpen(nuke.recentFile(20))", "")
-m.addCommand ("Open Recent Comp/@recent_file21", "nuke.scriptOpen(nuke.recentFile(21))", "")
-m.addCommand ("Open Recent Comp/@recent_file22", "nuke.scriptOpen(nuke.recentFile(22))", "")
-
+# more recent items
+# https://community.foundry.com/discuss/topic/137014/open-recent-comps-customize-it
+for i in range(7,25+1):
+    nuke.menu("Nuke").findItem("File").addCommand('Open Recent Comp/@recent_file{0}'.format(i), 'nuke.scriptOpen(nuke.recentFile({0}))'.format(i))
 
 
 
