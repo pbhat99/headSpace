@@ -1422,7 +1422,8 @@ hotboxLocationPathKnob = preferencesNode.knob('hotboxLocation')
 hotboxLocationPath = hotboxLocationPathKnob.value().replace('\\','/')
 
 if not hotboxLocationPath:
-    hotboxLocationPath = homeFolder + '/W_hotbox'
+    #hotboxLocationPath = homeFolder + '/W_hotbox'
+    hotboxLocationPath = __file__.replace('menu.py', '') + 'W_hotbox'
     hotboxLocationPathKnob.setValue(hotboxLocationPath)
 
 if hotboxLocationPath[-1] != '/':

@@ -11,7 +11,6 @@ adrianpueyo.com
 
 import os
 import json
-#import six
 import io
 
 from nukescripts import panels
@@ -36,7 +35,6 @@ if os.name == "nt" and nuke.NUKE_VERSION_MAJOR < 13:
                 raise ctypes.WinError()
         except AttributeError:
             pass
-
 
     os.symlink = symlink_ms
 
@@ -2206,5 +2204,5 @@ nuke.KnobScripterPane = KnobScripterPane
 logging.debug("KS LOADED")
 ksShortcut = "alt+z"
 addKnobScripterPane()
-nuke.menu('Nuke').addCommand('Edit/Knob Scripter', showKnobScripter, ksShortcut)
+nuke.menu('Nuke').addCommand('Edit/Node/Open Floating Knob Scripter', showKnobScripter, ksShortcut)
 nuke.menu('Nuke').addCommand('Edit/Node/Update KnobScripter Context', updateContext).setVisible(False)
