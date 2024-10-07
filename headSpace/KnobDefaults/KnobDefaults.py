@@ -9,12 +9,14 @@ for i in range(7,25+1):
 
 
 
-# Personal Default Node Settings
+#-----------Personal Default Node Settings------------
+
+
 nuke.knobDefault('PostageStamp.label','[file tail [knob [topnode].file]]')
 nuke.knobDefault('PostageStamp.hide_input','1')
 nuke.knobDefault('DirBlurWrapper.BlurType','linear')
 
-
+# BBox
 nuke.knobDefault('Merge2.bbox','B')
 nuke.knobDefault('Keymix.bbox','B')
 
@@ -37,16 +39,22 @@ nuke.knobDefault('Viewer.gl_lighting','true')
 
 # No Clip to format
 nuke.knobDefault('Roto.cliptype','no clip')
-nuke.knobDefault('Radial.cliptype','no clip')
 nuke.knobDefault('RotoPaint.cliptype','no clip')
+nuke.knobDefault('Radial.cliptype','no clip')
+nuke.knobDefault('Ramp.cliptype','no clip')
 
+# Filter
 nuke.knobDefault('FilterErode.filter','gaussian')
+nuke.knobDefault('Retime.filter','none')
+nuke.knobDefault("VectorBlur2.blur_uv","linear")
+nuke.knobDefault("VectorBlur2.blur_type","uniform")
 
-# channels to rgba
+# All channels to rgba
 nuke.knobDefault('Defocus.channels','rgba')
 nuke.knobDefault('Blur.channels','rgba')
 nuke.knobDefault('Multiply.channels','rgba')
 nuke.knobDefault('Add.channels','rgba')
+nuke.knobDefault('Clamp.channels','rgba')
 nuke.knobDefault('Gamma.channels','rgba')
 nuke.knobDefault('Invert.channels','rgba')
 nuke.knobDefault('Dissolve.channels','rgba')
@@ -56,7 +64,9 @@ nuke.knobDefault('Dilate.channels','rgba')
 nuke.knobDefault('Erode.channels','rgba')
 nuke.knobDefault('FilterErode.channels','rgba')
 nuke.knobDefault('DirBlurWrapper.BlurLayer','rgba')
-nuke.knobDefault("STMap.uv","rgb")
+nuke.knobDefault("STMap.channels","rgba")
+nuke.knobDefault("IDistort.channels","rgba")
+nuke.knobDefault("VectorBlur2.channels","rgba")
 
 #nuke.knobDefault("Write.mov.colorspace", "")
 #nuke.knobDefault("Write.mov.codec","apch")
@@ -75,7 +85,7 @@ nuke.knobDefault('Shuffle2.onCreate',"nk = nuke.thisNode()['in2'].setValue('alph
 
 #remove/keep
 nuke.knobDefault('Remove.channels','rgba')
-nuke.knobDefault('Remove.label', '[if {[value channels] == "rgb"} {return "(rgb)\n"} [if {[value channels] == "rgba"} {return "(rgba)\n"}]] [if {[value channels2] !="none"} {return ([value channels2])\n} {}] [if {[value channels3] !="none"} {return ([value channels3])\n} {}] [if {[value channels4] !="none"} {return ([value channels4])\n} {}]') 
+nuke.knobDefault('Remove.label', '[if {[value channels] == "rgb"} {return "(rgb)"} [if {[value channels] == "rgba"} {return "(rgba)"}]] [if {[value channels2] !="none"} {return ([value channels2])} {}] [if {[value channels3] !="none"} {return ([value channels3])} {}] [if {[value channels4] !="none"} {return ([value channels4])} {}]') 
 nuke.menu('Nodes').addCommand( "Channel/Keep(Remove)", "nuke.createNode('Remove')['operation'].setValue('keep')", icon='Remove.png')
 
 #framehold to current frame as default
