@@ -84,12 +84,12 @@ def multiEditExec():
     qt_focus( parent )
     nuke.removeKnobChanged(editSameClassKnobs)
     if multi_knob_edit_mode == False:
-        print 'multi knob edit mode activated'
+        print ('multi knob edit mode activated')
         nuke.addKnobChanged(editSameClassKnobs)
         multi_knob_edit_mode = True
         tool_info.show()
     elif multi_knob_edit_mode == True:
-        print 'multi knob edit mode deactivated'
+        print ('multi knob edit mode deactivated')
         nuke.removeKnobChanged(editSameClassKnobs)
         multi_knob_edit_mode = False
         tool_info.close()
