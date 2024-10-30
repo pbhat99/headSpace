@@ -1,11 +1,5 @@
-set cut_paste_input [stack 0]
-version 11.2 v3
-push $cut_paste_input
 Group {
  name Fill_Sampler9
- selected true
- xpos 555
- ypos 805
  addUserKnob {20 User}
  addUserKnob {26 Info l " " T "FFFiller by Mads Hagbarth Damsbo\nAdd a source with a alpha mask to fill out."}
  addUserKnob {26 ""}
