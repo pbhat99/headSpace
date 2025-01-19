@@ -6,8 +6,8 @@ Group {
  tile_color 0x733520ff
  addUserKnob {20 PxF_Bandpass}
  addUserKnob {41 colorspace_out l Colorspace t "Pixel values will be converted from linear to this colorspace before processing." T Colorspace1.colorspace_out}
- addUserKnob {41 blur_1 l blurAmount1 T Blur1.size}
- addUserKnob {41 blur_2 l blurAmount2 T Blur2.size}
+ addUserKnob {41 blur_1 l blurAmount1 t "Frequencies below this size will be filtered out." T Blur1.size}
+ addUserKnob {41 blur_2 l blurAmount2 t "Frequencies above this size will be filtered out." T Blur2.size}
  addUserKnob {7 brightness l Gain t "Overall gain applied after bandpass filter." R 0 20}
  brightness 5
  addUserKnob {41 saturation t "Overall saturation after bandpass and gain." T Saturation1.saturation}
@@ -20,10 +20,10 @@ Group {
  bc true
  addUserKnob {6 wc l "post white clamp" t "Clamp whites after bandpass." -STARTLINE}
  wc true
- addUserKnob {7 mix}
+ addUserKnob {7 mix t "Dissolve between the original (0) and the full effect (1)."}
  mix 1
  addUserKnob {26 ""}
- addUserKnob {26 Credits l "" t "PxF_Bandpass 2.5 - &copy; 2012-2023 - Xavier Bourque - pixelfudger.com \n\nPixelfudger gizmos are free to use for personal and commercial use as long as you leave the credit text intact in the gizmo's knobs and in the source files. " +STARTLINE T "<font size=2>PxF_Bandpass 2.5 - &copy; 2012-2023 - </font><a href=\"http://www.xavierbourque.com\"><font color=\"#bbbbbb\" size=2>Xavier Bourque</a></font> - <a href=\"http://www.pixelfudger.com\"><font color=\"#bbbbbb\" size=2>pixelfudger.com</a></font> - <a href=\"http://www.pixelfudger.com/userguides/PxF_BandPass.html\"><font color=\"#bbbbbb\" size=2>Video Tutorial</a></font>"}
+ addUserKnob {26 Credits l "" t "PxF_Bandpass 2.5.1 - &copy; 2012-2024 - Xavier Bourque - pixelfudger.com \n\nPixelfudger gizmos are free to use for personal and commercial use as long as you leave the credit text intact in the gizmo's knobs and in the source files. " +STARTLINE T "<font size=2>PxF_Bandpass 2.5.1 - &copy; 2012-2024 - </font><a href=\"http://www.xavierbourque.com\"><font color=\"#bbbbbb\" size=2>Xavier Bourque</a></font> - <a href=\"http://www.pixelfudger.com\"><font color=\"#bbbbbb\" size=2>pixelfudger.com</a></font> - <a href=\"https://www.youtube.com/watch?v=m7jNBrvYq3o\"><font color=\"#bbbbbb\" size=2>Video Tutorial</a></font>"}
 }
  Input {
   inputs 0

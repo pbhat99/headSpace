@@ -24,7 +24,7 @@ Group {
  addUserKnob {7 mix t "Dissolve between the original (0) and the full effect (1)."}
  mix 1
  addUserKnob {26 ""}
- addUserKnob {26 Credits l "" t "PxF_VectorEdgeBlur 2.0 - &copy; 2019-2023 - Xavier Bourque - pixelfudger.com \n\nPixelfudger gizmos are free to use for personal and commercial use as long as you leave the credit text intact in the gizmo's knobs and in the source files. " +STARTLINE T "<font size=2>PxF_VectorEdgeBlur 2.0 - &copy; 2019-2023 - </font><a href=\"http://www.xavierbourque.com\"><font color=\"#bbbbbb\" size=2>Xavier Bourque</a></font> - <a href=\"http://www.pixelfudger.com\"><font color=\"#bbbbbb\" size=2>pixelfudger.com</a></font> - <a href=\"http://www.pixelfudger.com/userguides/PxF_VectorEdgeBlur2.html\"><font color=\"#bbbbbb\" size=2>Video Tutorial</a></font>"}
+ addUserKnob {26 Credits l "" t "PxF_VectorEdgeBlur 2.0.1 - &copy; 2019-2024 - Xavier Bourque - pixelfudger.com \n\nPixelfudger gizmos are free to use for personal and commercial use as long as you leave the credit text intact in the gizmo's knobs and in the source files. " +STARTLINE T "<font size=2>PxF_VectorEdgeBlur 2.0.1 - &copy; 2019-2024 - </font><a href=\"http://www.xavierbourque.com\"><font color=\"#bbbbbb\" size=2>Xavier Bourque</a></font> - <a href=\"http://www.pixelfudger.com\"><font color=\"#bbbbbb\" size=2>pixelfudger.com</a></font> - <a href=\"https://www.youtube.com/watch?v=mGIMNoZ7l-0\"><font color=\"#bbbbbb\" size=2>Video Tutorial</a></font>"}
 }
  Input {
   inputs 0

@@ -1,14 +1,25 @@
 
-preferences14.0.nk
 *.pyc
 uistate.ini
 FileChooser_Favorites.pref
-preferences12.2.nk
 recent_files
 Scripts/tab_stats.dat
 KS3/py_state.txt
 *.autosave
 ScriptEditorHistory.xml
 Cattery/*
-Scripts/pbPreferences.py
 headSpace/stamps/includes/tab_stats.dat
+
+
+
+
+# Windows
+Thumbs.db
+Desktop.ini
+*.lnk
+
+# OSX
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
