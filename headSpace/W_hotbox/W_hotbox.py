@@ -1,15 +1,15 @@
 #----------------------------------------------------------------------------------------------------------
 # Wouter Gilsing
 # woutergilsing@hotmail.com
-version = '1.9'
-releaseDate = 'March 28 2021'
+version = '2.0'
+releaseDate = 'March 15 2025'
 
 #----------------------------------------------------------------------------------------------------------
 #LICENSE
 #----------------------------------------------------------------------------------------------------------
 
 '''
-Copyright (c) 2016-2021, Wouter Gilsing
+Copyright (c) 2016-2025, Wouter Gilsing
 All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -40,11 +40,13 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 import nuke
 
-#Choose between PySide and PySide2 based on Nuke version
+#Choose between PySide, PySide2 and PySide6 based on Nuke version
 if nuke.NUKE_VERSION_MAJOR < 11:
     from PySide import QtCore, QtGui, QtGui as QtWidgets
-else:
+elif nuke.NUKE_VERSION_MAJOR < 16:
     from PySide2 import QtGui, QtCore, QtWidgets
+else:
+    from PySide6 import QtGui, QtCore, QtWidgets
 
 import os
 import subprocess
@@ -435,6 +437,10 @@ class NodeButtons(QtWidgets.QVBoxLayout):
             allItems = []
 
             for folder in self.folderList:
+
+                if not os.path.exists(folder):
+                    continue
+
                 for file in sorted(os.listdir(folder)):
                     if file[0] not in ['.','_'] and len(file) in [3,6]:
                         allItems.append('/'.join([folder, file]))
@@ -1385,7 +1391,7 @@ def addMenuItems():
     editMenu.addCommand('W_hotbox/Open Hotbox Manager', 'W_hotboxManager.showHotboxManager()')
     editMenu.addCommand('W_hotbox/Open in %s'%getFileBrowser(), revealInBrowser)
     editMenu.addCommand('W_hotbox/-', '', '')
-    editMenu.addCommand('W_hotbox/Repair', 'W_hotboxManager.repairHotbox()')
+    editMenu.addCommand('W_hotbox/Repair', 'W_hotboxManager.RepairHotbox()')
     editMenu.addCommand('W_hotbox/Clear/Clear Everything', 'W_hotboxManager.clearHotboxManager()')
     editMenu.addCommand('W_hotbox/Clear/Clear Section/Single', 'W_hotboxManager.clearHotboxManager(["Single"])')
     editMenu.addCommand('W_hotbox/Clear/Clear Section/Multiple', 'W_hotboxManager.clearHotboxManager(["Multiple"])')
@@ -1422,8 +1428,7 @@ hotboxLocationPathKnob = preferencesNode.knob('hotboxLocation')
 hotboxLocationPath = hotboxLocationPathKnob.value().replace('\\','/')
 
 if not hotboxLocationPath:
-    #hotboxLocationPath = homeFolder + '/W_hotbox'
-    hotboxLocationPath = __file__.replace('menu.py', '') + 'W_hotbox'
+    hotboxLocationPath = homeFolder + '/W_hotbox'
     hotboxLocationPathKnob.setValue(hotboxLocationPath)
 
 if hotboxLocationPath[-1] != '/':
