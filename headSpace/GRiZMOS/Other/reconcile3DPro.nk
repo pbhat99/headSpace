@@ -1,0 +1,52 @@
+Group {
+name reconcile3DPro
+tile_color 0xc43c00ff
+selected true
+addUserKnob {20 User}
+addUserKnob {22 axisFromSelection l "Create Axis From Selection" t "Automatcially create axis points with positioning based on selected vertex in the viewer." -STARTLINE T "import nuke\nimport nukescripts\nfrom nukescripts import snap3d\nimport math\n\n\nthisNode = nuke.thisNode()\n\ndef getConnectedPoints(thisNode):\n    # get points input node\n    inputParent = thisNode.input(1)\n    \n    axisPoints = \[]\n    #check something is plugged in\n    if not inputParent:\n        return axisPoints\n    \n    if inputParent.Class() == 'Axis2' or inputParent.Class() == 'Axis':\n        axisPoints = \[inputParent]\n    else:  \n        # get nodes plugged into scene\n        inputParentDeps = inputParent.dependencies()\n        # filter out any deps that aren't axis nodes\n        def isAxisNode(node):\n            return node.Class() == \"Axis2\" or node.Class() == \"Axis\"\n        \n        axisPoints = filter(isAxisNode, inputParentDeps)\n        \n    return axisPoints\n\n\ndef axisFromSelection():\n    thisNode.end()\n    thisNode\['selected'].setValue(False)\n    x = thisNode\['xpos'].getValue()    \n    y = thisNode\['ypos'].getValue()\n\n    vertices = snap3d.selectedPoints()\n    verticesInfo = snap3d.selectedVertexInfos()\n\n    \n    vPoints= \[]\n    \n    #get pre existing points\n    axisPoints = getConnectedPoints(thisNode)\n\n    if len(axisPoints) > 0:\n        #delete pre existing points (will be re-added again later on)\n        for a in axisPoints:\n            pos = a\['translate'].getValue()\n            #convert to vector3\n            vector3 = nuke.math.Vector3(pos\[0],pos\[1],pos\[2])\n            #now add axis points position to vPoints\n            vPoints.append(vector3)\n            #delete axis\n            nuke.delete(a) \n            #delete anything left connected directly to input\n            if thisNode.input(1):\n                nuke.delete(thisNode.input(1))\n\n    \n    for v in verticesInfo:\n        if v.position in vPoints:\n            print 'position already found, removing duplicate.'\n        else:\n            vPoints.append(v.position)\n            \n            #check for no points\n    if len(vPoints) < 1:\n        nuke.message('Please select at least one vertex in the 3D Viewer')\n        return\n        \n    print vPoints\n            \n      \n    aNodes = \[]    \n    for i, v in enumerate(vPoints):\n        a = nuke.createNode('Axis2', inpanel = False)\n        a\['translate'].setValue(v)\n        a\['selected'].setValue(False)\n        a\['ypos'].setValue(y-154-10)\n        a\['xpos'].setValue(x+230 + (i*110))\n        aNodes.append(a)\n    \n\n    #create mergeGeo\n    m = nuke.nodes.MergeGeo()\n    m\['ypos'].setValue(y)\n    m\['xpos'].setValue(x+230 -10)\n    #connect to reconcile3DPro\n    thisNode.setInput(1, m)\n    #connect axis points to mergeGeo\n    for i, a in enumerate(aNodes):\n        m.setInput(i,a)\n\n\naxisFromSelection()\n"}
+addUserKnob {22 trackPoints l "Track Axis Points!" t "This is where the magic happens and the axis 3D points are converted to 2D tracks. If anything changes this will need to be run again to see the updates." -STARTLINE T "import nuke\nimport nukescripts\n\n\nthisNode = nuke.thisNode()\n\nthisNode.begin()\n\ndef convertPoints(points, camera):\n    #about if no camera\n    if camera.Class() != \"Camera\" and camera.Class() != \"Camera2\":\n        return nuke.message('Please connect a camera!')\n    #abort if no axis points\n    if len(points) < 1:\n        return nuke.message('Please connect at least one axis to points. For one axis connect dirrectly, for multiple connect using a scene node.')   \n         \n    print \"camera and points valid\"\n    \n    axisList = points\n    recList = \[]\n    cam = camera\n    img = thisNode.node('img')        \n\n    # Creates Reconcile3D for every axis and renders it with the root framerange\n    for axis in axisList:\n        recList.append( nuke.nodes.Reconcile3D(inputs= \[img, cam, axis]) )\n    first = int( nuke.root()\['first_frame'].value() )\n    last = int( nuke.root()\['last_frame'].value() )\n    frameList = \[\[first, last, 1]]\n    print 'Reconciling %s Axis nodes for frames %s - %s' %(len(axisList), first, last)\n    nuke.executeMultiple(recList, frameList)\n    \n    # For each axis node selected, makes a track\n    # Sets transform to matchmove and use_for for each to \"TR\"\n    trk = nuke.toNode('axisTracker')\n    trk\['selected'].setValue(True)\n    trk\['xpos'].setValue(cam.xpos()+100)\n    trk\['ypos'].setValue(cam.ypos()+100)\n    trk\['reference_frame'].setValue(nuke.frame())\n    \n    # Hooks up and deletes each reconcile3D node to tracker\n    for i, rec in enumerate(recList):\n        outputX = rec\['output'].animation(0)\n        outputY = rec\['output'].animation(1)\n        #connect rec img to footage for res changes\n        numColumns = 31 \n\n        trk\['add_track'].execute()\n        # track_x    (2)\n        for key in outputX.keys():\n            trk\['tracks'].setValueAt(key.y, key.x, numColumns*i + 2)\n        # track_y    (3)\n        for key in outputY.keys():\n            trk\['tracks'].setValueAt(key.y, key.x, numColumns*i + 3)\n        # Translate  (6)\n        trk\['tracks'].setValue(1.0, numColumns*i + 6)\n        # Rotate     (7)\n        trk\['tracks'].setValue(1.0, numColumns*i + 7)\n        # Scale      (8)\n        trk\['tracks'].setValue(1.0, numColumns*i + 8)\n        \n        nuke.delete(rec)\n    # Force update tracker\n    trk\['transform'].setFlag(0)\n    trk\['transform'].setValue('match-move')\n    trk\['transform'].setValue('none')\n    \n#get camera\ncameraParent = thisNode.input(0)\ntopnode_name = nuke.tcl(\"full_name \[topnode %s]\" % thisNode.name())\ncamera = nuke.toNode(topnode_name)\n\ndef getConnectedPoints(thisNode):\n    # get points input node\n    inputParent = thisNode.input(1)\n    #check something is plugged in\n    if not inputParent:\n        nuke.message('Please connect some points')\n        return\n    \n    axisPoints = \[]\n    \n    if inputParent.Class() == 'Axis2' or inputParent.Class() == 'Axis':\n        axisPoints = \[inputParent]\n    else:  \n        # get nodes plugged into scene\n        inputParentDeps = inputParent.dependencies()\n        # filter out any deps that aren't axis nodes\n        def isAxisNode(node):\n            return node.Class() == \"Axis2\" or node.Class() == \"Axis\"\n        \n        axisPoints = filter(isAxisNode, inputParentDeps)\n        \n    return axisPoints\n\naxisPoints = getConnectedPoints(thisNode)\n\n# try to convert points\ntry:\n    convertPoints(axisPoints, camera)\nexcept:\n    e = sys.exc_info()\[0]\n    print e"}
+addUserKnob {26 axis_tracks l "Axis Tracks"}
+addUserKnob {41 tracks l "" -STARTLINE T axisTracker.tracks}
+addUserKnob {41 add_track l "add track" T axisTracker.add_track}
+addUserKnob {41 del_tracks l "delete tracks" -STARTLINE T axisTracker.del_tracks}
+addUserKnob {26 "" l <b>Export</b>}
+addUserKnob {22 trackerExport l "Export Tracker" T "group = nuke.thisNode()\ngroup.begin()\nnuke.toNode('axisTracker')\['selected'].setValue(True)\nnuke.nodeCopy(\"%clipboard%\")\ngroup.end()\ntrackerCopy = nuke.nodePaste(\"%clipboard%\")" +STARTLINE}
+addUserKnob {20 transform l Transform}
+addUserKnob {41 reference_frame l "reference frame" T axisTracker.reference_frame}
+addUserKnob {41 translate T axisTracker.translate}
+addUserKnob {41 rotate T axisTracker.rotate}
+addUserKnob {41 scale T axisTracker.scale}
+addUserKnob {41 center T axisTracker.center}
+addUserKnob {20 tips l Tips}
+addUserKnob {26 tipsText l "" +STARTLINE T "<h3>Setup Method 1 (auto)</h3>\n<ul>\n  <li>\n    Select a vertex point in the 3D viewer and click 'Create Axis From\n    Selection'.\n  </li>\n  <li>Select another one to add more, you can just keep adding them</li>\n  <li>Select multiple ones all at once to create them all in one go</li>\n  <li>\n    Everything should have automatically linked up, with the positions on the\n    axis already added Go to the tracking step if everything is working!\n  </li>\n</ul>\n<h3>Setup Method 2 (manual)</h3>\n<ul>\n  <li>\n    Connect all your axis points (that have the correct 3D position) to one\n    mergeGeo node.\n  </li>\n  <li>Connect \"points\" input to the mergeGeo node.</li>\n  <li>For one axis point you can connect it directly to the \"points\" input.</li>\n  <li>\n    Trackers will be created in the order of how the mergeGeo axis nodes are\n    connected: 1 will be the first tract etc.\n  </li>\n  <li>Plug footage into img to ensure the correct format is used</li>\n</ul>\n\n\n<h3>Tracking</h3>\n<ul>\n  <li>\n    Once everything is connected click \"Track Axis Points!\" and the tracks will\n    be calculated.\n  </li>\n  <li>\n    To update or redo the tracks it's best to delete any current tracks and\n    click \"Track Axis Points!\" again.\n  </li>\n</ul>\n\n\n<br />\n<br />\n<br />\n\n\n<footer >\n  <span>Credits</span>\n  <br />\n  <span>Luke Inderwick 2022</span>\n <br />\n  <span>Version 1.3</span>\n  <br />\n  <a href=\"http://www.nukepedia.com/gizmos/3d/reconcile3dpro\"\n  color=\"'white\"\n    >http://www.nukepedia.com/gizmos/3d/reconcile3dpro</a\n  >\n  <br />\n  <a href=\"https://github.com/Innders/Nuke-Tools-and-Scripts\"\n    >https://github.com/Innders/Nuke-Tools-and-Scripts</a\n  >\n</footer>\n\n"}
+}
+Input {
+inputs 0
+name points
+xpos 510
+ypos 182
+number 1
+}
+Input {
+inputs 0
+name img
+xpos 290
+ypos 374
+number 2
+}
+Output {
+name Output1
+xpos 290
+ypos 470
+}
+Input {
+inputs 0
+name camera
+}
+Tracker4 {
+cornerPinOptions "CornerPin2D (use transform ref frame, baked)"
+center {320 240}
+name axisTracker
+selected true
+}
+end_group
