@@ -71,7 +71,7 @@ nuke.knobDefault("VectorBlur2.channels","rgba")
 #nuke.knobDefault("Write.mov.colorspace", "")
 #nuke.knobDefault("Write.mov.codec","apch")
 #nuke.knobDefault("Write.mov.mov64_codec", "apch")
-nuke.knobDefault("Write.label", "[ lindex [split [filename] /] end-2]")
+#nuke.knobDefault("Write.label", "[ lindex [split [filename] /] end-2]")
 
 # copy to layerCopy
 nuke.knobDefault('Copy.from0','none')
@@ -79,13 +79,12 @@ nuke.knobDefault('Copy.to0','none')
 nuke.knobDefault('Copy.channels','alpha')
 
 # B to alpha 
-#nuke.knobDefault('Shuffle.in2','alpha') # crashing neke on node creation
 nuke.knobDefault('Shuffle.onCreate',"nk = nuke.thisNode()['in2'].setValue('alpha')")
 nuke.knobDefault('Shuffle2.onCreate',"nk = nuke.thisNode()['in2'].setValue('alpha')")
 
 #remove/keep
 nuke.knobDefault('Remove.channels','rgba')
-nuke.knobDefault('Remove.label', '[if {[value channels] == "rgb"} {return "(rgb)"} [if {[value channels] == "rgba"} {return "(rgba)"}]] [if {[value channels2] !="none"} {return ([value channels2])} {}] [if {[value channels3] !="none"} {return ([value channels3])} {}] [if {[value channels4] !="none"} {return ([value channels4])} {}]') 
+#nuke.knobDefault('Remove.label', '[if {[value channels] == "rgb"} {return "(rgb)"} [if {[value channels] == "rgba"} {return "(rgba)"}]] [if {[value channels2] !="none"} {return ([value channels2])} {}] [if {[value channels3] !="none"} {return ([value channels3])} {}] [if {[value channels4] !="none"} {return ([value channels4])} {}]') 
 nuke.menu('Nodes').addCommand( "Channel/Keep(Remove)", "nuke.createNode('Remove')['operation'].setValue('keep')", icon='Remove.png')
 
 #framehold to current frame as default

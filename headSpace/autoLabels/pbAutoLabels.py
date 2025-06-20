@@ -1,3 +1,6 @@
+import nuke
+import os
+
 def pbAutoLabel():
     def addIndicators():
         ind = nuke.expression("(keys?1:0)+(has_expression?2:0)+(clones?8:0)+(viewsplit?32:0)")
