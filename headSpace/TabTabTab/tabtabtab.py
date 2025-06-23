@@ -1,29 +1,48 @@
 """Alternative "tab node creator thingy" for The Foundry's Nuke
 
 homepage: https://github.com/dbr/tabtabtab-nuke
-https://github.com/charlesangus/tabtabtab-nuke/
 license: http://unlicense.org/
 """
 
-__version__ = "2.0"
+__version__ = "1.9"
 
 import os
 import sys
 
+
+if sys.version_info[0] == 2:
+    text_type = unicode
+    binary_type = str
+else:
+    text_type = str
+    binary_type = bytes
+
 try:
-    from PySide6 import QtCore, QtGui, QtWidgets
-    from PySide6.QtCore import Qt
-except ImportError:
     from PySide2 import QtCore, QtGui, QtWidgets
     from PySide2.QtCore import Qt
-
-
-try:
-    import nuke
 except ImportError:
-    IN_NUKE = False
-else:
-    IN_NUKE = True
+    try:
+        from PySide import QtCore, QtGui, QtGui as QtWidgets
+        from PySide.QtCore import Qt
+    except ImportError:
+        import sip
+        for mod in ("QDate", "QDateTime", "QString", "QTextStream", "QTime", "QUrl", "QVariant"):
+            sip.setapi(mod, 2)
+
+        from PyQt4 import QtCore, QtGui
+        from PyQt4.QtCore import Qt
+        QtCore.Signal = QtCore.pyqtSignal
+
+
+def cast_text(v):
+    # type: (object) -> str
+    if isinstance(v, text_type):
+        return v
+    if v is None:
+        return ""
+    if isinstance(v, binary_type):
+        return v.decode("utf-8")
+    return text_type(v)
 
 
 def find_menu_items(menu, _path = None):
@@ -38,10 +57,11 @@ def find_menu_items(menu, _path = None):
     >>> found[:5]
     ['3D/Axis', '3D/Camera', '3D/CameraTracker', '3D/DepthGenerator', '3D/Geometry/Card']
     """
+    import nuke
 
     found = []
 
-    mi = list(menu.items())
+    mi = menu.items()
     for i in mi:
         if isinstance(i, nuke.Menu):
             # Sub-menu, recurse
@@ -67,27 +87,6 @@ def find_menu_items(menu, _path = None):
 
     return found
 
-
-def consec_find(needle, haystack, anchored = False):
-    ''' searches for the "needle" string in the "haystack" string.
-        added to tabtabtab as a way to prioritize more relevant results.
-    '''
-
-    if "[" not in needle:
-        haystack = haystack.rpartition(" [")[0]
-
-    stripped_haystack = haystack.replace(' ','').replace('-','').replace('_','')
-
-    if anchored:
-        if haystack.startswith(needle) or stripped_haystack.startswith(needle):
-            return True
-
-    else:
-        if needle in haystack or needle in stripped_haystack:
-            return True
-    return False
-
-    
 
 def nonconsec_find(needle, haystack, anchored = False):
     """checks if each character of "needle" can be found in order (but not
@@ -120,7 +119,9 @@ def nonconsec_find(needle, haystack, anchored = False):
     >>> nonconsec_find(" ov", "matchmove", anchored = False)
     True
     """
-
+    
+    needle = cast_text(needle)
+    haystack = cast_text(haystack)
     if "[" not in needle:
         haystack = haystack.rpartition(" [")[0]
 
@@ -138,7 +139,7 @@ def nonconsec_find(needle, haystack, anchored = False):
 
 
     # Turn haystack into list of characters (as strings are immutable)
-    haystack = [hay for hay in str(haystack)]
+    haystack = [hay for hay in haystack]
 
     if needle.startswith(" "):
         # "[space]abc" does consecutive search for "abc" in "abcdef"
@@ -181,7 +182,7 @@ class NodeWeights(object):
         def _load_internal():
             import json
             if not os.path.isfile(self.fname):
-                print("Weight file does not exist")
+                print ("Weight file does not exist")
                 return
             f = open(self.fname)
             self._weights = json.load(f)
@@ -192,20 +193,20 @@ class NodeWeights(object):
             _load_internal()
             self._successful_load = True
         except Exception:
-            print("Error loading node weights.")
+            print ("Error loading node weights")
             import traceback
             traceback.print_exc()
             self._successful_load = False
 
     def save(self):
         if self.fname is None:
-            print("Not saving node weights, no file specified")
+            print ("Not saving node weights, no file specified")
             return
 
         if not self._successful_load:
             # Avoid clobbering existing weights file on load error
-            print(("Not writing weights file because %r previously failed to load" % (
-                self.fname)))
+            print ("Not writing weights file because %r previously failed to load" % (
+                            self.fname))
             return
 
         def _save_internal():
@@ -227,12 +228,12 @@ class NodeWeights(object):
         try:
             _save_internal()
         except Exception:
-            print("Error saving node weights")
+            print ("Error saving node weights")
             import traceback
             traceback.print_exc()
 
     def get(self, k, default = 0):
-        if len(list(self._weights.values())) == 0:
+        if len(self._weights.values()) == 0:
             maxval = 1.0
         else:
             maxval = max(self._weights.values())
@@ -247,7 +248,7 @@ class NodeWeights(object):
 
 
 class NodeModel(QtCore.QAbstractListModel):
-    def __init__(self, mlist, weights, num_items = 18, filtertext = ""):
+    def __init__(self, mlist, weights, num_items = 15, filtertext = ""):
         super(NodeModel, self).__init__()
 
         self.weights = weights
@@ -269,53 +270,25 @@ class NodeModel(QtCore.QAbstractListModel):
 
         # Two spaces as a shortcut for [
         filtertext = filtertext.replace("  ", "[")
-        
-        anchored = True
-        force_non_anchored = False
-        # Starting the string with * or [ disables anchoring.
-        # Starting with ** forces non anchored results
-        if filtertext.startswith('*') or filtertext.startswith('['):
-            anchored = False
-            filtertext = filtertext.replace("*", "", 1)
-            if filtertext.startswith('*'):
-                force_non_anchored = True
-            filtertext = filtertext.replace("*", "")
 
-        scored_a = []
-        scored_b = []
+        scored = []
         for n in self._all:
             # Turn "3D/Shader/Phong" into "Phong [3D/Shader]"
             menupath = n['menupath'].replace("&", "")
             uiname = "%s [%s]" % (menupath.rpartition("/")[2], menupath.rpartition("/")[0])
-            search_string = uiname.lower()
 
-            if force_non_anchored:
-                search_string = search_string[1:]      
-            
-            if consec_find(filtertext, search_string, anchored):
+            if nonconsec_find(filtertext, uiname.lower(), anchored=False):
                 # Matches, get weighting and add to list of stuff
                 score = self.weights.get(n['menupath'])
 
-                scored_a.append({
-                        'text': uiname,
-                        'menupath': n['menupath'],
-                        'menuobj': n['menuobj'],
-                        'score': score})   
-
-            elif nonconsec_find(filtertext, search_string, anchored):
-                # Matches, get weighting and add to list of stuff
-                score = self.weights.get(n['menupath'])
-
-                scored_b.append({
+                scored.append({
                         'text': uiname,
                         'menupath': n['menupath'],
                         'menuobj': n['menuobj'],
                         'score': score})
 
-        # Sort based on scores (descending), then alphabetically
-        sort_a = sorted(scored_a, key = lambda k: (-k['score'], k['text']))
-        sort_b = sorted(scored_b, key = lambda k: (-k['score'], k['text']))
-        s = sort_a + sort_b
+        # Store based on scores (descending), then alphabetically
+        s = sorted(scored, key = lambda k: (-k['score'], k['text']))
 
         self._items = s
         self.modelReset.emit()
@@ -432,6 +405,7 @@ class TabTabTabWidget(QtWidgets.QDialog):
         self.weights = NodeWeights(os.path.expanduser("~/.nuke/tabtabtab_weights.json"))
         self.weights.load() # weights.save() called in close method
 
+        import nuke
         nodes = find_menu_items(nuke.menu("Nuke")) + find_menu_items(nuke.menu("Viewer"))
 
         # List of stuff, and associated model
@@ -471,7 +445,7 @@ class TabTabTabWidget(QtWidgets.QDialog):
 
         # Get cursor position, and screen dimensions on active screen
         cursor = QtGui.QCursor().pos()
-        screen = self.screen().geometry()
+        screen = QtWidgets.QDesktopWidget().screenGeometry(cursor)
 
         # Get window position so cursor is just over text input
         xpos = cursor.x() - (self.width()/2)
@@ -592,7 +566,7 @@ def main():
         try:
             thing['menuobj'].invoke()
         except ImportError:
-            print("Error creating %s" % thing)
+            print ("Error creating %s" % thing)
 
     t = TabTabTabWidget(on_create = on_create, winflags = Qt.FramelessWindowHint)
 
@@ -609,25 +583,15 @@ def main():
     import weakref
     _tabtabtab_instance = weakref.proxy(t)
 
-
-if IN_NUKE:
-    if nuke.NUKE_VERSION_MAJOR >= 9:
-        _getParentMenu = lambda: nuke.menu("Node Graph")
-    else:
-        _getParentMenu = lambda: nuke.menu("Nuke").findItem("Edit")
-
-
-    def registerNukeAction():
-        menu = _getParentMenu()
-        if menu.findItem("Tabtabtab") is None:
-            return menu.addCommand("Tabtabtab", main, "Tab")
-
-
-    def unregisterNukeAction():
-        return _getParentMenu().removeItem("Tabtabtab")
-
-
-if __name__ == '__main__' and not IN_NUKE:
-    app = QtGui.QApplication(sys.argv)
-    main()
-    app.exec_()
+'''
+if __name__ == '__main__':
+    try:
+        import nuke
+        m_edit = nuke.menu("Nuke").findItem("Edit")
+        m_edit.addCommand("Tabtabtab", main, "Tab")
+    except ImportError:
+        # For testing outside Nuke
+        app = QtGui.QApplication(sys.argv)
+        main()
+        app.exec_()
+'''
