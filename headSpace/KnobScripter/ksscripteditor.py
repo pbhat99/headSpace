@@ -16,41 +16,38 @@ import re
 import logging
 
 try:
-    if nuke.NUKE_VERSION_MAJOR >= 16:
-        from PySide6 import QtCore, QtGui, QtWidgets
-        from PySide6.QtCore import Qt
-        IS_PYSIDE6 = True
-    elif nuke.NUKE_VERSION_MAJOR >= 11:
-        from PySide2 import QtWidgets, QtGui, QtCore
-        from PySide2.QtCore import Qt
-        IS_PYSIDE6 = False
-    else:
+    if nuke.NUKE_VERSION_MAJOR < 11:
         from PySide import QtCore, QtGui, QtGui as QtWidgets
         from PySide.QtCore import Qt
-        IS_PYSIDE6 = False
+    else:
+        from PySide2 import QtWidgets, QtGui, QtCore
+        from PySide2.QtCore import Qt
 except ImportError:
     from Qt import QtCore, QtGui, QtWidgets
-    IS_PYSIDE6 = False
 
 from KnobScripter import config, blinkhighlighter, pythonhighlighter
-
 
 
 class KSScriptEditor(QtWidgets.QPlainTextEdit):
     """ Base Script Editor Widget
 
-    Provides a text editor with line numbering and custom key bindings for efficient scripting.
+    Wouter Gilsing built an incredibly useful python script editor for his Hotbox Manager (v1.5).
+    Credit to him: http://www.woutergilsing.com/
+    Starting from his code, I changed the style and added extra functionality.
     """
 
     def __init__(self, knob_scripter=""):
         super(KSScriptEditor, self).__init__()
+
         self.knobScripter = knob_scripter
         self.selected_text = ""
+
         self.highlighter = None
         self.code_language = None
 
-        # Setup line numbers and preferences
+        # Setup line numbers
         self.tab_spaces = config.prefs["se_tab_spaces"]
+
         self.lineColor = None
         self.lineNumberAreaColor = None
         self.lineNumberColor = None
@@ -63,17 +60,16 @@ class KSScriptEditor(QtWidgets.QPlainTextEdit):
         self.updateRequest.connect(self.updateLineNumberArea)
         self.updateLineNumberAreaWidth()
 
-        # Highlight the current line
+        # Highlight line
         self.cursorPositionChanged.connect(self.highlightCurrentLine)
 
-
     def lineNumberAreaWidth(self):
-        """Calculate the width needed for the line number area."""
         digits = 1
         max_num = max(1, self.blockCount())
         while max_num >= 10:
             max_num /= 10
             digits += 1
+
         space = 7 + self.fontMetrics().horizontalAdvance('9') * digits
         return space
 
@@ -81,25 +77,32 @@ class KSScriptEditor(QtWidgets.QPlainTextEdit):
         self.setViewportMargins(self.lineNumberAreaWidth(), 0, 0, 0)
 
     def updateLineNumberArea(self, rect, dy):
+
         if dy:
             self.lineNumberArea.scroll(0, dy)
         else:
             self.lineNumberArea.update(0, rect.y(), self.lineNumberArea.width(), rect.height())
+
         if rect.contains(self.viewport().rect()):
             self.updateLineNumberAreaWidth()
 
     def resizeEvent(self, event):
         QtWidgets.QPlainTextEdit.resizeEvent(self, event)
+
         cr = self.contentsRect()
-        self.lineNumberArea.setGeometry(QtCore.QRect(cr.left(), cr.top(),
-                                                     self.lineNumberAreaWidth(), cr.height()))
+        self.lineNumberArea.setGeometry(QtCore.QRect(cr.left(), cr.top(), self.lineNumberAreaWidth(), cr.height()))
+
+    # def toPlainText(self):
+    #     return utils.string(QtWidgets.QPlainTextEdit.toPlainText(self))
 
     def lineNumberAreaPaintEvent(self, event):
+
         if self.isReadOnly():
             return
 
         painter = QtGui.QPainter(self.lineNumberArea)
-        painter.fillRect(event.rect(), self.lineNumberAreaColor)
+        painter.fillRect(event.rect(), self.lineNumberAreaColor)  # Number bg
+
         block = self.firstVisibleBlock()
         block_number = block.blockNumber()
         top = int(self.blockBoundingGeometry(block).translated(self.contentOffset()).top())
@@ -107,19 +110,26 @@ class KSScriptEditor(QtWidgets.QPlainTextEdit):
         current_line = self.document().findBlock(self.textCursor().position()).blockNumber()
 
         painter.setPen(self.palette().color(QtGui.QPalette.Text))
+
         painter_font = config.script_editor_font
         if self.knobScripter != "":
             painter_font.setPointSize(config.prefs["se_font_size"])
         painter.setFont(painter_font)
 
         while block.isValid() and top <= event.rect().bottom():
-            text_color = self.lineNumberColor
+
+            text_color = self.lineNumberColor  # Numbers
+
             if block_number == current_line and self.hasFocus():
-                text_color = self.currentLineNumberColor
+                text_color = self.currentLineNumberColor  # Number highlighted
+
             painter.setPen(text_color)
-            number = str(block_number + 1)
-            painter.drawText(-3, top, self.lineNumberArea.width(), self.fontMetrics().height(),
-                             QtCore.Qt.AlignRight, number)
+
+            number = "%s" % str(block_number + 1)
+            painter.drawText(-3, top, self.lineNumberArea.width(), self.fontMetrics().height(), QtCore.Qt.AlignRight,
+                             number)
+
+            # Move to the next block
             block = block.next()
             top = bottom
             bottom = top + int(self.blockBoundingRect(block).height())
@@ -127,25 +137,34 @@ class KSScriptEditor(QtWidgets.QPlainTextEdit):
 
     def keyPressEvent(self, event):
         """
-        Custom actions for specific keystrokes.
-        Implements auto-pairing of brackets, quotes, duplication and moving lines.
+        Custom actions for specific keystrokes
         """
         key = event.key()
         ctrl = bool(event.modifiers() & Qt.ControlModifier)
+        # alt = bool(event.modifiers() & Qt.AltModifier)
         shift = bool(event.modifiers() & Qt.ShiftModifier)
         pre_scroll = self.verticalScrollBar().value()
+        # modifiers = QtWidgets.QApplication.keyboardModifiers()
+        # ctrl = (modifiers == Qt.ControlModifier)
+        # shift = (modifiers == Qt.ShiftModifier)
 
         up_arrow = 16777235
         down_arrow = 16777237
 
-        if key == 16777217:  # Tab key
+        # if Tab convert to Space
+        if key == 16777217:
             self.indentation('indent')
-        elif key == 16777218:  # Shift+Tab
+
+        # if Shift+Tab remove indent
+        elif key == 16777218:
             self.indentation('unindent')
-        elif key == 16777219:  # BackSpace
+
+        # if BackSpace try to snap to previous indent level
+        elif key == 16777219:
             if not self.unindentBackspace():
                 QtWidgets.QPlainTextEdit.keyPressEvent(self, event)
         else:
+            # COOL BEHAVIORS SIMILAR TO SUBLIME GO NEXT!
             cursor = self.textCursor()
             cpos = cursor.position()
             apos = cursor.anchor()
@@ -153,40 +172,53 @@ class KSScriptEditor(QtWidgets.QPlainTextEdit):
             text_after_cursor = self.toPlainText()[max(cpos, apos):]
             text_all = self.toPlainText()
             to_line_start = text_before_cursor[::-1].find("\n")
-            linestart_pos = 0 if to_line_start == -1 else len(text_before_cursor) - to_line_start
+            if to_line_start == -1:
+                linestart_pos = 0  # Position of the start of the line that includes the cursor selection start
+            else:
+                linestart_pos = len(text_before_cursor) - to_line_start
+
             to_line_end = text_after_cursor.find("\n")
-            lineend_pos = len(text_all) if to_line_end == -1 else max(cpos, apos) + to_line_end
+            if to_line_end == -1:
+                lineend_pos = len(text_all)  # Position of the end of the line that includes the cursor selection end
+            else:
+                lineend_pos = max(cpos, apos) + to_line_end
+
             text_before_lines = text_all[:linestart_pos]
             text_after_lines = text_all[lineend_pos:]
-            if text_after_lines.startswith("\n"):
+            if len(text_after_lines) and text_after_lines.startswith("\n"):
                 text_after_lines = text_after_lines[1:]
             text_lines = text_all[linestart_pos:lineend_pos]
 
-            selection = cursor.selection().toPlainText() if cursor.hasSelection() else ""
-
-            # Auto-pairing for various characters
-            if key == Qt.Key_ParenLeft and (len(selection) > 0 or re.match(r"[\s)}\];]+", text_after_cursor) or not text_after_cursor):
+            if cursor.hasSelection():
+                selection = cursor.selection().toPlainText()
+            else:
+                selection = ""
+            if key == Qt.Key_ParenLeft and (len(selection) > 0 or re.match(r"[\s)}\];]+", text_after_cursor) or not len(
+                    text_after_cursor)):  # (
                 cursor.insertText("(" + selection + ")")
                 cursor.setPosition(apos + 1, QtGui.QTextCursor.MoveAnchor)
                 cursor.setPosition(cpos + 1, QtGui.QTextCursor.KeepAnchor)
                 self.setTextCursor(cursor)
-            elif key == Qt.Key_ParenRight and text_after_cursor.startswith(")"):
+            elif key == Qt.Key_ParenRight and text_after_cursor.startswith(")"):  # )
                 cursor.movePosition(QtGui.QTextCursor.NextCharacter)
                 self.setTextCursor(cursor)
-            elif key in [94, Qt.Key_BracketLeft] and (len(selection) > 0 or re.match(r"[\s)}\];]+", text_after_cursor) or not text_after_cursor):
+            elif key in [94, Qt.Key_BracketLeft] \
+                    and (len(selection) > 0 or re.match(r"[\s)}\];]+", text_after_cursor)
+                         or not len(text_after_cursor)):  # [
                 cursor.insertText("[" + selection + "]")
                 cursor.setPosition(apos + 1, QtGui.QTextCursor.MoveAnchor)
                 cursor.setPosition(cpos + 1, QtGui.QTextCursor.KeepAnchor)
                 self.setTextCursor(cursor)
-            elif key in [Qt.Key_BracketRight, 43, 93] and text_after_cursor.startswith("]"):
+            elif key in [Qt.Key_BracketRight, 43, 93] and text_after_cursor.startswith("]"):  # ]
                 cursor.movePosition(QtGui.QTextCursor.NextCharacter)
                 self.setTextCursor(cursor)
-            elif key == Qt.Key_BraceLeft and (len(selection) > 0 or re.match(r"[\s)}\];]+", text_after_cursor) or not text_after_cursor):
+            elif key == Qt.Key_BraceLeft and (len(selection) > 0 or re.match(r"[\s)}\];]+", text_after_cursor)
+                                              or not len(text_after_cursor)):  # {
                 cursor.insertText("{" + selection + "}")
                 cursor.setPosition(apos + 1, QtGui.QTextCursor.MoveAnchor)
                 cursor.setPosition(cpos + 1, QtGui.QTextCursor.KeepAnchor)
                 self.setTextCursor(cursor)
-            elif key in [199, Qt.Key_BraceRight] and text_after_cursor.startswith("}"):
+            elif key in [199, Qt.Key_BraceRight] and text_after_cursor.startswith("}"):  # }
                 cursor.movePosition(QtGui.QTextCursor.NextCharacter)
                 self.setTextCursor(cursor)
             elif key == 34:  # "
@@ -196,9 +228,10 @@ class KSScriptEditor(QtWidgets.QPlainTextEdit):
                     cursor.setPosition(cpos + 1, QtGui.QTextCursor.KeepAnchor)
                 elif text_after_cursor.startswith('"') and '"' in text_before_cursor.split("\n")[-1]:
                     cursor.movePosition(QtGui.QTextCursor.NextCharacter)
-                elif not re.match(r"(?:[\s)\]]+|$)", text_after_cursor):
+                elif not re.match(r"(?:[\s)\]]+|$)", text_after_cursor):  # If chars after cursor, act normal
                     QtWidgets.QPlainTextEdit.keyPressEvent(self, event)
-                elif not re.search(r"[\s.({\[,]$", text_before_cursor) and text_before_cursor != "":
+                elif not re.search(r"[\s.({\[,]$",
+                                   text_before_cursor) and text_before_cursor != "":  # Chars before cursor: act normal
                     QtWidgets.QPlainTextEdit.keyPressEvent(self, event)
                 else:
                     cursor.insertText('"' + selection + '"')
@@ -212,31 +245,37 @@ class KSScriptEditor(QtWidgets.QPlainTextEdit):
                     cursor.setPosition(cpos + 1, QtGui.QTextCursor.KeepAnchor)
                 elif text_after_cursor.startswith("'") and "'" in text_before_cursor.split("\n")[-1]:
                     cursor.movePosition(QtGui.QTextCursor.NextCharacter)
-                elif not re.match(r"(?:[\s)\]]+|$)", text_after_cursor):
+                elif not re.match(r"(?:[\s)\]]+|$)", text_after_cursor):  # If chars after cursor, act normal
                     QtWidgets.QPlainTextEdit.keyPressEvent(self, event)
-                elif not re.search(r"[\s.({\[,]$", text_before_cursor) and text_before_cursor != "":
+                elif not re.search(r"[\s.({\[,]$",
+                                   text_before_cursor) and text_before_cursor != "":  # Chars before cursor: act normal
                     QtWidgets.QPlainTextEdit.keyPressEvent(self, event)
                 else:
                     cursor.insertText("'" + selection + "'")
                     cursor.setPosition(apos + 1, QtGui.QTextCursor.MoveAnchor)
                     cursor.setPosition(cpos + 1, QtGui.QTextCursor.KeepAnchor)
                 self.setTextCursor(cursor)
-            # Additional custom behaviors (hash comments, duplication, line movement, etc.)
-            elif key == 35 and len(selection):
-                selection_split = selection.split("\n")
-                if all(i.startswith("#") for i in selection_split):
-                    selection_commented = "\n".join([s[1:] for s in selection_split])
-                else:
-                    selection_commented = "#" + "\n#".join(selection_split)
-                cursor.insertText(selection_commented)
-                if apos > cpos:
-                    cursor.setPosition(apos + len(selection_commented) - len(selection), QtGui.QTextCursor.MoveAnchor)
-                    cursor.setPosition(cpos, QtGui.QTextCursor.KeepAnchor)
-                else:
-                    cursor.setPosition(apos, QtGui.QTextCursor.MoveAnchor)
-                    cursor.setPosition(cpos + len(selection_commented) - len(selection), QtGui.QTextCursor.KeepAnchor)
-                self.setTextCursor(cursor)
-            elif key == 68 and ctrl and shift:  # Ctrl+Shift+D: duplicate
+            elif key == 35 and len(selection):  # # (yes, a hash)
+                # If there's a selection, insert a hash at the start of each line.. how?
+                if selection != "":
+                    selection_split = selection.split("\n")
+                    if all(i.startswith("#") for i in selection_split):
+                        selection_commented = "\n".join([s[1:] for s in selection_split])  # Uncommented
+                    else:
+                        selection_commented = "#" + "\n#".join(selection_split)
+                    cursor.insertText(selection_commented)
+                    if apos > cpos:
+                        cursor.setPosition(apos + len(selection_commented) - len(selection),
+                                           QtGui.QTextCursor.MoveAnchor)
+                        cursor.setPosition(cpos, QtGui.QTextCursor.KeepAnchor)
+                    else:
+                        cursor.setPosition(apos, QtGui.QTextCursor.MoveAnchor)
+                        cursor.setPosition(cpos + len(selection_commented) - len(selection),
+                                           QtGui.QTextCursor.KeepAnchor)
+                    self.setTextCursor(cursor)
+
+            elif key == 68 and ctrl and shift:  # Ctrl+Shift+D, to duplicate text or line/s
+
                 if not len(selection):
                     self.setPlainText(text_before_lines + text_lines + "\n" + text_lines + "\n" + text_after_lines)
                     cursor.setPosition(apos + len(text_lines) + 1, QtGui.QTextCursor.MoveAnchor)
@@ -254,15 +293,24 @@ class KSScriptEditor(QtWidgets.QPlainTextEdit):
                         cursor.setPosition(apos + len(selection), QtGui.QTextCursor.MoveAnchor)
                         cursor.setPosition(cpos + len(selection), QtGui.QTextCursor.KeepAnchor)
                     self.setTextCursor(cursor)
-            elif key == up_arrow and ctrl and shift and len(text_before_lines):
+
+            elif key == up_arrow and ctrl and shift and len(
+                    text_before_lines):  # Ctrl+Shift+Up, to move the selected line/s up
                 prev_line_start_distance = text_before_lines[:-1][::-1].find("\n")
-                prev_line_start_pos = 0 if prev_line_start_distance == -1 else len(text_before_lines) - 1 - prev_line_start_distance
+                if prev_line_start_distance == -1:
+                    prev_line_start_pos = 0  # Position of the start of the previous line
+                else:
+                    prev_line_start_pos = len(text_before_lines) - 1 - prev_line_start_distance
                 prev_line = text_before_lines[prev_line_start_pos:]
+
                 text_before_prev_line = text_before_lines[:prev_line_start_pos]
+
                 if prev_line.endswith("\n"):
                     prev_line = prev_line[:-1]
+
                 if len(text_after_lines):
                     text_after_lines = "\n" + text_after_lines
+
                 self.setPlainText(text_before_prev_line + text_lines + "\n" + prev_line + text_after_lines)
                 cursor.setPosition(apos - len(prev_line) - 1, QtGui.QTextCursor.MoveAnchor)
                 cursor.setPosition(cpos - len(prev_line) - 1, QtGui.QTextCursor.KeepAnchor)
@@ -270,11 +318,18 @@ class KSScriptEditor(QtWidgets.QPlainTextEdit):
                 self.verticalScrollBar().setValue(pre_scroll)
                 self.scrollToCursor()
                 return
-            elif key == down_arrow and ctrl and shift:
+
+            elif key == down_arrow and ctrl and shift:  # Ctrl+Shift+Up, to move the selected line/s up
+                if not len(text_after_lines):
+                    text_after_lines = ""
                 next_line_end_distance = text_after_lines.find("\n")
-                next_line_end_pos = len(text_all) if next_line_end_distance == -1 else next_line_end_distance
+                if next_line_end_distance == -1:
+                    next_line_end_pos = len(text_all)
+                else:
+                    next_line_end_pos = next_line_end_distance
                 next_line = text_after_lines[:next_line_end_pos]
                 text_after_next_line = text_after_lines[next_line_end_pos:]
+
                 self.setPlainText(text_before_lines + next_line + "\n" + text_lines + text_after_next_line)
                 cursor.setPosition(apos + len(next_line) + 1, QtGui.QTextCursor.MoveAnchor)
                 cursor.setPosition(cpos + len(next_line) + 1, QtGui.QTextCursor.KeepAnchor)
@@ -282,93 +337,156 @@ class KSScriptEditor(QtWidgets.QPlainTextEdit):
                 self.verticalScrollBar().setValue(pre_scroll)
                 self.scrollToCursor()
                 return
-            elif key == up_arrow and not len(text_before_lines):
-                cursor.setPosition(0, QtGui.QTextCursor.MoveAnchor if not shift else QtGui.QTextCursor.KeepAnchor)
-                self.setTextCursor(cursor)
-            elif key == down_arrow and not len(text_after_lines):
-                cursor.setPosition(len(text_all), QtGui.QTextCursor.MoveAnchor if not shift else QtGui.QTextCursor.KeepAnchor)
-                self.setTextCursor(cursor)
+
+            elif key == up_arrow and not len(text_before_lines):  # If up key and nothing happens, go to start
+                if not shift:
+                    cursor.setPosition(0, QtGui.QTextCursor.MoveAnchor)
+                    self.setTextCursor(cursor)
+                else:
+                    cursor.setPosition(0, QtGui.QTextCursor.KeepAnchor)
+                    self.setTextCursor(cursor)
+
+            elif key == down_arrow and not len(text_after_lines):  # If up key and nothing happens, go to start
+                if not shift:
+                    cursor.setPosition(len(text_all), QtGui.QTextCursor.MoveAnchor)
+                    self.setTextCursor(cursor)
+                else:
+                    cursor.setPosition(len(text_all), QtGui.QTextCursor.KeepAnchor)
+                    self.setTextCursor(cursor)
+
+            # if enter or return, match indent level
             elif key in [16777220, 16777221]:
                 self.indentNewLine()
+
+            # If ctrl + +, increase font size
             elif ctrl and key == Qt.Key_Plus:
                 font = self.font()
                 font.setPointSize(-(-font.pointSize() // 0.9))
                 self.setFont(font)
+            # If ctrl + -, decrease font size
             elif ctrl and key == Qt.Key_Minus:
                 font = self.font()
                 font.setPointSize(font.pointSize() // 1.1)
                 self.setFont(font)
+
             else:
                 QtWidgets.QPlainTextEdit.keyPressEvent(self, event)
+
         self.scrollToCursor()
 
     def scrollToCursor(self):
         self.cursor = self.textCursor()
-        self.cursor.movePosition(QtGui.QTextCursor.NoMove)
+        self.cursor.movePosition(
+            QtGui.QTextCursor.NoMove)  # Does nothing, but makes the scroll go to the right place...
         self.setTextCursor(self.cursor)
 
     def getCursorInfo(self):
+
         self.cursor = self.textCursor()
+
         self.firstChar = self.cursor.selectionStart()
         self.lastChar = self.cursor.selectionEnd()
-        self.noSelection = (self.firstChar == self.lastChar)
+
+        self.noSelection = False
+        if self.firstChar == self.lastChar:
+            self.noSelection = True
+
         self.originalPosition = self.cursor.position()
         self.cursorBlockPos = self.cursor.positionInBlock()
 
     def unindentBackspace(self):
-        """ Snap to previous indent level on backspace. """
+        """
+        #snap to previous indent level
+        """
         self.getCursorInfo()
+
         if not self.noSelection or self.cursorBlockPos == 0:
             return False
+
+        # check text in front of cursor
         text_in_front = self.document().findBlock(self.firstChar).text()[:self.cursorBlockPos]
+
+        # check whether solely spaces
         if text_in_front != ' ' * self.cursorBlockPos:
             return False
+
+        # snap to previous indent level
         spaces = len(text_in_front)
-        for _ in range(int(spaces - int(float(spaces - 1) // self.tab_spaces) * self.tab_spaces - 1)):
+
+        for space in range(int(spaces - int(float(spaces - 1) // self.tab_spaces) * self.tab_spaces - 1)):
             self.cursor.deletePreviousChar()
 
     def indentNewLine(self):
+        # In case selection covers multiple line, make it one line first
         self.insertPlainText('')
         self.getCursorInfo()
+
+        # Check how many spaces after cursor
         text = self.document().findBlock(self.firstChar).text()
         text_in_front = text[:self.cursorBlockPos]
+
         if len(text_in_front) == 0:
             self.insertPlainText('\n')
             return
+
         indent_level = 0
-        for char in text_in_front:
-            if char == ' ':
+        for i in text_in_front:
+            if i == ' ':
                 indent_level += 1
             else:
                 break
+
         indent_level //= self.tab_spaces
-        while text_in_front and text_in_front[-1] == ' ':
-            text_in_front = text_in_front[:-1]
-        if text_in_front and text_in_front[-1] == ':':
+
+        # find out whether text_in_front's last character was a ':'
+        # if that's the case add another indent.
+        # ignore any spaces at the end, however also
+        # make sure text_in_front is not just an indent
+        if text_in_front.count(' ') != len(text_in_front):
+            while text_in_front[-1] == ' ':
+                text_in_front = text_in_front[:-1]
+
+        if text_in_front[-1] == ':':
             indent_level += 1
+
+        # new line
         self.insertPlainText('\n')
+        # match indent
         self.insertPlainText(' ' * int(self.tab_spaces * indent_level))
 
     def indentation(self, mode):
+
         pre_scroll = self.verticalScrollBar().value()
         self.getCursorInfo()
+
+        # if nothing is selected and mode is set to indent, simply insert as many
+        # space as needed to reach the next indentation level.
         if self.noSelection and mode == 'indent':
             remaining_spaces = self.tab_spaces - (self.cursorBlockPos % self.tab_spaces)
             self.insertPlainText(' ' * remaining_spaces)
             return
+
         selected_blocks = self.findBlocks(self.firstChar, self.lastChar)
         before_blocks = self.findBlocks(last=self.firstChar - 1, exclude=selected_blocks)
         after_blocks = self.findBlocks(first=self.lastChar + 1, exclude=selected_blocks)
+
         before_blocks_text = self.blocks2list(before_blocks)
         selected_blocks_text = self.blocks2list(selected_blocks, mode)
         after_blocks_text = self.blocks2list(after_blocks)
+
         combined_text = '\n'.join(before_blocks_text + selected_blocks_text + after_blocks_text)
+
+        # make sure the line count stays the same
         original_block_count = len(self.toPlainText().split('\n'))
         combined_text = '\n'.join(combined_text.split('\n')[:original_block_count])
+
         self.clear()
         self.setPlainText(combined_text)
+
         if self.noSelection:
             self.cursor.setPosition(self.lastChar)
+
+        # check whether the the orignal selection was from top to bottom or vice versa
         else:
             if self.originalPosition == self.firstChar:
                 first = self.lastChar
@@ -380,10 +498,12 @@ class KSScriptEditor(QtWidgets.QPlainTextEdit):
                 last = self.lastChar
                 first_block_snap = QtGui.QTextCursor.StartOfBlock
                 last_block_snap = QtGui.QTextCursor.EndOfBlock
+
             self.cursor.setPosition(first)
             self.cursor.movePosition(first_block_snap, QtGui.QTextCursor.MoveAnchor)
             self.cursor.setPosition(last, QtGui.QTextCursor.KeepAnchor)
             self.cursor.movePosition(last_block_snap, QtGui.QTextCursor.KeepAnchor)
+
         self.setTextCursor(self.cursor)
         self.verticalScrollBar().setValue(pre_scroll)
 
@@ -409,58 +529,63 @@ class KSScriptEditor(QtWidgets.QPlainTextEdit):
                 elif block_text.startswith(' '):
                     block_text = block_text[1:]
                     self.lastChar -= 1
+
             elif mode == 'indent':
                 block_text = ' ' * self.tab_spaces + block_text
                 self.lastChar += self.tab_spaces
+
             text.append(block_text)
+
         return text
 
     def highlightCurrentLine(self):
+        """
+        Highlight currently selected line
+        """
         extra_selections = []
+
         selection = QtWidgets.QTextEdit.ExtraSelection()
+
         selection.format.setBackground(self.lineColor)
         selection.format.setProperty(QtGui.QTextFormat.FullWidthSelection, True)
         selection.cursor = self.textCursor()
         selection.cursor.clearSelection()
+
         extra_selections.append(selection)
+
         self.setExtraSelections(extra_selections)
         self.scrollToCursor()
 
-    def set_custom_tab_stop(self, width):
-        if hasattr(self, 'setTabStopDistance'):
-            # PySide6
-            self.setTabStopDistance(width)
-        else:
-            # PySide2
-            self.setTabStopWidth(int(width))
-
-    def get_custom_tab_stop(self):
-        if hasattr(self, 'tabStopDistance'):
-            # PySide6
-            return self.tabStopDistance()
-        else:
-            # PySide2
-            return self.tabStopWidth()
-
     @staticmethod
     def format(rgb, style=''):
+        """
+        Return a QtWidgets.QTextCharFormat with the given attributes.
+        """
         color = QtGui.QColor(*rgb)
         text_format = QtGui.QTextCharFormat()
         text_format.setForeground(color)
+
         if 'bold' in style:
             text_format.setFontWeight(QtGui.QFont.Bold)
         if 'italic' in style:
             text_format.setFontItalic(True)
         if 'underline' in style:
             text_format.setUnderlineStyle(QtGui.QTextCharFormat.SingleUnderline)
+
         return text_format
 
     def setColorStyle(self, style=None):
+        """
+        Change bg and text color configurations regarding the editor style. This doesn't change the syntax highlighter
+        """
         styles = config.script_editor_styles
+
         if not style:
             style = config.prefs["se_style"]
+
         if style not in styles:
             return False
+
         self.setStyleSheet(styles[style]["stylesheet"])
         self.lineColor = QtGui.QColor(*styles[style]["selected_line_color"])
         self.lineNumberAreaColor = QtGui.QColor(*styles[style]["lineNumberAreaColor"])
@@ -471,11 +596,13 @@ class KSScriptEditor(QtWidgets.QPlainTextEdit):
         return True
 
     def set_code_language(self, lang="python"):
-        """ Sets the appropriate syntax highlighter and styles based on the language """
+        """ Sets the appropriate highlighter and styles """
+
         if lang is None and self.highlighter:
             self.highlighter.setDocument(None)
             self.highlighter = None
             self.code_language = None
+
         if isinstance(lang, str):
             if lang != self.code_language:
                 lang = lang.lower()
@@ -498,9 +625,11 @@ class KSScriptEditor(QtWidgets.QPlainTextEdit):
         else:
             logging.debug("Lang type not valid: " + str(type(lang)))
 
+
 class KSLineNumberArea(QtWidgets.QWidget):
     def __init__(self, script_editor):
         super(KSLineNumberArea, self).__init__(script_editor)
+
         self.scriptEditor = script_editor
         self.setStyleSheet("text-align: center;")
 

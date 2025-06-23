@@ -1,10 +1,12 @@
 # -*- coding: utf-8 -*-
-""" ScriptOutputWidget: Output console.
+""" ScriptOutputWidget: Output utput console.
 
 The Script Output Widget is a basic QTextEdit that works as the main output
-window of KnobScripter's Script Editor. This module can be extended in the future.
+window of the KnobScripter's Script Editor. Simple module that can grow
+as needed in the future.
 
 adrianpueyo.com
+
 """
 
 import nuke
@@ -12,70 +14,47 @@ import math
 from KnobScripter import config
 
 try:
-    if nuke.NUKE_VERSION_MAJOR >= 16:
-        from PySide6 import QtCore, QtGui, QtWidgets
-        from PySide6.QtCore import Qt
-        IS_PYSIDE6 = True
-    elif nuke.NUKE_VERSION_MAJOR >= 11:
-        from PySide2 import QtWidgets, QtGui, QtCore
-        from PySide2.QtCore import Qt
-        IS_PYSIDE6 = False
-    else:
+    if nuke.NUKE_VERSION_MAJOR < 11:
         from PySide import QtCore, QtGui, QtGui as QtWidgets
         from PySide.QtCore import Qt
-        IS_PYSIDE6 = False
+    else:
+        from PySide2 import QtWidgets, QtGui, QtCore
+        from PySide2.QtCore import Qt
 except ImportError:
     from Qt import QtCore, QtGui, QtWidgets
-    IS_PYSIDE6 = False
 
 
 class ScriptOutputWidget(QtWidgets.QTextEdit):
     """
-    Script Output Widget.
-
-    This widget works as the output logger, similar to Nuke's python script editor output window.
+    Script Output Widget
+    The output logger works the same way as Nuke's python script editor output window
     """
+
     def __init__(self, parent=None):
         super(ScriptOutputWidget, self).__init__(parent)
         self.knobScripter = parent
         self.setSizePolicy(QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Expanding)
         self.setMinimumHeight(20)
+        #self.font = QtGui.QFont()
+        #self.setFont(self.font)
         self.setFont(config.script_editor_font)
 
-    def set_custom_tab_stop(self, width):
-        if hasattr(self, 'setTabStopDistance'):
-            # PySide6
-            self.setTabStopDistance(width)
-        else:
-            # PySide2
-            self.setTabStopWidth(int(width))
-
-    def get_custom_tab_stop(self):
-        if hasattr(self, 'tabStopDistance'):
-            # PySide6
-            return self.tabStopDistance()
-        else:
-            # PySide2
-            return self.tabStopWidth()
 
     def keyPressEvent(self, event):
-        """
-        Handle key press events.
-
-        - Ctrl + Plus/Minus adjusts the font size via zoomIn/zoomOut.
-        - Space key is forwarded to the knobScripter's keyPressEvent.
-        - Backspace/Delete clears the console via knobScripter.clearConsole().
-        Otherwise, the default QTextEdit key press event is used.
-        """
+        # ctrl = ((event.modifiers() and Qt.ControlModifier) != 0)
         ctrl = bool(event.modifiers() & Qt.ControlModifier)
+        # alt = ((event.modifiers() and Qt.AltModifier) != 0)
+        # shift = ((event.modifiers() and Qt.ShiftModifier) != 0)
         key = event.key()
-
-        if isinstance(event, QtGui.QKeyEvent):
+        if type(event) == QtGui.QKeyEvent:
+            #print(event.key())
+            # If ctrl + +, increase font size
             if ctrl and key == Qt.Key_Plus:
                 self.zoomIn()
+            # If ctrl + -, decrease font size
             elif ctrl and key == Qt.Key_Minus:
                 self.zoomOut()
-            elif key == 32:  # Space key
+            elif key in [32]:  # Space
                 return self.knobScripter.keyPressEvent(event)
             elif key in [Qt.Key_Backspace, Qt.Key_Delete]:
                 self.knobScripter.clearConsole()
