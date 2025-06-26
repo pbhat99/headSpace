@@ -1,6 +1,12 @@
 import nuke
 import os
 
+def trimTo2Dec(value):
+    if isinstance(value, (list, tuple)):
+        return ", ".join(str("{0:.2f}".format(x)).rstrip('.0') for x in value)
+    else:
+        return str(round(value, 2)).rstrip('.0')
+
 def pbAutoLabel():
     def addIndicators():
         ind = nuke.expression("(keys?1:0)+(has_expression?2:0)+(clones?8:0)+(viewsplit?32:0)")
@@ -14,14 +20,14 @@ def pbAutoLabel():
     n = nuke.thisNode()
     if n.Class() == "Defocus":
         addIndicators()
-        aLabel.append(n.name() + ' [' + str(n['defocus'].value())+ ']')
+        aLabel.append(n.name() + ' [' + str(round(n['defocus'].value(), 2)).strip('.0')+ ']')
         aLabel if n["channels"].value() == "rgba" else aLabel.append('(' + str(n["channels"].value() + ')'))
         aLabel.append(n["label"].evaluate() or "")
         return "\n".join(aLabel).strip()
 
-    if n.Class() == "Blur":
+    if n.Class() in ("Blur", "Erode", "Dilate", "FilterErode", "EdgeBlur", "Median", "ZDefocus2", "Sharpen", "Soften"):
         addIndicators()
-        aLabel.append(n.name() + ' [' + str(n['size'].value())+ ']')
+        aLabel.append(n.name() + ' [' + trimTo2Dec(n['size'].value()) + ']')
         aLabel if n["channels"].value() == "rgba" else aLabel.append('(' + str(n["channels"].value() + ')'))
         aLabel.append(n["label"].evaluate() or "")
         return "\n".join(aLabel).strip()

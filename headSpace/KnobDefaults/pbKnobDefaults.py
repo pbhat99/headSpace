@@ -38,10 +38,9 @@ nuke.knobDefault('Viewer.full_frame_processing','true')
 nuke.knobDefault('Viewer.gl_lighting','true')
 
 # No Clip to format
-nuke.knobDefault('Roto.cliptype','no clip')
-nuke.knobDefault('RotoPaint.cliptype','no clip')
-nuke.knobDefault('Radial.cliptype','no clip')
-nuke.knobDefault('Ramp.cliptype','no clip')
+nodeClip = ["Roto", "RotoPaint", "Radial", "Ramp", "Rectangle", "Grid", "Text", "Text2"]
+for node in nodeClip:
+    nuke.knobDefault(f"{node}.cliptype", "no clip")
 
 # Filter
 nuke.knobDefault('FilterErode.filter','gaussian')
@@ -50,23 +49,12 @@ nuke.knobDefault("VectorBlur2.blur_uv","linear")
 nuke.knobDefault("VectorBlur2.blur_type","uniform")
 
 # All channels to rgba
-nuke.knobDefault('Defocus.channels','rgba')
-nuke.knobDefault('Blur.channels','rgba')
-nuke.knobDefault('Multiply.channels','rgba')
-nuke.knobDefault('Add.channels','rgba')
-nuke.knobDefault('Clamp.channels','rgba')
-nuke.knobDefault('Gamma.channels','rgba')
-nuke.knobDefault('Invert.channels','rgba')
-nuke.knobDefault('Dissolve.channels','rgba')
-nuke.knobDefault('Keymix.channels','rgba')
-nuke.knobDefault('Constant.channels','rgba')
-nuke.knobDefault('Dilate.channels','rgba')
-nuke.knobDefault('Erode.channels','rgba')
-nuke.knobDefault('FilterErode.channels','rgba')
-nuke.knobDefault('DirBlurWrapper.BlurLayer','rgba')
-nuke.knobDefault("STMap.channels","rgba")
-nuke.knobDefault("IDistort.channels","rgba")
-nuke.knobDefault("VectorBlur2.channels","rgba")
+nodeChannels_rgba = [
+    'Defocus', 'Blur', 'EdgeBlur', 'Multiply', 'Add', 'Clamp', 'Gamma', 'Invert', 'Dissolve', 'Keymix', 'Constant', 'Dilate', 'Erode',
+    'FilterErode', 'DirBlurWrapper', 'STMap', 'IDistort', 'VectorBlur2', 'Median', 'ZDefocus2', 'Sharpen', 'Soften'
+]
+for node in nodeChannels_rgba:
+    nuke.knobDefault(f"{node}.channels", "rgba")
 
 #nuke.knobDefault("Write.mov.colorspace", "")
 #nuke.knobDefault("Write.mov.codec","apch")
