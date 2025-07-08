@@ -1,0 +1,21 @@
+set cut_paste_input [stack 0]
+version 15.0 v3
+push $cut_paste_input
+NoOp {
+ name insert_label
+ tile_color 0x705500ff
+ note_font "Verdana Bold Italic"
+ note_font_size 15
+ selected true
+ xpos 140
+ ypos -653
+ hide_input true
+ addUserKnob {20 settings}
+ addUserKnob {26 _2 l "" +STARTLINE T "<span style=\"color:#aaa;font-family:sans-serif\"><b><span style=\"color:#ffaf24\">MS_Stamp v.1.0</span></b>"}
+ addUserKnob {26 _1 l "" +STARTLINE}
+ addUserKnob {3 read_number l Read t "<br>Automatically connect this stamp to the Read node with the given number."}
+ addUserKnob {22 python_button -STARTLINE +INVISIBLE T "import nuke\n\n# Global variable to store the previous value of the knob\nprevious_knob_value = None\n\ndef connect_noop_to_read():\n    selected_node = nuke.selectedNode()\n    \n    if not selected_node:\n        return\n\n    read_number = selected_node\['read_number'].value()\n\n    read_node = nuke.toNode('Read\{\}'.format(read_number))\n\n    if not read_node:\n        return\n\n    selected_node.setInput(0, read_node)\n\n# Function to be called when the integer knob changes\ndef knob_changed_callback():\n    global previous_knob_value\n\n    selected_node = nuke.selectedNode()\n    if selected_node:\n        current_knob_value = selected_node\['read_number'].value()\n        if current_knob_value != previous_knob_value:\n            connect_noop_to_read()\n            previous_knob_value = current_knob_value\n\n# Call the function to initialize the previous_knob_value\nknob_changed_callback()\n\n# Add knob changed callback to execute whenever the integer knob changes\nnuke.addKnobChanged(knob_changed_callback)\n"}
+ addUserKnob {20 info}
+ addUserKnob {26 _3 l "" +STARTLINE T "<br><span style=\"color:#aaa;font-family:sans-serif;font-size:7pt\">node created by <b><span style=\"color:#aaaa00\">Johannes Kretschmer</span></b> mail: Jolegodrum@t-online.de - Version 1.0 - 2024 / part of  <span style=\"color:#aaa;font-family:sans-serif\"><b><span style=\"color:#ffaf24\">MANGO SUITE</span></b>\n"}
+ addUserKnob {26 _4 l "" +STARTLINE T "<br><a href=\"https://youtu.be/2iKDRpMZBeA\"><b><span style=\"color:#aaa\"><i>watch tutorial</span></b></a>"}
+}

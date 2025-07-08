@@ -1,0 +1,258 @@
+set cut_paste_input [stack 0]
+version 14.0 v5
+push $cut_paste_input
+Group {
+ name MS_grade_special
+ tile_color 0xefb500ff
+ note_font "Verdana Bold Italic"
+ selected true
+ xpos 74
+ ypos -196
+ addUserKnob {20 grade}
+ addUserKnob {6 color_rgb_panelDropped l "panel dropped state" +HIDDEN +STARTLINE}
+ addUserKnob {26 _4 l "" +STARTLINE T "<span style=\"color:#aaa;font-family:sans-serif\"><b><span style=\"color:#ffaf24\">MS_Grade Special v.1.0</span></b>"}
+ addUserKnob {26 ""}
+ addUserKnob {4 channel M {hue saturation brightness "" ""}}
+ channel brightness
+ addUserKnob {26 ""}
+ addUserKnob {41 channels T GradeMaster.channels}
+ addUserKnob {41 blackpoint T GradeMaster.blackpoint}
+ addUserKnob {41 whitepoint T GradeMaster.whitepoint}
+ addUserKnob {41 black l lift T GradeMaster.black}
+ addUserKnob {41 white l gain T GradeMaster.white}
+ addUserKnob {41 multiply T GradeMaster.multiply}
+ addUserKnob {41 add l offset T GradeMaster.add}
+ addUserKnob {41 gamma T GradeMaster.gamma}
+ addUserKnob {41 contrast T ColorCorrect1.contrast}
+ addUserKnob {41 reverse T GradeMaster.reverse}
+ addUserKnob {41 black_clamp l "black clamp" -STARTLINE T GradeMaster.black_clamp}
+ addUserKnob {41 white_clamp l "white clamp" -STARTLINE T GradeMaster.white_clamp}
+ addUserKnob {26 ""}
+ addUserKnob {26 "" l mask T ""}
+ addUserKnob {41 maskChannelInput l "" -STARTLINE T GradeMaster.maskChannelInput}
+ addUserKnob {6 invert -STARTLINE}
+ addUserKnob {41 unpremult l "(un)premult by" T GradeMaster.unpremult}
+ addUserKnob {7 mixlum l "mix luminance"}
+ addUserKnob {41 mix T GradeMaster.mix}
+ addUserKnob {20 _2 l info}
+ addUserKnob {26 _5 l "" +STARTLINE T "This grade lets you affect the hue, saturation and\nbrightness channels individually.\n\nThat means if the node is set to brightness \nthere will be no changes in the saturation when\nchanging the brightness.\n\n"}
+ addUserKnob {26 _3 l "" +STARTLINE T "<span style=\"color:#aaa;font-family:sans-serif;font-size:7pt\">node created by <b><span style=\"color:#aaaa00\">Johannes Kretschmer</span></b> mail: Jolegodrum@t-online.de - Version 1.0 - 2022 / part of  <span style=\"color:#aaa;font-family:sans-serif\"><b><span style=\"color:#ffaf24\">MANGO SUITE</span></b>\n"}
+}
+ Input {
+  inputs 0
+  name mask
+  xpos -241
+  ypos 250
+  number 1
+  addUserKnob {20 User}
+  addUserKnob {6 connected +STARTLINE}
+  connected {{"\[exists input1]"}}
+ }
+set N357bc00 [stack 0]
+ Dot {
+  name Dot14
+  xpos -85
+  ypos 253
+ }
+set N357b800 [stack 0]
+ Dot {
+  name Dot13
+  xpos -85
+  ypos 495
+ }
+push $N357bc00
+ Invert {
+  name Invert1
+  xpos -241
+  ypos 322
+ }
+push $N357b800
+ Switch {
+  inputs 2
+  which {{parent.invert}}
+  name Switch3
+  xpos -241
+  ypos 427
+ }
+ Switch {
+  inputs 2
+  which {{mask.connected?0:1}}
+  name Switch2
+  xpos -241
+  ypos 492
+ }
+ Dot {
+  name Dot9
+  xpos -207
+  ypos 561
+ }
+set N9a0dac00 [stack 0]
+ Dot {
+  name Dot1
+  xpos -207
+  ypos 793
+ }
+push $N9a0dac00
+ Input {
+  inputs 0
+  name Input1
+  xpos -565
+  ypos 190
+ }
+ Colorspace {
+  colorspace_out HSV
+  name Colorspace13
+  xpos -565
+  ypos 323
+ }
+ Dot {
+  name Dot4
+  xpos -531
+  ypos 365
+ }
+set N9a0fd400 [stack 0]
+ Dot {
+  name Dot8
+  xpos -400
+  ypos 365
+ }
+ Grade {
+  inputs 1+1
+  channels {{{parent.GradeMaster.channels}}}
+  blackpoint {{parent.GradeMaster.blackpoint}}
+  whitepoint {{parent.GradeMaster.whitepoint}}
+  black {{parent.GradeMaster.black}}
+  white {{parent.GradeMaster.white}}
+  multiply {{parent.GradeMaster.multiply}}
+  add {{parent.GradeMaster.add}}
+  gamma {{parent.GradeMaster.gamma}}
+  reverse {{parent.GradeMaster.reverse}}
+  black_clamp {{parent.GradeMaster.black_clamp}}
+  white_clamp {{parent.GradeMaster.white_clamp}}
+  maskChannelInput {{{parent.GradeMaster.maskChannelInput}}}
+  inject {{parent.GradeMaster.inject}}
+  invert_mask {{parent.GradeMaster.invert_mask}}
+  fringe {{parent.GradeMaster.fringe}}
+  unpremult {{{parent.GradeMaster.unpremult}}}
+  invert_unpremult {{parent.GradeMaster.invert_unpremult}}
+  mix_luminance {{parent.mixlum}}
+  mix {{parent.GradeMaster.mix}}
+  name GradeBRIGHT
+  xpos -434
+  ypos 481
+ }
+ Dot {
+  name Dot6
+  xpos -400
+  ypos 713
+ }
+push $N9a0dac00
+ Dot {
+  name Dot10
+  xpos -338
+  ypos 561
+ }
+set N9a0db000 [stack 0]
+push $N9a0fd400
+ Grade {
+  inputs 1+1
+  channels {{{parent.GradeMaster.channels}}}
+  blackpoint {{parent.GradeMaster.blackpoint}}
+  whitepoint {{parent.GradeMaster.whitepoint}}
+  black {{parent.GradeMaster.black}}
+  white {{parent.GradeMaster.white}}
+  multiply {{parent.GradeMaster.multiply}}
+  add {{parent.GradeMaster.add}}
+  gamma {{parent.GradeMaster.gamma}}
+  reverse {{parent.GradeMaster.reverse}}
+  black_clamp {{parent.GradeMaster.black_clamp}}
+  white_clamp {{parent.GradeMaster.white_clamp}}
+  maskChannelInput {{{parent.GradeMaster.maskChannelInput}}}
+  inject {{parent.GradeMaster.inject}}
+  invert_mask {{parent.GradeMaster.invert_mask}}
+  fringe {{parent.GradeMaster.fringe}}
+  unpremult {{{parent.GradeMaster.unpremult}}}
+  invert_unpremult {{parent.GradeMaster.invert_unpremult}}
+  mix_luminance {{parent.mixlum}}
+  mix {{parent.GradeMaster.mix}}
+  name GradeSATUR
+  xpos -565
+  ypos 480
+ }
+push $N9a0db000
+ Dot {
+  name Dot11
+  xpos -477
+  ypos 561
+ }
+push $N9a0fd400
+ Dot {
+  name Dot7
+  xpos -670
+  ypos 365
+ }
+ Grade {
+  inputs 1+1
+  channels {{{parent.GradeMaster.channels}}}
+  blackpoint {{parent.GradeMaster.blackpoint}}
+  whitepoint {{parent.GradeMaster.whitepoint}}
+  black {{parent.GradeMaster.black}}
+  white {{parent.GradeMaster.white}}
+  multiply {{parent.GradeMaster.multiply}}
+  add {{parent.GradeMaster.add}}
+  gamma {{parent.GradeMaster.gamma}}
+  reverse {{parent.GradeMaster.reverse}}
+  black_clamp {{parent.GradeMaster.black_clamp}}
+  white_clamp {{parent.GradeMaster.white_clamp}}
+  maskChannelInput {{{parent.GradeMaster.maskChannelInput}}}
+  inject {{parent.GradeMaster.inject}}
+  invert_mask {{parent.GradeMaster.invert_mask}}
+  fringe {{parent.GradeMaster.fringe}}
+  unpremult {{{parent.GradeMaster.unpremult}}}
+  invert_unpremult {{parent.GradeMaster.invert_unpremult}}
+  mix_luminance {{parent.mixlum}}
+  mix {{parent.GradeMaster.mix}}
+  name GradeHUE
+  xpos -704
+  ypos 481
+ }
+ Dot {
+  name Dot5
+  xpos -670
+  ypos 713
+ }
+ Switch {
+  inputs 3
+  which {{parent.channel}}
+  name Switch4
+  xpos -565
+  ypos 710
+ }
+ ColorCorrect {
+  inputs 1+1
+  channels {{{parent.GradeMaster.channels}}}
+  name ColorCorrect1
+  xpos -565
+  ypos 790
+ }
+ Colorspace {
+  colorspace_in HSV
+  name Colorspace14
+  xpos -565
+  ypos 870
+ }
+ Output {
+  name Output1
+  xpos -565
+  ypos 950
+ }
+ Grade {
+  inputs 0
+  mix_luminance {{parent.mixlum}}
+  name GradeMaster
+  tile_color 0xff0000ff
+  xpos -832
+  ypos 390
+  hide_input true
+ }
+end_group

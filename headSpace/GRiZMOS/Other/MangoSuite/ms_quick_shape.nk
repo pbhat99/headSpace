@@ -1,0 +1,426 @@
+set cut_paste_input [stack 0]
+version 15.1 v6
+Group {
+ inputs 0
+ name ms_quick_shape
+ tile_color 0xefb500ff
+ note_font "Verdana Bold Italic"
+ selected true
+ xpos -40
+ ypos -330
+ addUserKnob {20 settings l shape}
+ addUserKnob {26 _1 l "" +STARTLINE T "<span style=\"color:#aaa;font-family:sans-serif\"><b><span style=\"color:#ffaf24\">MS_Quick Shape v.1.0</span></b>"}
+ addUserKnob {26 ""}
+ addUserKnob {41 format l "output format" T Reformat1.format}
+ addUserKnob {26 ""}
+ addUserKnob {4 shape M {N-Gon circle cross star "" ""}}
+ addUserKnob {6 cfill l fill -STARTLINE}
+ addUserKnob {26 ""}
+ addUserKnob {7 cradius l radius}
+ cradius 0.9
+ addUserKnob {7 cthickness l thickness}
+ cthickness 0.1
+ addUserKnob {7 crossrot l rotation R -180 180}
+ addUserKnob {26 ""}
+ addUserKnob {3 ncorners l corners}
+ ncorners 6
+ addUserKnob {26 ""}
+ addUserKnob {26 "" +STARTLINE}
+ addUserKnob {20 info}
+ addUserKnob {26 _2 l "" +STARTLINE T "<br><span style=\"color:#aaa;font-family:sans-serif;font-size:7pt\">node created by <b><span style=\"color:#aaaa00\">Johannes Kretschmer</span></b> mail: Jolegodrum@t-online.de - Version 1.0 - 2025 / part of  <span style=\"color:#aaa;font-family:sans-serif\"><b><span style=\"color:#ffaf24\">MANGO SUITE</span></b>\n"}
+}
+ BackdropNode {
+  inputs 0
+  name _1
+  tile_color 0xa8a377ff
+  label "<p align=\"center\">N-Gon"
+  note_font "Arial Bold"
+  note_font_size 40
+  xpos -1399
+  ypos -419
+  bdwidth 645
+  bdheight 1004
+ }
+ BackdropNode {
+  inputs 0
+  name _2
+  tile_color 0xa8a377ff
+  label "<p align=\"center\">Circle"
+  note_font "Arial Bold"
+  note_font_size 40
+  xpos -682
+  ypos -422
+  bdwidth 645
+  bdheight 1004
+ }
+ BackdropNode {
+  inputs 0
+  name _3
+  tile_color 0xa8a377ff
+  label "<p align=\"center\">Cross"
+  note_font "Arial Bold"
+  note_font_size 40
+  xpos 38
+  ypos -422
+  bdwidth 645
+  bdheight 1004
+ }
+ BackdropNode {
+  inputs 0
+  name _4
+  tile_color 0xa8a377ff
+  label "<p align=\"center\">Star"
+  note_font "Arial Bold"
+  note_font_size 40
+  xpos 758
+  ypos -422
+  bdwidth 645
+  bdheight 1004
+ }
+ Crop {
+  inputs 0
+  box {0 0 {parent.res.absres} {parent.res.absres}}
+  reformat true
+  crop false
+  name Crop1
+  xpos -40
+  ypos -570
+  hide_input true
+ }
+ Dot {
+  name Dot5
+  xpos -7
+  ypos -327
+ }
+set Naf68c400 [stack 0]
+ Dot {
+  name Dot4
+  xpos 1073
+  ypos -247
+ }
+ Dot {
+  name Dot2
+  xpos 1073
+  ypos 473
+ }
+push $Naf68c400
+ Dot {
+  name Dot11
+  xpos 352
+  ypos -165
+ }
+ Grid {
+  number 0.1
+  size {{(parent.Crop1.box.r)*cthickness}}
+  translate {{parent.Crop1.box.r/2-(size/2)} {parent.Crop1.box.t/2-(size/2)}}
+  name Grid1
+  xpos 320
+  ypos -90
+ }
+ Crop {
+  box {{parent.Crop1.box.r-(parent.Crop1.box.r*cradius)} {parent.Crop1.box.r-(parent.Crop1.box.r*cradius)} {parent.Crop1.box.r*cradius} {parent.Crop1.box.t*cradius}}
+  name Crop2
+  xpos 320
+  ypos -10
+ }
+ Transform {
+  rotate {{parent.crossrot}}
+  center {{parent.Crop1.box.r/2} {parent.Crop1.box.r/2}}
+  name Transform3
+  label rotation
+  xpos 320
+  ypos 304
+ }
+ Dot {
+  name Dot10
+  xpos 353
+  ypos 473
+ }
+push $Naf68c400
+ Dot {
+  name Dot6
+  xpos -367
+  ypos -167
+ }
+ Radial {
+  area {0 0 {parent.res.absres} {parent.res.absres}}
+  softness 0
+  name Radial2
+  xpos -400
+  ypos -90
+ }
+ Transform {
+  scale {{parent.cradius}}
+  center {{parent.Crop1.box.r/2} {parent.Crop1.box.r/2}}
+  name Transform5
+  label scale
+  xpos -400
+  ypos -16
+ }
+set N93948000 [stack 0]
+ Dot {
+  name Dot12
+  xpos -547
+  ypos -7
+ }
+ Dot {
+  name Dot7
+  xpos -547
+  ypos 153
+ }
+push $N93948000
+push $N93948000
+ Dot {
+  name Dot13
+  xpos -187
+  ypos -7
+ }
+ Transform {
+  scale {{(parent.cthickness*-1)+1}}
+  center {{parent.Crop1.box.r/2} {parent.Crop1.box.r/2}}
+  name Transform4
+  label rotation
+  xpos -219
+  ypos 64
+ }
+ Merge2 {
+  inputs 2
+  operation minus
+  name Merge1
+  xpos -400
+  ypos 70
+  disable {{parent.cfill}}
+ }
+ Switch {
+  inputs 2
+  which {{parent.cfill}}
+  name Switch2
+  xpos -400
+  ypos 150
+ }
+ Dot {
+  name Dot14
+  xpos -367
+  ypos 473
+ }
+ Camera3 {
+  inputs 0
+  focal 35
+  name Camera1
+  note_font "Verdana Bold"
+  xpos -1110
+  ypos -30
+  hide_input true
+ }
+set Naf6be800 [stack 0]
+ Cylinder {
+  inputs 0
+  rows 0
+  columns {{parent.ncorners}}
+  height 0.01
+  close_top true
+  translate {0 0 -2.859}
+  rotate {90 0 0}
+  scaling {{parent.cradius} 1 {parent.cradius}}
+  name Cylinder2
+  xpos -1300
+  ypos -170
+  hide_input true
+ }
+push $Naf68c400
+ Dot {
+  name Dot3
+  xpos -1087
+  ypos -247
+ }
+ Dot {
+  name Dot8
+  xpos -1087
+  ypos -167
+ }
+set Naf6bf400 [stack 0]
+add_layer {motionvector motionvector.red motionvector.green motionvector.blue}
+add_layer {position position.red position.green position.blue}
+add_layer {normal normal.red normal.green normal.blue}
+ ScanlineRender {
+  inputs 3
+  conservative_shader_sampling false
+  antialiasing high
+  shutteroffset centred
+  motion_vectors_type distance
+  MB_channel motionvector
+  output_shader_vectors true
+  P_channel position
+  N_channel normal
+  name ScanlineRender2
+  xpos -1300
+  ypos -10
+ }
+ Shuffle2 {
+  fromInput1 {{0} B}
+  fromInput2 {{0} B}
+  mappings "4 rgba.alpha 0 3 rgba.red 0 0 rgba.alpha 0 3 rgba.green 0 1 rgba.alpha 0 3 rgba.blue 0 2 rgba.alpha 0 3 rgba.alpha 0 3"
+  name Shuffle2
+  label "\[value in1]"
+  xpos -1300
+  ypos 64
+ }
+set Nab25ec00 [stack 0]
+ Dot {
+  name Dot9
+  xpos -1267
+  ypos 313
+ }
+push $Nab25ec00
+push $Naf6be800
+ Cylinder {
+  inputs 0
+  rows 0
+  columns {{parent.ncorners}}
+  radius {{(cthickness*-1)+1}}
+  height 0.01
+  close_top true
+  translate {0 0 -2.859}
+  rotate {90 0 0}
+  scaling {{parent.cradius} 1 {parent.cradius}}
+  name Cylinder1
+  xpos -940
+  ypos -170
+  hide_input true
+ }
+set Naf6bec00 [stack 0]
+push $Naf6bf400
+ ScanlineRender {
+  inputs 3
+  conservative_shader_sampling false
+  antialiasing high
+  shutteroffset centred
+  motion_vectors_type distance
+  MB_channel motionvector
+  output_shader_vectors true
+  P_channel position
+  N_channel normal
+  name ScanlineRender1
+  xpos -940
+  ypos -10
+ }
+ Shuffle2 {
+  fromInput1 {{0} B}
+  fromInput2 {{0} B}
+  mappings "4 rgba.alpha 0 3 rgba.red 0 0 rgba.alpha 0 3 rgba.green 0 1 rgba.alpha 0 3 rgba.blue 0 2 rgba.alpha 0 3 rgba.alpha 0 3"
+  name Shuffle1
+  label "\[value in1]"
+  xpos -940
+  ypos 64
+ }
+ Merge2 {
+  inputs 2
+  operation minus
+  name Merge2
+  xpos -1120
+  ypos 230
+  disable {{parent.cfill}}
+ }
+set Na18f6800 [stack 0]
+ Switch {
+  inputs 2
+  which {{parent.cfill}}
+  name Switch3
+  xpos -1120
+  ypos 310
+ }
+ Transform {
+  rotate {{parent.crossrot}}
+  center {{parent.Crop1.box.r/2} {parent.Crop1.box.r/2}}
+  name Transform2
+  label rotation
+  xpos -1120
+  ypos 384
+ }
+ Dot {
+  name Dot1
+  xpos -1087
+  ypos 473
+ }
+ Switch {
+  inputs 4
+  which {{parent.shape}}
+  name Switch1
+  xpos -40
+  ypos 710
+ }
+ Transform {
+  scale {{1/parent.res.aspect} 1}
+  center {{parent.Crop1.box.r/2} {parent.Crop1.box.t/2}}
+  name Transform1
+  tile_color 0xaabfffff
+  label "fix aspect"
+  xpos -40
+  ypos 1344
+ }
+ Reformat {
+  format {{{parent.Reformat1.format}}}
+  resize none
+  name Reformat2
+  xpos -40
+  ypos 1430
+ }
+set Na18f7400 [stack 0]
+ Output {
+  name Output1
+  xpos -40
+  ypos 1590
+ }
+ Reformat {
+  inputs 0
+  name Reformat1
+  xpos -40
+  ypos -730
+  hide_input true
+ }
+ NoOp {
+  name res
+  note_font "Verdana Bold"
+  xpos -40
+  ypos -650
+  addUserKnob {20 User}
+  addUserKnob {30 resin l resolution}
+  resin {{"\[value input.format.r]"} {"\[value input.format.t]"}}
+  addUserKnob {3 absres l "absolut res" t "get the shape bounds based on high or queer format"}
+  absres {{"resin.u>resin.v ? resin.v : resin.u"}}
+  addUserKnob {7 aspect R 0 3}
+  aspect {{"\[value pixel_aspect]"}}
+ }
+push $Naf6bec00
+push 0
+push 0
+push 0
+push 0
+push 0
+push $Na18f7400
+push 0
+push $Na18f6800
+ Viewer {
+  inputs 9
+  frame_range 1000-1240
+  viewerProcess "sRGB (ACES)"
+  monitorOutNDISenderName "NukeX - quick shape_01 - Viewer1"
+  name Viewer1
+  xpos -580
+  ypos 1590
+  hide_input true
+ }
+ Flare {
+  inputs 0
+  position {578 487}
+  radius {120 120 120}
+  size_mult 4
+  corners 27
+  flattening 900
+  sharpness 1
+  corners_angle 122
+  name Flare1
+  xpos 860
+  ypos -10
+ }
+end_group

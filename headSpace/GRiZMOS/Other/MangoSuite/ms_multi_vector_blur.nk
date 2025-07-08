@@ -1,0 +1,303 @@
+set cut_paste_input [stack 0]
+version 15.1 v3
+push $cut_paste_input
+Group {
+ name ms_multi_vector_blur3
+ knobChanged "n = nuke.thisNode()\nk = nuke.thisKnob()\n\n#custom\nif k.name()==\"directionalblur_1\":\n    if k.value()== 1:\n     n\[\"strength1\"].setEnabled(True)\n     n\[\"direction\"].setEnabled(True)\n       \n    else: \n     n\[\"strength1\"].setEnabled(False)\n     n\[\"direction\"].setEnabled(False)\n"
+ tile_color 0xefb500ff
+ note_font "Verdana Bold Italic"
+ selected true
+ xpos 472
+ ypos -656
+ addUserKnob {20 settings}
+ addUserKnob {26 _1 l "" +STARTLINE T "<span style=\"color:#aaa;font-family:sans-serif\"><b><span style=\"color:#ffaf24\">MS_ Multi Vector Blur v.1.0</span></b>"}
+ addUserKnob {26 ""}
+ addUserKnob {41 channels t "channels that are affected by the vector blur" T VectorBlur_ctrl.channels}
+ addUserKnob {6 preservebbox l "preserve bbox" t "<br>Used the buildin bounding box operation to prevent. data outside of the frame from being deleted.\n\nAlso this checkbox will prevent unwanted edge artifacts." +STARTLINE}
+ preservebbox true
+ addUserKnob {14 overscan1 l "overscan <b>%" t "<br>Check how much overscan the input has and adjust this slider accordingly. If you can't get it right increase the overscan to be slightly bigger than the original." R 0 100}
+ overscan1 10
+ addUserKnob {26 ""}
+ addUserKnob {6 directionalblur_1 l "enable directional blur" t "\nthis overrides the incoming motion pass with a custom one which can be modified with \"strength mult\" and \"direction\"" +STARTLINE}
+ addUserKnob {7 strength1 l "strength mult" t "\nmultiply the blur strengh here to be able to keep motion amount at 1" +DISABLED R 0 50}
+ strength1 10
+ addUserKnob {7 direction t "<br>Blur direction.\n\nChange the uv channel to simple directional blur to be able to use this setting." +DISABLED R 0 360}
+ direction 90
+ addUserKnob {26 ""}
+ addUserKnob {32 tcl_button l "<span style=\"color:#7d5\"><b>uv pass - motionvector</span>" T "message \"Shuffle your vector pass into 'motionvector' before using this node!!!\"\n" +STARTLINE}
+ addUserKnob {41 mv_presets l "mv presets" T VectorBlur_ctrl.mv_presets}
+ addUserKnob {41 output l "&nbsp;output&nbsp;" -STARTLINE T VectorBlur_ctrl.output}
+ addUserKnob {41 blur_uv l "&nbsp;blur uv&nbsp;" T VectorBlur_ctrl.blur_uv}
+ addUserKnob {6 invertdir l "switch blur direction" -STARTLINE}
+ addUserKnob {7 rotate l "rotate vectors" t "<br>You can rotate existing vectors here.\n\nThe rotation will cause the blur strength to increase. You can counter that by decreasing the motion amount." R -90 90}
+ addUserKnob {26 ""}
+ addUserKnob {41 blur_type l "blur type" T VectorBlur_ctrl.blur_type}
+ addUserKnob {41 scale l "motion amount" T VectorBlur_ctrl.scale}
+ addUserKnob {41 motion_falloff l "motion falloff" T VectorBlur_ctrl.motion_falloff}
+ addUserKnob {41 offset l "shutter offset" T VectorBlur_ctrl.offset}
+ addUserKnob {41 grow_bbox l "expand blur bbox" T VectorBlur_ctrl.grow_bbox}
+ addUserKnob {41 soft_lines l "soft lines" T VectorBlur_ctrl.soft_lines}
+ addUserKnob {41 blur_inside l "blur inside" -STARTLINE T VectorBlur_ctrl.blur_inside}
+ addUserKnob {41 normalize -STARTLINE T VectorBlur_ctrl.normalize}
+ addUserKnob {26 mask l "<b>mask settings"}
+ addUserKnob {41 maskChannel l "mask channel" T Keymix1.maskChannel}
+ addUserKnob {6 invert1 l invert t "invert mask" -STARTLINE}
+ addUserKnob {41 mix T Keymix1.mix}
+ addUserKnob {20 info}
+ addUserKnob {26 _2 l "" +STARTLINE T "<br><span style=\"color:#aaa;font-family:sans-serif;font-size:7pt\">node created by <b><span style=\"color:#aaaa00\">Johannes Kretschmer & Cristoph Diekneite</span></b> <br>mail: Jolegodrum@t-online.de - Version 1.0 - 2024 / part of  <span style=\"color:#aaa;font-family:sans-serif\"><b><span style=\"color:#ffaf24\">MANGO SUITE</span></b>\n"}
+ addUserKnob {26 _5 l "" +STARTLINE T "<br><a href=\"https://youtu.be/jgB3uaPVmik\"><b><span style=\"color:#aaa\"><i>watch tutorial</span></b></a>"}
+}
+ NoOp {
+  inputs 0
+  name direction_ctrl
+  note_font "Verdana Bold"
+  xpos -1480
+  ypos 230
+  hide_input true
+  addUserKnob {20 User}
+  addUserKnob {7 dir_ctrl R 0 6.28}
+  dir_ctrl {{parent.direction/57.32484076}}
+ }
+ Input {
+  inputs 0
+  name mask
+  xpos -580
+  ypos 550
+  number 1
+ }
+ Invert {
+  name Invert1
+  xpos -580
+  ypos 624
+  disable {{parent.invert1}}
+ }
+ Dot {
+  name Dot4
+  xpos -547
+  ypos 793
+ }
+ Input {
+  inputs 0
+  name Input1
+  xpos -940
+  ypos -90
+ }
+ Dot {
+  name Dot1
+  xpos -907
+  ypos 73
+ }
+set N28d1bc00 [stack 0]
+ Dot {
+  name Dot6
+  xpos -1087
+  ypos 73
+ }
+ Dot {
+  name Dot5
+  xpos -1087
+  ypos 793
+ }
+ Constant {
+  inputs 0
+  channels {rgba.red -rgba.green -rgba.blue rgba.alpha}
+  color 1
+  name Constant1
+  xpos -1480
+  ypos -200
+ }
+ Constant {
+  inputs 0
+  channels {-rgba.red rgba.green -rgba.blue rgba.alpha}
+  color 1
+  name Constant2
+  xpos -1300
+  ypos -360
+ }
+ Shuffle2 {
+  inputs 2
+  fromInput1 {{0} B A}
+  fromInput2 {{1} B A}
+  in2 rgb
+  mappings "4 rgba.green 0 1 rgba.green 0 1 rgba.red 1 0 rgba.red 0 0 black -1 -1 rgba.blue 0 2 black -1 -1 rgba.alpha 0 3"
+  name Shuffle2
+  label "\[value in1]"
+  xpos -1300
+  ypos -176
+ }
+ Reformat {
+  type "to box"
+  format "1280 720 0 0 1280 720 1 HD_720"
+  box_width {{parent.overscan_ctrl.inputres.u}}
+  box_height {{parent.overscan_ctrl.inputres.v}}
+  box_fixed true
+  box_pixel_aspect {{parent.overscan_ctrl.aspect}}
+  name Reformat1
+  xpos -1300
+  ypos -90
+ }
+ Crop {
+  box {{"(\[value input.format.x])-((\[value input.format.r]*(overscan_ctrl.oscan.w)/100))"} {"(\[value input.format.y])-((\[value input.format.t]*(overscan_ctrl.oscan.h)/100))"} {"(\[value input.format.r])+((\[value input.format.r]*(overscan_ctrl.oscan.w)/100))"} {"\[value input.format.t]+((\[value input.format.t]*(overscan_ctrl.oscan.h)/100))"}}
+  name Crop1
+  xpos -1300
+  ypos -10
+  disable {{!parent.preservebbox}}
+ }
+ Crop {
+  box {{"(\[value input.bbox.r]-\[value input.format.r])*-1"} {"(\[value input.bbox.t]-\[value input.format.t])*-1"} {"\[value input.bbox.r]"} {"\[value input.bbox.t]"}}
+  reformat true
+  name Crop2
+  xpos -1300
+  ypos 70
+  disable {{!parent.preservebbox}}
+ }
+ Multiply {
+  channels {rgba.red -rgba.green -rgba.blue none}
+  value {{sin(direction_ctrl.dir_ctrl)}}
+  name mult_red
+  note_font "Verdana Bold"
+  xpos -1300
+  ypos 150
+ }
+ Multiply {
+  channels {-rgba.red rgba.green -rgba.blue none}
+  value {{cos(direction_ctrl.dir_ctrl)}}
+  name mult_green
+  note_font "Verdana Bold"
+  xpos -1300
+  ypos 224
+ }
+ Multiply {
+  channels {rgba.red rgba.green -rgba.blue none}
+  value {{parent.strength1*5}}
+  name strength
+  xpos -1300
+  ypos 304
+ }
+ Dot {
+  name Dot3
+  xpos -1267
+  ypos 393
+ }
+push $N28d1bc00
+ Crop {
+  box {{"(\[value input.format.x])-((\[value input.format.r]*(overscan_ctrl.oscan.w)/100))"} {"(\[value input.format.y])-((\[value input.format.t]*(overscan_ctrl.oscan.h)/100))"} {"(\[value input.format.r])+((\[value input.format.r]*(overscan_ctrl.oscan.w)/100))"} {"\[value input.format.t]+((\[value input.format.t]*(overscan_ctrl.oscan.h)/100))"}}
+  name Crop3
+  xpos -940
+  ypos 150
+  disable {{!parent.preservebbox}}
+ }
+ Crop {
+  box {{"(\[value input.bbox.r]-\[value input.format.r])*-1"} {"(\[value input.bbox.t]-\[value input.format.t])*-1"} {"\[value input.bbox.r]"} {"\[value input.bbox.t]"}}
+  reformat true
+  crop false
+  name Crop7
+  xpos -940
+  ypos 230
+  disable {{!parent.preservebbox}}
+ }
+add_layer {motionvector motionvector.red motionvector.green motionvector.blue}
+ Shuffle2 {
+  inputs 2
+  fromInput1 {{0} B A}
+  out1 motionvector
+  fromInput2 {{1} B A}
+  in2 rgb
+  mappings "3 black -1 -1 motionvector.blue 0 2 rgba.red 1 0 motionvector.red 0 0 rgba.green 1 1 motionvector.green 0 1"
+  name Shuffle1
+  label "\[value in1]"
+  xpos -940
+  ypos 384
+  disable {{!parent.directionalblur_1}}
+ }
+ Shuffle2 {
+  fromInput1 {{0} B}
+  in1 motionvector
+  out1 motionvector
+  fromInput2 {{0} B}
+  mappings "3 black -1 -1 motionvector.blue 0 2 motionvector.red 0 0 motionvector.green 0 1 motionvector.green 0 1 motionvector.red 0 0"
+  name Shuffle3
+  label "\[value in1]"
+  xpos -940
+  ypos 544
+  disable {{!parent.invertdir}}
+ }
+ VectorBlur2 {
+  uv motionvector
+  uv_offset {{uv_offset.v*-1 x1003 0 x1092 0} {parent.rotate/1.8 x1003 0 x1092 0}}
+  scale 1
+  grow_bbox 50
+  soft_lines true
+  normalize false
+  name VectorBlur_ctrl
+  xpos -940
+  ypos 618
+ }
+set N2890a400 [stack 0]
+ Reformat {
+  type "to box"
+  format "1280 720 0 0 1280 720 1 HD_720"
+  box_width {{parent.overscan_ctrl.inputres.u}}
+  box_height {{parent.overscan_ctrl.inputres.v}}
+  box_fixed true
+  box_pixel_aspect {{parent.overscan_ctrl.aspect}}
+  resize none
+  pbb true
+  name Reformat4
+  xpos -940
+  ypos 704
+  disable {{!parent.preservebbox}}
+ }
+set N2890ac00 [stack 0]
+ Keymix {
+  inputs 3
+  bbox B
+  name Keymix1
+  xpos -940
+  ypos 784
+ }
+ Output {
+  name Output1
+  xpos -940
+  ypos 950
+ }
+push $N2890a400
+push 0
+push 0
+push 0
+push 0
+push 0
+push 0
+push 0
+push 0
+push $N2890ac00
+ Viewer {
+  inputs 10
+  frame_range 1000-1100
+  viewerProcess "sRGB (ACES)"
+  monitorOutNDISenderName "NukeX - vector blur fix - Viewer1"
+  name Viewer1
+  xpos -580
+  ypos -10
+  hide_input true
+ }
+push $N28d1bc00
+ Dot {
+  name Dot2
+  xpos -727
+  ypos 73
+ }
+ NoOp {
+  name overscan_ctrl
+  note_font "Verdana Bold"
+  xpos -760
+  ypos 150
+  addUserKnob {20 User}
+  addUserKnob {14 oscan l overscan R 0 100}
+  oscan {{parent.overscan1.w/2} {parent.overscan1.h/2}}
+  addUserKnob {30 inputres l "input res"}
+  inputres {{"\[value input.format.r]"} {"\[value input.format.t]"}}
+  addUserKnob {7 aspect l "pixel aspect"}
+  aspect {{"\[value input.pixel_aspect]"}}
+ }
+end_group

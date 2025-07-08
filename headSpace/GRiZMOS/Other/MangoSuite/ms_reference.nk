@@ -1,0 +1,271 @@
+set cut_paste_input [stack 0]
+version 15.1 v3
+push 0
+push $cut_paste_input
+Group {
+ inputs 2
+ name MS_reference
+ tile_color 0xefb500ff
+ note_font "Verdana Bold Italic"
+ selected true
+ xpos -40
+ ypos -118
+ addUserKnob {20 settings}
+ addUserKnob {26 _2 l "" +STARTLINE T "<span style=\"color:#aaa;font-family:sans-serif\"><b><span style=\"color:#ffaf24\">MS_Reference v.1.0</span></b>"}
+ addUserKnob {26 ""}
+ addUserKnob {12 position}
+ position {960 540}
+ addUserKnob {22 setcenter l "set center" -STARTLINE T "n = nuke.thisGroup()\nw = n.width()\nh = n.height()\nprint (w,h)\nn\['position'].setValue(\[w/2,h/2])"}
+ addUserKnob {7 scale1 l scale R 0 2}
+ scale1 1
+ addUserKnob {7 rotation1 l rotate R -180 180}
+ addUserKnob {41 mix T Merge1.mix}
+ addUserKnob {26 ""}
+ addUserKnob {6 enablewipe l "&nbsp;&nbsp;<b><span style=\"color:#ffaf24\">enable wipe</span>" +STARTLINE}
+ addUserKnob {12 wipe l "wipe&nbsp;"}
+ wipe {800 400}
+ addUserKnob {7 wiperot l rotation R -180 180}
+ wiperot 45
+ addUserKnob {26 ""}
+ addUserKnob {6 border l "enable border" +STARTLINE}
+ addUserKnob {41 value l thickness T stroke.value}
+ addUserKnob {41 multiply l color T Grade1.multiply}
+ addUserKnob {20 info}
+ addUserKnob {26 _1 l "" +STARTLINE T "<br><span style=\"color:#aaa;font-family:sans-serif;font-size:7pt\">node created by <b><span style=\"color:#aaaa00\">Johannes Kretschmer</span></b><br>\nmail: Jolegodrum@t-online.de - Version 1.0 - 2024 / part of  <span style=\"color:#aaa;font-family:sans-serif\"><b><span style=\"color:#ffaf24\">MANGO SUITE</span></b>\n"}
+ addUserKnob {26 _3 l "" +STARTLINE T "<br><a href=\"https://youtu.be/Sg0CRCGg4oU\"><b><span style=\"color:#aaa\"><i>watch tutorial</span></b></a>"}
+}
+ Input {
+  inputs 0
+  name ref
+  xpos -580
+  ypos -410
+  number 1
+ }
+ Reformat {
+  type "to box"
+  box_width {{parent.NoOp1.inres1.u}}
+  box_height 2610
+  box_pixel_aspect {{parent.NoOp1.pixlsp}}
+  black_outside true
+  pbb true
+  name Reformat1
+  label width
+  xpos -580
+  ypos -256
+ }
+ NoOp {
+  name NoOp2
+  xpos -580
+  ypos -170
+  addUserKnob {20 User}
+  addUserKnob {30 inres2 l inres}
+  inres2 {{"\[value input.format.r]"} {"\[value input.format.t]"}}
+  addUserKnob {7 inasp l "in aspect ratio" R 0 10}
+  inasp {{inres2.u/inres2.v}}
+ }
+ Transform {
+  translate {0 {((abs((NoOp1.inres1.v)-(NoOp2.inres2.v)))/2)*-1}}
+  name Transform2
+  xpos -580
+  ypos -90
+ }
+ Transform {
+  rotate {{parent.rotation1*-1}}
+  scale {{parent.scale1}}
+  center {{parent.NoOp1.inres1.u/2} {parent.NoOp1.inres1.v/2}}
+  name Transform3
+  tile_color 0xaaff55ff
+  label custom
+  xpos -580
+  ypos -16
+ }
+ Transform {
+  translate {{(parent.position.x)-(NoOp1.inres1.u/2)} {(parent.position.y)-(NoOp1.inres1.v/2)}}
+  name Transform1
+  tile_color 0xffd455ff
+  label placement
+  xpos -580
+  ypos 64
+ }
+set Ne38cf000 [stack 0]
+ Constant {
+  inputs 0
+  color 1
+  format "8192 6144 0 0 8192 6144 1 8K_CubeMap"
+  name Constant1
+  xpos 141
+  ypos -434
+ }
+ Reformat {
+  type "to box"
+  box_width {{parent.NoOp1.inres1.u}}
+  box_height {{parent.NoOp1.inres1.v}}
+  box_fixed true
+  pbb true
+  name Reformat2
+  xpos 141
+  ypos -330
+ }
+set Ne38cf800 [stack 0]
+ Dot {
+  name Dot3
+  xpos 354
+  ypos -327
+ }
+ Dot {
+  name Dot2
+  xpos 354
+  ypos -168
+ }
+push $Ne38cf800
+ Transform {
+  translate {{parent.wipe.x-(NoOp1.inres1.u) x1000 0} {parent.wipe.y-(NoOp1.inres1.v/2)}}
+  rotate {{parent.wiperot*-1 x1000 0}}
+  scale 5
+  center {{"\[value input.format.r]" x1000 0} {"\[value input.format.t]/2" x1000 0}}
+  name Transform4
+  label "wipe pos"
+  xpos 141
+  ypos -256
+ }
+ CopyBBox {
+  inputs 2
+  name CopyBBox1
+  xpos 141
+  ypos -170
+ }
+push $Ne38cf800
+ Dot {
+  name Dot4
+  xpos -6
+  ypos -328
+ }
+ Dot {
+  name Dot5
+  xpos -6
+  ypos -87
+ }
+ Switch {
+  inputs 2
+  which {{parent.enablewipe}}
+  name Switch1
+  xpos 140
+  ypos -90
+ }
+set Ne39b0500 [stack 0]
+ Dot {
+  name Dot7
+  xpos 352
+  ypos -87
+ }
+ Merge2 {
+  inputs 2
+  operation mask
+  name Merge4
+  xpos 320
+  ypos 70
+ }
+ Crop {
+  box {{0+(stroke.value)} {0+(stroke.value)} {"\[value input.format.r]-(stroke.value)"} {"\[value input.format.t]-(stroke.value)"}}
+  name Crop1
+  xpos 320
+  ypos 150
+ }
+set Ne32d0000 [stack 0]
+ Dilate {
+  size {{parent.stroke.value}}
+  name Dilate1
+  xpos 500
+  ypos 144
+ }
+push $Ne32d0000
+ Dilate {
+  size -1
+  name Dilate2
+  xpos 320
+  ypos 224
+ }
+ Merge2 {
+  inputs 2
+  operation minus
+  name Merge2
+  xpos 500
+  ypos 230
+ }
+ Shuffle2 {
+  fromInput1 {{0} B}
+  fromInput2 {{0} B}
+  mappings "4 rgba.alpha 0 3 rgba.red 0 0 rgba.alpha 0 3 rgba.green 0 1 rgba.alpha 0 3 rgba.blue 0 2 rgba.alpha 0 3 rgba.alpha 0 3"
+  name Shuffle1
+  label "\[value in1]"
+  xpos 500
+  ypos 304
+ }
+ Grade {
+  multiply {0 0 0 0}
+  name Grade1
+  xpos 500
+  ypos 390
+ }
+ Dot {
+  name Dot8
+  xpos 533
+  ypos 473
+ }
+push $Ne39b0500
+ Dot {
+  name Dot6
+  xpos 174
+  ypos 233
+ }
+push $Ne38cf000
+ Dot {
+  name Dot1
+  xpos -548
+  ypos 233
+ }
+ Input {
+  inputs 0
+  name comp
+  xpos -220
+  ypos -490
+ }
+ NoOp {
+  name NoOp1
+  xpos -220
+  ypos -410
+  addUserKnob {20 User}
+  addUserKnob {30 inres1 l inres}
+  inres1 {{"\[value input.format.r]"} {"\[value input.format.t]"}}
+  addUserKnob {7 pixlsp l "pixel aspect"}
+  pixlsp {{"\[value pixel_aspect]"}}
+ }
+ Merge2 {
+  inputs 2+1
+  bbox B
+  name Merge1
+  xpos -220
+  ypos 230
+ }
+ Merge2 {
+  inputs 2
+  bbox B
+  name Merge3
+  xpos -220
+  ypos 471
+  disable {{!parent.border}}
+ }
+ Output {
+  name Output1
+  xpos -220
+  ypos 631
+ }
+ Add {
+  inputs 0
+  value 3
+  name stroke
+  xpos 500
+  ypos 64
+  hide_input true
+ }
+end_group

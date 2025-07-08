@@ -1,0 +1,249 @@
+set cut_paste_input [stack 0]
+version 14.0 v5
+push $cut_paste_input
+Group {
+ name MS_reference
+ tile_color 0xefb500ff
+ note_font "Verdana Bold Italic"
+ selected true
+ xpos -40
+ ypos -170
+ addUserKnob {20 settings}
+ addUserKnob {26 _1 l "" +STARTLINE T "<span style=\"color:#aaa;font-family:sans-serif\"><b><span style=\"color:#ffaf24\">MS_Reference v.1.0</span></b>"}
+ addUserKnob {26 ""}
+ addUserKnob {4 refposition l "reference anchor" M {"left top" "right top" "left bottom" "right bottom" center ""}}
+ addUserKnob {7 refscale l "reference scale"}
+ refscale 0.5
+ addUserKnob {41 resize l "resize type reference" T Reformat3.resize}
+ addUserKnob {7 edgeoffset l "edge offset" t "offset image from format border" R 0 200}
+ edgeoffset 30
+ addUserKnob {6 refonly l "reference only" +STARTLINE}
+ addUserKnob {26 freetransform l "free transform"}
+ addUserKnob {41 translate T Transform5.translate}
+ addUserKnob {41 rotate T Transform5.rotate}
+ addUserKnob {41 scale T Transform5.scale}
+ addUserKnob {41 mix T Merge1.mix}
+ addUserKnob {26 border_1 l border}
+ addUserKnob {6 border l enable +STARTLINE}
+ border true
+ addUserKnob {7 linewidth l width R 0 10}
+ linewidth 5
+ addUserKnob {41 color T Constant1.color}
+ addUserKnob {20 info}
+ addUserKnob {26 _3 l "" +STARTLINE T "Just connect your reference image to the\nreference input to quickly have it on top\nof your comp with full control over placement\n"}
+ addUserKnob {26 _4 l "" +STARTLINE T "<b><i><a href=\"https://www.google.com/\"><span style=\"color:#777\">watch tutorial</span></a></i></b>\n<br>\n\n\n\n"}
+ addUserKnob {26 _2 l "" +STARTLINE T "<span style=\"color:#aaa;font-family:sans-serif;font-size:7pt\">node created by <b><a href=\"www.google.com\"><span style=\"color:#aaaa00\">Johannes Kretschmer</span></a></b> mail: Jolegodrum@t-online.de - Version 1.0 - 2022 / part of  <span style=\"color:#aaa;font-family:sans-serif\"><b><span style=\"color:#ffaf24\">MANGO SUITE</span></b>\n"}
+}
+ Input {
+  inputs 0
+  name comp
+  label "\n"
+  xpos -590
+  ypos -591
+ }
+ Dot {
+  name Dot1
+  xpos -556
+  ypos -510
+ }
+set N9fe5d400 [stack 0]
+ NoOp {
+  name NoOp1
+  xpos -370
+  ypos -513
+  addUserKnob {20 User}
+  addUserKnob {30 uv}
+  uv {{"(\[value input.format.r])-(Add1.value)"} {"(\[value input.format.t])-(Add1.value)"}}
+ }
+ Add {
+  inputs 0
+  value {{parent.edgeoffset}}
+  name Add1
+  xpos 70
+  ypos -519
+  hide_input true
+ }
+ Input {
+  inputs 0
+  name mask
+  xpos 240
+  ypos -823
+  number 2
+  addUserKnob {20 User}
+  addUserKnob {6 connected +STARTLINE}
+  connected {{"\[exists input2]"}}
+ }
+ Invert {
+  name Invert1
+  xpos 240
+  ypos -714
+ }
+ Dot {
+  name Dot4
+  xpos 274
+  ypos -99
+ }
+ Input {
+  inputs 0
+  name reference
+  xpos -150
+  ypos -823
+  number 1
+ }
+ Shuffle2 {
+  fromInput1 {{0} B}
+  fromInput2 {{0} B}
+  mappings "4 rgba.red 0 0 rgba.red 0 0 rgba.green 0 1 rgba.green 0 1 rgba.blue 0 2 rgba.blue 0 2 white -1 -1 rgba.alpha 0 3"
+  name Shuffle1
+  xpos -150
+  ypos -713
+ }
+ Reformat {
+  black_outside true
+  name Reformat3
+  xpos -150
+  ypos -689
+ }
+ Dot {
+  name Dot3
+  xpos -116
+  ypos -462
+ }
+set N34e7c00 [stack 0]
+ Transform {
+  scale {{parent.refscale}}
+  center {{(parent.NoOp1.uv.u/2)+((Add1.value)/2)} {(parent.NoOp1.uv.v/2)+((Add1.value)/2)}}
+  name Transform7
+  xpos 70
+  ypos -345
+ }
+push $N34e7c00
+ Transform {
+  scale {{parent.refscale}}
+  center {{parent.NoOp1.uv.u} {parent.Add1.value}}
+  name Transform4
+  xpos -37
+  ypos -343
+ }
+push $N34e7c00
+ Transform {
+  scale {{parent.refscale}}
+  center {{parent.Add1.value} {parent.Add1.value}}
+  name Transform1
+  xpos -370
+  ypos -345
+ }
+push $N34e7c00
+ Transform {
+  scale {{parent.refscale}}
+  center {{parent.NoOp1.uv.u} {parent.NoOp1.uv.v}}
+  name Transform2
+  xpos -260
+  ypos -345
+ }
+push $N34e7c00
+ Transform {
+  scale {{parent.refscale}}
+  center {{parent.Add1.value} {parent.NoOp1.uv.v}}
+  name Transform3
+  xpos -150
+  ypos -345
+ }
+ Switch {
+  inputs 5
+  which {{parent.refposition}}
+  name Switch1
+  xpos -150
+  ypos -225
+ }
+ Transform {
+  center {{parent.NoOp1.uv.u/2} {parent.NoOp1.uv.v/2}}
+  name Transform5
+  xpos -150
+  ypos -161
+ }
+ Merge2 {
+  inputs 2
+  operation stencil
+  name Merge2
+  xpos -150
+  ypos -102
+ }
+set N3509c00 [stack 0]
+ Dilate {
+  channels alpha
+  size {{parent.linewidth}}
+  name Dilate1
+  xpos 24
+  ypos -15
+ }
+push $N3509c00
+ Dot {
+  name Dot5
+  xpos -116
+  ypos 70
+ }
+set N3546400 [stack 0]
+ Merge2 {
+  inputs 2
+  operation minus
+  name Merge4
+  xpos 24
+  ypos 67
+ }
+ Constant {
+  inputs 0
+  channels rgb
+  name Constant1
+  xpos 188
+  ypos 242
+ }
+ Copy {
+  inputs 2
+  from0 rgba.alpha
+  to0 rgba.alpha
+  name Copy1
+  xpos 24
+  ypos 260
+ }
+push $N3546400
+ Merge2 {
+  inputs 2
+  name Merge5
+  xpos -150
+  ypos 266
+  disable {{!parent.border}}
+ }
+ Dot {
+  name Dot2
+  xpos -116
+  ypos 324
+ }
+set N3547800 [stack 0]
+push $N3547800
+push $N9fe5d400
+ Merge2 {
+  inputs 2
+  name Merge1
+  xpos -590
+  ypos 321
+ }
+ Switch {
+  inputs 2
+  which {{parent.refonly}}
+  name Switch2
+  xpos -590
+  ypos 417
+ }
+ Output {
+  name Output1
+  xpos -590
+  ypos 637
+ }
+ Merge2 {
+  inputs 0
+  name Merge3
+  xpos 192
+  ypos 46
+ }
+end_group

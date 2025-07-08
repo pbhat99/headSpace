@@ -1,0 +1,655 @@
+set cut_paste_input [stack 0]
+version 15.1 v3
+push $cut_paste_input
+add_layer {displace displace.blur}
+Group {
+ name MS_turbulence1
+ tile_color 0xefb500ff
+ note_font "Verdana Bold Italic"
+ selected true
+ xpos -397
+ ypos -118
+ addUserKnob {20 displacementoptions l "Displacement Options"}
+ addUserKnob {26 _3 l "" +STARTLINE T "<span style=\"color:#aaa;font-family:sans-serif\"><b><span style=\"color:#ffaf24\">MS_Turbulence v.1.0</span></b>"}
+ addUserKnob {26 ""}
+ addUserKnob {41 channels t "\nchoose channels to be effected" T IDistort1.channels}
+ addUserKnob {26 ""}
+ addUserKnob {6 enabledisplace l "&nbsp;&nbsp;<b><span style=\"color:#e55\">enable displacement</span>" +STARTLINE}
+ enabledisplace true
+ addUserKnob {4 method l "" t "\n\"uniform\" will create distortion in all directions\n\n\"directional\" will create directional distortion depending on the values (positive or negative) that are put in width and height of the strength slider" -STARTLINE M {uniform directional "" "" "" "" "" "" "" "" ""}}
+ addUserKnob {14 strength_1 l <b>amount t "\nincreases distortion amount" R 0 100}
+ strength_1 1
+ addUserKnob {7 glassy l "<b>glass strength" t "\nincreasing this will make the distortion \nlook more like glass or heat."}
+ glassy 1
+ addUserKnob {41 smoothedge l "edge bleeding" t "\nThis slider will blend the distorted edges with the undistorted image around it.\n\nOnly works with a custom input" T Blur3.size}
+ addUserKnob {26 ""}
+ addUserKnob {26 _1 l "<b><span style=\"color:#aaa;font-family:sans-serif\"><span style=\"color:#ffaf24\">noise map</span>"}
+ addUserKnob {6 animate1 l "animate noise" +STARTLINE}
+ animate1 true
+ addUserKnob {7 noisespeed1 l "noise speed" t "\nmodify the noise animation speed" R -0.001 1}
+ noisespeed1 0.08
+ addUserKnob {7 offset1 l "offset animation" R 1 2}
+ offset1 1
+ addUserKnob {26 ""}
+ addUserKnob {6 visualize1 l "&nbsp;&nbsp;<b><span style=\"color:#6d6\">display noise</span>" +STARTLINE}
+ addUserKnob {41 opacity T Noise_MAIN.opacity}
+ addUserKnob {41 size_3 l "noise pre blur" T Blur2.size}
+ addUserKnob {41 type T Noise_MAIN.type}
+ addUserKnob {41 size l x/ysize T Noise_MAIN.size}
+ addUserKnob {41 octaves T Noise_MAIN.octaves}
+ addUserKnob {41 nyquist l "clip at Nyquist limit" -STARTLINE T Noise_MAIN.nyquist}
+ addUserKnob {41 lacunarity T Noise_MAIN.lacunarity}
+ addUserKnob {41 gain T Noise_MAIN.gain}
+ addUserKnob {41 gamma T Noise_MAIN.gamma}
+ addUserKnob {6 clipvalues l "clip values" t "clip noise to only reach a maximum of 1" +STARTLINE}
+ addUserKnob {41 invert l "invert noise" T Noise_MAIN.invert}
+ addUserKnob {20 bluroptions_1 l "Blur Options"}
+ addUserKnob {41 blur l "&nbsp;&nbsp;<b><span style=\"color:#e55\">enable blur</span>" T IDistort1.blur}
+ addUserKnob {41 blurscale l <b>amount T IDistort1.blur_scale}
+ addUserKnob {26 ""}
+ addUserKnob {26 blurnoiseoptions l "<b><span style=\"color:#aaa;font-family:sans-serif\"><span style=\"color:#ffaf24\">noise map</span>"}
+ addUserKnob {6 animate2 l "animate noise" +STARTLINE}
+ animate2 true
+ addUserKnob {7 noisespeed2 l "noise speed" t "multiply the noise speed" R -0.001 1}
+ noisespeed2 0.15
+ addUserKnob {26 ""}
+ addUserKnob {6 visualize2 l "&nbsp;&nbsp;<b><span style=\"color:#6d6\">display noise</span>" +STARTLINE}
+ addUserKnob {7 offset2 l "offset animation" R 1 2}
+ offset2 1
+ addUserKnob {41 size_2 l "noise pre blur" T Blur1.size}
+ addUserKnob {41 opacity_1 l opacity T Noise_for_blur.opacity}
+ addUserKnob {41 type_1 l type T Noise_for_blur.type}
+ addUserKnob {41 size_1 l x/ysize T Noise_for_blur.size}
+ addUserKnob {41 octaves_1 l octaves T Noise_for_blur.octaves}
+ addUserKnob {41 nyquist_1 l "clip at Nyquist limit" -STARTLINE T Noise_for_blur.nyquist}
+ addUserKnob {41 lacunarity_1 l lacunarity T Noise_for_blur.lacunarity}
+ addUserKnob {41 gain_1 l gain T Noise_for_blur.gain}
+ addUserKnob {41 gamma_1 l gamma T Noise_for_blur.gamma}
+ addUserKnob {6 clipvalues2 l "clip values" t "clip noise to only reach a maximum of 1" +STARTLINE}
+ addUserKnob {41 invert_1 l "invert noise" T Noise_for_blur.invert}
+ addUserKnob {20 maskoptions l Mask}
+ addUserKnob {26 "" l mask T ""}
+ addUserKnob {41 maskChannelInput l "" -STARTLINE T Merge3.maskChannelInput}
+ addUserKnob {41 invert_mask l invert -STARTLINE T Merge3.invert_mask}
+ addUserKnob {41 mix T Merge3.mix}
+ addUserKnob {20 nodeinfo l info}
+ addUserKnob {26 info l "" +STARTLINE T "How does it work?\n\nThis node is based on the Idistort node but it\nhas a build in mechanism which enables the\nIdistort to distort the input image uniformly.\n\nDisplacement Options Tab\n  + use your own map to drive displacement.\n     Once the the map inputs are connected the \n     node will automatically use them.\n  + when not using an own map displacement \n     is driven by the default buildin noise\n     which you can control with the noise \n     options\n\nBlur Options Tab\n  + enable blur spots in the Blur Options tab\n  + use a custom map by checking the enable\n     user map box\n     When no costom map is used the blur\n     will also be driven by a buildin noise\n\nMask Options\n  + use mask input to control effect range\n     flawlessly \n  + mask sets effect range for displacement\n     and blur range\n   \n\n"}
+ addUserKnob {26 _2 l "" +STARTLINE T "<span style=\"color:#aaa;font-family:sans-serif;font-size:7pt\">node created by <b><span style=\"color:#aaaa00\">Johannes Kretschmer</span></b> mail: Jolegodrum@t-online.de - Version 1.1 - 2024 / part of  <span style=\"color:#aaa;font-family:sans-serif\"><b><span style=\"color:#ffaf24\">MANGO SUITE</span></b>\n"}
+ addUserKnob {26 _4 l "" +STARTLINE T "<br><a href=\"https://youtu.be/iazyOSPEL3U\"><b><span style=\"color:#aaa\"><i>watch tutorial</span></b></a>"}
+}
+ BackdropNode {
+  inputs 0
+  name BackdropNode1
+  tile_color 0x486c51ff
+  label " default noise map"
+  note_font "Verdana Bold"
+  note_font_size 42
+  xpos -1215
+  ypos -1725
+  bdwidth 822
+  bdheight 972
+ }
+ BackdropNode {
+  inputs 0
+  name BackdropNode2
+  tile_color 0x486c51ff
+  label " user noise map"
+  note_font "Verdana Bold"
+  note_font_size 42
+  xpos -297
+  ypos -1726
+  bdwidth 803
+  bdheight 975
+ }
+ Add {
+  inputs 0
+  value {{parent.noisespeed1}}
+  name speed1
+  tile_color 0xe12f2fff
+  xpos -580
+  ypos -1056
+  hide_input true
+ }
+ Reformat {
+  inputs 0
+  type "to box"
+  box_width {{parent.NoOp1.inbbox.u}}
+  box_height {{parent.NoOp1.inbbox.v}}
+  box_fixed true
+  name Reformat2
+  xpos -760
+  ypos -1610
+  hide_input true
+ }
+set Nbb08d400 [stack 0]
+ Noise {
+  size 70
+  zoffset {{((frame*speed2.value)*animate2)+(offsetanimation2.value)}}
+  lacunarity 1
+  gain 0.226
+  gamma 0.3
+  center {1024 778}
+  name Noise_for_blur
+  xpos -940
+  ypos -490
+  hide_input true
+ }
+ Reformat {
+  type "to box"
+  box_width {{parent.NoOp1.inresolution.u}}
+  box_height {{parent.NoOp1.inresolution.v}}
+  box_fixed true
+  resize none
+  pbb true
+  name Reformat3
+  xpos -940
+  ypos -410
+ }
+ SoftClip {
+  conversion "preserve hue and brightness"
+  name SoftClip1
+  xpos -940
+  ypos -330
+  disable {{!parent.clipvalues2}}
+ }
+ Blur {
+  size 0.15
+  name Blur1
+  xpos -940
+  ypos -256
+ }
+ Dot {
+  name Dot10
+  xpos -907
+  ypos -167
+ }
+set N5601e400 [stack 0]
+ Dot {
+  name Dot12
+  xpos -1087
+  ypos -167
+ }
+ Shuffle2 {
+  fromInput1 {{0} B}
+  fromInput2 {{0} B}
+  mappings "4 rgba.red 0 0 rgba.red 0 0 rgba.green 0 1 rgba.green 0 1 rgba.blue 0 2 rgba.blue 0 2 white -1 -1 rgba.alpha 0 3"
+  name Shuffle5
+  xpos -1119
+  ypos 711
+ }
+ Dot {
+  name Dot11
+  xpos -1087
+  ypos 794
+ }
+ Input {
+  inputs 0
+  name source
+  xpos -220
+  ypos -170
+ }
+ Dot {
+  name Dot6
+  xpos -187
+  ypos -87
+ }
+set N2389c800 [stack 0]
+ Dot {
+  name Dot13
+  xpos -187
+  ypos 554
+ }
+set Na889e000 [stack 0]
+ Dot {
+  name Dot8
+  xpos -368
+  ypos 554
+ }
+set Na889e400 [stack 0]
+ Merge2 {
+  inputs 2
+  name Merge6
+  xpos -400
+  ypos 790
+ }
+ Dot {
+  name Dot9
+  xpos -368
+  ypos 1193
+ }
+ Input {
+  inputs 0
+  name DisplaceMap
+  xpos 140
+  ypos -1610
+  number 2
+  addUserKnob {20 User}
+  addUserKnob {6 displacebox +STARTLINE}
+  displacebox {{"\[exists input2]"}}
+ }
+ Dot {
+  name Dot23
+  xpos 172
+  ypos -1527
+ }
+set Nd8ba2400 [stack 0]
+ Dot {
+  name Dot22
+  xpos -187
+  ypos -1527
+ }
+ Dot {
+  name Dot21
+  xpos -187
+  ypos -967
+ }
+push $Nd8ba2400
+ Dot {
+  name Dot7
+  xpos 172
+  ypos -1367
+ }
+set N582c0c00 [stack 0]
+ Transform {
+  translate {{(parent.glassy*10)+1} 0}
+  center {960 540}
+  black_outside false
+  name Transform1
+  xpos -40
+  ypos -1290
+ }
+push $N582c0c00
+ Merge2 {
+  inputs 2
+  operation minus
+  name Merge4
+  xpos -40
+  ypos -1210
+ }
+push $N582c0c00
+push $N582c0c00
+ Transform {
+  translate {{parent.Transform1.translate.y*-1} {parent.Transform1.translate.x*-1}}
+  center {960 540}
+  black_outside false
+  name Transform2
+  xpos 320
+  ypos -1290
+ }
+ Merge2 {
+  inputs 2
+  operation minus
+  name Merge5
+  xpos 320
+  ypos -1210
+ }
+ Shuffle2 {
+  inputs 2
+  fromInput1 {{0} B A}
+  fromInput2 {{1} B A}
+  in2 rgba
+  mappings "4 rgba.red 0 0 rgba.red 0 0 black -1 -1 rgba.blue 0 2 black -1 -1 rgba.alpha 0 3 rgba.green 1 1 rgba.green 0 1"
+  name Shuffle4
+  xpos 139
+  ypos -1130
+ }
+ Switch {
+  inputs 2
+  which {{parent.method}}
+  name method2
+  xpos 139
+  ypos -970
+ }
+ Blur {
+  name Blur3
+  xpos 139
+  ypos -816
+ }
+ Dot {
+  name Dot5
+  xpos 173
+  ypos -647
+ }
+push $Nbb08d400
+ Noise {
+  size 40
+  zoffset {{((frame*speed1.value)*animate1)+(offsetanimation1.value)}}
+  octaves 7
+  lacunarity 3
+  gain 0.27
+  gamma 0.66
+  center {960 540}
+  name Noise_MAIN
+  xpos -760
+  ypos -1530
+ }
+set Nd1624400 [stack 0]
+ Dot {
+  name Dot20
+  xpos -1087
+  ypos -1527
+ }
+ Dot {
+  name Dot19
+  xpos -1087
+  ypos -967
+ }
+push $Nbb08d400
+ Dot {
+  name Dot24
+  xpos -907
+  ypos -1608
+ }
+ Noise {
+  opacity {{parent.Noise_MAIN.opacity}}
+  size {{parent.Noise_MAIN.size}}
+  zoffset {{parent.Noise_MAIN.zoffset}}
+  octaves {{parent.Noise_MAIN.octaves}}
+  nyquist {{parent.Noise_MAIN.nyquist}}
+  lacunarity {{parent.Noise_MAIN.lacunarity}}
+  gain {{parent.Noise_MAIN.gain}}
+  gamma {{parent.Noise_MAIN.gamma}}
+  translate {{((parent.glassy)*10)+1} 0}
+  center {960 540}
+  color {{parent.Noise_MAIN.color}}
+  name Noise_U
+  tile_color 0xf40000ff
+  gl_color 0xffffffff
+  xpos -940
+  ypos -1290
+ }
+push $Nd1624400
+ Dot {
+  name Dot25
+  xpos -727
+  ypos -1367
+ }
+set Nd4004800 [stack 0]
+ Merge2 {
+  inputs 2
+  operation minus
+  name Merge1
+  xpos -940
+  ypos -1210
+ }
+push $Nd4004800
+push $Nbb08d400
+ Dot {
+  name Dot18
+  xpos -548
+  ypos -1607
+ }
+ Noise {
+  opacity {{parent.Noise_MAIN.opacity}}
+  size {{parent.Noise_MAIN.size}}
+  zoffset {{parent.Noise_MAIN.zoffset}}
+  octaves {{parent.Noise_MAIN.octaves}}
+  nyquist {{parent.Noise_MAIN.nyquist}}
+  lacunarity {{parent.Noise_MAIN.lacunarity}}
+  gain {{parent.Noise_MAIN.gain}}
+  gamma {{parent.Noise_MAIN.gamma}}
+  translate {0 {(parent.Noise_U.translate.x)*-1 x43 -0}}
+  center {960 540}
+  color {{parent.Noise_MAIN.color}}
+  name Noise_V
+  tile_color 0xf200ff
+  xpos -580
+  ypos -1290
+ }
+ Merge2 {
+  inputs 2
+  operation minus
+  name Merge2
+  xpos -580
+  ypos -1210
+ }
+ Shuffle2 {
+  inputs 2
+  fromInput1 {{0} B A}
+  fromInput2 {{1} B A}
+  in2 rgba
+  mappings "4 rgba.red 0 0 rgba.red 0 0 black -1 -1 rgba.blue 0 2 black -1 -1 rgba.alpha 0 3 rgba.green 1 1 rgba.green 0 1"
+  name Shuffle1
+  xpos -760
+  ypos -1130
+ }
+ Reformat {
+  type "to box"
+  box_width {{parent.NoOp1.inresolution.u}}
+  box_height {{parent.NoOp1.inresolution.v}}
+  box_fixed true
+  resize none
+  pbb true
+  name Reformat1
+  xpos -760
+  ypos -1050
+ }
+ Switch {
+  inputs 2
+  which {{parent.method}}
+  name method
+  xpos -760
+  ypos -970
+ }
+ SoftClip {
+  conversion "preserve hue and brightness"
+  name SoftClip2
+  xpos -761
+  ypos -890
+  disable {{!parent.clipvalues}}
+ }
+ Blur {
+  name Blur2
+  xpos -761
+  ypos -816
+ }
+ Switch {
+  inputs 2
+  which {{"!DisplaceMap.displacebox == 1 ? 0:1"}}
+  name Switch1
+  xpos -761
+  ypos -650
+ }
+set Ndb69c000 [stack 0]
+ Dot {
+  name Dot14
+  xpos -1267
+  ypos -648
+ }
+ Shuffle2 {
+  fromInput1 {{0} B}
+  fromInput2 {{0} B}
+  mappings "4 rgba.red 0 0 rgba.red 0 0 rgba.green 0 1 rgba.green 0 1 rgba.blue 0 2 rgba.blue 0 2 white -1 -1 rgba.alpha 0 3"
+  name Shuffle6
+  xpos -1300
+  ypos 711
+ }
+ Dot {
+  name Dot15
+  xpos -1268
+  ypos 954
+ }
+push $Na889e400
+ Dot {
+  name Dot16
+  xpos -547
+  ypos 554
+ }
+ Merge2 {
+  inputs 2
+  name Merge7
+  xpos -580
+  ypos 950
+ }
+ Dot {
+  name Dot17
+  xpos -548
+  ypos 1033
+ }
+ Input {
+  inputs 0
+  name Mask
+  xpos -580
+  ypos 310
+  number 1
+ }
+ Dot {
+  name Dot3
+  xpos -547
+  ypos 393
+ }
+ Input {
+  inputs 0
+  name BlurMap
+  xpos -1036
+  ypos -90
+  number 3
+  addUserKnob {20 User}
+  addUserKnob {6 blurbox +STARTLINE}
+  blurbox {{"\[exists input3]"}}
+ }
+push $N5601e400
+ Switch {
+  inputs 2
+  which {{"!BlurMap.blurbox == 1 ? 0:1"}}
+  name Switch2
+  xpos -940
+  ypos -10
+ }
+ Dot {
+  name Dot4
+  xpos -907
+  ypos 73
+ }
+push $Ndb69c000
+ Switch {
+  which {{!parent.enabledisplace}}
+  name Switch3
+  xpos -761
+  ypos -490
+ }
+ Shuffle2 {
+  inputs 2
+  fromInput1 {{0} B A}
+  fromInput2 {{1} B A}
+  in2 rgba
+  mappings "4 rgba.red 1 0 rgba.blue 0 2 black -1 -1 rgba.alpha 0 3 rgba.red 0 0 rgba.red 0 0 rgba.green 0 1 rgba.green 0 1"
+  name Shuffle3
+  xpos -760
+  ypos 70
+ }
+ Shuffle2 {
+  inputs 0
+  fromInput1 {{0} B}
+  fromInput2 {{0} B}
+  mappings "4 rgba.red 0 0 rgba.red 0 0 rgba.green 0 1 rgba.green 0 1 rgba.blue 0 2 rgba.blue 0 2 black -1 -1 rgba.alpha 0 3"
+  name Shuffle7
+  label "full black"
+  note_font "Verdana Bold"
+  xpos -940
+  ypos 224
+  hide_input true
+ }
+ Shuffle2 {
+  fromInput1 {{0} B}
+  fromInput2 {{0} B}
+  mappings "4 white -1 -1 rgba.alpha 0 3 rgba.alpha 0 3 rgba.red 0 0 rgba.alpha 0 3 rgba.green 0 1 rgba.alpha 0 3 rgba.blue 0 2"
+  name Shuffle2
+  xpos -940
+  ypos 310
+ }
+ Dot {
+  name Dot2
+  xpos -907
+  ypos 393
+ }
+ Merge2 {
+  inputs 2+1
+  name Merge3
+  xpos -761
+  ypos 390
+ }
+ Dot {
+  name Dot1
+  xpos -729
+  ypos 634
+ }
+push $Na889e000
+add_layer {distort distort.u distort.v}
+ Copy {
+  inputs 2
+  from0 rgba.red
+  to0 distort.u
+  from1 rgba.green
+  to1 distort.v
+  from2 rgba.blue
+  to2 displace.blur
+  name Copy1
+  xpos -220
+  ypos 613
+ }
+ IDistort {
+  uv distort
+  uv_scale {{parent.strength_1*10} {parent.strength_1*10}}
+  blur -displace.blur
+  blur_scale 10
+  name IDistort1
+  xpos -220
+  ypos 785
+ }
+ Switch {
+  inputs 2
+  which {{parent.visualize1}}
+  name Switch_visualize_displ_noise
+  xpos -220
+  ypos 1030
+ }
+ Switch {
+  inputs 2
+  which {{parent.visualize2}}
+  name Switch_visualize_blur_noise
+  xpos -220
+  ypos 1191
+ }
+ Output {
+  name Output1
+  xpos -220
+  ypos 1430
+ }
+ Add {
+  inputs 0
+  value {{parent.noisespeed2}}
+  name speed2
+  tile_color 0xe12f2fff
+  xpos -580
+  ypos -576
+  hide_input true
+ }
+ Add {
+  inputs 0
+  value {{parent.offset2}}
+  name offsetanimation2
+  xpos -580
+  ypos -496
+  hide_input true
+ }
+push $N2389c800
+ NoOp {
+  name NoOp1
+  xpos -40
+  ypos -90
+  addUserKnob {20 User}
+  addUserKnob {30 inbbox l "in bbox"}
+  inbbox {{"\[value input.bbox.r]"} {"\[value input.bbox.t]"}}
+  addUserKnob {30 inresolution l "in resolution"}
+  inresolution {{"\[value input.format.r]"} {"\[value input.format.t]"}}
+ }
+ Add {
+  inputs 0
+  value {{parent.offset1}}
+  name offsetanimation1
+  xpos -580
+  ypos -976
+  hide_input true
+ }
+end_group

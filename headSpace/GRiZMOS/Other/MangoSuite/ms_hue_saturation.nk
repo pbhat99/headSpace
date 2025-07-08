@@ -1,0 +1,189 @@
+set cut_paste_input [stack 0]
+version 15.1 v1
+push $cut_paste_input
+Group {
+ name MS_hue_saturation
+ tile_color 0xefb500ff
+ note_font "Verdana Bold Italic"
+ selected true
+ xpos -132
+ ypos -78
+ addUserKnob {20 grade}
+ addUserKnob {6 color_rgb_panelDropped l "panel dropped state" +HIDDEN +STARTLINE}
+ addUserKnob {26 _4 l "" +STARTLINE T "<span style=\"color:#aaa;font-family:sans-serif\"><b><span style=\"color:#ffaf24\">MS_Hue Satuaration (Ae) v.1.0</span></b>"}
+ addUserKnob {26 ""}
+ addUserKnob {41 channels T GradeMaster.channels}
+ addUserKnob {41 add l master T GradeMaster.add}
+ addUserKnob {41 black l darks T GradeMaster.black}
+ addUserKnob {41 gamma l mids T GradeMaster.gamma}
+ addUserKnob {41 multiply l whites T GradeMaster.multiply}
+ addUserKnob {41 saturation T Saturation1.saturation}
+ addUserKnob {41 reverse T GradeMaster.reverse}
+ addUserKnob {41 black_clamp l "black clamp" -STARTLINE T GradeMaster.black_clamp}
+ addUserKnob {41 white_clamp l "white clamp" -STARTLINE T GradeMaster.white_clamp}
+ addUserKnob {26 ""}
+ addUserKnob {26 "" l mask T ""}
+ addUserKnob {41 maskChannelInput l "" -STARTLINE T GradeMaster.maskChannelInput}
+ addUserKnob {6 invert -STARTLINE}
+ addUserKnob {26 "" l "mix luminance" T ""}
+ addUserKnob {41 enable_mix_luminance l "" -STARTLINE T GradeMaster.enable_mix_luminance}
+ addUserKnob {41 mix_luminance l "" -STARTLINE T GradeMaster.mix_luminance}
+ addUserKnob {41 mix T GradeMaster.mix}
+ addUserKnob {20 _2 l info}
+ addUserKnob {26 _5 l "" +STARTLINE T "This grade lets you affect just the hue \nwithout changing anything else.\n\n"}
+ addUserKnob {26 _3 l "" +STARTLINE T "<span style=\"color:#aaa;font-family:sans-serif;font-size:7pt\">node created by <b><span style=\"color:#aaaa00\">Johannes Kretschmer</span></b> mail: Jolegodrum@t-online.de - Version 1.0 - 2024 / part of  <span style=\"color:#aaa;font-family:sans-serif\"><b><span style=\"color:#ffaf24\">MANGO SUITE</span></b>\n"}
+}
+ Grade {
+  inputs 0
+  black_clamp false
+  name GradeMaster
+  tile_color 0xff0000ff
+  xpos -940
+  ypos 470
+  hide_input true
+ }
+ Input {
+  inputs 0
+  name mask
+  xpos -220
+  ypos 70
+  number 1
+  addUserKnob {20 User}
+  addUserKnob {6 connected +STARTLINE}
+  connected {{"\[exists input1]"}}
+ }
+ Dot {
+  name Dot2
+  xpos -188
+  ypos 153
+ }
+set N96bf5800 [stack 0]
+ Dot {
+  name Dot14
+  xpos -7
+  ypos 153
+ }
+set N96bf5c00 [stack 0]
+ Dot {
+  name Dot13
+  xpos -7
+  ypos 393
+ }
+push $N96bf5800
+ Invert {
+  name Invert1
+  xpos -220
+  ypos 228
+ }
+push $N96bf5c00
+ Switch {
+  inputs 2
+  which {{parent.invert}}
+  patterns {
+   {i0 ""}
+   {i1 ""}
+  }
+  name Switch3
+  xpos -220
+  ypos 312
+ }
+ Switch {
+  inputs 2
+  which {{mask.connected?0:1}}
+  patterns {
+   {i0 ""}
+   {i1 ""}
+  }
+  name Switch2
+  xpos -220
+  ypos 390
+ }
+ Dot {
+  name Dot9
+  xpos -187
+  ypos 473
+ }
+set N97b44800 [stack 0]
+ Dot {
+  name Dot3
+  xpos -187
+  ypos 633
+ }
+set N97b44c00 [stack 0]
+ Dot {
+  name Dot6
+  xpos -187
+  ypos 713
+ }
+ Input {
+  inputs 0
+  name Input1
+  xpos -579
+  ypos 230
+ }
+ Dot {
+  name Dot4
+  xpos -547
+  ypos 310
+ }
+set N97b45800 [stack 0]
+ Dot {
+  name Dot5
+  xpos -727
+  ypos 313
+ }
+ Dot {
+  name Dot1
+  xpos -727
+  ypos 712
+ }
+push $N97b44c00
+push $N97b44800
+push $N97b45800
+ Colorspace {
+  colorspace_out HSV
+  name Colorspace13
+  xpos -580
+  ypos 390
+ }
+ Grade {
+  inputs 1+1
+  channels {rgba.red -rgba.green -rgba.blue none}
+  blackpoint {{parent.GradeMaster.blackpoint}}
+  whitepoint {{parent.GradeMaster.whitepoint}}
+  black {{parent.GradeMaster.black}}
+  white {{parent.GradeMaster.white}}
+  multiply {{parent.GradeMaster.multiply}}
+  add {{parent.GradeMaster.add}}
+  gamma {{parent.GradeMaster.gamma}}
+  mix_luminance {{parent.GradeMaster.mix_luminance}}
+  name GradeHUE
+  selected true
+  xpos -580
+  ypos 470
+ }
+ Colorspace {
+  colorspace_in HSV
+  name Colorspace14
+  xpos -580
+  ypos 550
+ }
+ Saturation {
+  inputs 1+1
+  name Saturation1
+  xpos -580
+  ypos 630
+ }
+ Dissolve {
+  inputs 2+1
+  which {{(parent.GradeMaster.mix*-1)+1}}
+  name Dissolve1
+  xpos -580
+  ypos 704
+ }
+ Output {
+  name Output1
+  xpos -580
+  ypos 870
+ }
+end_group

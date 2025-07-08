@@ -1,0 +1,179 @@
+set cut_paste_input [stack 0]
+version 14.0 v5
+push $cut_paste_input
+Group {
+ name ms_directional_blur1
+ tile_color 0xefb500ff
+ note_font "Verdana Bold Italic"
+ selected true
+ xpos -329
+ ypos -196
+ addUserKnob {20 settings}
+ addUserKnob {26 _1 l "" +STARTLINE T "<span style=\"color:#aaa;font-family:sans-serif\"><b><span style=\"color:#ffaf24\">MS_ directional blur v.1.0</span></b>"}
+ addUserKnob {26 ""}
+ addUserKnob {41 channels T VectorBlur1.channels}
+ addUserKnob {7 direction1 l direction R 0 360}
+ direction1 90
+ addUserKnob {7 strength R 0 50}
+ strength 5
+ addUserKnob {41 blur_type l "blur type" T VectorBlur1.blur_type}
+ addUserKnob {41 blur_uv l "blur uv" T VectorBlur1.blur_uv}
+ addUserKnob {41 motion_falloff l "motion falloff" T VectorBlur1.motion_falloff}
+ addUserKnob {41 soft_lines l "soft lines" T VectorBlur1.soft_lines}
+ addUserKnob {26 ""}
+ addUserKnob {6 bbox l "preserve bbox" +STARTLINE}
+ addUserKnob {41 format l "overscan format" t "select the input format of the source\n(source + overscan)" T Reformat1.format}
+ addUserKnob {26 _3 l "" +STARTLINE T "<i>overscan format means the source image\n+ its overscan. <br>\nFor example: full hd = 1920x1080<br>\n10% overscan would result in a total resolution<br> \nof 2112x1188 which would be the correct overscan format</i>"}
+ addUserKnob {26 ""}
+ addUserKnob {26 "" l mask T ""}
+ addUserKnob {41 maskChannelMask l "" -STARTLINE T VectorBlur1.maskChannelMask}
+ addUserKnob {41 inject -STARTLINE T VectorBlur1.inject}
+ addUserKnob {41 invert_mask l invert -STARTLINE T VectorBlur1.invert_mask}
+ addUserKnob {41 fringe -STARTLINE T VectorBlur1.fringe}
+ addUserKnob {41 mix T VectorBlur1.mix}
+ addUserKnob {20 info}
+ addUserKnob {26 _2 l "" +STARTLINE T "<span style=\"color:#aaa;font-family:sans-serif;font-size:7pt\">node created by <b><span style=\"color:#aaaa00\">Johannes Kretschmer & Cristoph Diekneite</span></b> mail: Jolegodrum@t-online.de - Version 1.0 - 2022 / part of  <span style=\"color:#aaa;font-family:sans-serif\"><b><span style=\"color:#ffaf24\">MANGO SUITE</span></b>\n"}
+}
+ NoOp {
+  inputs 0
+  name NoOp1
+  xpos -400
+  ypos 310
+  addUserKnob {20 User}
+  addUserKnob {7 direction R 0 6.28319}
+  direction {{(parent.direction1)/57.29577948736323}}
+ }
+ Input {
+  inputs 0
+  name mask
+  xpos 513
+  ypos 467
+  number 1
+ }
+ Dot {
+  name Dot3
+  xpos 546
+  ypos 547
+ }
+ Constant {
+  inputs 0
+  channels {-rgba.red rgba.green -rgba.blue none}
+  color 10
+  name Constant1
+  xpos 141
+  ypos -200
+ }
+ AdjBBox {
+  numpixels 0
+  name AdjBBox1
+  xpos 141
+  ypos -90
+ }
+ set C364fec00 [stack 0]
+ Multiply {
+  channels rgb
+  value {{cos(NoOp1.direction)}}
+  name Multiply2
+  xpos 141
+  ypos -10
+ }
+ Dot {
+  name Dot2
+  xpos 174
+  ypos 154
+ }
+ Constant {
+  inputs 0
+  channels {rgba.red -rgba.green -rgba.blue none}
+  color 10
+  name Constant2
+  xpos -39
+  ypos -200
+ }
+clone $C364fec00 {
+  xpos -39
+  ypos -90
+  selected false
+ }
+ Multiply {
+  channels rgb
+  value {{sin(NoOp1.direction)}}
+  name Multiply1
+  xpos -39
+  ypos -11
+ }
+ Shuffle2 {
+  inputs 2
+  fromInput1 {{0} B A}
+  fromInput2 {{1} B A}
+  in2 rgb
+  mappings "4 rgba.red 0 0 rgba.red 0 0 black -1 -1 rgba.blue 0 2 black -1 -1 rgba.alpha 0 3 rgba.green 1 1 rgba.green 0 1"
+  name Shuffle1
+  xpos -39
+  ypos 150
+ }
+ Dot {
+  name Dot1
+  xpos -6
+  ypos 313
+ }
+ Input {
+  inputs 0
+  name Input1
+  xpos 320
+  ypos 150
+ }
+add_layer {dirblur dirblur.x dirblur.y}
+ Copy {
+  inputs 2
+  from0 rgba.red
+  to0 dirblur.x
+  from1 rgba.green
+  to1 dirblur.y
+  name Copy1
+  xpos 321
+  ypos 298
+ }
+ Reformat {
+  format "2112 1188 0 0 2112 1188 1 overscan"
+  resize none
+  pbb true
+  name Reformat1
+  xpos 320
+  ypos 464
+  disable {{!parent.bbox}}
+ }
+ VectorBlur2 {
+  inputs 1+1
+  uv dirblur
+  scale {{parent.strength}}
+  motion_falloff 0.5
+  grow_bbox 2
+  name VectorBlur1
+  selected true
+  xpos 320
+  ypos 538
+ }
+set N673cfc00 [stack 0]
+ Reformat {
+  resize none
+  pbb true
+  name Reformat2
+  xpos 320
+  ypos 630
+  disable {{!parent.bbox}}
+ }
+ Output {
+  name Output1
+  xpos 320
+  ypos 790
+ }
+push $N673cfc00
+ Viewer {
+  frame_range 1-100
+  viewerProcess "sRGB (ACES)"
+  name Viewer1
+  xpos 500
+  ypos 630
+ }
+end_group

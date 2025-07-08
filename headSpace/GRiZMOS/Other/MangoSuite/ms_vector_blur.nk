@@ -1,0 +1,327 @@
+set cut_paste_input [stack 0]
+version 15.0 v3
+push $cut_paste_input
+add_layer {dirblur dirblur.x dirblur.y}
+Group {
+ name ms_vector_blur
+ tile_color 0xefb500ff
+ note_font "Verdana Bold Italic"
+ selected true
+ xpos -40
+ ypos 143
+ addUserKnob {20 settings}
+ addUserKnob {26 _1 l "" +STARTLINE T "<span style=\"color:#aaa;font-family:sans-serif\"><b><span style=\"color:#ffaf24\">MS_ Vector Blur v.1.0</span></b>"}
+ addUserKnob {26 ""}
+ addUserKnob {41 channels T VectorBlur1.channels}
+ addUserKnob {41 uv l "uv channels" T VectorBlur1.uv}
+ addUserKnob {41 mv_presets l "mv presets" T VectorBlur1.mv_presets}
+ addUserKnob {6 swapuv l "swap uv channels" -STARTLINE}
+ addUserKnob {41 blur_uv l "blur uv" T VectorBlur1.blur_uv}
+ addUserKnob {41 blur_type l "blur type" -STARTLINE T VectorBlur1.blur_type}
+ addUserKnob {7 direction1 l direction R 0 360}
+ direction1 90
+ addUserKnob {7 strength t "motion amount (1 is physically correct)" R 0 50}
+ strength 5
+ addUserKnob {41 motion_falloff l "motion falloff" T VectorBlur1.motion_falloff}
+ addUserKnob {41 offset l "shutter offset" T VectorBlur1.offset}
+ addUserKnob {41 soft_lines l "soft lines" T VectorBlur1.soft_lines}
+ addUserKnob {41 blur_inside l "blur inside" -STARTLINE T VectorBlur1.blur_inside}
+ addUserKnob {41 normalize -STARTLINE T VectorBlur1.normalize}
+ addUserKnob {6 bbox l "preserve bbox" t "keeps the incoming boundingbox or overscan\n\nalso prevents from edge artifacts" -STARTLINE}
+ bbox true
+ addUserKnob {26 ""}
+ addUserKnob {41 maskChannel l "mask channel" T Keymix1.maskChannel}
+ addUserKnob {41 disable_1 l invert -STARTLINE T Invert1.disable}
+ addUserKnob {41 mix_1 l mix T Keymix1.mix}
+ addUserKnob {26 ""}
+ addUserKnob {26 _3 l "" +STARTLINE T "<i>The custom vector input expects rgb</i>"}
+ addUserKnob {20 info}
+ addUserKnob {26 _2 l "" +STARTLINE T "<span style=\"color:#aaa;font-family:sans-serif;font-size:7pt\">node created by <b><span style=\"color:#aaaa00\">Johannes Kretschmer & Cristoph Diekneite</span></b> mail: Jolegodrum@t-online.de - Version 1.0 - 2022 / part of  <span style=\"color:#aaa;font-family:sans-serif\"><b><span style=\"color:#ffaf24\">MANGO SUITE</span></b>\n"}
+}
+ Add {
+  inputs 0
+  value 50
+  name growbboxuv
+  xpos -220
+  ypos -256
+  hide_input true
+ }
+ NoOp {
+  inputs 0
+  name NoOp1
+  xpos -220
+  ypos -10
+  hide_input true
+  addUserKnob {20 User}
+  addUserKnob {7 direction R 0 6.28319}
+  direction {{(parent.direction1)/57.29577948736323}}
+ }
+ Input {
+  inputs 0
+  name Input1
+  xpos 320
+  ypos 70
+ }
+ Dot {
+  name Dot5
+  xpos 354
+  ypos 154
+ }
+set N80f2e800 [stack 0]
+ Dot {
+  name Dot10
+  xpos 534
+  ypos 154
+ }
+set N2a5a1c00 [stack 0]
+ NoOp {
+  name NoOp2
+  xpos 500
+  ypos 230
+  addUserKnob {20 User}
+  addUserKnob {30 inputres}
+  inputres {{"\[value input.format.r]"} {"\[value input.format.t]"}}
+ }
+push $N2a5a1c00
+ Dot {
+  name Dot8
+  xpos 714
+  ypos 154
+ }
+ Dot {
+  name Dot7
+  xpos 714
+  ypos 634
+ }
+set N80f2f000 [stack 0]
+ Dot {
+  name Dot4
+  xpos 714
+  ypos 794
+ }
+ Input {
+  inputs 0
+  name mask
+  xpos 860
+  ypos 470
+  number 1
+ }
+ Invert {
+  name Invert1
+  xpos 860
+  ypos 544
+ }
+ Dot {
+  name Dot3
+  xpos 894
+  ypos 714
+ }
+push $N80f2f000
+ Input {
+  inputs 0
+  name custom_vectors
+  xpos -220
+  ypos 150
+  number 2
+  addUserKnob {20 User}
+  addUserKnob {6 connected1 l connected +STARTLINE}
+  connected1 {{"\[exists input2]"}}
+ }
+ Dot {
+  name Dot1
+  xpos -186
+  ypos 234
+ }
+ Constant {
+  inputs 0
+  channels {-rgba.red rgba.green -rgba.blue none}
+  color 10
+  name Constant1
+  xpos 140
+  ypos -433
+ }
+ Crop {
+  box {{parent.Crop1.box-(growbboxuv.value)} {parent.Crop1.box-(growbboxuv.value)} {parent.Crop1.box+(growbboxuv.value)} {parent.Crop1.box+(growbboxuv.value)}}
+  reformat true
+  crop false
+  name Crop3
+  xpos 140
+  ypos -329
+  disable {{!parent.bbox}}
+ }
+ Reformat {
+  type "to box"
+  box_width {{parent.NoOp2.inputres.u}}
+  box_height {{parent.NoOp2.inputres.v}}
+  box_pixel_aspect {{Input1.pixel_aspect}}
+  resize none
+  pbb true
+  name Reformat3
+  xpos 140
+  ypos -250
+  disable {{!parent.bbox}}
+ }
+ Multiply {
+  channels rgb
+  value {{cos(NoOp1.direction)}}
+  name Multiply2
+  xpos 140
+  ypos -90
+ }
+ Dot {
+  name Dot2
+  xpos 174
+  ypos 75
+ }
+ Constant {
+  inputs 0
+  channels {rgba.red -rgba.green -rgba.blue none}
+  color 10
+  name Constant2
+  xpos -40
+  ypos -433
+ }
+ Crop {
+  box {{parent.Crop1.box-(growbboxuv.value)} {parent.Crop1.box-(growbboxuv.value)} {parent.Crop1.box+(growbboxuv.value)} {parent.Crop1.box+(growbboxuv.value)}}
+  reformat true
+  crop false
+  name Crop2
+  xpos -40
+  ypos -329
+  disable {{!parent.bbox}}
+ }
+ Reformat {
+  type "to box"
+  box_width {{parent.NoOp2.inputres.u}}
+  box_height {{parent.NoOp2.inputres.v}}
+  box_pixel_aspect {{Input1.pixel_aspect}}
+  resize none
+  pbb true
+  name Reformat1
+  xpos -40
+  ypos -250
+  disable {{!parent.bbox}}
+ }
+ Multiply {
+  channels rgb
+  value {{sin(NoOp1.direction)}}
+  name Multiply1
+  xpos -40
+  ypos -90
+ }
+ Shuffle2 {
+  inputs 2
+  fromInput1 {{0} B A}
+  fromInput2 {{1} B A}
+  in2 rgb
+  mappings "4 rgba.red 0 0 rgba.red 0 0 black -1 -1 rgba.blue 0 2 black -1 -1 rgba.alpha 0 3 rgba.green 1 1 rgba.green 0 1"
+  name Shuffle1
+  xpos -40
+  ypos 72
+ }
+ Switch {
+  inputs 2
+  which {{custom_vectors.connected1==1?1:0}}
+  name Switch1
+  xpos -40
+  ypos 230
+ }
+ Dot {
+  name Dot9
+  xpos 174
+  ypos 234
+ }
+set N91ed2800 [stack 0]
+ Dot {
+  name Dot6
+  xpos 174
+  ypos 314
+ }
+push $N91ed2800
+push $N80f2e800
+ Copy {
+  inputs 2
+  from0 rgba.red
+  to0 dirblur.x
+  from1 rgba.green
+  to1 dirblur.y
+  name Copy1
+  xpos 320
+  ypos 218
+  disable {{parent.swapuv}}
+ }
+ Copy {
+  inputs 2
+  from0 rgba.green
+  to0 dirblur.x
+  from1 rgba.red
+  to1 dirblur.y
+  name Copy2
+  xpos 320
+  ypos 298
+  disable {{!parent.swapuv}}
+ }
+ Crop {
+  box {{"((\[value input.bbox.r]-\[value input.format.r])*-1)-(growbboxuv.value)"} {"((\[value input.bbox.t]-\[value input.format.t])*-1)-(growbboxuv.value)"} {"(\[value input.bbox.r])+(growbboxuv.value)"} {"(\[value input.bbox.t])+(growbboxuv.value)"}}
+  reformat true
+  crop false
+  name Crop1
+  xpos 320
+  ypos 470
+  disable {{!parent.bbox}}
+ }
+ VectorBlur2 {
+  uv dirblur
+  scale {{parent.strength}}
+  motion_falloff 0.5
+  grow_bbox 2
+  normalize false
+  name VectorBlur1
+  xpos 320
+  ypos 544
+ }
+ Reformat {
+  type "to box"
+  format "2048 858 0 0 2048 858 1 <gh"
+  box_width {{parent.NoOp2.inputres.u}}
+  box_height {{parent.NoOp2.inputres.v}}
+  box_fixed true
+  box_pixel_aspect {{Input1.pixel_aspect}}
+  resize none
+  pbb true
+  name Reformat2
+  xpos 320
+  ypos 630
+  disable {{!parent.bbox}}
+ }
+set N91ef8400 [stack 0]
+ Keymix {
+  inputs 3
+  bbox B
+  name Keymix1
+  xpos 320
+  ypos 704
+ }
+ CopyBBox {
+  inputs 2
+  name CopyBBox1
+  xpos 320
+  ypos 790
+  disable {{!parent.bbox}}
+ }
+ Output {
+  name Output1
+  xpos 320
+  ypos 870
+ }
+push $N91ef8400
+ Viewer {
+  frame_range 1001-1100
+  viewerProcess "sRGB (ACES)"
+  monitorOutNDISenderName "NukeX - untitled - Viewer1"
+  name Viewer1
+  xpos 860
+  ypos -10
+  hide_input true
+ }
+end_group

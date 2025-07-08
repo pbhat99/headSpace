@@ -1,0 +1,217 @@
+set cut_paste_input [stack 0]
+version 15.1 v2
+push $cut_paste_input
+Group {
+ name MS_blend_transforms
+ tile_color 0xefb500ff
+ note_font "Verdana Bold Italic"
+ selected true
+ xpos 303
+ ypos -541
+ addUserKnob {20 settings}
+ addUserKnob {26 _1 l "" +STARTLINE T "<span style=\"color:#aaa;font-family:sans-serif\"><b><span style=\"color:#ffaf24\">MS_Blend Transforms v.1.0</span></b>"}
+ addUserKnob {26 ""}
+ addUserKnob {26 Aa l "<span style=\"color:#aaa\"><b><span style=\"color:#ffaf24\">Transform A</span></b>"}
+ addUserKnob {41 translate_1 l translate T Transform3.translate}
+ addUserKnob {41 rotate T Transform3.rotate}
+ addUserKnob {41 scale T Transform3.scale}
+ addUserKnob {26 ""}
+ addUserKnob {41 value l "<i>strength A" t "multiplies all transform data with\nthe given number.\n\n<i>Scale is exluded from this function</i>" T strengthA.value}
+ addUserKnob {3 timeoffseta l "<i>time offset" t "time offset the entire animation"}
+ addUserKnob {26 ""}
+ addUserKnob {26 Bb l "<span style=\"color:#aaa\"><b><span style=\"color:#ffaf24\">Transform B</span></b>"}
+ addUserKnob {41 translate T Transform2.translate}
+ addUserKnob {41 rotate_1 l rotate T Transform2.rotate}
+ addUserKnob {41 scale_1 l scale T Transform2.scale}
+ addUserKnob {26 ""}
+ addUserKnob {41 value_1 l "<i>strength B" t "multiplies all transform data with\nthe given number.\n\n<i>Scale is exluded from this function</i>" T strengthB.value}
+ addUserKnob {3 timeoffsetb l "<i>time offset " t "time offset the entire animation"}
+ addUserKnob {26 ""}
+ addUserKnob {7 atob l "<span style=\"color:#aaa\"><b><span style=\"color:#ffaf24\">Blend A to B</span></b>"}
+ addUserKnob {7 strength l "<i>strength all" t "This slider multiplys all values that are given into A and B and can therefore be used to define the overall strength of the camerashake output.\n\n<i>Scale is excluded from this function</i>" R 0 2}
+ strength 1
+ addUserKnob {26 ""}
+ addUserKnob {26 outputsettings l "output settings"}
+ addUserKnob {41 filter T Transform1.filter}
+ addUserKnob {6 logtolin l "log to lin" -STARTLINE}
+ addUserKnob {41 clamp -STARTLINE T Transform1.clamp}
+ addUserKnob {41 motionblur T Transform1.motionblur}
+ addUserKnob {41 shutter l Shutter T Transform1.shutter}
+ addUserKnob {41 shutteroffset l "Shutter Offset" T Transform1.shutteroffset}
+ addUserKnob {41 shuttercustomoffset l "" -STARTLINE T Transform1.shuttercustomoffset}
+ addUserKnob {26 ""}
+ addUserKnob {41 black_outside l "black outside" T Transform1.black_outside}
+ addUserKnob {6 preservebbox l "preserve bounding box" -STARTLINE}
+ preservebbox true
+ addUserKnob {20 Info}
+ addUserKnob {26 _3 l "" +STARTLINE T "This node can blend between two different\ntransformations. For example when you try to\ncombine two different camerashakes.\n\nLink or paste all transformation data from your\nfirst source into A and paste data from your\nsecond source into B.\n\nThen use the blend slider to seamlessly \nblend between them.\n\nThe blend however is linear so it is recommend to change they keyframe interpolation of the blend slider to horizontal.\n\n\n"}
+ addUserKnob {26 _2 l "" +STARTLINE T "<span style=\"color:#aaa;font-family:sans-serif;font-size:7pt\">node created by <b><span style=\"color:#aaaa00\">Johannes Kretschmer</span></b> mail: Jolegodrum@t-online.de - Version 1.0 - 2024 / part of  <span style=\"color:#aaa;font-family:sans-serif\"><b><span style=\"color:#ffaf24\">MANGO SUITE</span></b>\n"}
+ addUserKnob {26 text l "" +STARTLINE T "<br><a href=\"https://youtu.be/mVSG2GX7jj4\"><b><span style=\"color:#aaa\"><i>watch tutorial</span></b></a>"}
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos -220
+  ypos -330
+ }
+ NoOp {
+  name NoOp2
+  label "get\nresolution"
+  xpos -220
+  ypos -262
+  addUserKnob {20 User}
+  addUserKnob {30 uv}
+  uv {{"\[value input.format.r]"} {"\[value input.format.t]"}}
+  addUserKnob {6 color_rgba_panelDropped l "panel dropped state" +HIDDEN +STARTLINE}
+  addUserKnob {6 color_rgb_panelDropped l "panel dropped state" +HIDDEN +STARTLINE}
+ }
+set Nc2caf800 [stack 0]
+ Dot {
+  name Dot1
+  xpos -316
+  ypos 233
+  hide_input true
+ }
+push $Nc2caf800
+ OCIOLogConvert {
+  operation "lin to log"
+  name OCIOLogConvert2
+  xpos -220
+  ypos -170
+  disable {{!parent.logtolin}}
+ }
+ Transform {
+  translate {{(((Transform3.translate.x(frame+timeOffsetA.timeoffseta)*(strengthA.value))*(NoOp1.change))+((Transform2.translate.x(frame+timeOffsetB.timeoffsetb)*(strengthB.value))*(1-(NoOp1.change))))*(strength1.multiplyall)} {(((Transform3.translate.y(frame+timeOffsetA.timeoffseta)*(strengthA.value))*(NoOp1.change))+((Transform2.translate.y(frame+timeOffsetB.timeoffsetb)*(strengthB.value))*(1-(NoOp1.change))))*(strength1.multiplyall)}}
+  rotate {{(((Transform3.rotate(frame+timeOffsetA.timeoffseta)*(strengthA.value))*(NoOp1.change))+((Transform2.rotate(frame+timeOffsetB.timeoffsetb)*(strengthB.value))*(1-(NoOp1.change))))*(strength1.multiplyall)}}
+  scale {{((Transform3.scale(frame+timeOffsetA.timeoffseta))*(NoOp1.change))+((Transform2.scale(frame+timeOffsetB.timeoffsetb))*(1-(NoOp1.change)))}}
+  center {{parent.NoOp2.uv.u/2} {parent.NoOp2.uv.v/2}}
+  shutteroffset centred
+  name Transform1
+  label "combine\ntransforms"
+  note_font "Verdana Bold Italic"
+  note_font_size 13
+  xpos -220
+  ypos -25
+ }
+ OCIOLogConvert {
+  operation "log to lin"
+  name OCIOLogConvert1
+  xpos -220
+  ypos 150
+  disable {{!parent.logtolin}}
+ }
+ CopyBBox {
+  inputs 2
+  name CopyBBox1
+  xpos -220
+  ypos 230
+ }
+ Crop {
+  box {0 0 {parent.NoOp2.uv.u} {parent.NoOp2.uv.v}}
+  name Crop1
+  xpos -220
+  ypos 310
+  disable {{parent.preservebbox}}
+ }
+set Nade96000 [stack 0]
+ Output {
+  name Output1
+  xpos -220
+  ypos 486
+ }
+push $Nade96000
+ Dot {
+  name Dot2
+  xpos 173
+  ypos 313
+ }
+ Transform {
+  center {{(parent.NoOp2.uv.u)/2 x140 0} {(parent.NoOp2.uv.v)/2 x140 0}}
+  name Transform2
+  label B
+  note_font "Verdana Bold"
+  note_font_size 14
+  xpos 140
+  ypos 142
+ }
+push $Nade96000
+ Dot {
+  name Dot3
+  xpos -546
+  ypos 312
+ }
+ Transform {
+  center {{(parent.NoOp2.uv.u)/2} {(parent.NoOp2.uv.v)/2}}
+  name Transform3
+  label A
+  note_font "Verdana Bold"
+  note_font_size 14
+  xpos -580
+  ypos 142
+ }
+ Add {
+  inputs 0
+  value 1
+  name strengthA
+  tile_color 0x557fffff
+  xpos -580
+  ypos -16
+  hide_input true
+ }
+ NoOp {
+  inputs 0
+  name timeOffsetA
+  tile_color 0xff9455ff
+  xpos -580
+  ypos 70
+  hide_input true
+  addUserKnob {20 User}
+  addUserKnob {3 timeoffseta l "t offset a"}
+  timeoffseta {{parent.timeoffseta*-1}}
+ }
+ Add {
+  inputs 0
+  value 1
+  name strengthB
+  tile_color 0x557fffff
+  xpos 140
+  ypos -16
+  hide_input true
+ }
+ NoOp {
+  inputs 0
+  name timeOffsetB
+  tile_color 0xff9455ff
+  xpos 140
+  ypos 70
+  hide_input true
+  addUserKnob {20 User}
+  addUserKnob {3 timeoffsetb l "t offset b"}
+  timeoffsetb {{parent.timeoffsetb*-1}}
+ }
+ NoOp {
+  inputs 0
+  name strength1
+  tile_color 0xe44d4dff
+  label ALL
+  note_font "Verdana Bold"
+  xpos -360
+  ypos -16
+  hide_input true
+  addUserKnob {20 User}
+  addUserKnob {7 multiplyall l "multiply all" R 0 2}
+  multiplyall {{parent.strength}}
+ }
+ NoOp {
+  inputs 0
+  name NoOp1
+  tile_color 0xdfff00ff
+  label "blend slider\n"
+  xpos -78
+  ypos -16
+  hide_input true
+  addUserKnob {20 User}
+  addUserKnob {7 change}
+  change {{((parent.atob)*-1)+1}}
+ }
+end_group

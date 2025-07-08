@@ -1,0 +1,429 @@
+set cut_paste_input [stack 0]
+version 15.0 v3
+push $cut_paste_input
+Group {
+ name MS_lightwrap_mask
+ tile_color 0xefb500ff
+ note_font "Verdana Bold Italic"
+ selected true
+ xpos -7960
+ ypos -330
+ addUserKnob {20 settings}
+ addUserKnob {26 _1 l "" +STARTLINE T "<span style=\"color:#aaa;font-family:sans-serif\"><b><span style=\"color:#ffaf24\">MS_lightwrap_mask v.1.0</span></b>"}
+ addUserKnob {26 ""}
+ addUserKnob {4 type M {default exponential}}
+ type exponential
+ addUserKnob {26 _3 l "" -STARTLINE T "<i>&nbsp;&nbsp;<span style=\"color:#0f0\">Put this node before the premult!</span>"}
+ addUserKnob {41 Diffuse T LightWrap3.Diffuse}
+ addUserKnob {41 Intensity T LightWrap3.Intensity}
+ addUserKnob {6 wraponly l "wrap only" +STARTLINE}
+ addUserKnob {41 disableluma l "Disable luminance based wrap" T LightWrap3.disableluma}
+ addUserKnob {41 enableglow l "Enable Glow" T LightWrap3.enableglow}
+ addUserKnob {41 FGBlur t "only works with luminance based wrap\n\nblurs the foreground luminance before masking the edge matte (matte with luminance based wrap disabled)" T LightWrap3.FGBlur}
+ addUserKnob {7 blurbg l BGblur t "blurs the background" R 0 100}
+ blurbg 50
+ addUserKnob {41 Saturation T LightWrap3.Saturation}
+ addUserKnob {41 color T Grade1.multiply}
+ addUserKnob {41 operation T Merge21.operation}
+ addUserKnob {7 mixwrap l "mix wrap"}
+ mixwrap 1
+ addUserKnob {6 invertmask l "invert mask" -STARTLINE}
+ addUserKnob {20 info}
+ addUserKnob {26 _2 l "" +STARTLINE T "<br><span style=\"color:#aaa;font-family:sans-serif;font-size:7pt\">node created by <b><span style=\"color:#aaaa00\">Johannes Kretschmer, Christoph Diekneite</span></b><br> \n mail: Jolegodrum@t-online.de - Version 1.0 - 2024 / part of  <span style=\"color:#aaa;font-family:sans-serif\"><b><span style=\"color:#ffaf24\">MANGO SUITE</span></b>"}
+ addUserKnob {26 _4 l "" +STARTLINE T "<br><a href=\"https://youtu.be/YiTrRk0QX4E\"><b><span style=\"color:#aaa\"><i>watch tutorial</span></b></a>"}
+}
+ Input {
+  inputs 0
+  name Mask
+  selected true
+  xpos 860
+  ypos 150
+  number 2
+  addUserKnob {20 User}
+ }
+ Dot {
+  name Dot33
+  xpos 894
+  ypos 393
+ }
+set N2d240800 [stack 0]
+ Dot {
+  name Dot1
+  xpos 893
+  ypos 553
+ }
+ Invert {
+  name Invert1
+  xpos 761
+  ypos 544
+  disable {{!parent.invertmask}}
+ }
+ Invert {
+  name Invert2
+  xpos 614
+  ypos 544
+ }
+ Input {
+  inputs 0
+  name object
+  xpos 680
+  ypos -890
+  addUserKnob {20 User}
+ }
+ Dot {
+  name Dot3
+  xpos 714
+  ypos -726
+ }
+set Nea60fc00 [stack 0]
+ Dot {
+  name Dot29
+  xpos 714
+  ypos -6
+ }
+set Na7513800 [stack 0]
+ Input {
+  inputs 0
+  name BG
+  label "\n"
+  xpos 500
+  ypos -890
+  number 1
+  addUserKnob {20 User}
+ }
+ Dot {
+  name Dot15
+  xpos 534
+  ypos -406
+ }
+set Nc436b000 [stack 0]
+ Blur {
+  size {{parent.FGBlur*50}}
+  name Blur12
+  xpos 320
+  ypos -416
+ }
+ Saturation {
+  saturation 0
+  name Saturation1
+  xpos 320
+  ypos -330
+ }
+ Shuffle2 {
+  fromInput1 {{0} B}
+  fromInput2 {{0} B}
+  mappings "4 rgba.red 0 0 rgba.red 0 0 rgba.red 0 0 rgba.green 0 1 rgba.red 0 0 rgba.blue 0 2 rgba.red 0 0 rgba.alpha 0 3"
+  name Shuffle2
+  label "\[value in1]"
+  xpos 320
+  ypos -256
+ }
+push $Nea60fc00
+ Invert {
+  name Invert3
+  xpos 420
+  ypos -736
+ }
+ Dot {
+  name Dot4
+  xpos 354
+  ypos -726
+ }
+set Ne88f6000 [stack 0]
+ Blur {
+  size {{parent.mult1.multblur*2}}
+  name Blur1
+  xpos 320
+  ypos -656
+ }
+push $Ne88f6000
+ Dot {
+  name Dot6
+  xpos 174
+  ypos -726
+ }
+set Nb314ac00 [stack 0]
+ Blur {
+  size {{parent.mult1.multblur*4}}
+  name Blur2
+  xpos 140
+  ypos -656
+ }
+push $Nb314ac00
+ Dot {
+  name Dot7
+  xpos -6
+  ypos -726
+ }
+set Nc7485000 [stack 0]
+ Blur {
+  size {{parent.mult1.multblur*8}}
+  name Blur3
+  xpos -40
+  ypos -656
+ }
+push $Nc7485000
+ Dot {
+  name Dot8
+  xpos -186
+  ypos -726
+ }
+set N88d8e000 [stack 0]
+ Blur {
+  size {{parent.mult1.multblur*16}}
+  name Blur4
+  xpos -220
+  ypos -656
+ }
+push $N88d8e000
+ Dot {
+  name Dot9
+  xpos -366
+  ypos -726
+ }
+set N28b78400 [stack 0]
+ Blur {
+  size {{parent.mult1.multblur*32}}
+  name Blur5
+  xpos -400
+  ypos -654
+ }
+push $N28b78400
+ Dot {
+  name Dot10
+  xpos -546
+  ypos -726
+ }
+set Na7513400 [stack 0]
+ Blur {
+  size {{parent.mult1.multblur*64}}
+  name Blur6
+  xpos -579
+  ypos -656
+ }
+push 0
+push $Na7513400
+ Dot {
+  name Dot11
+  xpos -726
+  ypos -726
+ }
+set Nc3cc8400 [stack 0]
+ Dot {
+  name Dot12
+  xpos -906
+  ypos -726
+ }
+set N53344400 [stack 0]
+ Blur {
+  size {{parent.mult1.multblur*256}}
+  name Blur8
+  xpos -940
+  ypos -656
+ }
+push $Nc3cc8400
+ Blur {
+  size {{parent.mult1.multblur*128}}
+  name Blur7
+  xpos -760
+  ypos -656
+ }
+ Merge2 {
+  inputs 8+1
+  operation screen
+  name Merge2
+  xpos 140
+  ypos -490
+ }
+push $N53344400
+ Dot {
+  name Dot13
+  xpos -1086
+  ypos -726
+ }
+ Dot {
+  name Dot14
+  xpos -1086
+  ypos -406
+ }
+ Merge2 {
+  inputs 2
+  operation minus
+  bbox B
+  name Merge3
+  xpos 140
+  ypos -409
+ }
+ Shuffle2 {
+  fromInput1 {{0} B}
+  fromInput2 {{0} B}
+  mappings "4 rgba.alpha 0 3 rgba.red 0 0 rgba.alpha 0 3 rgba.green 0 1 rgba.alpha 0 3 rgba.blue 0 2 rgba.alpha 0 3 rgba.alpha 0 3"
+  name Shuffle1
+  label "\[value in1]"
+  xpos 140
+  ypos -336
+ }
+ Merge2 {
+  inputs 2
+  operation mask
+  name Merge6
+  xpos 140
+  ypos -250
+  disable {{parent.disableluma}}
+ }
+ Grade {
+  channels alpha
+  multiply {{parent.Intensity/222.222}}
+  white_clamp true
+  name Grade2
+  xpos 140
+  ypos -176
+ }
+push $Nc436b000
+ Blur {
+  size {{parent.blurbg}}
+  name Blur11
+  xpos 500
+  ypos -176
+ }
+ Dot {
+  name Dot5
+  xpos 533
+  ypos -87
+ }
+set Nc7c34c00 [stack 0]
+ Blur {
+  size 60
+  name Blur13
+  xpos 320
+  ypos -95
+ }
+ Copy {
+  inputs 2
+  from0 rgba.alpha
+  to0 rgba.alpha
+  bbox A
+  name Copy1
+  xpos 140
+  ypos -95
+ }
+ Saturation {
+  saturation {{parent.Saturation}}
+  name Saturation2
+  xpos 140
+  ypos -10
+ }
+ Dilate {
+  size 1
+  name Dilate1
+  xpos 140
+  ypos 64
+ }
+ Premult {
+  name Premult1
+  xpos 140
+  ypos 149
+ }
+ Remove {
+  channels alpha
+  name Remove1
+  xpos 320
+  ypos 143
+ }
+push $Nc7c34c00
+push $Na7513800
+ LightWrap {
+  inputs 2
+  name LightWrap3
+  xpos 500
+  ypos -10
+  Diffuse 50
+  Intensity 50
+  onlywrap true
+  FGBlur 2
+  master 1
+  shadows 1
+  midtones 1
+  highlights 1
+ }
+ Switch {
+  inputs 2
+  which {{parent.type}}
+  name Switch1
+  xpos 500
+  ypos 149
+ }
+ CopyBBox {
+  inputs 2
+  name CopyBBox1
+  xpos 500
+  ypos 230
+ }
+ Grade {
+  name Grade1
+  xpos 500
+  ypos 308
+ }
+ Dot {
+  name Dot30
+  xpos 534
+  ypos 393
+ }
+set Nf2378400 [stack 0]
+ Merge2 {
+  inputs 2
+  operation stencil
+  name Merge20
+  xpos 500
+  ypos 550
+ }
+push 0
+ Merge2 {
+  inputs 2
+  mix {{parent.mixwrap}}
+  name Merge1
+  xpos 500
+  ypos 708
+ }
+ Dot {
+  name Dot2
+  xpos 534
+  ypos 793
+ }
+push $N2d240800
+push $Nf2378400
+push $Na7513800
+ Merge2 {
+  inputs 2+1
+  operation plus
+  invert_mask {{parent.invertmask}}
+  mix {{parent.mixwrap}}
+  name Merge21
+  xpos 680
+  ypos 389
+ }
+ Switch {
+  inputs 2
+  which {{parent.wraponly}}
+  name wrap_only1
+  xpos 681
+  ypos 790
+ }
+ Output {
+  name Output1
+  xpos 681
+  ypos 948
+ }
+ NoOp {
+  inputs 0
+  name mult1
+  xpos -400
+  ypos -490
+  hide_input true
+  addUserKnob {20 User}
+  addUserKnob {7 multblur}
+  multblur {{parent.Diffuse/166.6666}}
+  addUserKnob {7 falloff1 l falloff}
+  falloff1 1
+ }
+end_group

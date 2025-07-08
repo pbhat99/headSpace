@@ -1,0 +1,152 @@
+set cut_paste_input [stack 0]
+version 15.0 v3
+push $cut_paste_input
+Group {
+ name ms_lens_breathing
+ tile_color 0xefb500ff
+ note_font "Verdana Bold Italic"
+ selected true
+ xpos -8416
+ ypos -250
+ addUserKnob {20 settings}
+ addUserKnob {26 _1 l "" +STARTLINE T "<span style=\"color:#aaa;font-family:sans-serif\"><b><span style=\"color:#ffaf24\">MS_Lens Breathing v.1.0</span></b>"}
+ addUserKnob {26 ""}
+ addUserKnob {7 focus l <b>FOCUS</b> t "0 = near\n1 = far"}
+ addUserKnob {6 prescale l "pre scale" t "\nscales the image down before the transformation happens so that focus 0.5 equals no transformation" -STARTLINE}
+ prescale true
+ addUserKnob {26 zoom l <b>zoom}
+ addUserKnob {6 enablezoom l "enable zoom" +STARTLINE}
+ enablezoom true
+ addUserKnob {6 invertzoom l "invert zoom" -STARTLINE}
+ addUserKnob {7 strength l <i>strength t "\nStrength acts as a multiplier to the overall effect strength.\n\n0 = zero effect\n1 = original effect strength\n2 = 2x the effect strength\n" R 0 3}
+ strength 2
+ addUserKnob {26 squeeze l <b>squeeze}
+ addUserKnob {6 enablesqueeze l "enable squeeze" +STARTLINE}
+ addUserKnob {6 invertsqueeze l "invert squeeze" -STARTLINE}
+ addUserKnob {7 strengthx l "<i>strength x" t "\nStrength acts as a multiplier to the overall effect strength.\n\n0 = zero effect\n1 = original effect strength\n2 = 2x the effect strength\n" R 0 3}
+ strengthx 2
+ addUserKnob {6 enablex l "" t "enables x axis squeeze" -STARTLINE}
+ enablex true
+ addUserKnob {7 strengthy l "<i>strength y" t "\nStrength acts as a multiplier to the overall effect strength.\n\n0 = zero effect\n1 = original effect strength\n2 = 2x the effect strength\n" R 0 3}
+ strengthy 2
+ addUserKnob {6 enabley l "" t "enables y axis squeeze" -STARTLINE}
+ enabley true
+ addUserKnob {26 ""}
+ addUserKnob {41 filter T Transform4.filter}
+ addUserKnob {6 logtolin l "log to lin" -STARTLINE}
+ addUserKnob {41 crop l "preserve bbox" t "preserve bounding box" -STARTLINE T Crop1.disable}
+ addUserKnob {20 info}
+ addUserKnob {26 text l "" +STARTLINE T "<br><span style=\"color:#aaa;font-family:sans-serif;font-size:7pt\">node created by <b><span style=\"color:#aaaa00\">Johannes Kretschmer, Christoph Diekneite</span></b><br> \n mail: Jolegodrum@t-online.de - Version 1.0 - 2024 / part of  <span style=\"color:#aaa;font-family:sans-serif\"><b><span style=\"color:#ffaf24\">MANGO SUITE</span></b>"}
+ addUserKnob {26 text_1 l "" +STARTLINE T "<br><a href=\"https://youtu.be/qFz582VXiJ0\"><b><span style=\"color:#aaa\"><i>watch tutorial</span></b></a>"}
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos -40
+  ypos -570
+ }
+ OCIOLogConvert {
+  operation "lin to log"
+  name OCIOLogConvert1
+  xpos -40
+  ypos -490
+  disable {{!parent.logtolin}}
+ }
+ Dot {
+  name Dot1
+  xpos -6
+  ypos -406
+ }
+set Nf1bdd000 [stack 0]
+ Dot {
+  name Dot5
+  xpos -186
+  ypos -406
+ }
+ Dot {
+  name Dot4
+  xpos -186
+  ypos 313
+ }
+push $Nf1bdd000
+ Transform {
+  scale {{"(1-((refscale/200)/2)*(invertzoom==1 ? strength*-1:strength))"}}
+  center {{"\[value input.format.r]/2"} {"\[value input.format.t]/2"}}
+  name Transform3
+  tile_color 0xdd2626ff
+  label "spherical prescale"
+  xpos -40
+  ypos -336
+  disable {{"enablezoom==1? !parent.prescale:1"}}
+  addUserKnob {20 User}
+  addUserKnob {7 refscale l "ref scale" R 0.1 10}
+  refscale 1.005
+ }
+ Transform {
+  scale {{"(((parent.focus)/200)*(invertzoom==1 ? strength*-1:strength))+1"}}
+  center {{"\[value input.format.r]/2"} {"\[value input.format.t]/2"}}
+  name Transform1
+  tile_color 0xdd2626ff
+  label "spherical breathing"
+  xpos -40
+  ypos -256
+  disable {{!parent.enablezoom}}
+ }
+ Transform {
+  scale {{"enablex==1 ? (1-((refscalew/100)/2)*(invertsqueeze==1 ? strengthx*-1:strengthx)):1"} {"enabley==1 ? (1+((refscalew/200)/2)*(invertsqueeze==1 ? strengthy*-1:strengthy)):1"}}
+  center {{"\[value input.format.r]/2"} {"\[value input.format.t]/2"}}
+  name Transform5
+  tile_color 0x2fb42fff
+  label "anamorph prescale"
+  xpos -40
+  ypos -96
+  disable {{"enablesqueeze==1 ? !parent.prescale:1"}}
+  addUserKnob {20 User}
+  addUserKnob {7 refscalew l "ref scale h"}
+  refscalew 1.01
+  addUserKnob {7 refscaleh l "ref scale h"}
+ }
+ Transform {
+  scale {{"enablex==1 ? ((((parent.focus)/100)*(invertsqueeze==1 ? strengthx*-1:strengthx))+1):1"} {"enabley==1 ? (((((parent.focus)/200)*(invertsqueeze==1 ? strengthy*-1:strengthy))*-1)+1):1"}}
+  center {{"\[value input.format.r]/2"} {"\[value input.format.t]/2"}}
+  name Transform6
+  tile_color 0x2fb42fff
+  label "anamorph breathing"
+  xpos -40
+  ypos -16
+  disable {{!parent.enablesqueeze}}
+ }
+ Transform {
+  center {{"\[value input.format.r]/2"} {"\[value input.format.t]/2"}}
+  name Transform4
+  tile_color 0xbe3885ff
+  label "filter type"
+  xpos -40
+  ypos 144
+ }
+ OCIOLogConvert {
+  operation "log to lin"
+  name OCIOLogConvert2
+  xpos -40
+  ypos 230
+  disable {{!parent.logtolin}}
+ }
+ CopyBBox {
+  inputs 2
+  name CopyBBox1
+  xpos -40
+  ypos 309
+ }
+ Crop {
+  box {0 0 {(Transform3.center.x)*2} {(Transform3.center.y)*2}}
+  name Crop1
+  xpos -40
+  ypos 389
+  disable true
+ }
+ Output {
+  name Output1
+  xpos -40
+  ypos 549
+ }
+end_group

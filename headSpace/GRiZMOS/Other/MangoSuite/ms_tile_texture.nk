@@ -1,0 +1,58 @@
+set cut_paste_input [stack 0]
+version 15.0 v3
+push $cut_paste_input
+Group {
+name MS_tile_texture
+tile_color 0xefb500ff
+note_font "Verdana Bold Italic"
+selected true
+xpos -2200
+ypos -137
+addUserKnob {20 settings}
+addUserKnob {26 _1 l "" +STARTLINE T "<span style=\"color:#aaa;font-family:sans-serif\"><b><span style=\"color:#ffaf24\">MS_Color Shift v.1.0</span></b>"}
+addUserKnob {26 ""}
+addUserKnob {14 size_wh l "tile uv" R 0 100}
+size_wh 6
+addUserKnob {41 mirrorRows l "mirror u" T Tile1.mirrorRows}
+addUserKnob {41 mirrorCols l "mirror v" -STARTLINE T Tile1.mirrorCols}
+addUserKnob {41 filter T Tile1.filter}
+addUserKnob {6 growres l "grow resolution" t "grows the texture resolution based on the amount of uv tiling to keep the originals image resolution" +STARTLINE}
+growres true
+addUserKnob {20 info}
+addUserKnob {26 _2 l "" +STARTLINE T "<br><span style=\"color:#aaa;font-family:sans-serif;font-size:7pt\">node created by <b><span style=\"color:#aaaa00\">Johannes Kretschmer</span></b> mail: Jolegodrum@t-online.de - Version 1.0 - 2024 / part of  <span style=\"color:#aaa;font-family:sans-serif\"><b><span style=\"color:#ffaf24\">MANGO SUITE</span></b>\n"}
+addUserKnob {26 text T "<br><a href=\"https://youtu.be/_jHa5WS2D5s\"><b><span style=\"color:#aaa\"><i>watchdemo</span></b></a>"}
+}
+Input {
+inputs 0
+name Input1
+xpos 500
+ypos -410
+}
+Reformat {
+type "to box"
+box_width {{"\[value input.width]*(Tile1.rows)"}}
+box_height {{"\[value input.height]*(Tile1.columns)"}}
+box_fixed true
+resize fill
+black_outside true
+name Reformat1
+xpos 500
+ypos -330
+disable {{!parent.growres}}
+}
+Tile {
+rows {{parent.size_wh.w}}
+mirrorRows true
+columns {{parent.size_wh.h}}
+mirrorCols true
+filter Lanczos6
+name Tile1
+xpos 500
+ypos -250
+}
+Output {
+name Output1
+xpos 500
+ypos -170
+}
+end_group

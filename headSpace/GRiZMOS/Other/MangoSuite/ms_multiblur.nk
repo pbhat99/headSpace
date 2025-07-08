@@ -1,0 +1,411 @@
+set cut_paste_input [stack 0]
+version 15.0 v3
+push $cut_paste_input
+Group {
+ name MS_multi_blur
+ tile_color 0xefb500ff
+ note_font "Verdana Bold Italic"
+ selected true
+ xpos -4900
+ ypos 70
+ addUserKnob {20 settings l "Blur Settings"}
+ addUserKnob {26 _2 l "" +STARTLINE T "<span style=\"color:#aaa;font-family:sans-serif\"><b><span style=\"color:#ffaf24\">MS_Multi Blur v.1.0</span></b>"}
+ addUserKnob {26 ""}
+ addUserKnob {41 channels l "blur channel" T Blur1.channels}
+ addUserKnob {6 lumbased l "luminance based" t "\nOnce enabled the highlights will be excluded from the blur to prevent them from creating a visible glow.\n" +STARTLINE}
+ addUserKnob {7 mixlum l "affect brights" t "Excludes the highlights from the blur.\n\nYou can control how much of the highlights will be affected by the blur. By setting the slider to 1 the blur will be applied to the full luminance range of the image."}
+ mixlum 0.4
+ addUserKnob {6 visualizerange l "vizualize " t "\nVisualizes the area that gets exluded from the effect." -STARTLINE}
+ addUserKnob {26 ""}
+ addUserKnob {6 blur1 l "&nbsp;&nbsp;<b><span style=\"color:#ffaf24\">blur 1</span></b>" +STARTLINE}
+ blur1 true
+ addUserKnob {41 size T Blur1.size}
+ addUserKnob {41 mix T Blur1.mix}
+ addUserKnob {26 ""}
+ addUserKnob {6 blur2 l "&nbsp;&nbsp;<b><span style=\"color:#ffaf24\">blur 2</span></b>" +STARTLINE}
+ blur2 true
+ addUserKnob {41 size_1 l size T Blur2.size}
+ addUserKnob {41 mix_1 l mix T Blur2.mix}
+ addUserKnob {26 ""}
+ addUserKnob {6 blur3 l "&nbsp;&nbsp;<b><span style=\"color:#ffaf24\">blur 3</span></b>" +STARTLINE}
+ blur3 true
+ addUserKnob {41 size_2 l size T Blur3.size}
+ addUserKnob {41 mix_2 l mix T Blur3.mix}
+ addUserKnob {26 ""}
+ addUserKnob {6 blur4 l "&nbsp;&nbsp;<b><span style=\"color:#ffaf24\">blur 4</span></b>" +STARTLINE}
+ blur4 true
+ addUserKnob {41 size_3 l size T Blur4.size}
+ addUserKnob {41 mix_3 l mix T Blur4.mix}
+ addUserKnob {26 ""}
+ addUserKnob {6 blur5 l "&nbsp;&nbsp;<b><span style=\"color:#ffaf24\">blur 5</span></b>" +STARTLINE}
+ addUserKnob {41 size_4 l size T Blur5.size}
+ addUserKnob {41 mix_4 l mix T Blur5.mix}
+ addUserKnob {26 ""}
+ addUserKnob {6 blur6 l "&nbsp;&nbsp;<b><span style=\"color:#ffaf24\">blur 6</span></b>" +STARTLINE}
+ addUserKnob {41 size_5 l size T Blur6.size}
+ addUserKnob {41 mix_5 l mix T Blur6.mix}
+ addUserKnob {26 ""}
+ addUserKnob {26 "" l mask T ""}
+ addUserKnob {41 maskChannelMask l "" -STARTLINE T Merge2.maskChannelMask}
+ addUserKnob {41 invert_mask l invert -STARTLINE T Merge2.invert_mask}
+ addUserKnob {41 mix_6 l "mix all" T Merge2.mix}
+ addUserKnob {26 ""}
+ addUserKnob {6 keepalpha l "keep alpha" t "Keep the input objects alpha.\n\nUnchecking will give the object a full white alpha." +STARTLINE}
+ keepalpha true
+ addUserKnob {6 objonly l "affect object only" t "\nCuts the blur to only affect the areas that have an alpha." -STARTLINE}
+ objonly true
+ addUserKnob {6 pbbox l "preserve bbox" t "keep the originals inputs bounding box" -STARTLINE}
+ pbbox true
+ addUserKnob {20 info l Info}
+ addUserKnob {26 text_1 l "" +STARTLINE T "<br><span style=\"color:#aaa;font-family:sans-serif;font-size:7pt\">node created by <b><span style=\"color:#aaaa00\">Johannes Kretschmer</span></b> mail: Jolegodrum@t-online.de - Version 1.0 - 2024 / part of  <span style=\"color:#aaa;font-family:sans-serif\"><b><span style=\"color:#ffaf24\">MANGO SUITE</span></b>\n"}
+ addUserKnob {26 _1 l "" +STARTLINE T "<br><a href=\"https://youtu.be/gsxzzgTOsUs\"><b><span style=\"color:#aaa\"><i>watch tutorial</span></b></a>\n"}
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos -580
+  ypos 550
+ }
+ Dot {
+  name Dot26
+  xpos -547
+  ypos 633
+ }
+set N909eec00 [stack 0]
+ Dot {
+  name Dot20
+  xpos -367
+  ypos 2313
+  hide_input true
+ }
+ NoOp {
+  name NoOp2
+  xpos -400
+  ypos 2390
+  addUserKnob {20 User}
+  addUserKnob {30 uv}
+  uv {{"\[value input.format.r]"} {"\[value input.format.t]"}}
+  addUserKnob {6 color_rgba_panelDropped l "panel dropped state" +HIDDEN +STARTLINE}
+  addUserKnob {6 color_rgb_panelDropped l "panel dropped state" +HIDDEN +STARTLINE}
+ }
+push $N909eec00
+ Dot {
+  name Dot1
+  xpos -727
+  ypos 633
+ }
+set Nb3776400 [stack 0]
+ Dot {
+  name Dot25
+  xpos -907
+  ypos 634
+ }
+ Shuffle2 {
+  fromInput1 {{0} B}
+  fromInput2 {{0} B}
+  mappings "4 rgba.red 0 0 rgba.red 0 0 rgba.green 0 1 rgba.green 0 1 rgba.blue 0 2 rgba.blue 0 2 white -1 -1 rgba.alpha 0 3"
+  name Shuffle2
+  label "\[value in1]"
+  xpos -939
+  ypos 784
+  disable {{parent.keepalpha}}
+ }
+ Dot {
+  name Dot5
+  xpos -907
+  ypos 1594
+ }
+set Na119b800 [stack 0]
+ Dot {
+  name Dot9
+  xpos -907
+  ypos 1674
+ }
+set Na0e9e800 [stack 0]
+ Dot {
+  name Dot12
+  xpos -907
+  ypos 1913
+ }
+set Na119c000 [stack 0]
+ Dot {
+  name Dot11
+  xpos -907
+  ypos 1993
+ }
+set Na10f7c00 [stack 0]
+ Dot {
+  name Dot2
+  xpos -907
+  ypos 2153
+ }
+push $Na119c000
+ Invert {
+  channels alpha
+  name Invert3
+  xpos -760
+  ypos 1904
+ }
+push $Na10f7c00
+push $N909eec00
+ Dot {
+  name Dot10
+  xpos -7
+  ypos 633
+ }
+push $N909eec00
+ Clamp {
+  channels rgb
+  maximum {{parent.mixlum}}
+  name Clamp1
+  xpos -580
+  ypos 790
+  disable {{!parent.lumbased}}
+ }
+set Na0d00c00 [stack 0]
+ Merge2 {
+  inputs 2
+  operation difference
+  name Merge3
+  xpos -39
+  ypos 790
+ }
+ Saturation {
+  saturation 0
+  name Saturation1
+  xpos -40
+  ypos 870
+ }
+ Shuffle2 {
+  fromInput1 {{0} B}
+  fromInput2 {{0} B}
+  mappings "4 rgba.red 0 0 rgba.red 0 0 rgba.green 0 1 rgba.green 0 1 rgba.blue 0 2 rgba.blue 0 2 rgba.red 0 0 rgba.alpha 0 3"
+  name Shuffle3
+  label "\[value in1]"
+  xpos -40
+  ypos 944
+ }
+ Constant {
+  inputs 0
+  color {1 0 0 0}
+  format "1280 720 0 0 1280 720 1 HD_720"
+  name Constant1
+  xpos -220
+  ypos 926
+ }
+ Reformat {
+  type "to box"
+  box_width {{parent.NoOp2.uv.u}}
+  box_height {{parent.NoOp2.uv.v}}
+  box_fixed true
+  name Reformat1
+  xpos -220
+  ypos 1030
+ }
+ Copy {
+  inputs 2
+  from0 rgba.alpha
+  to0 rgba.alpha
+  name Copy1
+  xpos -40
+  ypos 1024
+ }
+ Premult {
+  name Premult1
+  xpos -40
+  ypos 1110
+ }
+ Dot {
+  name Dot7
+  xpos -7
+  ypos 1833
+ }
+push $Na0e9e800
+ Input {
+  inputs 0
+  name Mask
+  xpos -220
+  ypos 1431
+  number 1
+  addUserKnob {20 User}
+  addUserKnob {6 connected +STARTLINE}
+  connected {{"\[exists input1]"}}
+ }
+ Shuffle2 {
+  fromInput1 {{0} B}
+  fromInput2 {{0} B}
+  mappings "4 rgba.red 0 0 rgba.red 0 0 rgba.green 0 1 rgba.green 0 1 rgba.blue 0 2 rgba.blue 0 2 white -1 -1 rgba.alpha 0 3"
+  name Shuffle4
+  label "\[value in1]"
+  xpos -220
+  ypos 1505
+  disable {{Mask.connected==0?0:1}}
+ }
+ Dot {
+  name Dot6
+  xpos -187
+  ypos 1594
+ }
+push $Na119b800
+push $Nb3776400
+push $Na0d00c00
+ Merge2 {
+  inputs 2
+  operation minus
+  bbox A
+  Achannels rgb
+  Bchannels rgb
+  name Merge1
+  xpos -760
+  ypos 790
+  disable {{!parent.lumbased}}
+ }
+ Dot {
+  name Dot4
+  xpos -728
+  ypos 1353
+ }
+push $Na0d00c00
+ Blur {
+  channels rgb
+  size 15
+  crop false
+  mix 0.05
+  name Blur1
+  xpos -580
+  ypos 870
+  disable {{!parent.blur1}}
+ }
+ Blur {
+  channels {{{parent.Blur1.channels}}}
+  size 50
+  crop false
+  mix 0.1
+  name Blur2
+  xpos -580
+  ypos 950
+  disable {{!parent.blur2}}
+ }
+ Blur {
+  channels {{{parent.Blur1.channels}}}
+  size 100
+  crop false
+  mix 0.15
+  name Blur3
+  xpos -580
+  ypos 1030
+  disable {{!parent.blur3}}
+ }
+ Blur {
+  channels {{{parent.Blur1.channels}}}
+  size 200
+  crop false
+  mix 0.05
+  name Blur4
+  xpos -580
+  ypos 1110
+  disable {{!parent.blur4}}
+ }
+ Blur {
+  channels {{{parent.Blur1.channels}}}
+  size 200
+  crop false
+  name Blur5
+  xpos -580
+  ypos 1190
+  disable {{!parent.blur5}}
+ }
+ Blur {
+  channels {{{parent.Blur1.channels}}}
+  crop false
+  name Blur6
+  xpos -580
+  ypos 1270
+  disable {{!parent.blur6}}
+ }
+ Merge2 {
+  inputs 2
+  operation plus
+  bbox A
+  Achannels rgb
+  Bchannels rgb
+  name Merge2
+  xpos -580
+  ypos 1351
+  disable {{!parent.lumbased}}
+ }
+ Keymix {
+  inputs 3
+  invertMask {{!parent.invert_mask}}
+  bbox A
+  name Keymix2
+  xpos -580
+  ypos 1585
+ }
+ Dissolve {
+  inputs 2
+  which {{(parent.mix_6*-1)+1}}
+  metainput 1
+  name Dissolve1
+  xpos -580
+  ypos 1665
+ }
+ Merge2 {
+  inputs 2
+  bbox B
+  name Merge4
+  xpos -580
+  ypos 1831
+  disable {{!parent.visualizerange}}
+ }
+ Keymix {
+  inputs 3
+  bbox B
+  name Keymix1
+  xpos -580
+  ypos 1985
+  disable {{!parent.objonly}}
+ }
+ Copy {
+  inputs 2
+  from0 rgba.alpha
+  to0 rgba.alpha
+  name Copy2
+  xpos -580
+  ypos 2144
+  disable {{!parent.keepalpha}}
+ }
+set Na7515800 [stack 0]
+ Viewer {
+  frame_range 1000-1875
+  viewerProcess "sRGB (ACES)"
+  monitorOutNDISenderName "NukeX - tool_assemble_v04 - Viewer1"
+  name Viewer1
+  xpos 320
+  ypos -10
+  hide_input true
+ }
+push $Na7515800
+ Shuffle2 {
+  fromInput1 {{0} B}
+  fromInput2 {{0} B}
+  mappings "4 rgba.red 0 0 rgba.red 0 0 rgba.green 0 1 rgba.green 0 1 rgba.blue 0 2 rgba.blue 0 2 white -1 -1 rgba.alpha 0 3"
+  name Shuffle1
+  label "\[value in1]"
+  xpos -580
+  ypos 2304
+  disable {{parent.keepalpha}}
+ }
+ Crop {
+  box {0 0 {parent.NoOp2.uv.u x1 640} {parent.NoOp2.uv.v x1 480}}
+  name Crop1
+  xpos -580
+  ypos 2390
+  disable {{parent.pbbox}}
+ }
+ Output {
+  name Output1
+  xpos -580
+  ypos 2550
+ }
+end_group
