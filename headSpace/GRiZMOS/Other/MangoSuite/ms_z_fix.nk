@@ -1,0 +1,261 @@
+set cut_paste_input [stack 0]
+version 15.1 v3
+push $cut_paste_input
+Group {
+ name MS_Z_fix
+ tile_color 0xefb500ff
+ note_font "Verdana Bold Italic"
+ selected true
+ xpos 860
+ ypos -250
+ addUserKnob {20 options}
+ addUserKnob {26 _4 l "" +STARTLINE T "<span style=\"color:#aaa;font-family:sans-serif\"><b><span style=\"color:#ffaf24\">MS_Z process v.1.0</span></b>"}
+ addUserKnob {26 ""}
+ addUserKnob {26 _3 l "" +STARTLINE T "<i><span style=\"color:#579\">Shuffle depth information into \"depth\" or \"depth.z\" before running this node!</span>"}
+ addUserKnob {26 ""}
+ addUserKnob {7 extendedge l "extend depth" t "Grows the outer edge of the Zdepth pass to fully cover up the object." R 0 2}
+ extendedge 1
+ addUserKnob {7 shiftalledges l "shift all edges" t "This slider will grow all the existing edges in the image. This might be useful for creating a fogpass from Zdepth." R -2 2}
+ addUserKnob {26 ""}
+ addUserKnob {6 show t "\nVisualizes the depth pass extension amount" +STARTLINE}
+ addUserKnob {26 ""}
+ addUserKnob {41 maskChannel l "mask channel" T Keymix1.maskChannel}
+ addUserKnob {6 invertmask l invert -STARTLINE}
+ addUserKnob {20 info}
+ addUserKnob {26 _2 l "" +STARTLINE T "<br><span style=\"color:#aaa;font-family:sans-serif;font-size:7pt\">node created by <b><span style=\"color:#aaaa00\">Johannes Kretschmer</span></b> mail: Jolegodrum@t-online.de - Version 1.0 - 2024 / part of  <span style=\"color:#aaa;font-family:sans-serif\"><b><span style=\"color:#ffaf24\">MANGO SUITE</span></b>\n"}
+ addUserKnob {26 _1 l "" +STARTLINE T "<br><a href=\"https://youtu.be/bpmDdJY_c9s\"><b><span style=\"color:#aaa\"><i>watch tutorial</span></b></a>"}
+}
+ Input {
+  inputs 0
+  name object
+  xpos -40
+  ypos -1290
+ }
+ Dot {
+  name Dot2
+  xpos -7
+  ypos -1207
+ }
+set Nfaa14400 [stack 0]
+ Dot {
+  name Dot5
+  xpos 353
+  ypos -1207
+ }
+ Shuffle2 {
+  fromInput1 {{0} B}
+  fromInput2 {{0} B}
+  mappings "4 rgba.alpha 0 3 rgba.red 0 0 rgba.alpha 0 3 rgba.green 0 1 rgba.alpha 0 3 rgba.blue 0 2 rgba.alpha 0 3 rgba.alpha 0 3"
+  name Shuffle1
+  label "\[value in1]"
+  xpos 320
+  ypos -1136
+ }
+ Grade {
+  channels rgba
+  whitepoint 0
+  white_clamp true
+  name Grade1
+  xpos 320
+  ypos -1050
+ }
+set Nfaa15c00 [stack 0]
+ Dot {
+  name Dot6
+  xpos 533
+  ypos -1048
+ }
+set Nc15f4400 [stack 0]
+push $Nc15f4400
+ Dilate {
+  channels rgba
+  size {{parent.extendedge}}
+  name Dilate1
+  xpos 500
+  ypos -970
+ }
+ Dot {
+  name Dot7
+  xpos 533
+  ypos -887
+ }
+set Nb2ed1c00 [stack 0]
+ Dot {
+  name Dot11
+  xpos 533
+  ypos -567
+ }
+ Merge2 {
+  inputs 2
+  operation from
+  name Merge4
+  xpos 320
+  ypos -569
+ }
+ Shuffle2 {
+  fromInput1 {{0} B}
+  fromInput2 {{0} B}
+  mappings "4 rgba.alpha 0 3 rgba.blue 0 2 rgba.alpha 0 3 rgba.alpha 0 3 black -1 -1 rgba.green 0 1 black -1 -1 rgba.red 0 0"
+  name Shuffle5
+  label "\[value in1]"
+  xpos 320
+  ypos -416
+ }
+push $Nb2ed1c00
+push $Nfaa15c00
+ Dilate {
+  channels rgba
+  size -2
+  name Dilate2
+  xpos 320
+  ypos -970
+ }
+ Merge2 {
+  inputs 2
+  operation minus
+  name Merge2
+  xpos 320
+  ypos -890
+ }
+push $Nfaa14400
+ Shuffle2 {
+  fromInput1 {{0} B}
+  in1 depth
+  fromInput2 {{0} B}
+  mappings "4 depth.Z 0 0 rgba.red 0 0 depth.Z 0 0 rgba.green 0 1 depth.Z 0 0 rgba.blue 0 2 depth.Z 0 0 rgba.alpha 0 3"
+  name Shuffle3
+  label "\[value in1]"
+  xpos -40
+  ypos -1056
+  disable true
+ }
+ Dilate {
+  inputs 1+1
+  channels depth
+  size {{parent.extendedge*-1}}
+  name Dilate3
+  xpos -40
+  ypos -896
+ }
+ Dilate {
+  channels depth
+  size {{parent.shiftalledges}}
+  name Dilate4
+  xpos -40
+  ypos -736
+ }
+ Dot {
+  name Dot8
+  xpos -8
+  ypos -567
+ }
+set Nc65ad000 [stack 0]
+ Shuffle2 {
+  fromInput1 {{0} B}
+  in1 depth
+  fromInput2 {{0} B}
+  mappings "4 depth.Z 0 0 rgba.red 0 0 depth.Z 0 0 rgba.green 0 1 depth.Z 0 0 rgba.blue 0 2 depth.Z 0 0 rgba.alpha 0 3"
+  name Shuffle4
+  label "\[value in1]"
+  xpos 140
+  ypos -575
+ }
+ Merge2 {
+  inputs 2
+  name Merge3
+  xpos 140
+  ypos -410
+ }
+ Clamp {
+  name Clamp1
+  xpos 140
+  ypos -256
+ }
+ Input {
+  inputs 0
+  name mask
+  xpos 500
+  ypos -170
+  number 1
+  addUserKnob {20 User}
+  addUserKnob {6 connector +STARTLINE}
+  connector {{"\[exists input1]"}}
+ }
+ Grade {
+  channels rgba
+  whitepoint 0
+  white_clamp true
+  name Grade2
+  xpos 500
+  ypos -90
+ }
+ Dot {
+  name Dot3
+  xpos 533
+  ypos -7
+ }
+ Shuffle2 {
+  inputs 0
+  fromInput1 {{0} B}
+  fromInput2 {{0} B}
+  mappings "4 white -1 -1 rgba.red 0 0 white -1 -1 rgba.green 0 1 white -1 -1 rgba.blue 0 2 white -1 -1 rgba.alpha 0 3"
+  name Shuffle2
+  xpos 320
+  ypos -90
+ }
+ Merge2 {
+  inputs 2
+  operation stencil
+  name Merge1
+  xpos 320
+  ypos -10
+ }
+ Invert {
+  name Invert1
+  xpos 140
+  ypos -16
+  disable {{"MS_Z_fix.mask.connector == 1 ? 0:1"}}
+ }
+push $Nc65ad000
+push $Nfaa14400
+ Dot {
+  name Dot4
+  xpos -187
+  ypos -1207
+ }
+ Dot {
+  name Dot1
+  xpos -187
+  ypos -7
+ }
+ Keymix {
+  inputs 3
+  channels depth
+  invertMask {{parent.invertmask}}
+  name Keymix1
+  xpos -40
+  ypos -16
+ }
+ Switch {
+  inputs 2
+  which {{parent.show}}
+  name Switch1
+  xpos -40
+  ypos 70
+ }
+ Output {
+  name Output1
+  xpos -40
+  ypos 230
+ }
+push $Nc65ad000
+ Viewer {
+  frame_range 1000-1100
+  viewerProcess "sRGB (ACES)"
+  monitorOutNDISenderName "NukeX - untitled - Viewer1"
+  name Viewer1
+  xpos -760
+  ypos -570
+  hide_input true
+ }
+end_group

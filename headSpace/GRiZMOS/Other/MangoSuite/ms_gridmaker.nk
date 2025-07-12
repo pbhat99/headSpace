@@ -1,0 +1,394 @@
+set cut_paste_input [stack 0]
+version 15.1 v3
+Group {
+ inputs 0
+ name MS_gridmaker2
+ knobChanged "n = nuke.thisNode()\nk = nuke.thisKnob()\n\n# cellsizing\nif k.name()==\"squared\":\n    if k.value()== 0:\n     n.knobs()\[\"cellsizeh\"].setEnabled(True)\n\n    else: \n     n.knobs()\[\"cellsizeh\"].setEnabled(False)\n\n\n# coloring noise\nif k.name()==\"mode\":\n    if k.value()==\"over\":\n     n.knobs()\[\"color_3\"].setEnabled(True)\n\n    else: \n     n.knobs()\[\"color_3\"].setEnabled(False)"
+ tile_color 0xefb500ff
+ note_font "Verdana Bold Italic"
+ selected true
+ xpos -40
+ ypos -170
+ addUserKnob {20 gridstyle_1 l "grid settings"}
+ addUserKnob {26 _1 l "" +STARTLINE T "<span style=\"color:#aaa;font-family:sans-serif\"><b><span style=\"color:#ffaf24\">MS_Gridmaker v.1.0</span></b>"}
+ addUserKnob {26 ""}
+ addUserKnob {41 format l "<b><span style=\"color:#f7b\">format</span></b>" T Reformat1.format}
+ addUserKnob {26 ""}
+ addUserKnob {41 invert l "invert grid" T Invert1.disable}
+ addUserKnob {7 roundness t "\nThis rounds the corners of the cells to create circles. \n\nIf the circle edge is not nice or starts to disappear play with the line thickness to fix it." R 0 100}
+ roundness 7
+ addUserKnob {3 cellsizew l "cellsize w"}
+ cellsizew 120
+ addUserKnob {3 cellsizeh l "&nbsp;h&nbsp;" -STARTLINE +DISABLED}
+ cellsizeh 70
+ addUserKnob {6 squared -STARTLINE}
+ squared true
+ addUserKnob {41 size l "line thickness" T Grid1.size}
+ addUserKnob {41 multiply l color T Grade4.multiply}
+ addUserKnob {7 opacity1 l opacity}
+ opacity1 1
+ addUserKnob {26 ""}
+ addUserKnob {26 gradient l "<b><span style=\"color:#f7b\">gradient</span></b>"}
+ addUserKnob {41 ramp T Grid1.ramp}
+ addUserKnob {41 p0 l "point 0" T Grid1.p0}
+ addUserKnob {41 color0 l "color 0" T Grid1.color0}
+ addUserKnob {41 p1 l "point 1" T Grid1.p1}
+ addUserKnob {41 color_1 l "color 1" T Grid1.color}
+ addUserKnob {20 secondgrid l lines}
+ addUserKnob {6 enableoverlay l "enable lines" +STARTLINE}
+ addUserKnob {4 style M {horizontal vertical}}
+ addUserKnob {41 invert_1 l invert -STARTLINE T Invert3.disable}
+ addUserKnob {4 mode1 l mode M {over mask}}
+ mode1 mask
+ addUserKnob {41 color_2 l color T Constant2.color}
+ addUserKnob {3 number1 l number}
+ number1 20
+ addUserKnob {41 size_1 l size t thickness T Grid2.size}
+ addUserKnob {41 size_3 l blur T Blur2.size}
+ addUserKnob {7 opacity2 l opacity}
+ opacity2 0.5
+ addUserKnob {26 animation l "<b><span style=\"color:#f7b\">animation</span></b>"}
+ addUserKnob {7 speed R -5 5}
+ speed 1
+ addUserKnob {20 noise}
+ addUserKnob {6 enablenoise l "enable noise" +STARTLINE}
+ addUserKnob {4 mode M {mask stencil over ""}}
+ addUserKnob {41 color_3 l color t "change color (multiply)" +DISABLED T Grade2.multiply}
+ addUserKnob {26 noise_1 l "<b><span style=\"color:#f7b\">noise</span></b>"}
+ addUserKnob {41 invertnoise l invert T Invert2.disable}
+ addUserKnob {41 type T Noise1.type}
+ addUserKnob {41 size_2 l x/ysize T Noise1.size}
+ addUserKnob {41 octaves T Noise1.octaves}
+ addUserKnob {41 nyquist l "clip at Nyquist limit" T Noise1.nyquist}
+ addUserKnob {41 lacunarity T Noise1.lacunarity}
+ addUserKnob {41 gain T Noise1.gain}
+ addUserKnob {41 gamma T Noise1.gamma}
+ addUserKnob {7 lift}
+ lift 0.5
+ addUserKnob {7 opacity3 l opacity}
+ opacity3 1
+ addUserKnob {26 animation1 l "<b><span style=\"color:#f7b\">animation</span></b>"}
+ addUserKnob {7 animspeed1 l speed R 0 0.05}
+ animspeed1 0.02
+ addUserKnob {20 info}
+ addUserKnob {26 _2 l "" +STARTLINE T "<br><span style=\"color:#aaa;font-family:sans-serif;font-size:7pt\">node created by <b><span style=\"color:#aaaa00\">Johannes Kretschmer</span></b> mail: Jolegodrum@t-online.de - Version 1.0 - 2024 / part of  <span style=\"color:#aaa;font-family:sans-serif\"><b><span style=\"color:#ffaf24\">MANGO SUITE</span></b>\n"}
+}
+ Reformat {
+  inputs 0
+  format "1920 1080 0 0 1920 1080 1 HD_1080"
+  name Reformat1
+  xpos -580
+  ypos -10
+  hide_input true
+ }
+set Ncdcb2000 [stack 0]
+ Dot {
+  name Dot6
+  xpos -1086
+  ypos -7
+ }
+set Ncdcb2800 [stack 0]
+ Dot {
+  name Dot17
+  xpos -1447
+  ypos -7
+ }
+ Noise {
+  size 70
+  zoffset {{frame*(animspeed2.value)}}
+  octaves 5
+  gain 0.184
+  gamma 1
+  center {960 540}
+  name Noise1
+  xpos -1480
+  ypos 950
+ }
+ Invert {
+  name Invert2
+  xpos -1480
+  ypos 1024
+ }
+ Grade {
+  channels rgba
+  black {{parent.lift}}
+  white_clamp true
+  name Grade2
+  xpos -1480
+  ypos 1110
+ }
+set Ncdcb3c00 [stack 0]
+ Dot {
+  name Dot2
+  xpos -1447
+  ypos 1273
+ }
+ Dot {
+  name Dot3
+  xpos -1087
+  ypos 1273
+ }
+set Ncdce8400 [stack 0]
+push $Ncdcb2800
+ Dot {
+  name Dot5
+  xpos -1087
+  ypos 153
+ }
+set Ncdce8800 [stack 0]
+ Grid {
+  number {{parent.Grid2.number.1} 0}
+  size {{parent.Grid2.size}}
+  translate {{frame*(Animation_1.value)} 0}
+  name Grid3
+  xpos -940
+  ypos 230
+ }
+push $Ncdce8800
+ Grid {
+  number {0 {parent.number1}}
+  size 26.5
+  translate {0 {frame*(Animation_1.value)}}
+  color {1 0.8811932206 0.442980051 1}
+  name Grid2
+  xpos -1300
+  ypos 230
+ }
+ Switch {
+  inputs 2
+  which {{parent.style}}
+  name Switch3
+  xpos -1120
+  ypos 310
+ }
+ Invert {
+  name Invert3
+  xpos -1120
+  ypos 464
+ }
+ Constant {
+  inputs 0
+  channels rgb
+  color 1
+  format {{{parent.Reformat1.format}}}
+  name Constant2
+  xpos -1300
+  ypos 526
+ }
+ Copy {
+  inputs 2
+  from0 rgba.alpha
+  to0 rgba.alpha
+  name Copy2
+  xpos -1120
+  ypos 544
+ }
+ Premult {
+  name Premult2
+  xpos -1120
+  ypos 630
+ }
+ Blur {
+  size 5
+  name Blur2
+  xpos -1120
+  ypos 704
+ }
+ Dot {
+  name Dot10
+  xpos -1088
+  ypos 873
+ }
+set Ncdd22800 [stack 0]
+push $Ncdcb2000
+ Grid {
+  number {{parent.cellsizew} {"squared==1 ? parent.cellsizew/(NoOp2.aspect) :  parent.cellsizeh"}}
+  size 2.4
+  p1 {1920 0}
+  p0 {0 1080}
+  name Grid1
+  xpos -580
+  ypos 150
+ }
+ Blur {
+  size {{parent.roundness}}
+  name Blur3
+  xpos -580
+  ypos 224
+  disable {{"roundness==0 ? 1:0"}}
+ }
+ Grade {
+  channels rgba
+  blackpoint 0.19
+  whitepoint 0.27
+  white_clamp true
+  name Grade5
+  xpos -580
+  ypos 310
+  disable {{"roundness==0 ? 1:0"}}
+ }
+ Dot {
+  name Dot4
+  xpos -548
+  ypos 393
+ }
+ Invert {
+  name Invert1
+  xpos -580
+  ypos 544
+ }
+ Grade {
+  name Grade4
+  xpos -580
+  ypos 630
+ }
+ Grade {
+  channels rgba
+  multiply {{parent.opacity1}}
+  name Grade3
+  xpos -580
+  ypos 710
+ }
+ Dot {
+  name Dot7
+  xpos -547
+  ypos 793
+ }
+set Nc2e1c800 [stack 0]
+ Dot {
+  name Dot9
+  xpos -727
+  ypos 793
+ }
+set Nc2e1cc00 [stack 0]
+ Merge2 {
+  inputs 2
+  operation mask
+  mix {{parent.opacity2}}
+  name Merge4
+  xpos -940
+  ypos 1030
+ }
+push $Ncdd22800
+push $Nc2e1cc00
+ Merge2 {
+  inputs 2
+  mix {{parent.opacity2}}
+  name Merge1
+  xpos -760
+  ypos 870
+ }
+ Switch {
+  inputs 2
+  which {{parent.mode1}}
+  name Switch5
+  xpos -760
+  ypos 1030
+ }
+push $Nc2e1c800
+ Switch {
+  inputs 2
+  which {{parent.enableoverlay}}
+  name Switch4
+  xpos -580
+  ypos 1030
+ }
+ Dot {
+  name Dot14
+  xpos -547
+  ypos 1273
+ }
+set Nc2e1d800 [stack 0]
+ Dot {
+  name Dot1
+  xpos -727
+  ypos 1273
+ }
+set Nc2e1dc00 [stack 0]
+ Merge2 {
+  inputs 2
+  mix {{parent.opacity3}}
+  name Merge3
+  xpos -1120
+  ypos 1430
+ }
+push $Ncdce8400
+push $Nc2e1dc00
+ Merge2 {
+  inputs 2
+  operation stencil
+  mix {{parent.opacity3}}
+  name Merge5
+  xpos -940
+  ypos 1430
+ }
+push $Ncdce8400
+push $Nc2e1dc00
+ Merge2 {
+  inputs 2
+  operation mask
+  mix {{parent.opacity3}}
+  name Merge2
+  xpos -760
+  ypos 1430
+ }
+ Switch {
+  inputs 3
+  which {{parent.mode}}
+  name Switch2
+  xpos -940
+  ypos 1590
+ }
+push $Nc2e1d800
+ Switch {
+  inputs 2
+  which {{parent.enablenoise}}
+  name Switch6
+  xpos -581
+  ypos 1590
+ }
+ Output {
+  name Output1
+  xpos -581
+  ypos 1722
+ }
+ Add {
+  inputs 0
+  value {{parent.speed}}
+  name Animation_1
+  xpos -940
+  ypos 384
+  hide_input true
+ }
+ Add {
+  inputs 0
+  value {{parent.animspeed1}}
+  name animspeed2
+  xpos -1300
+  ypos 944
+  hide_input true
+ }
+push $Ncdcb2000
+ NoOp {
+  name NoOp2
+  xpos -400
+  ypos -10
+  addUserKnob {20 User}
+  addUserKnob {30 uv}
+  uv {{"\[value input.format.r]"} {"\[value input.format.t]"}}
+  addUserKnob {7 aspect}
+  aspect {{(uv.u/uv.v)*pixasp}}
+  addUserKnob {7 pixasp l "pixel aspect" R 0 3}
+  pixasp {{"\[value pixel_aspect]"}}
+  addUserKnob {6 color_rgba_panelDropped l "panel dropped state" +HIDDEN +STARTLINE}
+  addUserKnob {6 color_rgb_panelDropped l "panel dropped state" +HIDDEN +STARTLINE}
+ }
+push $Ncdcb3c00
+ Viewer {
+  frame_range 1001-1001
+  monitorOutNDISenderName "NukeX - gridmaker_rework - Viewer1"
+  name Viewer1
+  xpos -1160
+  ypos 2266
+ }
+end_group

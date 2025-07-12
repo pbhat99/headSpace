@@ -1,0 +1,338 @@
+set cut_paste_input [stack 0]
+version 15.1 v3
+push $cut_paste_input
+Group {
+ name MS_camerashake_2D
+ tile_color 0xefb500ff
+ note_font "Verdana Bold Italic"
+ selected true
+ xpos -220
+ ypos -170
+ addUserKnob {20 settings}
+ addUserKnob {26 _1 l "" +STARTLINE T "<span style=\"color:#aaa;font-family:sans-serif\"><b><span style=\"color:#ffaf24\">MS_Camerashake 2D v.1.0</span></b>"}
+ addUserKnob {26 ""}
+ addUserKnob {6 enableupscale l "" t "\nScales up the entire input comp to prevent black borders appearing on the edges of the frame.\n\nThi will result in quality loss so it is recommended to have overscan already instead of using upscaling here." +STARTLINE +STARTLINE}
+ addUserKnob {7 prescalecomp l "&nbsp;upscale&nbsp;" t "\nUpscale amount" -STARTLINE R 1 2}
+ prescalecomp 1.05
+ addUserKnob {26 ""}
+ addUserKnob {7 frequencyall l "<span style=\"color:#aaa;font-family:sans-serif\"><span style=\"color:#ffaf24\">frequency all</span>" t "will multiply all frequency sliders with the given value" R 0 2}
+ frequencyall 1
+ addUserKnob {7 amplitudeall l "<span style=\"color:#aaa;font-family:sans-serif\"><span style=\"color:#ffaf24\">amplitude all</span>" t "will multiply all apmlitude sliders with the given value" R 0 2}
+ amplitudeall 1
+ addUserKnob {26 ""}
+ addUserKnob {20 x l "X - Axis" n 1}
+ addUserKnob {6 enablex l "&nbsp;&nbsp;<span style=\"color:#aaa;font-family:sans-serif\"><span style=\"color:#ffaf24\"><b>enable</span>" +STARTLINE}
+ enablex true
+ addUserKnob {7 seed1 l seed t "offset animation" R 0 10}
+ addUserKnob {7 frequency1 l frequency t "times of transformation per frame" R 0 2}
+ frequency1 0.1
+ addUserKnob {7 amplitude1 l amplitude t "maximum value of transformation" R 0 15}
+ amplitude1 4
+ addUserKnob {26 ""}
+ addUserKnob {20 endGroup n -1}
+ addUserKnob {20 Y l "Y - Axis" n 1}
+ addUserKnob {6 enabley l "&nbsp;&nbsp;<span style=\"color:#aaa;font-family:sans-serif\"><span style=\"color:#ffaf24\"><b>enable</span>" +STARTLINE}
+ enabley true
+ addUserKnob {7 seed2 l seed t "offset animation" R 0 10}
+ addUserKnob {7 frequency2 l frequency t "times of transformation per frame" R 0 2}
+ frequency2 0.11
+ addUserKnob {7 amplitude2 l amplitude t "maximum value of transformation" R 0 15}
+ amplitude2 4
+ addUserKnob {26 ""}
+ addUserKnob {20 endGroup_1 l endGroup n -1}
+ addUserKnob {20 rotation l Rotation n 1}
+ addUserKnob {6 enabler l "&nbsp;&nbsp;<span style=\"color:#aaa;font-family:sans-serif\"><span style=\"color:#ffaf24\"><b>enable</span>" +STARTLINE}
+ enabler true
+ addUserKnob {7 seed3 l seed t "offset animation" R 0 10}
+ addUserKnob {7 frequency3 l frequency t "times of transformation per frame" R 0 2}
+ frequency3 0.05
+ addUserKnob {7 amplitude3 l amplitude t "maximum value of transformation" R 0 15}
+ amplitude3 1
+ addUserKnob {20 endGroup_2 l endGroup n -1}
+ addUserKnob {26 ""}
+ addUserKnob {41 filter l "filter all" T Transform1.filter}
+ addUserKnob {6 logtolin l "use log to lin " t "helps keeping the edge artifacts really low when changing filter type" -STARTLINE}
+ addUserKnob {6 enablemb l "" +STARTLINE +STARTLINE}
+ addUserKnob {7 mb l "&nbsp;motionblur" -STARTLINE R 0 5}
+ mb 2
+ addUserKnob {41 shutter T Transform1.shutter}
+ addUserKnob {41 shutteroffset l "shutter offset" T Transform1.shutteroffset}
+ addUserKnob {26 ""}
+ addUserKnob {6 crop l "preserve bbox" +STARTLINE}
+ crop true
+ addUserKnob {6 presinbbox l "preserve input bbox" t "\nThis will keep the bounding box of the original input. \nHaving this off will result in the bounding box changing due to the camerashake." -STARTLINE}
+ addUserKnob {20 tab l "output curves"}
+ addUserKnob {41 translate T Transform1.translate}
+ addUserKnob {41 rotate T Transform1.rotate}
+ addUserKnob {41 center T Transform1.center}
+ addUserKnob {20 info}
+ addUserKnob {26 _2 l "" +STARTLINE T "<br><span style=\"color:#aaa;font-family:sans-serif;font-size:7pt\">node created by <b><span style=\"color:#aaaa00\">Johannes Kretschmer</span></b> mail: Jolegodrum@t-online.de - Version 1.1 - 2024 / part of  <span style=\"color:#aaa;font-family:sans-serif\"><b><span style=\"color:#ffaf24\">MANGO SUITE</span></b>\n"}
+ addUserKnob {26 _3 l "" +STARTLINE T "<br><a href=\"https://youtu.be/hJkwk7IlRGw\"><b><span style=\"color:#aaa\"><i>watch tutorial</span></b></a><br>"}
+ addUserKnob {22 python_button l "patch notes" T "nuke.message(\"<b>version 1.1:</b><br>- preserve original checker was inverted and now makes sense\")" +STARTLINE}
+}
+ BackdropNode {
+  inputs 0
+  name BackdropNode1
+  label (random(seed,frame*frequency)*amplitude
+  note_font Verdana
+  note_font_size 21
+  xpos 314
+  ypos 292
+  bdwidth 453
+  bdheight 55
+ }
+ Add {
+  inputs 0
+  value {{parent.frequencyall}}
+  name multiplier1
+  tile_color 0xff5353ff
+  label frequency
+  xpos -40
+  ypos 698
+  hide_input true
+ }
+ Add {
+  inputs 0
+  value {{parent.amplitudeall}}
+  name multiplier2
+  tile_color 0xff5353ff
+  label amplitude
+  xpos -40
+  ypos 858
+  hide_input true
+ }
+ Input {
+  inputs 0
+  name Input1
+  xpos 140
+  ypos 230
+ }
+set N1890c000 [stack 0]
+ Dot {
+  name Dot32
+  label " input"
+  note_font "Verdana Bold"
+  xpos -7
+  ypos 1273
+  hide_input true
+ }
+set N1890c400 [stack 0]
+push $N1890c000
+ OCIOLogConvert {
+  operation "lin to log"
+  name OCIOLogConvert1
+  xpos 140
+  ypos 310
+  disable {{!parent.logtolin}}
+ }
+ Transform {
+  translate {{((random((Add1.value),frame*(Add2.value*multiplier1.value))*(Add3.value*multiplier2.value))-((Add3.value)*(multiplier2.value)/2))*enablex} {((random((Add4.value),frame*(Add5.value*multiplier1.value))*Add6.value*multiplier2.value)-((Add6.value)*(multiplier2.value)/2))*enabley}}
+  rotate {{((random((Add7.value),frame*(Add8.value*multiplier1.value))*(Add9.value*multiplier2.value))-((Add9.value*multiplier2.value)/2))*enabler}}
+  scale {{"enableupscale == 1 ? parent.prescalecomp:1"}}
+  center {{"\[value input.format.r]/2"} {"\[value input.format.t]/2"}}
+  motionblur {{"enablemb==1 ? parent.mb:0"}}
+  shutteroffset centred
+  name Transform1
+  xpos 140
+  ypos 790
+ }
+ OCIOLogConvert {
+  operation "log to lin"
+  name OCIOLogConvert2
+  xpos 140
+  ypos 1190
+  disable {{!parent.logtolin}}
+ }
+ CopyBBox {
+  inputs 2
+  name CopyBBox1
+  xpos 140
+  ypos 1271
+  disable {{parent.presinbbox}}
+ }
+ Crop {
+  box {0 0 {parent.NoOp2.uv.u} {parent.NoOp2.uv.v}}
+  name Crop1
+  xpos 140
+  ypos 1351
+  disable {{parent.crop}}
+ }
+ Output {
+  name Output1
+  xpos 140
+  ypos 1590
+ }
+ StickyNote {
+  inputs 0
+  name StickyNote3
+  label "  amplitude x  "
+  note_font "Verdana Bold"
+  note_font_size 14
+  xpos 491
+  ypos 629
+ }
+ StickyNote {
+  inputs 0
+  name StickyNote2
+  label "  frequency x  "
+  note_font "Verdana Bold"
+  note_font_size 14
+  xpos 490
+  ypos 549
+ }
+ StickyNote {
+  inputs 0
+  name StickyNote1
+  label "seed x"
+  note_font "Verdana Bold"
+  note_font_size 14
+  xpos 500
+  ypos 469
+ }
+ StickyNote {
+  inputs 0
+  name StickyNote9
+  label "seed rotation  "
+  note_font "Verdana Bold"
+  note_font_size 14
+  xpos 490
+  ypos 949
+ }
+ StickyNote {
+  inputs 0
+  name StickyNote8
+  label "  frequency roatation   "
+  note_font "Verdana Bold"
+  note_font_size 14
+  xpos 462
+  ypos 1029
+ }
+ StickyNote {
+  inputs 0
+  name StickyNote7
+  label "  amplitude roatation    "
+  note_font "Verdana Bold"
+  note_font_size 14
+  xpos 461
+  ypos 1109
+ }
+ StickyNote {
+  inputs 0
+  name StickyNote6
+  label "seed y"
+  note_font "Verdana Bold"
+  note_font_size 14
+  xpos 680
+  ypos 709
+ }
+ StickyNote {
+  inputs 0
+  name StickyNote5
+  label "  frequency y  "
+  note_font "Verdana Bold"
+  note_font_size 14
+  xpos 670
+  ypos 789
+ }
+ StickyNote {
+  inputs 0
+  name StickyNote4
+  label "  amplitude y  "
+  note_font "Verdana Bold"
+  note_font_size 14
+  xpos 671
+  ypos 869
+ }
+push $N1890c400
+ NoOp {
+  name NoOp2
+  xpos -40
+  ypos 1350
+  addUserKnob {20 User}
+  addUserKnob {30 uv}
+  uv {{"\[value input.format.r]"} {"\[value input.format.t]"}}
+  addUserKnob {6 color_rgba_panelDropped l "panel dropped state" +HIDDEN +STARTLINE}
+  addUserKnob {6 color_rgb_panelDropped l "panel dropped state" +HIDDEN +STARTLINE}
+ }
+ Add {
+  inputs 0
+  value {{parent.frequency1}}
+  name Add2
+  tile_color 0xaadfffff
+  xpos 320
+  ypos 544
+  hide_input true
+ }
+ Add {
+  inputs 0
+  value {{parent.frequency3}}
+  name Add8
+  tile_color 0xaadfffff
+  xpos 320
+  ypos 1024
+  hide_input true
+ }
+ Add {
+  inputs 0
+  value {{parent.frequency2}}
+  name Add5
+  tile_color 0xaadfffff
+  xpos 500
+  ypos 784
+  hide_input true
+ }
+ Add {
+  inputs 0
+  value {{parent.seed1}}
+  name Add1
+  tile_color 0xe9ff55ff
+  xpos 320
+  ypos 464
+  hide_input true
+ }
+ Add {
+  inputs 0
+  value {{parent.seed3}}
+  name Add7
+  tile_color 0xe9ff55ff
+  xpos 320
+  ypos 944
+  hide_input true
+ }
+ Add {
+  inputs 0
+  value {{parent.seed2}}
+  name Add4
+  tile_color 0xe9ff55ff
+  xpos 500
+  ypos 704
+  hide_input true
+ }
+ Add {
+  inputs 0
+  value {{parent.amplitude1*1.5 x38 20 x77 10}}
+  name Add3
+  tile_color 0x6aff55ff
+  xpos 320
+  ypos 624
+  hide_input true
+ }
+ Add {
+  inputs 0
+  value {{parent.amplitude2*1.5}}
+  name Add6
+  tile_color 0x6aff55ff
+  xpos 500
+  ypos 864
+  hide_input true
+ }
+ Add {
+  inputs 0
+  value {{parent.amplitude3}}
+  name Add9
+  tile_color 0x6aff55ff
+  xpos 320
+  ypos 1104
+  hide_input true
+ }
+end_group

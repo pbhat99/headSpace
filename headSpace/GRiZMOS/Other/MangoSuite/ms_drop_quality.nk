@@ -1,0 +1,141 @@
+set cut_paste_input [stack 0]
+version 15.1 v2
+push $cut_paste_input
+Group {
+ name ms_drop_quality
+ tile_color 0xefb500ff
+ note_font "Verdana Bold Italic"
+ selected true
+ xpos -40
+ ypos -170
+ addUserKnob {20 settings}
+ addUserKnob {26 _1 l "" +STARTLINE T "<span style=\"color:#aaa;font-family:sans-serif\"><b><span style=\"color:#ffaf24\">MS_Drop Quality v.1.0</span></b>"}
+ addUserKnob {26 ""}
+ addUserKnob {7 quality1 l <b>quality</b> t "1 is original quality. When pulling down the quality slider the quality drops by filtering the image." R 0.001 1}
+ quality1 0.9
+ addUserKnob {41 filter_1 l filter T Transform2.filter}
+ addUserKnob {26 "" +STARTLINE}
+ addUserKnob {26 blur l <b>blur</b>}
+ addUserKnob {6 enable2 l enable +STARTLINE}
+ enable2 true
+ addUserKnob {7 blur1 l strength R 0 2}
+ blur1 1.2
+ addUserKnob {41 filter T Blur1.filter}
+ addUserKnob {41 mix t "mix blur" T Blur1.mix}
+ addUserKnob {26 ""}
+ addUserKnob {26 sharpen l <b>sharpen</b>}
+ addUserKnob {6 enable1 l enable +STARTLINE}
+ enable1 true
+ addUserKnob {41 amount T Sharpen1.amount}
+ addUserKnob {41 size T Sharpen1.size}
+ addUserKnob {26 "" +STARTLINE}
+ addUserKnob {6 showdifference l "<i>&nbsp;&nbsp;show difference" t "display the difference between original input and node result" +STARTLINE}
+ addUserKnob {6 prsbbox l " preserve bbox" t "\nKeep inputs bounding box" -STARTLINE}
+ prsbbox true
+ addUserKnob {20 info}
+ addUserKnob {26 _2 l "" +STARTLINE T "<br><span style=\"color:#aaa;font-family:sans-serif;font-size:7pt\">node created by <b><span style=\"color:#aaaa00\">Johannes Kretschmer & Tanja Rumanseva</span></b><br>\nmail: Jolegodrum@t-online.de - Version 1.0 - 2024 / part of  <span style=\"color:#aaa;font-family:sans-serif\"><b><span style=\"color:#ffaf24\">MANGO SUITE</span></b>\n"}
+ addUserKnob {26 _3 l "" +STARTLINE T "<br><a href=\"https://youtu.be/4ppYaQ3ln1Y\"><b><span style=\"color:#aaa\"><i>watch tutorial</span></b></a>"}
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos -220
+  ypos -570
+ }
+ Dot {
+  name Dot2
+  xpos -188
+  ypos -407
+ }
+set N8b37e000 [stack 0]
+ Dot {
+  name Dot1
+  xpos -8
+  ypos -407
+ }
+set N8b37f800 [stack 0]
+ Dot {
+  name Dot3
+  xpos 173
+  ypos -407
+ }
+ Dot {
+  name Dot4
+  xpos 173
+  ypos 232
+ }
+push $N8b37e000
+ Transform {
+  scale {{parent.quality1}}
+  center {{"\[value input.format.r]/2"} {"\[value input.format.t]/2"}}
+  name Transform1
+  xpos -220
+  ypos -330
+ }
+ Blur {
+  size {{parent.blur1}}
+  filter box
+  crop false
+  name Blur1
+  xpos -220
+  ypos -256
+  disable {{!parent.enable2}}
+ }
+ Sharpen {
+  amount 2
+  size 1
+  name Sharpen1
+  xpos -220
+  ypos -176
+  disable {{!parent.enable1}}
+ }
+ Saturation {
+  name Saturation1
+  xpos -220
+  ypos -90
+ }
+ Transform {
+  scale {{1/parent.Transform1.scale}}
+  center {{"\[value input.format.r]/2"} {"\[value input.format.t]/2"}}
+  filter Lanczos4
+  name Transform2
+  xpos -220
+  ypos -10
+ }
+set N8b37f400 [stack 0]
+push $N8b37f800
+ Merge2 {
+  inputs 2
+  operation difference
+  name Merge1
+  xpos -40
+  ypos -10
+ }
+push $N8b37f400
+ Switch {
+  inputs 2
+  which {{parent.showdifference}}
+  name Switch1
+  xpos -220
+  ypos 70
+ }
+ Crop {
+  box {0 0 {"\[value input.format.r]"} {"\[value input.format.t]"}}
+  name Crop1
+  xpos -220
+  ypos 150
+  disable {{parent.prsbbox}}
+ }
+ CopyBBox {
+  inputs 2
+  name CopyBBox1
+  xpos -220
+  ypos 230
+  disable {{!parent.prsbbox}}
+ }
+ Output {
+  name Output1
+  xpos -220
+  ypos 390
+ }
+end_group

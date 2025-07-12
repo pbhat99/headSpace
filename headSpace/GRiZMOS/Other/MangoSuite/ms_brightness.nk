@@ -1,0 +1,89 @@
+set cut_paste_input [stack 0]
+version 15.1 v1
+push $cut_paste_input
+Group {
+ name MS_brightness
+ tile_color 0xefb500ff
+ note_font "Verdana Bold Italic"
+ selected true
+ xpos -2197
+ ypos 1380
+ addUserKnob {20 grade}
+ addUserKnob {6 color_rgb_panelDropped l "panel dropped state" +HIDDEN +STARTLINE}
+ addUserKnob {26 _4 l "" +STARTLINE T "<span style=\"color:#aaa;font-family:sans-serif\"><b><span style=\"color:#ffaf24\">MS_Brightness v.1.0</span></b>"}
+ addUserKnob {26 ""}
+ addUserKnob {41 blackpoint T GradeBRIGHT.blackpoint}
+ addUserKnob {41 whitepoint T GradeBRIGHT.whitepoint}
+ addUserKnob {41 black l lift T GradeBRIGHT.black}
+ addUserKnob {41 white l gain T GradeBRIGHT.white}
+ addUserKnob {41 multiply T GradeBRIGHT.multiply}
+ addUserKnob {41 add l offset T GradeBRIGHT.add}
+ addUserKnob {41 gamma T GradeBRIGHT.gamma}
+ addUserKnob {41 reverse T GradeBRIGHT.reverse}
+ addUserKnob {41 black_clamp l "black clamp" -STARTLINE T GradeBRIGHT.black_clamp}
+ addUserKnob {41 white_clamp l "white clamp" -STARTLINE T GradeBRIGHT.white_clamp}
+ addUserKnob {26 "" l mask T ""}
+ addUserKnob {41 maskChannelInput l "" -STARTLINE T GradeBRIGHT.maskChannelInput}
+ addUserKnob {41 inject -STARTLINE T GradeBRIGHT.inject}
+ addUserKnob {41 invert_mask l invert -STARTLINE T GradeBRIGHT.invert_mask}
+ addUserKnob {41 fringe -STARTLINE T GradeBRIGHT.fringe}
+ addUserKnob {41 unpremult l "(un)premult by" T GradeBRIGHT.unpremult}
+ addUserKnob {41 invert_unpremult l invert -STARTLINE T GradeBRIGHT.invert_unpremult}
+ addUserKnob {26 "" l "mix luminance" T ""}
+ addUserKnob {41 enable_mix_luminance l "" -STARTLINE T GradeBRIGHT.enable_mix_luminance}
+ addUserKnob {41 mix_luminance l "" -STARTLINE T GradeBRIGHT.mix_luminance}
+ addUserKnob {41 mix T GradeBRIGHT.mix}
+ addUserKnob {20 _2 l info}
+ addUserKnob {26 _5 l "" +STARTLINE T "This node lets you affect just the brightness\nwithout changing the saturation like a normal\ngrade would do.\n\n"}
+ addUserKnob {26 _3 l "" +STARTLINE T "<span style=\"color:#aaa;font-family:sans-serif;font-size:7pt\">node created by <b><span style=\"color:#aaaa00\">Johannes Kretschmer</span></b> mail: Jolegodrum@t-online.de - Version 1.0 - 2024 / part of  <span style=\"color:#aaa;font-family:sans-serif\"><b><span style=\"color:#ffaf24\">MANGO SUITE</span></b>\n"}
+ addUserKnob {26 text l "" +STARTLINE T "<br><a href=\"https://youtu.be/TO90Q7PygZM\"><b><span style=\"color:#aaa\"><i>watch tutorial</span></b></a>"}
+}
+ Input {
+  inputs 0
+  name mask
+  xpos -241
+  ypos 250
+  number 1
+  addUserKnob {20 User}
+  addUserKnob {6 connected +STARTLINE}
+  connected {{"\[exists input1]"}}
+ }
+ Dot {
+  name Dot9
+  xpos -208
+  ypos 554
+ }
+ Input {
+  inputs 0
+  name Input1
+  xpos -565
+  ypos 310
+ }
+ Colorspace {
+  colorspace_out HSV
+  name Colorspace13
+  xpos -565
+  ypos 470
+ }
+ Grade {
+  inputs 1+1
+  channels {-rgba.red -rgba.green rgba.blue none}
+  black_clamp false
+  maskChannelInput {{{parent.GradeMaster.maskChannelInput}}}
+  unpremult {{{parent.GradeMaster.unpremult}}}
+  name GradeBRIGHT
+  xpos -565
+  ypos 544
+ }
+ Colorspace {
+  colorspace_in HSV
+  name Colorspace14
+  xpos -565
+  ypos 636
+ }
+ Output {
+  name Output1
+  xpos -565
+  ypos 790
+ }
+end_group

@@ -1,0 +1,269 @@
+set cut_paste_input [stack 0]
+version 15.1 v3
+push $cut_paste_input
+Group {
+ name MS_fine_keyer4
+ tile_color 0xefb500ff
+ note_font "Verdana Bold Italic"
+ note_font_color 0xff
+ selected true
+ xpos 369
+ ypos -95
+ addUserKnob {20 options}
+ addUserKnob {26 _2 l "" +STARTLINE T "<span style=\"color:#aaa;font-family:sans-serif\"><b><span style=\"color:#ffaf24\">MS_Fine Detail Keyer v.1.0</span></b>"}
+ addUserKnob {26 ""}
+ addUserKnob {26 cleanplate l "<b><span style=\"color:#f75\">clean plate</span>"}
+ addUserKnob {6 showcleanplate l "show cleanplate" t "\ndisplay or output cleanplate (RGB)\n" +STARTLINE}
+ addUserKnob {41 filter1 l filter t "filter type of erode node" T FilterErode1.filter}
+ addUserKnob {41 filter2 l "filter output" -STARTLINE +INVISIBLE T FilterErode2.filter}
+ addUserKnob {4 method t "Inverse erode:\nThis mode uses two erode nodes. The first erodes by a value and the second one reverses the effect by the exact value*-1.\n\nSingle erode: \nOne erode node is created to create the cleanplate. This works best when also applying some blur on the cleanplate.\n\n" M {"inverse erode" "single erode" "" ""}}
+ method "single erode"
+ addUserKnob {41 erodesize l "erode size" T FilterErode1.size}
+ addUserKnob {41 blursize l "blur size" t "blures the generated cleanplate" T Blur1.size}
+ addUserKnob {6 blurcp l "" -STARTLINE}
+ blurcp true
+ addUserKnob {26 alphaoptions l "<b><span style=\"color:#f75\">alpha options</span>"}
+ addUserKnob {4 channelselector l "take alpha from" t "Select channel to generate alpha from.\nThe channel with most contrast works best.\n" M {red green blue luminance "" "" "" "" "" ""}}
+ addUserKnob {6 invertalpha l "invert alpha" -STARTLINE}
+ addUserKnob {7 bp1 l blackpoint R -1 1}
+ addUserKnob {6 bp l "" -STARTLINE}
+ bp true
+ addUserKnob {7 wp1 l whitepoint R 0 2}
+ wp1 1
+ addUserKnob {6 wp l "" -STARTLINE}
+ wp true
+ addUserKnob {7 gam1 l gamma R 0 2}
+ gam1 1
+ addUserKnob {6 gam l "" -STARTLINE}
+ gam true
+ addUserKnob {41 blursize_1 l "blur alpha" T Blur2.size}
+ addUserKnob {6 blura l "" -STARTLINE}
+ blura true
+ addUserKnob {41 black_clamp l "black clamp" T Grade1.black_clamp}
+ addUserKnob {41 white_clamp l "white clamp" -STARTLINE T Grade1.white_clamp}
+ addUserKnob {20 info}
+ addUserKnob {26 _1 l "" +STARTLINE T "This node is designed to key really fine detail\nlike hair or semi transparent things like spider\nwebs, wires etc.\n\nIt is not made to be used as a primary keyer\nfor a green or bluescreen. \n\nIt also works really well with high contrast images.\n\nIt works based on a difference key between\nthe generated cleanplate and the original plate.\n\n"}
+ addUserKnob {26 text l "" +STARTLINE T "<span style=\"color:#aaa;font-family:sans-serif;font-size:7pt\">node created by <b><span style=\"color:#aaaa00\">Johannes Kretschmer</span></b> mail: Jolegodrum@t-online.de - Version 1.0 - 2024 / part of  <span style=\"color:#aaa;font-family:sans-serif\"><b><span style=\"color:#ffaf24\">MANGO SUITE</span></b>\n\n"}
+ addUserKnob {26 text_1 l "" +STARTLINE T "<br><a href=\"https://youtu.be/N_dVtpY0Jac\"><b><span style=\"color:#aaa\"><i>watch tutorial</span></b></a>"}
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos 500
+  ypos -330
+ }
+ Dot {
+  name Dot1
+  xpos 533
+  ypos -167
+ }
+set Nea9dc00 [stack 0]
+ FilterErode {
+  channels rgb
+  size 20
+  filter quadratic
+  name FilterErode1
+  xpos 499
+  ypos -90
+ }
+set Nea9c800 [stack 0]
+ Dot {
+  name Dot13
+  xpos 713
+  ypos -87
+ }
+ Dot {
+  name Dot12
+  xpos 713
+  ypos 73
+ }
+push $Nea9c800
+ FilterErode {
+  channels rgb
+  size {{parent.FilterErode1.size*-1}}
+  filter {{MS_fine_keyer4.filter1 x35 0}}
+  name FilterErode2
+  xpos 499
+  ypos -10
+ }
+ Switch {
+  inputs 2
+  which {{parent.method}}
+  name Switch3
+  xpos 499
+  ypos 71
+ }
+ Blur {
+  name Blur1
+  xpos 499
+  ypos 146
+  disable {{!parent.blurcp}}
+ }
+ Dot {
+  name Dot3
+  xpos 533
+  ypos 233
+ }
+set N717f9000 [stack 0]
+ Shuffle2 {
+  fromInput1 {{0} B}
+  fromInput2 {{0} B}
+  name Shuffle5
+  xpos 501
+  ypos 790
+ }
+ Dot {
+  name Dot5
+  xpos 533
+  ypos 1273
+ }
+push $Nea9dc00
+ Dot {
+  name Dot11
+  xpos 893
+  ypos -167
+ }
+ Dot {
+  name Dot2
+  xpos 892
+  ypos 153
+ }
+set N9492800 [stack 0]
+push $N717f9000
+ Merge2 {
+  inputs 2
+  operation minus
+  name Merge1
+  xpos 860
+  ypos 231
+ }
+push $N717f9000
+push $N9492800
+ Merge2 {
+  inputs 2
+  operation minus
+  name Merge2
+  xpos 680
+  ypos 310
+ }
+ Switch {
+  inputs 2
+  which {{"parent.erodesize ? erodesize > 0:0"}}
+  name switch_inputs
+  xpos 860
+  ypos 310
+ }
+ Dot {
+  name Dot4
+  xpos 893
+  ypos 393
+ }
+set N9492c00 [stack 0]
+ Dot {
+  name Dot6
+  xpos 1253
+  ypos 393
+ }
+ Saturation {
+  saturation 0
+  name Saturation1
+  xpos 1220
+  ypos 470
+ }
+ Shuffle2 {
+  fromInput1 {{0} B}
+  fromInput2 {{0} B}
+  mappings "4 rgba.red 0 0 rgba.red 0 0 rgba.red 0 0 rgba.green 0 1 rgba.red 0 0 rgba.blue 0 2 rgba.red 0 0 rgba.alpha 0 3"
+  name Shuffle4
+  xpos 1220
+  ypos 550
+ }
+ Dot {
+  name Dot7
+  xpos 1253
+  ypos 713
+ }
+push $N9492c00
+ Shuffle2 {
+  fromInput1 {{0} B}
+  fromInput2 {{0} B}
+  mappings "4 rgba.blue 0 2 rgba.red 0 0 rgba.blue 0 2 rgba.green 0 1 rgba.blue 0 2 rgba.blue 0 2 rgba.blue 0 2 rgba.alpha 0 3"
+  name Shuffle3
+  tile_color 0xffff
+  label BLUE
+  xpos 1040
+  ypos 544
+ }
+push $N9492c00
+ Shuffle2 {
+  fromInput1 {{0} B}
+  fromInput2 {{0} B}
+  mappings "4 rgba.green 0 1 rgba.red 0 0 rgba.green 0 1 rgba.green 0 1 rgba.green 0 1 rgba.blue 0 2 rgba.green 0 1 rgba.alpha 0 3"
+  name Shuffle2
+  tile_color 0xff28ff
+  label GREEN
+  xpos 860
+  ypos 544
+ }
+push $N9492c00
+ Shuffle2 {
+  fromInput1 {{0} B}
+  fromInput2 {{0} B}
+  mappings "4 rgba.red 0 0 rgba.red 0 0 rgba.red 0 0 rgba.green 0 1 rgba.red 0 0 rgba.blue 0 2 rgba.red 0 0 rgba.alpha 0 3"
+  name Shuffle1
+  tile_color 0xff0000ff
+  label RED
+  xpos 680
+  ypos 544
+ }
+ Switch {
+  inputs 4
+  which {{parent.channelselector x1 0}}
+  name alpha_switch
+  xpos 860
+  ypos 710
+ }
+ Grade {
+  channels rgba
+  blackpoint {{"bp==1 ? parent.bp1 : 0"}}
+  whitepoint {{"wp==1 ? parent.wp1 : 1"}}
+  gamma {{"gam==1 ? parent.gam1 : 1"}}
+  white_clamp true
+  name Grade1
+  xpos 860
+  ypos 870
+ }
+ Blur {
+  name Blur2
+  xpos 860
+  ypos 944
+  disable {{!parent.blura}}
+ }
+ Invert {
+  channels alpha
+  name Invert1
+  xpos 860
+  ypos 1024
+  disable {{!parent.invertalpha}}
+ }
+ Shuffle2 {
+  fromInput1 {{0} B}
+  fromInput2 {{0} B}
+  mappings "4 rgba.alpha 0 3 rgba.red 0 0 rgba.alpha 0 3 rgba.green 0 1 rgba.alpha 0 3 rgba.blue 0 2 rgba.alpha 0 3 rgba.alpha 0 3"
+  name Shuffle6
+  xpos 860
+  ypos 1190
+ }
+ Switch {
+  inputs 2
+  which {{parent.showcleanplate}}
+  name cleanplate_only
+  xpos 860
+  ypos 1270
+ }
+ Output {
+  name Output1
+  xpos 860
+  ypos 1430
+ }
+end_group

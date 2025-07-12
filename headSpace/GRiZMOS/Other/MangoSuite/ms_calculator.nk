@@ -1,0 +1,179 @@
+set cut_paste_input [stack 0]
+version 15.1 v3
+push $cut_paste_input
+NoOp {
+ name ms_calculator1
+ knobChanged "n = nuke.thisNode()\nk = nuke.thisKnob()\n\n#custom pixel aspect enable\nif k.name()==\"aspects\":\n    if k.value()==\"custom\":\n     n\[\"custom1\"].setEnabled(True)\n    \n    else: \n     n\[\"custom1\"].setEnabled(False)\n\n\n#pixel aspect enable\nif k.name()==\"anamorph\":\n    if k.value()==1:\n     n\[\"aspect\"].setEnabled(True)\n    \n    else: \n     n\[\"aspect\"].setEnabled(False)\n"
+ tile_color 0x7fff00ff
+ label "+ - / * %"
+ note_font "Verdana Bold"
+ selected true
+ xpos -400
+ ypos -656
+ hide_input true
+ addUserKnob {20 format}
+ addUserKnob {26 text l "" +STARTLINE T "<span style=\"color:#aaa;font-family:sans-serif\"><b><span style=\"color:#ffaf24\">MS_Calculator v.1.0</span></b>"}
+ addUserKnob {26 ""}
+ addUserKnob {26 _5 l "" +STARTLINE T "Insert the known variables into the number fields.\nThe green values will output the result of the calculation.\n"}
+ addUserKnob {26 calculator l "<b><span style=\"color:#ffaf24\">formats</span></b>"}
+ addUserKnob {4 aspects l "aspect ratio" M {"16 : 9  (1.777)" "21 : 9  (2.333)" "scope  (2.35)" "cinema US  (1.85)" "2.59 : 1" "2.76 : 1 " "2.20 : 1" "4 : 3  (1.333)" "2 : 1" custom "" "" "" "" "" "" "" "" "" "" "" "" "" ""}}
+ aspects "scope  (2.35)"
+ addUserKnob {7 custom1 l "&nbsp;<i>custom&nbsp;" t "\ncustom aspect ratio" -STARTLINE +DISABLED R 0 3}
+ custom1 1
+ addUserKnob {6 anamorph t "assumes pixel aspect 2:1" +STARTLINE}
+ addUserKnob {7 aspect l "pixel aspect" t "pixel aspect ratio\n" +DISABLED R 0 2}
+ aspect 2
+ addUserKnob {3 overscan l "<span style=\"color:#45d\">overscan in %</span>"}
+ overscan 10
+ addUserKnob {26 ""}
+ addUserKnob {3 resolutionw l width}
+ resolutionw 1920
+ addUserKnob {3 outputh l "&nbsp;<span style=\"color:#0b0\">height&nbsp;" t "output corresponding height" -STARTLINE}
+ outputh {{"aspects==0 ? (anamorph==1? resolutionw*aspect:resolutionw)/(16/9):resolutionw\n&&\naspects==1 ? (anamorph==1? resolutionw*aspect:resolutionw)/(21/9):resolutionw\n&&\naspects==2 ? (anamorph==1? resolutionw*aspect:resolutionw)/2.35:resolutionw\n&&\naspects==3 ? (anamorph==1? resolutionw*aspect:resolutionw)/1.85:resolutionw\n&&\naspects==4 ? (anamorph==1? resolutionw*aspect:resolutionw)/2.59:resolutionw\n&&\naspects==5 ? (anamorph==1? resolutionw*aspect:resolutionw)/2.76:resolutionw\n&&\naspects==6 ? (anamorph==1? resolutionw*aspect:resolutionw)/2.2:resolutionw\n&&\naspects==7 ? (anamorph==1? resolutionw*aspect:resolutionw)/1.333:resolutionw\n&&\naspects==8 ? (anamorph==1? resolutionw*aspect:resolutionw)/2:resolutionw\n&&\naspects==9 ? (anamorph==1? resolutionw*aspect:resolutionw)/custom1:resolutionw"}}
+ addUserKnob {3 overscan1 l "&nbsp;<span style=\"color:#45d\">incl. overscan</span>&nbsp;" t "\nwidth + overscan" -STARTLINE}
+ overscan1 {{(resolutionw*overscan/100)+resolutionw}}
+ addUserKnob {3 overscan2 l "" t "\nheight + overscan" -STARTLINE}
+ overscan2 {{(outputh*overscan/100)+outputh}}
+ addUserKnob {26 ""}
+ addUserKnob {3 resolutionh l height}
+ resolutionh 1372
+ addUserKnob {3 outputw l "&nbsp;<span style=\"color:#0b0\">width&nbsp;" -STARTLINE}
+ outputw {{"(aspects==0 ? (anamorph==1? resolutionh/aspect:resolutionh)*(16/9):resolutionw\n&&\naspects==1 ? (anamorph==1? resolutionh/aspect:resolutionh)*(21/9):resolutionw\n&&\naspects==2 ? (anamorph==1? resolutionh/aspect:resolutionh)*2.35:resolutionw\n&&\naspects==3 ? (anamorph==1? resolutionh/aspect:resolutionh)*1.85:resolutionw\n&&\naspects==4 ? (anamorph==1? resolutionh/aspect:resolutionh)*2.59:resolutionw\n&&\naspects==5 ? (anamorph==1? resolutionh/aspect:resolutionh)*2.76:resolutionw\n&&\naspects==6 ? (anamorph==1? resolutionh/aspect:resolutionh)*2.2:resolutionw\n&&\naspects==7 ? (anamorph==1? resolutionh/aspect:resolutionh)*1.333:resolutionw\n&&\naspects==8 ? (anamorph==1? resolutionh/aspect:resolutionh)*2:resolutionw\n&&\naspects==9 ? (anamorph==1? resolutionh/aspect:resolutionh)*custom1:resolutionw)"}}
+ addUserKnob {3 overscan3 l "&nbsp;<span style=\"color:#45d\">incl. overscan</span>&nbsp;" t "\nheight + overscan" -STARTLINE}
+ overscan3 {{(resolutionh*overscan/100)+resolutionh}}
+ addUserKnob {3 overscan4 l "" t "\nwidth + overscan" -STARTLINE}
+ overscan4 {{(outputw*overscan/100)+outputw}}
+ addUserKnob {26 ""}
+ addUserKnob {3 givenwidth l width}
+ givenwidth 1920
+ addUserKnob {3 givenheight l "&nbsp;height&nbsp;" -STARTLINE}
+ givenheight 1080
+ addUserKnob {7 aspect2 l "&nbsp;<span style=\"color:#0b0\">aspect&nbsp;" R 1 3}
+ aspect2 {{"anamorph==1 ? givenwidth/givenheight*(aspect) : givenwidth/givenheight"}}
+ addUserKnob {20 sensor}
+ addUserKnob {26 text_1 l "" +STARTLINE T "Insert the known variables into the number fields.\nThe green values will output the result of the calculation.\n"}
+ addUserKnob {26 form_res l "<b>&nbsp;<span style=\"color:#ffaf24\">format&nbsp;" t "\nformat resolution"}
+ addUserKnob {3 formw l <i>width}
+ formw 1650
+ addUserKnob {3 formh l "<i>&nbsp;height&nbsp;" -STARTLINE}
+ formh 855
+ addUserKnob {26 ""}
+ addUserKnob {26 sensor_1 l "<b>&nbsp;<span style=\"color:#ffaf24\">sensor&nbsp;"}
+ addUserKnob {7 sensw l <i>width R 0 65}
+ sensw 36
+ addUserKnob {7 sensh l "&nbsp;<span style=\"color:#0b0\">height&nbsp;" R 0 65}
+ sensh {{sensw*formh/formw}}
+ addUserKnob {26 ""}
+ addUserKnob {7 sensh_1 l <i>height R 0 65}
+ sensh_1 12.89
+ addUserKnob {7 sensw2 l "&nbsp;<span style=\"color:#0b0\">width&nbsp;" R 0 65}
+ sensw2 {{formw*sensh_1/formh}}
+ addUserKnob {20 focallength l "focal length"}
+ addUserKnob {26 inpudata l "<b>&nbsp;<span style=\"color:#afff24\">input information&nbsp;"}
+ addUserKnob {7 focallength1 l "focal length" R 0 500}
+ focallength1 50
+ addUserKnob {7 sensorwidth1 l "sensor width" R 0 65}
+ sensorwidth1 36
+ addUserKnob {26 "" +STARTLINE}
+ addUserKnob {26 outputinformation l "<b>&nbsp;<span style=\"color:#ffaf24\">output focal length&nbsp;"}
+ addUserKnob {7 focallength2 l "<b>focal length" R 0 500}
+ focallength2 {{"sensorwidth1>sensorwidth2 ? focallength1*sensorwidth2/sensorwidth1 : (sensorwidth2/sensorwidth1)*focallength1"}}
+ addUserKnob {7 sensorwidth2 l "sensor width" R 0 65}
+ sensorwidth2 24
+ addUserKnob {26 "" +STARTLINE}
+ addUserKnob {26 text_2 l "<b>&nbsp;<span style=\"color:#ffaf24\">output sensor width&nbsp;"}
+ addUserKnob {7 focallength3 l "focal length" R 0 500}
+ focallength3 50
+ addUserKnob {7 sensorwidth3 l "<b>sensor width" R 0 65}
+ sensorwidth3 {{sensorwidth1*focallength3/focallength1}}
+ addUserKnob {20 shutter}
+ addUserKnob {3 framerate l <b>framerate}
+ framerate 24
+ addUserKnob {26 ""}
+ addUserKnob {3 shutter_1 l "<b>1 /" t "\nshutter time"}
+ shutter_1 48
+ addUserKnob {7 angle_1 l "<b>&nbsp;<span style=\"color:#0b0\">angle&nbsp;" t "\nshutter angle"}
+ angle_1 {{clamp(framerate/shutter_1)}}
+ addUserKnob {26 ""}
+ addUserKnob {7 angle_2 l <b>angle t "\nshutter angle"}
+ angle_2 0.5
+ addUserKnob {3 shutter_2 l "<b>&nbsp;<span style=\"color:#0b0\">1 /&nbsp;" t "\nshutter time"}
+ shutter_2 {{framerate/angle_2}}
+ addUserKnob {20 basic l basics}
+ addUserKnob {26 ""}
+ addUserKnob {1 string l "" +STARTLINE}
+ string 5
+ addUserKnob {1 string_1 l "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b><span style=\"color:#46ae00;font-size:8pt\">plus</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" -STARTLINE}
+ string_1 8
+ addUserKnob {7 result l "&nbsp;<b><span style=\"color:#46ae00;font-size:13pt\">=</span>&nbsp;" -STARTLINE}
+ result {{string+string_1}}
+ addUserKnob {26 ""}
+ addUserKnob {1 string_2 l "" +STARTLINE}
+ string_2 10
+ addUserKnob {1 string_3 l "&nbsp;&nbsp;&nbsp;<b><span style=\"color:#e25e05;font-size:8pt\">minus</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" -STARTLINE}
+ string_3 5
+ addUserKnob {7 double l "&nbsp;<b><span style=\"color:#e25e05;font-size:13pt\">=</span>&nbsp;" -STARTLINE}
+ double {{string_2-string_3}}
+ addUserKnob {26 ""}
+ addUserKnob {1 string_5 l "" +STARTLINE}
+ string_5 3
+ addUserKnob {1 string_4 l "&nbsp;&nbsp;<b><span style=\"color:#1c78d5;font-size:8pt\">multiply</span>&nbsp;&nbsp;&nbsp;" -STARTLINE}
+ string_4 4
+ addUserKnob {7 double_1 l "&nbsp;<b><span style=\"color:#1c78d5;font-size:13pt\">=</span>&nbsp;" -STARTLINE}
+ double_1 {{string_5*string_4}}
+ addUserKnob {26 ""}
+ addUserKnob {1 string_7 l "" +STARTLINE}
+ string_7 12
+ addUserKnob {1 string_6 l "&nbsp;&nbsp;&nbsp;&nbsp;<b><span style=\"color:#e2d114;font-size:8pt\">divide</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" -STARTLINE}
+ string_6 4
+ addUserKnob {7 double_2 l "&nbsp;<b><span style=\"color:#e2d114;font-size:13pt\">=</span>&nbsp;" -STARTLINE}
+ double_2 {{string_7/string_6}}
+ addUserKnob {26 ""}
+ addUserKnob {1 string_8 l "" +STARTLINE}
+ string_8 3
+ addUserKnob {1 string_9 l "&nbsp;<b><span style=\"color:#be2727;font-size:8pt\">exponent</span>&nbsp;" -STARTLINE}
+ string_9 2
+ addUserKnob {7 double_3 l "&nbsp;<b><span style=\"color:#be2727;font-size:13pt\">=</span>&nbsp;" -STARTLINE}
+ double_3 {{pow(string_8,string_9)}}
+ addUserKnob {26 ""}
+ addUserKnob {1 string_10 l "" t "\nfor exapmle: if you put a two the second root will be pulled" +STARTLINE}
+ string_10 2
+ addUserKnob {1 string_11 l "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b><span style=\"color:#1bbbb2;font-size:8pt\">root</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" t "\nnumber to pull the root from" -STARTLINE}
+ string_11 16
+ addUserKnob {7 double_4 l "&nbsp;<b><span style=\"color:#1bbbb2;font-size:13pt\">=</span>&nbsp;" -STARTLINE}
+ double_4 {{"pow(string_11, 1/string_10)"}}
+ addUserKnob {26 ""}
+ addUserKnob {20 percent_1 l percent}
+ addUserKnob {26 percent l "" -STARTLINE T "<b><span style=\"color:#ffaf24\">percent</span></b>"}
+ addUserKnob {26 ""}
+ addUserKnob {7 entirety2 l entirety R 0 100}
+ entirety2 200
+ addUserKnob {7 percent2 l % R 0 100}
+ percent2 25
+ addUserKnob {7 value2 l "<b>&nbsp;<span style=\"color:#0b0\">value&nbsp;" R 0 100}
+ value2 {{percent2*entirety2/100}}
+ addUserKnob {26 ""}
+ addUserKnob {7 value3 l value R 0 100}
+ value3 50
+ addUserKnob {7 percent3 l % R 0 100}
+ percent3 25
+ addUserKnob {7 entirety3 l "<b>&nbsp;<span style=\"color:#0b0\">entirety&nbsp;" R 0 100}
+ entirety3 {{value3*100/percent3}}
+ addUserKnob {26 ""}
+ addUserKnob {7 value1 l value R 0 100}
+ value1 50
+ addUserKnob {7 entirety1 l entirety R 0 100}
+ entirety1 200
+ addUserKnob {7 percent1 l "<b>&nbsp;<span style=\"color:#0b0\">%&nbsp;" R 0 100}
+ percent1 {{value1*100/entirety1}}
+ addUserKnob {20 distance}
+ addUserKnob {13 point1 l "<span style=\"color:#aaa\"><i><span style=\"color:#88f\">point 1</span>&nbsp;"}
+ addUserKnob {13 point2 l "<span style=\"color:#aaa\"><i><span style=\"color:#88f\">point 2</span>&nbsp;"}
+ addUserKnob {26 ""}
+ addUserKnob {7 distance_1 l "<span style=\"color:#aaa\"><b><span style=\"color:#ff0\">distance</span></b>"}
+ distance_1 {{"sqrt(pow(point1.x-point2.x, 2) + pow(point1.y-point2.y, 2) + pow(point1.z-point2.z, 2))"}}
+ addUserKnob {20 info}
+ addUserKnob {26 _1 l "" +STARTLINE T "<br><span style=\"color:#aaa;font-family:sans-serif;font-size:7pt\">node created by <b><span style=\"color:#aaaa00\">Johannes Kretschmer</span></b> mail: Jolegodrum@t-online.de - Version 1.1 - 2025 / part of  <span style=\"color:#aaa;font-family:sans-serif\"><b><span style=\"color:#ffaf24\">MANGO SUITE</span></b>\n"}
+ addUserKnob {26 _2 l "" +STARTLINE T "<br><a href=\"https://youtu.be/_N7k6US80Hs\"><b><span style=\"color:#aaa\"><i>watch explaination</span></b></a><br>"}
+ addUserKnob {22 changenotes l "version notes" T "nuke.message(\"Version 1.1:<br>- added focal length calculations\")" +STARTLINE}
+}

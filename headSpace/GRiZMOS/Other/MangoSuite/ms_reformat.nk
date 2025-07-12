@@ -1,0 +1,113 @@
+set cut_paste_input [stack 0]
+version 15.1 v6
+push $cut_paste_input
+Group {
+ name MS_reformat
+ tile_color 0xefb500ff
+ note_font "Verdana Bold Italic"
+ selected true
+ xpos -40
+ ypos -250
+ addUserKnob {20 settings}
+ addUserKnob {26 _1 l "" +STARTLINE T "<span style=\"color:#aaa;font-family:sans-serif\"><b><span style=\"color:#ffaf24\">MS_Reformat v.1.0</span></b>"}
+ addUserKnob {26 ""}
+ addUserKnob {6 uselogtolin l "use log to lin" +STARTLINE}
+ uselogtolin true
+ addUserKnob {26 ""}
+ addUserKnob {6 enabletransform l "enable transform" +STARTLINE}
+ enabletransform true
+ addUserKnob {41 translate T Transform1.translate}
+ addUserKnob {41 rotate T Transform1.rotate}
+ addUserKnob {41 scale l "scale centered" t "\nscales around the format center" T Transform2.scale}
+ addUserKnob {41 clamp_1 l clamp T Transform1.clamp}
+ addUserKnob {41 black_outside_1 l "black outside" -STARTLINE T Transform1.black_outside}
+ addUserKnob {26 ""}
+ addUserKnob {41 format l "output format" T Reformat3.format}
+ addUserKnob {26 ""}
+ addUserKnob {41 resize l "resize type" T Reformat3.resize}
+ addUserKnob {41 center -STARTLINE T Reformat3.center}
+ addUserKnob {41 flip -STARTLINE T Reformat3.flip}
+ addUserKnob {41 flop -STARTLINE T Reformat3.flop}
+ addUserKnob {41 turn -STARTLINE T Reformat3.turn}
+ addUserKnob {41 filter T Reformat3.filter}
+ addUserKnob {41 clamp -STARTLINE T Reformat3.clamp}
+ addUserKnob {41 black_outside l "black outside" -STARTLINE T Reformat3.black_outside}
+ addUserKnob {41 pbb l "preserve bounding box" T Reformat3.pbb}
+ addUserKnob {26 ""}
+ addUserKnob {20 info}
+ addUserKnob {26 _2 l "" +STARTLINE T "<br><span style=\"color:#aaa;font-family:sans-serif;font-size:7pt\">node created by <b><span style=\"color:#aaaa00\">Johannes Kretschmer</span></b> mail: Jolegodrum@t-online.de - Version 1.1 - 2025 / part of  <span style=\"color:#aaa;font-family:sans-serif\"><b><span style=\"color:#ffaf24\">MANGO SUITE</span></b>"}
+ addUserKnob {26 _3 l "" +STARTLINE T "<br><a href=\"https://youtu.be/AO6IluaUbbc\"><b><span style=\"color:#aaa\"><i>watch tutorial</span></b></a><br>"}
+ addUserKnob {22 versionnotes l "version notes" T "nuke.message(\"Version 1.1:<br>- changed 'scale' to 'scale centered' which scales the image around the format center only.\")" +STARTLINE}
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos 500
+  ypos 150
+ }
+ OCIOLogConvert {
+  operation "lin to log"
+  name OCIOLogConvert1
+  xpos 500
+  ypos 310
+  disable {{!parent.uselogtolin}}
+ }
+set Na987d400 [stack 0]
+ Transform {
+  center {{(parent.NoOp2.uv.u)/2} {(parent.NoOp2.uv.v)/2}}
+  shutteroffset centred
+  name Transform1
+  label translate
+  xpos 500
+  ypos 384
+  disable {{!parent.enabletransform}}
+ }
+ Transform {
+  center {{parent.NoOp2.uv/2} {parent.NoOp2.uv/2}}
+  clamp {{parent.Transform1.clamp}}
+  black_outside {{parent.Transform1.black_outside}}
+  name Transform2
+  label "scale\n"
+  xpos 500
+  ypos 464
+  disable {{!parent.enabletransform}}
+ }
+ Reformat {
+  filter Lanczos4
+  pbb true
+  name Reformat3
+  xpos 500
+  ypos 550
+ }
+ OCIOLogConvert {
+  operation "log to lin"
+  name OCIOLogConvert2
+  xpos 500
+  ypos 630
+  disable {{!parent.uselogtolin}}
+ }
+ Output {
+  name Output1
+  xpos 500
+  ypos 790
+ }
+push $Na987d400
+ Dot {
+  name Dot32
+  label " input"
+  note_font "Verdana Bold"
+  xpos 713
+  ypos 313
+  hide_input true
+ }
+ NoOp {
+  name NoOp2
+  xpos 681
+  ypos 390
+  addUserKnob {20 User}
+  addUserKnob {30 uv}
+  uv {{"\[value input.format.r]"} {"\[value input.format.t]"}}
+  addUserKnob {6 color_rgba_panelDropped l "panel dropped state" +HIDDEN +STARTLINE}
+  addUserKnob {6 color_rgb_panelDropped l "panel dropped state" +HIDDEN +STARTLINE}
+ }
+end_group

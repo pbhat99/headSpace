@@ -1,0 +1,190 @@
+set cut_paste_input [stack 0]
+version 14.0 v2
+push $cut_paste_input
+Group {
+name MS_blend_transforms
+tile_color 0xefb500ff
+note_font "Verdana Bold Italic"
+selected true
+xpos -471
+ypos -123
+addUserKnob {20 settings}
+addUserKnob {26 _1 l "" +STARTLINE T "<span style=\"color:#aaa;font-family:sans-serif\"><b><span style=\"color:#ffaf24\">MS_Blend Transformations v.1.0</span></b>"}
+addUserKnob {26 ""}
+addUserKnob {26 a l <b>A</b>}
+addUserKnob {41 translate T Transform2.translate}
+addUserKnob {41 rotate T Transform3.rotate}
+addUserKnob {41 scale T Transform3.scale}
+addUserKnob {26 b l <b>B</b>}
+addUserKnob {41 translate_1 l translate T Transform3.translate}
+addUserKnob {41 rotate_1 l rotate T Transform2.rotate}
+addUserKnob {41 scale_1 l scale T Transform2.scale}
+addUserKnob {26 ""}
+addUserKnob {41 change l "<b>blend A and B</b>" t "blend between A and B" T NoOp1.change}
+addUserKnob {7 strength l "strength all" t "This slider multiplys all values that are given into A and B and can therefore be used to define the overall strength of the camerashake output." R 0 2}
+strength 1
+addUserKnob {26 outputsettings l "output settings"}
+addUserKnob {6 logtolin l "log to lin" +STARTLINE}
+addUserKnob {6 preservebbox l "preserve bounding box" -STARTLINE}
+addUserKnob {41 filter T Transform1.filter}
+addUserKnob {41 clamp -STARTLINE T Transform1.clamp}
+addUserKnob {41 black_outside l "black outside" -STARTLINE T Transform1.black_outside}
+addUserKnob {41 motionblur T Transform1.motionblur}
+addUserKnob {41 shutter l Shutter T Transform1.shutter}
+addUserKnob {41 shutteroffset l "Shutter Offset" T Transform1.shutteroffset}
+addUserKnob {41 shuttercustomoffset l "" -STARTLINE T Transform1.shuttercustomoffset}
+addUserKnob {20 Info}
+addUserKnob {26 _3 l "" +STARTLINE T "This node can blend between two different\ntransformations. For example when you try to\ncombine two different camerashakes.\n\nLink or paste all transformation data from your\nfirst source into A and paste data from your\nsecond source into B.\n\nThen use the blend slider to blend between\nthem.\n\n"}
+addUserKnob {26 _2 l "" +STARTLINE T "<span style=\"color:#aaa;font-family:sans-serif;font-size:7pt\">node created by <b><span style=\"color:#aaaa00\">Johannes Kretschmer</span></b> mail: Jolegodrum@t-online.de - Version 1.0 - 2022 / part of  <span style=\"color:#aaa;font-family:sans-serif\"><b><span style=\"color:#ffaf24\">MANGO SUITE</span></b>\n"}
+}
+Input {
+inputs 0
+name Input1
+xpos -271
+ypos -394
+}
+Dot {
+name Dot1
+xpos -237
+ypos -281
+}
+set Na814d800 [stack 0]
+Log2Lin {
+operation lin2log
+name Log2Lin2
+xpos -271
+ypos -119
+disable {{parent.logtolin}}
+}
+Transform {
+translate {{(((Transform3.translate.x)*(NoOp1.change))+((Transform2.translate.x)*(1-(NoOp1.change))))*(strength1.multiplyall)} {(((Transform3.translate.y)*(NoOp1.change))+((Transform2.translate.y)*(1-(NoOp1.change))))*(strength1.multiplyall)}}
+rotate {{(((Transform3.rotate)*(NoOp1.change))+((Transform2.rotate)*(1-(NoOp1.change))))*(strength1.multiplyall)}}
+scale {{((Transform3.scale)*(NoOp1.change))+((Transform2.scale)*(1-(NoOp1.change)))}}
+center {1024 778}
+shutteroffset centred
+name Transform1
+label "combine\ntransforms"
+note_font "Verdana Bold Italic"
+note_font_size 13
+selected true
+xpos -271
+ypos -39
+}
+set Nab585800 [stack 0]
+Log2Lin {
+name Log2Lin1
+xpos -271
+ypos 101
+disable {{parent.logtolin}}
+}
+Dot {
+name Dot6
+xpos -237
+ypos 226
+}
+set N40ddf800 [stack 0]
+Crop {
+box {0 0 {parent.NoOp2.uv.u} {parent.NoOp2.uv.v}}
+name Crop1
+xpos -271
+ypos 302
+}
+set Nab584c00 [stack 0]
+Dot {
+name Dot2
+xpos -6
+ypos 305
+}
+Transform {
+center {{(parent.NoOp2.uv.u)/2 x140 0} {(parent.NoOp2.uv.v)/2 x140 0}}
+name Transform2
+label B
+note_font "Verdana Bold"
+note_font_size 14
+xpos -40
+ypos -148
+}
+push $Nab584c00
+Dot {
+name Dot3
+xpos -476
+ypos 305
+}
+Transform {
+center {{(parent.NoOp2.uv.u)/2} {(parent.NoOp2.uv.v)/2}}
+name Transform3
+label A
+note_font "Verdana Bold"
+note_font_size 14
+xpos -510
+ypos -148
+}
+push $Nab585800
+Viewer {
+frame_range 1-210
+viewerProcess "sRGB (default)"
+name Viewer1
+xpos -659
+ypos 211
+}
+NoOp {
+inputs 0
+name NoOp1
+label "blend slider\n"
+xpos -158
+ypos -30
+hide_input true
+addUserKnob {20 User}
+addUserKnob {7 change}
+change 1
+}
+push $Na814d800
+NoOp {
+name NoOp2
+label "get\nresolution"
+xpos -40
+ypos -296
+addUserKnob {20 User}
+addUserKnob {30 uv}
+uv {{"\[value input.format.r]"} {"\[value input.format.t]"}}
+addUserKnob {6 color_rgba_panelDropped l "panel dropped state" +HIDDEN +STARTLINE}
+addUserKnob {6 color_rgb_panelDropped l "panel dropped state" +HIDDEN +STARTLINE}
+}
+push $N40ddf800
+Dot {
+name Dot5
+xpos -146
+ypos 226
+}
+Dot {
+name Dot4
+xpos -146
+ypos 379
+}
+push $Nab584c00
+Switch {
+inputs 2
+which {{parent.preservebbox}}
+name Switch1
+xpos -271
+ypos 376
+}
+Output {
+name Output1
+xpos -271
+ypos 486
+}
+NoOp {
+inputs 0
+name strength1
+tile_color 0xe44d4dff
+label ALL
+note_font "Verdana Bold"
+xpos -387
+ypos -31
+hide_input true
+addUserKnob {20 User}
+addUserKnob {7 multiplyall l "multiply all" R 0 2}
+multiplyall {{parent.strength}}
+}
+end_group

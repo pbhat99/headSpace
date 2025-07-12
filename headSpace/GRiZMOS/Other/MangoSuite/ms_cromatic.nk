@@ -1,0 +1,430 @@
+set cut_paste_input [stack 0]
+version 15.0 v3
+push $cut_paste_input
+Group {
+ name MS_cromatic
+ tile_color 0xefb500ff
+ note_font "Verdana Bold Italic"
+ selected true
+ xpos -1300
+ ypos -490
+ addUserKnob {20 User l "color shift"}
+ addUserKnob {26 _1 l "" +STARTLINE T "<span style=\"color:#aaa;font-family:sans-serif\"><b><span style=\"color:#ffaf24\">MS_Cromatic v.1.0</span></b>"}
+ addUserKnob {26 ""}
+ addUserKnob {7 amount l <b>amount R -0.02 0.02}
+ amount 0.005
+ addUserKnob {41 steps l "&nbsp;&nbsp;quality&nbsp;" -STARTLINE T GodRays1.steps}
+ addUserKnob {26 text_1 l "<span style=\"color:#f00\"><b>Red</b></span>"}
+ addUserKnob {41 translate_3 l translate T GodRays1.translate}
+ addUserKnob {41 size_5 l "blur size" T Blur1.size}
+ addUserKnob {26 text_2 l "<span style=\"color:#0f0\"><b>Green</b></span>"}
+ addUserKnob {7 shiftgreen l "shift green" R -0.02 0.02}
+ addUserKnob {41 translate_4 l translate T GodRays2.translate}
+ addUserKnob {41 size_4 l "blur size" T Blur2.size}
+ addUserKnob {26 text_3 l "<span style=\"color:#00f\"><b>Blue</b></span>"}
+ addUserKnob {6 parentbluetored l "&nbsp;&nbsp;<i>parent blue to red" +STARTLINE}
+ parentbluetored true
+ addUserKnob {7 shiftblue l "shift blue" R -0.02 0.02}
+ addUserKnob {41 translate_5 l translate T GodRays4.translate}
+ addUserKnob {41 size_6 l "blur size" T Blur3.size}
+ addUserKnob {26 ""}
+ addUserKnob {41 maskChannel l "mask channel" T Keymix1.maskChannel}
+ addUserKnob {41 invertMask l invert -STARTLINE T Keymix1.invertMask}
+ addUserKnob {41 mix T Keymix1.mix}
+ addUserKnob {6 keepalpha l "keep alpha" t "keep the alpha from the original" +STARTLINE}
+ keepalpha true
+ addUserKnob {6 crop l "preserve bounding box" t "keep input bounding box" -STARTLINE}
+ crop true
+ addUserKnob {20 fringe}
+ addUserKnob {26 gradeedgefringe l "grade edge fringe"}
+ addUserKnob {6 enablegrade l "enable coloring" +STARTLINE}
+ addUserKnob {41 channels T Grade1.channels}
+ addUserKnob {41 multiply T Grade1.multiply}
+ addUserKnob {41 saturation T Saturation2.saturation}
+ addUserKnob {20 info}
+ addUserKnob {26 text l "" +STARTLINE T "<br><span style=\"color:#aaa;font-family:sans-serif;font-size:7pt\">node created by <b><span style=\"color:#aaaa00\">Johannes Kretschmer</span></b> mail: Jolegodrum@t-online.de - Version 1.0 - 2024 / part of  <span style=\"color:#aaa;font-family:sans-serif\"><b><span style=\"color:#ffaf24\">MANGO SUITE</span></b>\n"}
+ addUserKnob {26 _2 l "" +STARTLINE T "<br><a href=\"https://youtu.be/PcjKT30k1rw\"><b><span style=\"color:#aaa\"><i>watch tutorial</span></b></a>"}
+}
+ BackdropNode {
+  inputs 0
+  name BackdropNode1
+  tile_color 0x8e8e3800
+  label "cromatic abberation (var_1)"
+  note_font_size 42
+  xpos -651
+  ypos -828
+  bdwidth 780
+  bdheight 598
+ }
+ Input {
+  inputs 0
+  name Input1
+  xpos -400
+  ypos -970
+ }
+ Dot {
+  name Dot1
+  xpos -367
+  ypos -887
+ }
+set N92edc000 [stack 0]
+ Dot {
+  name Dot2
+  xpos -727
+  ypos -886
+ }
+ Dot {
+  name Dot13
+  xpos -726
+  ypos -166
+ }
+set N92edc800 [stack 0]
+ Shuffle2 {
+  fromInput1 {{0} B}
+  fromInput2 {{0} B}
+  mappings "4 rgba.red 0 0 rgba.red 0 0 rgba.green 0 1 rgba.green 0 1 rgba.blue 0 2 rgba.blue 0 2 white -1 -1 rgba.alpha 0 3"
+  name Shuffle1
+  xpos -760
+  ypos -90
+ }
+ Dot {
+  name Dot3
+  xpos -726
+  ypos -6
+ }
+set N92edd000 [stack 0]
+ Dot {
+  name Dot7
+  xpos -726
+  ypos 713
+ }
+push $N92edc000
+ Dot {
+  name Dot21
+  xpos 354
+  ypos -886
+ }
+set N92edd800 [stack 0]
+ Input {
+  inputs 0
+  name mask
+  xpos -40
+  ypos -120
+  number 1
+ }
+ Dot {
+  name Dot6
+  xpos -6
+  ypos -6
+ }
+ Invert {
+  name Invert1
+  xpos -220
+  ypos -16
+ }
+push $N92edd000
+push $N92edc000
+ Dot {
+  name Dot29
+  xpos -367
+  ypos -727
+ }
+set N92db8800 [stack 0]
+ Dot {
+  name Dot16
+  xpos -187
+  ypos -727
+ }
+ Shuffle2 {
+  fromInput1 {{0} B}
+  fromInput2 {{0} B}
+  mappings "4 rgba.blue 0 2 rgba.blue 0 2 black -1 -1 rgba.red 0 0 black -1 -1 rgba.green 0 1 black -1 -1 rgba.alpha 0 3"
+  name Shuffle12
+  label BLUE
+  xpos -220
+  ypos -656
+ }
+set N92db9000 [stack 0]
+ Dot {
+  name Dot19
+  xpos -7
+  ypos -647
+ }
+ GodRays {
+  channels rgb
+  translate {{(parent.GodRays1.translate.x)*-1} {(parent.GodRays1.translate.y)*-1}}
+  scale {{(1/parent.GodRays1.scale+(Add1.value))+(1-(GodRays1.scale))}}
+  center {{parent.Crop1.box.r/2} {parent.Crop1.box.t/2}}
+  steps {{parent.GodRays1.steps}}
+  name GodRays6
+  label BLUE
+  xpos -39
+  ypos -576
+ }
+ Dot {
+  name Dot18
+  xpos -7
+  ypos -488
+ }
+push $N92db9000
+ GodRays {
+  channels rgb
+  scale {{1+(Add1.value)}}
+  center {{parent.Crop1.box.r/2} {parent.Crop1.box.t/2}}
+  steps {{parent.GodRays1.steps}}
+  name GodRays4
+  label BLUE
+  xpos -219
+  ypos -576
+ }
+ Switch {
+  inputs 2
+  which {{parent.parentbluetored}}
+  name Switch5
+  xpos -220
+  ypos -490
+ }
+ Blur {
+  channels {-rgba.red -rgba.green rgba.blue none}
+  name Blur3
+  xpos -220
+  ypos -410
+ }
+ Dot {
+  name Dot8
+  xpos -187
+  ypos -328
+ }
+push 0
+push $N92db8800
+ Dot {
+  name Dot17
+  xpos -550
+  ypos -727
+ }
+ Shuffle2 {
+  fromInput1 {{0} B}
+  fromInput2 {{0} B}
+  mappings "4 rgba.red 0 0 rgba.red 0 0 black -1 -1 rgba.green 0 1 black -1 -1 rgba.blue 0 2 black -1 -1 rgba.alpha 0 3"
+  name Shuffle10
+  label "RED\n"
+  xpos -582
+  ypos -652
+ }
+ GodRays {
+  channels rgb
+  scale {{parent.amount+1}}
+  center {{parent.Crop1.box.r/2} {parent.Crop1.box.t/2}}
+  steps 4
+  name GodRays1
+  label RED
+  xpos -582
+  ypos -576
+ }
+ Blur {
+  channels {rgba.red -rgba.green -rgba.blue none}
+  name Blur1
+  xpos -582
+  ypos -410
+ }
+ Dot {
+  name Dot5
+  xpos -548
+  ypos -326
+ }
+push $N92db8800
+ Shuffle2 {
+  fromInput1 {{0} B}
+  fromInput2 {{0} B}
+  mappings "4 rgba.green 0 1 rgba.green 0 1 black -1 -1 rgba.blue 0 2 black -1 -1 rgba.red 0 0 black -1 -1 rgba.alpha 0 3"
+  name Shuffle11
+  label "GREEN\n"
+  xpos -399
+  ypos -656
+ }
+ GodRays {
+  channels rgb
+  scale {{(1/parent.GodRays1.scale)+shiftgreen}}
+  center {{parent.Crop1.box.r/2} {parent.Crop1.box.t/2}}
+  steps {{parent.GodRays1.steps}}
+  name GodRays2
+  label GREEN
+  xpos -400
+  ypos -576
+ }
+ Blur {
+  channels {-rgba.red rgba.green -rgba.blue none}
+  name Blur2
+  xpos -400
+  ypos -410
+ }
+ Merge2 {
+  inputs 3+1
+  operation plus
+  name Merge6
+  selected true
+  xpos -400
+  ypos -330
+ }
+ Keymix {
+  inputs 3
+  name Keymix1
+  xpos -400
+  ypos -15
+ }
+set N92ca1400 [stack 0]
+push $N92edc800
+ Dot {
+  name Dot4
+  xpos -546
+  ypos -166
+ }
+push $N92ca1400
+ Copy {
+  inputs 2
+  from0 rgba.alpha
+  to0 rgba.alpha
+  name Copy1
+  xpos -580
+  ypos 144
+ }
+ Switch {
+  inputs 2
+  which {{!parent.keepalpha}}
+  name keep_alpha
+  xpos -400
+  ypos 150
+ }
+set N92cd0000 [stack 0]
+ Merge2 {
+  inputs 2
+  operation difference
+  name Merge5
+  xpos 320
+  ypos 150
+ }
+ Saturation {
+  saturation 0
+  name Saturation1
+  xpos 320
+  ypos 230
+ }
+ Shuffle2 {
+  fromInput1 {{0} B}
+  fromInput2 {{0} B}
+  mappings "4 rgba.red 0 0 rgba.red 0 0 rgba.red 0 0 rgba.green 0 1 rgba.red 0 0 rgba.blue 0 2 rgba.red 0 0 rgba.alpha 0 3"
+  name Shuffle9
+  xpos 320
+  ypos 310
+ }
+ Grade {
+  channels rgba
+  whitepoint 0.19
+  white_clamp true
+  name Grade2
+  xpos 320
+  ypos 390
+ }
+ Dot {
+  name Dot22
+  xpos 354
+  ypos 474
+ }
+ Dot {
+  name Dot25
+  xpos -186
+  ypos 474
+ }
+set N92cd1800 [stack 0]
+ Dot {
+  name Dot26
+  xpos -186
+  ypos 554
+ }
+push $N92cd1800
+push $N92cd0000
+ Dot {
+  name Dot27
+  xpos -367
+  ypos 394
+ }
+set N92b40000 [stack 0]
+ Grade {
+  inputs 1+1
+  white 1.02
+  multiply {1 0.6708187461 0.05138373375 1}
+  name Grade1
+  xpos -400
+  ypos 472
+ }
+ Saturation {
+  inputs 1+1
+  name Saturation2
+  xpos -400
+  ypos 550
+ }
+push $N92b40000
+ Dot {
+  name Dot28
+  xpos -546
+  ypos 394
+ }
+ Dot {
+  name Dot24
+  xpos -546
+  ypos 634
+ }
+ Switch {
+  inputs 2
+  which {{parent.enablegrade}}
+  name Switch2
+  xpos -400
+  ypos 630
+ }
+ CopyBBox {
+  inputs 2
+  name CopyBBox1
+  xpos -400
+  ypos 710
+ }
+ Crop {
+  box {0 0 {parent.NoOp2.uv.u} {parent.NoOp2.uv.v}}
+  name Crop1
+  xpos -401
+  ypos 790
+  disable {{parent.crop}}
+ }
+ Output {
+  name Output1
+  xpos -400
+  ypos 994
+ }
+push $N92edd800
+ Dot {
+  name Dot20
+  label " input"
+  note_font "Verdana Bold"
+  xpos -186
+  ypos 714
+  hide_input true
+ }
+ NoOp {
+  name NoOp2
+  xpos -220
+  ypos 790
+  addUserKnob {20 User}
+  addUserKnob {30 uv}
+  uv {{"\[value input.format.r]"} {"\[value input.format.t]"}}
+  addUserKnob {6 color_rgba_panelDropped l "panel dropped state" +HIDDEN +STARTLINE}
+  addUserKnob {6 color_rgb_panelDropped l "panel dropped state" +HIDDEN +STARTLINE}
+ }
+ Add {
+  inputs 0
+  value {{parent.shiftblue}}
+  name Add1
+  tile_color 0xa92b2bff
+  xpos -39
+  ypos -408
+  hide_input true
+ }
+end_group

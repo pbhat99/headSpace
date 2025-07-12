@@ -1,0 +1,96 @@
+set cut_paste_input [stack 0]
+version 15.0 v3
+push $cut_paste_input
+Group {
+ name MS_opcacity2
+ tile_color 0xefb500ff
+ note_font "Verdana Bold Italic"
+ selected true
+ xpos -39
+ ypos -250
+ addUserKnob {20 settings}
+ addUserKnob {26 _1 l "" +STARTLINE T "<span style=\"color:#aaa;font-family:sans-serif\"><b><span style=\"color:#ffaf24\">MS_Opacity (Ae) v.1.0</span></b>"}
+ addUserKnob {26 ""}
+ addUserKnob {7 opacity}
+ opacity 1
+ addUserKnob {6 alphatoblack l "keep alpha" +STARTLINE}
+ alphatoblack true
+ addUserKnob {20 info}
+ addUserKnob {26 _2 l "" +STARTLINE T "<br><span style=\"color:#aaa;font-family:sans-serif;font-size:7pt\">node created by <b><span style=\"color:#aaaa00\">Johannes Kretschmer</span></b> mail: Jolegodrum@t-online.de - Version 1.0 - 2022 / part of  <span style=\"color:#aaa;font-family:sans-serif\"><b><span style=\"color:#ffaf24\">MANGO SUITE</span></b>\n"}
+}
+ Input {
+  inputs 0
+  name mask
+  xpos -40
+  ypos -90
+  number 1
+ }
+ Dot {
+  name Dot4
+  xpos -6
+  ypos -6
+ }
+set N23de400 [stack 0]
+ Dot {
+  name Dot3
+  xpos -6
+  ypos 74
+ }
+ Input {
+  inputs 0
+  name Input1
+  xpos -400
+  ypos -90
+ }
+ Dot {
+  name Dot1
+  xpos -366
+  ypos -6
+ }
+set Ncdd5400 [stack 0]
+ Multiply {
+  inputs 1+1
+  channels rgba
+  value {{parent.opacity}}
+  name Multiply1
+  xpos -400
+  ypos 71
+ }
+push $N23de400
+push $Ncdd5400
+ Multiply {
+  inputs 1+1
+  channels rgb
+  value {{parent.opacity}}
+  name Multiply2
+  xpos -219
+  ypos -9
+ }
+ Dot {
+  name Dot6
+  xpos -186
+  ypos 154
+ }
+ Switch {
+  inputs 2
+  which {{parent.alphatoblack}}
+  name Switch1
+  xpos -400
+  ypos 150
+ }
+set N36f3800 [stack 0]
+ Viewer {
+  frame 46
+  frame_range 1-100
+  viewerProcess "sRGB (ACES)"
+  name Viewer1
+  xpos -125
+  ypos 419
+ }
+push $N36f3800
+ Output {
+  name Output1
+  xpos -400
+  ypos 230
+ }
+end_group

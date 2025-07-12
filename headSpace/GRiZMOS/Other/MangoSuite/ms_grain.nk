@@ -1,0 +1,447 @@
+set cut_paste_input [stack 0]
+version 15.1 v2
+push $cut_paste_input
+Group {
+ name MS_grain
+ tile_color 0xefb500ff
+ note_font "Verdana Bold Italic"
+ selected true
+ xpos -40
+ ypos -176
+ addUserKnob {20 settings}
+ addUserKnob {26 _1 l "" +STARTLINE T "<span style=\"color:#aaa;font-family:sans-serif\"><b><span style=\"color:#ffaf24\">MS_grain v.1.0</span></b>"}
+ addUserKnob {26 ""}
+ addUserKnob {41 seed T Grain2_2.seed}
+ addUserKnob {41 presets l "" -STARTLINE T Grain2_2.presets}
+ addUserKnob {26 _2 l "@b;Size"}
+ addUserKnob {41 red_size l red T Grain2_2.red_size}
+ addUserKnob {41 green_size l green T Grain2_2.green_size}
+ addUserKnob {41 blue_size l blue T Grain2_2.blue_size}
+ addUserKnob {26 "" l "@b;Irregularity"}
+ addUserKnob {41 red_i l red T Grain2_2.red_i}
+ addUserKnob {41 green_i l green T Grain2_2.green_i}
+ addUserKnob {41 blue_i l blue T Grain2_2.blue_i}
+ addUserKnob {26 "" l "@b;Intensity"}
+ addUserKnob {41 red_m l red T Grain2_2.red_m}
+ addUserKnob {41 green_m l green T Grain2_2.green_m}
+ addUserKnob {41 blue_m l blue T Grain2_2.blue_m}
+ addUserKnob {41 black T Grain2_2.black}
+ addUserKnob {26 saturation_1 l <b>Saturation}
+ addUserKnob {41 saturation_2 l red T Saturation4.saturation}
+ addUserKnob {41 saturation_3 l green T Saturation3.saturation}
+ addUserKnob {41 saturation_4 l blue T Saturation5.saturation}
+ addUserKnob {26 ""}
+ addUserKnob {6 monocromatic +STARTLINE}
+ addUserKnob {7 saturation}
+ saturation 0.5
+ addUserKnob {41 size l "blur size" T Blur1.size}
+ addUserKnob {6 freezenoise l "freeze grain" +STARTLINE}
+ addUserKnob {6 outputgrainonly l "output grain only" +STARTLINE}
+ addUserKnob {6 keepinputalpha l "keep input alpha" +STARTLINE}
+ keepinputalpha true
+ addUserKnob {26 mask l <b>Mask}
+ addUserKnob {41 maskChannelInput l "" +STARTLINE T Merge27.maskChannelInput}
+ addUserKnob {6 invmask l invert -STARTLINE}
+ invmask true
+ addUserKnob {41 mix T Merge27.mix}
+ addUserKnob {20 ranges}
+ addUserKnob {6 enablemask l "&nbsp;&nbsp;<b>enable luminance mask</b>" +STARTLINE}
+ addUserKnob {6 displaymask l "&nbsp;&nbsp;<i>display mask" -STARTLINE}
+ addUserKnob {4 colordropdown l "" t "mask preview color" -STARTLINE M {red green blue ""}}
+ addUserKnob {26 "" +STARTLINE}
+ addUserKnob {41 input T Keyer1.input}
+ addUserKnob {41 output T Keyer1.output}
+ addUserKnob {41 invert -STARTLINE T Keyer1.invert}
+ addUserKnob {41 operation T Keyer1.operation}
+ addUserKnob {41 size_1 l "blur alpha" T Blur2.size}
+ addUserKnob {41 range T Keyer1.range}
+ addUserKnob {41 mix_1 l "mix full" t "mixes in noise to the dark areas\n" T Merge4.mix}
+ addUserKnob {20 info}
+ addUserKnob {26 _3 l "" +STARTLINE T "<br><span style=\"color:#aaa;font-family:sans-serif;font-size:7pt\">node created by <b><span style=\"color:#aaaa00\">Johannes Kretschmer</span></b> mail: Jolegodrum@t-online.de - Version 1.0 - 2024 / part of  <span style=\"color:#aaa;font-family:sans-serif\"><b><span style=\"color:#ffaf24\">MANGO SUITE</span></b>"}
+ addUserKnob {26 _4 l "" +STARTLINE T "<br><a href=\"https://youtu.be/mlUEaYN1cxY\"><b><span style=\"color:#aaa\"><i>watch demo</span></b></a>"}
+}
+ Input {
+  inputs 0
+  name obj
+  xpos 500
+  ypos -1290
+ }
+ Dot {
+  name Dot17
+  xpos 533
+  ypos -1207
+ }
+set Na6215c00 [stack 0]
+ Dot {
+  name Dot18
+  xpos -367
+  ypos -1207
+ }
+ Dot {
+  name Dot16
+  xpos -366
+  ypos 713
+ }
+ Input {
+  inputs 0
+  name mask
+  xpos 1400
+  ypos -90
+  number 1
+  addUserKnob {20 User}
+  addUserKnob {6 connection +STARTLINE}
+  connection {{"\[exists input1]"}}
+ }
+ Dot {
+  name Dot4
+  xpos 1434
+  ypos -6
+ }
+set N9ede0c00 [stack 0]
+ Dot {
+  name Dot14
+  xpos 1434
+  ypos 74
+ }
+set N9ede1000 [stack 0]
+ Dot {
+  name Dot15
+  xpos 1074
+  ypos 74
+ }
+push $N9ede1000
+ Dot {
+  name Dot1
+  xpos 1434
+  ypos 154
+ }
+ Invert {
+  name Invert3
+  xpos 1220
+  ypos 145
+  disable {{parent.invmask}}
+ }
+ Switch {
+  inputs 2
+  which {{mask}}
+  name Switch4
+  xpos 1040
+  ypos 151
+ }
+push $N9ede0c00
+ Invert {
+  name Invert4
+  xpos 1220
+  ypos -16
+  disable {{!parent.invmask}}
+ }
+ Invert {
+  name Invert2
+  xpos 1040
+  ypos -16
+ }
+ Constant {
+  inputs 0
+  color {1 1 1 1}
+  name Constant1
+  xpos -40
+  ypos -1074
+ }
+ Reformat {
+  type "to box"
+  box_width {{parent.getres.uv.u}}
+  box_height {{parent.getres.uv.v}}
+  box_fixed true
+  name Reformat1
+  xpos -40
+  ypos -970
+ }
+ Dot {
+  name Dot10
+  xpos -8
+  ypos -806
+ }
+set N9ee07400 [stack 0]
+ Dot {
+  name Dot11
+  xpos 714
+  ypos -806
+ }
+ Dot {
+  name Dot9
+  xpos 714
+  ypos -166
+ }
+push $Na6215c00
+ Dot {
+  name Dot53
+  xpos 534
+  ypos -407
+ }
+set N9ee2c000 [stack 0]
+ Dot {
+  name Dot2
+  xpos 894
+  ypos -406
+ }
+ Keyer {
+  operation "luminance key"
+  name Keyer1
+  xpos 860
+  ypos -336
+ }
+ Invert {
+  name Invert1
+  xpos 860
+  ypos -256
+ }
+ Merge2 {
+  inputs 2
+  mix 0.4
+  name Merge4
+  xpos 860
+  ypos -170
+ }
+ Blur {
+  name Blur2
+  xpos 860
+  ypos -96
+ }
+ Merge2 {
+  inputs 2
+  operation stencil
+  name Merge3
+  xpos 860
+  ypos -10
+ }
+ Switch {
+  inputs 2
+  which {{!parent.enablemask}}
+  name Switch1
+  xpos 860
+  ypos 150
+ }
+set N9edfca00 [stack 0]
+ Constant {
+  inputs 0
+  channels {-rgba.red -rgba.green rgba.blue rgba.alpha}
+  color {1 1 1 1}
+  name Constant4
+  xpos 1400
+  ypos 286
+ }
+ Constant {
+  inputs 0
+  channels {-rgba.red rgba.green -rgba.blue rgba.alpha}
+  color {1 1 1 1}
+  name Constant3
+  xpos 1220
+  ypos 286
+ }
+ Constant {
+  inputs 0
+  channels {rgba.red -rgba.green -rgba.blue rgba.alpha}
+  color {1 1 1 1}
+  name Constant2
+  xpos 1040
+  ypos 286
+ }
+ Switch {
+  inputs 3
+  which {{parent.colordropdown}}
+  name Switch3
+  xpos 1220
+  ypos 470
+ }
+ Reformat {
+  type "to box"
+  box_width {{parent.getres.uv.u}}
+  box_height {{parent.getres.uv.v}}
+  box_fixed true
+  name Reformat2
+  xpos 1040
+  ypos 470
+ }
+ Copy {
+  inputs 2
+  from0 rgba.alpha
+  to0 rgba.alpha
+  name Copy2
+  xpos 860
+  ypos 464
+ }
+ Premult {
+  name Premult1
+  xpos 860
+  ypos 550
+ }
+push $N9ee07400
+ Crop {
+  box {0 0 {parent.getres.uv.u} {parent.getres.uv.v}}
+  reformat true
+  crop false
+  name Crop2
+  xpos -40
+  ypos -650
+ }
+ Grain2 {
+  name Grain2_2
+  label "Kodak 5248"
+  xpos -40
+  ypos -576
+  red_m 0.42
+  black {0 0 0}
+  minimum {0 0 0}
+ }
+ Saturation {
+  channels {rgba.red -rgba.green -rgba.blue}
+  name Saturation4
+  tile_color 0xff0000ff
+  xpos -40
+  ypos -496
+ }
+ Saturation {
+  channels {-rgba.red rgba.green -rgba.blue}
+  name Saturation3
+  tile_color 0x1fff00ff
+  xpos -40
+  ypos -416
+ }
+ Saturation {
+  channels {-rgba.red -rgba.green rgba.blue}
+  name Saturation5
+  tile_color 0x1f00ffff
+  xpos -40
+  ypos -336
+ }
+ Saturation {
+  saturation {{parent.saturation}}
+  name Saturation2
+  label all
+  xpos -40
+  ypos -256
+ }
+ Saturation {
+  saturation 0
+  name Saturation1
+  xpos -40
+  ypos -170
+  disable {{!parent.monocromatic}}
+ }
+ Blur {
+  name Blur1
+  xpos -40
+  ypos -96
+ }
+ FrameHold {
+  firstFrame 1
+  name FrameHold1
+  xpos -40
+  ypos -16
+  disable {{!parent.freezenoise}}
+ }
+set N8bd1e600 [stack 0]
+ Dot {
+  name Dot3
+  xpos -6
+  ypos 314
+ }
+push $N9edfca00
+push $N8bd1e600
+push $N9ee2c000
+ Dot {
+  name Dot5
+  xpos 354
+  ypos -407
+ }
+ Dot {
+  name Dot6
+  xpos 354
+  ypos -86
+ }
+set N8bd6d800 [stack 0]
+ Dot {
+  name Dot7
+  xpos 174
+  ypos -86
+ }
+ Merge2 {
+  inputs 2
+  operation multiply
+  name Merge1
+  xpos 140
+  ypos -10
+ }
+ Dot {
+  name Dot8
+  xpos 174
+  ypos 154
+ }
+push $N8bd6d800
+ Merge2 {
+  inputs 2
+  operation minus
+  name Merge2
+  xpos 320
+  ypos 151
+ }
+push $N9ee2c000
+ Remove {
+  channels alpha
+  name Remove1
+  xpos 500
+  ypos -256
+ }
+ Merge2 {
+  inputs 2+1
+  operation plus
+  maskChannelInput -rgba.alpha
+  name Merge27
+  xpos 500
+  ypos 150
+ }
+ Switch {
+  inputs 2
+  which {{parent.outputgrainonly}}
+  name Switch2
+  xpos 500
+  ypos 311
+ }
+ Crop {
+  box {0 0 {parent.getres.uv.u} {parent.getres.uv.v}}
+  name Crop1
+  xpos 500
+  ypos 390
+ }
+ Merge2 {
+  inputs 2
+  name Merge5
+  xpos 500
+  ypos 550
+  disable {{!parent.displaymask}}
+ }
+ Copy {
+  inputs 2
+  from0 rgba.alpha
+  to0 rgba.alpha
+  name Copy1
+  xpos 500
+  ypos 704
+  disable {{!parent.keepinputalpha}}
+ }
+ Output {
+  name Output1
+  xpos 500
+  ypos 870
+ }
+push $Na6215c00
+ NoOp {
+  name getres
+  xpos 680
+  ypos 390
+  hide_input true
+  addUserKnob {20 User}
+  addUserKnob {30 uv}
+  uv {{"\[value input.format.r]"} {"\[value input.format.t]"}}
+ }
+end_group

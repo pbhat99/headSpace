@@ -1,0 +1,5012 @@
+set cut_paste_input [stack 0]
+version 15.1 v3
+Dot {
+ inputs 0
+ name Dot40
+ label "\n\nocclusion mask"
+ note_font "Verdana Bold"
+ note_font_size 20
+ selected true
+ xpos -7
+ ypos -887
+}
+Dot {
+ inputs 0
+ name Dot42
+ label " Center3"
+ note_font "Verdana Bold"
+ note_font_size 18
+ note_font_color 0xe9ff55ff
+ selected true
+ xpos 173
+ ypos -1127
+}
+Dot {
+ name Dot43
+ selected true
+ xpos 173
+ ypos -1047
+}
+Dot {
+ inputs 0
+ name Dot44
+ label " Center 2"
+ note_font "Verdana Bold"
+ note_font_size 18
+ note_font_color 0xe9ff55ff
+ selected true
+ xpos -7
+ ypos -1127
+}
+Dot {
+ name Dot45
+ selected true
+ xpos -7
+ ypos -1047
+}
+Dot {
+ inputs 0
+ name Dot46
+ label " Center 1"
+ note_font "Verdana Bold"
+ note_font_size 18
+ note_font_color 0xe9ff55ff
+ selected true
+ xpos -188
+ ypos -1127
+}
+Dot {
+ name Dot47
+ selected true
+ xpos -188
+ ypos -1047
+}
+Dot {
+ inputs 0
+ name Dot48
+ label " Flare 3"
+ note_font "Verdana Bold"
+ note_font_size 18
+ note_font_color 0x55bfffff
+ selected true
+ xpos 893
+ ypos -1127
+}
+Dot {
+ name Dot49
+ selected true
+ xpos 893
+ ypos -1047
+}
+Dot {
+ inputs 0
+ name Dot50
+ label " Flare 2"
+ note_font "Verdana Bold"
+ note_font_size 18
+ note_font_color 0x55bfffff
+ selected true
+ xpos 713
+ ypos -1127
+}
+Dot {
+ name Dot51
+ selected true
+ xpos 713
+ ypos -1047
+}
+Dot {
+ inputs 0
+ name Dot52
+ label " Flare 1"
+ note_font "Verdana Bold"
+ note_font_size 18
+ note_font_color 0x55bfffff
+ selected true
+ xpos 533
+ ypos -1127
+}
+Dot {
+ name Dot53
+ selected true
+ xpos 533
+ ypos -1047
+}
+push $cut_paste_input
+Dot {
+ name Dot54
+ label "  mask"
+ note_font "Verdana Bold"
+ note_font_size 20
+ selected true
+ xpos 532
+ ypos -887
+}
+Group {
+ inputs 8
+ name MS_arrange_flares
+ knobChanged "n = nuke.thisNode()\nk = nuke.thisKnob()\n\n\n#Ruler\nif k.name()==\"guideframe\":\n    if k.value()== 1:\n     n\[\"ruler1\"].setVisible(True)\n    \n    else: \n     n\[\"ruler1\"].setVisible(False)\n\n\n#Rainbow element relative stretch\nif k.name()==\"relstretchrb\":\n    if k.value()== 1:\n     n\[\"flip_4\"].setVisible(True)\n     n\[\"rbtype\"].setVisible(True)\n     n\[\"stretchmultrb\"].setVisible(True)\n    \n    else: \n     n\[\"rbtype\"].setVisible(False)\n     n\[\"stretchmultrb\"].setVisible(False)\n     n\[\"flip_4\"].setVisible(False)\n    \n#flare 1 relative scale\nif k.name()==\"relscale_1\":\n    if k.value()== 1:\n     n\[\"type_1\"].setVisible(True)\n     n\[\"relscalemult_1\"].setVisible(True)\n    \n    else: \n     n\[\"type_1\"].setVisible(False)\n     n\[\"relscalemult_1\"].setVisible(False)\n\n#flare 1 relative stretch\nif k.name()==\"relstretch1\":\n    if k.value()== 1:\n     n\[\"flip_1\"].setVisible(True)\n     n\[\"stretchtype1\"].setVisible(True)\n     n\[\"relstretchmult_1\"].setVisible(True)\n    \n    else: \n     n\[\"stretchtype1\"].setVisible(False)\n     n\[\"relstretchmult_1\"].setVisible(False)\n     n\[\"flip_1\"].setVisible(False)\n\n    \n#flare 2 relative scale\nif k.name()==\"relscale_2\":\n    if k.value()== 1:\n     n\[\"type_2\"].setVisible(True)\n     n\[\"relscalemult_2\"].setVisible(True)\n    \n    else: \n     n\[\"type_2\"].setVisible(False)\n     n\[\"relscalemult_2\"].setVisible(False)\n\n#flare 2 relative stretch\nif k.name()==\"relstretch2\":\n    if k.value()== 1:\n     n\[\"flip_2\"].setVisible(True)\n     n\[\"stretchtype2\"].setVisible(True)\n     n\[\"relstretchmult_2\"].setVisible(True)\n    \n    else: \n     n\[\"stretchtype2\"].setVisible(False)\n     n\[\"relstretchmult_2\"].setVisible(False)\n     n\[\"flip_2\"].setVisible(False)\n\n    \n#flare 3 relative scale\nif k.name()==\"relscale_3\":\n    if k.value()== 1:\n     n\[\"type_3\"].setVisible(True)\n     n\[\"relscalemult_3\"].setVisible(True)\n    \n    else: \n     n\[\"type_3\"].setVisible(False)\n     n\[\"relscalemult_3\"].setVisible(False)\n\n#flare 3 relative stretch\nif k.name()==\"relstretch3\":\n    if k.value()== 1:\n     n\[\"flip_3\"].setVisible(True)\n     n\[\"stretchtype3\"].setVisible(True)\n     n\[\"relstretchmult_3\"].setVisible(True)\n    \n    else: \n     n\[\"stretchtype3\"].setVisible(False)\n     n\[\"relstretchmult_3\"].setVisible(False)\n     n\[\"flip_3\"].setVisible(False)\n\n\n#Center 1 relative stretch\nif k.name()==\"relrot\":\n    if k.value()== 1:\n     n\[\"invrot\"].setVisible(True)\n     n\[\"rotmult\"].setVisible(True)\n    \n    else: \n     n\[\"invrot\"].setVisible(False)\n     n\[\"rotmult\"].setVisible(False)\n    \n#Center 2 relative stretch\nif k.name()==\"relrot_4\":\n    if k.value()== 1:\n     n\[\"invrot1\"].setVisible(True)\n     n\[\"rotmult1\"].setVisible(True)\n    \n    else: \n     n\[\"invrot1\"].setVisible(False)\n     n\[\"rotmult1\"].setVisible(False)\n\n#Center 3 relative stretch\nif k.name()==\"relrot_5\":\n    if k.value()== 1:\n     n\[\"invrot2\"].setVisible(True)\n     n\[\"rotmult2\"].setVisible(True)\n    \n    else: \n     n\[\"invrot2\"].setVisible(False)\n     n\[\"rotmult2\"].setVisible(False)\n\n\n#Rainbow relative scale\nif k.name()==\"relscalerb\":\n    if k.value()== 1:\n     n\[\"type_4\"].setVisible(True)\n     n\[\"relscalemult_4\"].setVisible(True)\n    \n    else: \n     n\[\"type_4\"].setVisible(False)\n     n\[\"relscalemult_4\"].setVisible(False)\n \n# Rainbow fade to center   \nif k.name()==\"fadetocenter\":\n    if k.value()== 1:\n     n\[\"maxfade\"].setVisible(True)\n     n\[\"minfade\"].setVisible(True)\n    \n    else: \n     n\[\"maxfade\"].setVisible(False)\n     n\[\"minfade\"].setVisible(False)    \n    \n    \n#Shimmer 1 fade to center\nif k.name()==\"ffc_2\":\n    if k.value()== 1:\n     n\[\"cl_shimmer_1\"].setVisible(True)\n    \n    else: \n     n\[\"cl_shimmer_1\"].setVisible(False)\n\n#Shimmer 2 fade to center\nif k.name()==\"ffc_3\":\n    if k.value()== 1:\n     n\[\"cl_shimmer_2\"].setVisible(True)\n    \n    else: \n     n\[\"cl_shimmer_2\"].setVisible(False) \n\n#Flare 1 fade to center\nif k.name()==\"ftc_1\":\n    if k.value()== 1:\n     n\[\"ftc_4\"].setVisible(True)\n    \n    else: \n     n\[\"ftc_4\"].setVisible(False) \n\n#Flare 2 fade to center\nif k.name()==\"ftc_2\":\n    if k.value()== 1:\n     n\[\"ftc_5\"].setVisible(True)\n    \n    else: \n     n\[\"ftc_5\"].setVisible(False) \n\n#Flare 3 fade to center\nif k.name()==\"ftc_3\":\n    if k.value()== 1:\n     n\[\"ftc_6\"].setVisible(True)\n    \n    else: \n     n\[\"ftc_6\"].setVisible(False) \n\n#Bloom fade to center\nif k.name()==\"ffc_1\":\n    if k.value()== 1:\n     n\[\"cl_bloom_n\"].setVisible(True)\n    \n    else: \n     n\[\"cl_bloom_n\"].setVisible(False)\n\n"
+ tile_color 0xefb500ff
+ note_font "Verdana Bold Italic"
+ selected true
+ xpos 320
+ ypos -890
+ addUserKnob {20 settings}
+ addUserKnob {26 _1 l "" +STARTLINE T "<span style=\"color:#aaa;font-family:sans-serif\"><b><span style=\"color:#ffaf24\">MS_Arrange Flares v.1.0</span></b>"}
+ addUserKnob {26 ""}
+ addUserKnob {41 format T Constant2.format}
+ addUserKnob {41 flarecenter_1 l "&nbsp;&nbsp;<span style=\"color:#0f0\"><b>flare center</span>" T center_1.flarecenter}
+ addUserKnob {6 guideframe l "&nbsp;&nbsp;<i><span style=\"color:#aa2\">guide frame</span>" t "\nshow the guide frame overlay" -STARTLINE}
+ guideframe true
+ addUserKnob {6 ruler1 l "&nbsp;&nbsp;<i><span style=\"color:#aa2\">ruler</span>" -STARTLINE}
+ ruler1 true
+ addUserKnob {7 aspect R 0 2}
+ aspect 1
+ addUserKnob {41 shutteroffset l "shutter offset" T Transform32.shutteroffset}
+ addUserKnob {6 motionblur l "enable motionblur" -STARTLINE}
+ addUserKnob {26 ""}
+ addUserKnob {26 fading l "<span style=\"color:#bb7d01\"><b>fading</span>"}
+ addUserKnob {6 enableautofade l "auto fade outside format" t "\nEnables thefading option based on the fade distance value.\n\nWith this option disabled the flare will not fade when leaving the format." +STARTLINE}
+ enableautofade true
+ addUserKnob {7 fadedistance l "fade distance" t "defines the pixel distance across the flare fades to black" R 0 1000}
+ fadedistance 200
+ addUserKnob {7 offsetfade l "offset fade" t "offsets the fade start to start later" R 0 100}
+ offsetfade 20
+ addUserKnob {6 occlusion l "enable occlusion input" t "\nWill use the alpha of the occlusion input to automatically fade the lensflare. \nThe alpha needs to represent the object that is in front of the light source." +STARTLINE}
+ addUserKnob {7 bltran l falloff t "\nThis essentially applies a blur to the occlusion mask so that the fade will have a wider range and smoother transition.\n\nUsually values over 10 will make the flare bleed in too much into the foreground object.\n" R 0 10}
+ bltran 5
+ addUserKnob {7 shiftfade l "shift occlusion" t "\nThis will grow the occlusion inputs alpha so that the fade of the flare starts earlier.\nThis is a great option to counter when the flare bleeds into the FG objects too much when the falloff is higher then 0." R 0 10}
+ shiftfade 5
+ addUserKnob {26 focusctrl l "<span style=\"color:#bb7d01\"><b>lens</span>"}
+ addUserKnob {6 enablefocus l "enable focus" +STARTLINE}
+ addUserKnob {7 focus t "Applies changes to the entire flare based on the focus distance.\n\n0 = near\n1 = far / infinite\n\nThis is a sinus change. meaning some flares will get smaller and bigger between 0 and 1."}
+ addUserKnob {7 focmult l "focus mult" t " Multiplies the existing focus sinus. this way you can control how strong the focus size change is. Also when putting the slider to zero you get the original flare size without any changes." R 0 2}
+ focmult 1
+ addUserKnob {6 enablefocallength l "focal length" +STARTLINE}
+ addUserKnob {7 focallength l "focal length" t "\nApplies changes to the entire flare based on the focal length.\n\n8 mm is the default state. This means that the arranged elements will not change in position when focal length is enabled.\n" R 8 200}
+ focallength 8
+ addUserKnob {26 edgepop l "<span style=\"color:#bb7d01\"><b>edge pop</span>"}
+ addUserKnob {6 enableedgepop l enable +STARTLINE}
+ addUserKnob {6 showpopmask l "show mask" -STARTLINE}
+ addUserKnob {7 popbrightness l brightness R 0 5}
+ popbrightness 10
+ addUserKnob {7 poprange l range t "\nRange in pixels that the pop needs to fully fade in.\n\n10 px fade in + 10 px fade out = 20 px pop duration" R 0 50}
+ poprange 20
+ addUserKnob {7 popmasksize l "mask size" R 0 2}
+ popmasksize 2
+ addUserKnob {41 size_3 l "mask softness" T Blur3.size}
+ addUserKnob {7 popoffset l "pop offset" t "\nDistance in pixels the pop start is offsetted\n\nThis can be uselful when lens distortion is applied after the flare. \nSo the flare will be distorted and with it the pop area. \nWith this slider you can move the pop area outwards again to be at the format border." R 0 100}
+ addUserKnob {4 popdirection l "&nbsp;direction&nbsp;" t "\noutwards - will move the pop start to the outside of the frame\n\ninwards - will move it to the inside of the frame" -STARTLINE M {outwards inwards "" "" "" "" "" ""}}
+ popdirection inwards
+ addUserKnob {26 bbox l "<span style=\"color:#bb7d01\"><b>bbox</span>"}
+ addUserKnob {7 growbbox l "&nbsp;adjust bbox&nbsp;" R 0 500}
+ growbbox 100
+ addUserKnob {6 cropout l "" -STARTLINE}
+ cropout true
+ addUserKnob {26 ""}
+ addUserKnob {26 mask l "<span style=\"color:#bb7d01\"><b>mask</span>"}
+ addUserKnob {26 "" l mask T ""}
+ addUserKnob {41 maskChannelInput l "" -STARTLINE T Merge1.maskChannelInput}
+ addUserKnob {41 invert_mask l invert -STARTLINE T Merge1.invert_mask}
+ addUserKnob {7 mixall l mix}
+ mixall 1
+ addUserKnob {20 centerpieces l center}
+ addUserKnob {26 general2 l <b>general}
+ addUserKnob {6 enableall1 l "enable all" +STARTLINE}
+ enableall1 true
+ addUserKnob {7 scaleall1 l "scale all" R 0 2}
+ scaleall1 1
+ addUserKnob {7 strengthall1 l "brightness all" R 0 2}
+ strengthall1 1
+ addUserKnob {7 satallc l "saturation all" R 0 2}
+ satallc 1
+ addUserKnob {7 blurall1 l "defocus all" t "\nDoesn't apply to the rainbow element" R 0 100}
+ addUserKnob {26 ""}
+ addUserKnob {26 text_3 l "<span style=\"color:#ff0\"><b>Center 1</span>"}
+ addUserKnob {6 enablecenter l enable +STARTLINE}
+ enablecenter true
+ addUserKnob {6 useaspect l "use aspect" -STARTLINE}
+ addUserKnob {41 scale_2 l "<span style=\"color:#bb7d01\"><i>scale</span>" T Transform7.scale}
+ addUserKnob {41 rotate_2 l rotate T Transform7.rotate}
+ addUserKnob {41 defocus T Defocus1.defocus}
+ addUserKnob {41 value_3 l brightness T Multiply7.value}
+ addUserKnob {6 movean1 l "mirror x" t "\nmirrors the flare to the other side of x to simulate anamorph movement" +STARTLINE}
+ addUserKnob {6 movean4 l "mirror y" t "\nmirrors the flare to the other side of y to simulate anamorph movement" -STARTLINE}
+ addUserKnob {7 moveanmult1 l "mirror mult" R -2 2}
+ moveanmult1 1
+ addUserKnob {6 relrot l rotation +STARTLINE}
+ addUserKnob {6 invrot l "invert rotation" -STARTLINE +HIDDEN}
+ addUserKnob {7 rotmult l strength t "\nrotation strength" +HIDDEN}
+ rotmult 0.5
+ addUserKnob {26 ""}
+ addUserKnob {26 text_4 l "<span style=\"color:#ff0\"><b>Center 2</span>"}
+ addUserKnob {6 enablecenter1 l enable +STARTLINE}
+ addUserKnob {6 useaspect4 l "use aspect" -STARTLINE}
+ addUserKnob {41 scale_4 l "<span style=\"color:#bb7d01\"><i>scale</span>" T Transform10.scale}
+ addUserKnob {41 rotate_4 l rotate T Transform10.rotate}
+ addUserKnob {41 defocus_1 l defocus T Defocus2.defocus}
+ addUserKnob {41 value_4 l brightness T Multiply9.value}
+ addUserKnob {6 movean2 l "mirror x" t "\nmirrors the flare to the other side of x to simulate anamorph movement" +STARTLINE}
+ addUserKnob {6 movean5 l "mirror y" t "\nmirrors the flare to the other side of y to simulate anamorph movement" -STARTLINE}
+ addUserKnob {7 moveanmult2 l "mirror mult" R -2 2}
+ moveanmult2 1
+ addUserKnob {6 relrot_4 l rotation +STARTLINE}
+ addUserKnob {6 invrot1 l "invert rotation" -STARTLINE +HIDDEN}
+ addUserKnob {7 rotmult1 l strength t "\nrotation strength" +HIDDEN}
+ rotmult1 0.5
+ addUserKnob {26 ""}
+ addUserKnob {26 text_5 l "<span style=\"color:#ff0\"><b>Center 3</span>"}
+ addUserKnob {6 enablecenter2 l enable +STARTLINE}
+ addUserKnob {6 useaspect5 l "use aspect" -STARTLINE}
+ addUserKnob {41 scale_5 l "<span style=\"color:#bb7d01\"><i>scale</span>" T Transform26.scale}
+ addUserKnob {41 rotate_5 l rotate T Transform26.rotate}
+ addUserKnob {41 defocus_2 l defocus T Defocus3.defocus}
+ addUserKnob {41 value_5 l brightness T Multiply11.value}
+ addUserKnob {6 movean3 l "mirror x" t "\nmirrors the flare to the other side of x to simulate anamorph movement" +STARTLINE}
+ addUserKnob {6 movean6 l "mirror y" t "\nmirrors the flare to the other side of y to simulate anamorph movement" -STARTLINE}
+ addUserKnob {7 moveanmult3 l "mirror mult" R -2 2}
+ moveanmult3 1
+ addUserKnob {6 relrot_5 l rotation +STARTLINE}
+ addUserKnob {6 invrot2 l "invert rotation" -STARTLINE +HIDDEN}
+ addUserKnob {7 rotmult2 l strength t "\nrotation strength" +HIDDEN}
+ rotmult2 0.5
+ addUserKnob {26 ""}
+ addUserKnob {20 pieces}
+ addUserKnob {26 general l <b>general}
+ addUserKnob {6 enableall l "enable all" +STARTLINE}
+ enableall true
+ addUserKnob {7 scaleall l "scale all" R 0 2}
+ scaleall 1
+ addUserKnob {7 rotateall l "rotate all" R 0 360}
+ addUserKnob {7 strengthall l "brightness all" R 0 2}
+ strengthall 1
+ addUserKnob {7 satallp l "saturation all" R 0 2}
+ satallp 1
+ addUserKnob {7 blurall l "defocus all" R 0 100}
+ addUserKnob {26 ""}
+ addUserKnob {20 group_3 l "Flare 1" n 1}
+ addUserKnob {6 enablea l "&nbsp;&nbsp;<span style=\"color:#ff0\"><b>enable 1</span>" +STARTLINE}
+ enablea true
+ addUserKnob {6 useaspect1 l "use aspect" -STARTLINE}
+ useaspect1 true
+ addUserKnob {6 relrot_1 l "aim at center" t "makes lens piece aim at the center point" +STARTLINE}
+ addUserKnob {41 operation_6 l operation T Merge1.operation}
+ addUserKnob {41 scale l "<span style=\"color:#bb7d01\"><i>scale</span>" T Transform2.scale}
+ addUserKnob {7 slide l "<span style=\"color:#bb7d01\"><i>position</span>" R -3 5}
+ slide -0.6
+ addUserKnob {41 translate T Transform2.translate}
+ addUserKnob {41 rotate T Transform2.rotate}
+ addUserKnob {41 size l blur T Blur1.size}
+ addUserKnob {41 saturation_6 l saturation T Saturation7.saturation}
+ addUserKnob {41 white_6 l gain T Grade7.white}
+ addUserKnob {41 value l brightness T Multiply1.value}
+ addUserKnob {6 ftc_1 l "&nbsp;&nbsp;<span style=\"color:#ba0\"><i>fade towars center</span>" t "\nThe asset will fade out as it comes closer to the format center.\n" +STARTLINE}
+ addUserKnob {12 ftc_4 l min/max t "\nmin = percentage of the guideframe where the fade out starts\n\nmax = percentage where the asset is completely faded out\n\nTo visualize it enable the guideframe overlay." +HIDDEN}
+ ftc_4 {30 15}
+ addUserKnob {6 relscale_1 l "&nbsp;&nbsp;<span style=\"color:#bb120f\"><i>relative scale</span>" t "scales the element based on its distance to the format center\n\n" +STARTLINE}
+ addUserKnob {4 type_1 l "<i>type&nbsp;" t "\nfunction that drives the scale\n\nlinear\nquadratic = x²\ncubic = x³" +HIDDEN M {linear quadratic cubic "" "" "" "" ""}}
+ type_1 quadratic
+ addUserKnob {7 relscalemult_1 l "<i>&nbsp;&nbsp;multiply&nbsp;&nbsp;" t "multiply relative scale\n" -STARTLINE +HIDDEN R 0 2}
+ relscalemult_1 1
+ addUserKnob {6 relstretch1 l "&nbsp;&nbsp;<span style=\"color:#33a20f\"><i>relative stretch</span>" t "stretches the element based on its distance to the format center" +STARTLINE}
+ addUserKnob {4 stretchtype1 l type t "\nfunction that drives the scale\n\nlinear\nquadratic = x²\ncubic = x³" +HIDDEN M {linear quadratic cubic "" "" ""}}
+ stretchtype1 quadratic
+ addUserKnob {6 flip_1 l "<i>&nbsp;&nbsp;change axis" t "\nchange the stretch direction from x to y" -STARTLINE +HIDDEN}
+ addUserKnob {7 relstretchmult_1 l "<i>&nbsp;&nbsp;multiply&nbsp;&nbsp;" +HIDDEN R 0 2}
+ relstretchmult_1 1
+ addUserKnob {20 endGroup_3 l endGroup n -1}
+ addUserKnob {26 ""}
+ addUserKnob {20 group_4 l "Flare 2" n 1}
+ group_4 0
+ addUserKnob {6 enableb l "&nbsp;&nbsp;<span style=\"color:#ff0\"><b>enable 2</span>" +STARTLINE}
+ enableb true
+ addUserKnob {6 useaspect2 l "use aspect" -STARTLINE}
+ useaspect2 true
+ addUserKnob {6 relrot_2 l "aim at center" t "makes lens piece aim at the center point" +STARTLINE}
+ addUserKnob {41 operation_7 l operation T Merge2.operation}
+ addUserKnob {41 scale_1 l "<span style=\"color:#bb7d01\"><i>scale</span>" T Transform1.scale}
+ addUserKnob {7 slide1 l "<span style=\"color:#bb7d01\"><i>position</span>" R -3 5}
+ slide1 0.2
+ addUserKnob {41 translate_1 l translate T Transform1.translate}
+ addUserKnob {41 rotate_1 l rotate T Transform1.rotate}
+ addUserKnob {41 size_1 l blur T Blur2.size}
+ addUserKnob {41 saturation_7 l saturation T Saturation8.saturation}
+ addUserKnob {41 white_7 l gain T Grade8.white}
+ addUserKnob {41 value_1 l brightness T Multiply2.value}
+ addUserKnob {6 ftc_2 l "&nbsp;&nbsp;<span style=\"color:#ba0\"><i>fade towars center</span>" t "\nThe asset will fade out as it comes closer to the format center.\n" +STARTLINE}
+ addUserKnob {12 ftc_5 l min/max t "\nmin = percentage of the guideframe where the fade out starts\n\nmax = percentage where the asset is completely faded out\n\nTo visualize it enable the guideframe overlay." +HIDDEN}
+ ftc_5 {30 15}
+ addUserKnob {6 relscale_2 l "&nbsp;&nbsp;<span style=\"color:#bb120f\"><i>relative scale</span>" t "scales the element based on its distance to the format center" +STARTLINE}
+ addUserKnob {4 type_2 l "<i>type&nbsp;" t "\nfunction that drives the scale\n\nlinear\nquadratic = x²\ncubic = x³" +HIDDEN M {linear quadratic cubic "" ""}}
+ type_2 quadratic
+ addUserKnob {7 relscalemult_2 l "<i>&nbsp;&nbsp;multiply&nbsp;&nbsp;" -STARTLINE +HIDDEN R 0 2}
+ relscalemult_2 1
+ addUserKnob {6 relstretch2 l "&nbsp;&nbsp;<span style=\"color:#33a20f\"><i>relative stretch</span>" +STARTLINE}
+ addUserKnob {4 stretchtype2 l type t "\nfunction that drives the scale\n\nlinear\nquadratic = x²\ncubic = x³" +HIDDEN M {linear quadratic cubic "" "" "" "" ""}}
+ stretchtype2 quadratic
+ addUserKnob {6 flip_2 l "<i>&nbsp;&nbsp;change axis" t "\nchange the stretch direction from x to y" -STARTLINE +HIDDEN}
+ addUserKnob {7 relstretchmult_2 l "<i>&nbsp;&nbsp;multiply&nbsp;&nbsp;" +HIDDEN R 0 2}
+ relstretchmult_2 1
+ addUserKnob {20 endGroup_4 l endGroup n -1}
+ addUserKnob {26 ""}
+ addUserKnob {20 group_5 l "Flare 3" n 1}
+ group_5 0
+ addUserKnob {6 enablec l "&nbsp;&nbsp;<span style=\"color:#ff0\"><b>enable 3</span>" +STARTLINE}
+ enablec true
+ addUserKnob {6 useaspect3 l "use aspect" -STARTLINE}
+ useaspect3 true
+ addUserKnob {6 relrot_3 l "aim at center" t "makes lens piece aim at the center point" +STARTLINE}
+ addUserKnob {41 operation_8 l operation T Merge4.operation}
+ addUserKnob {41 scale_3 l "<span style=\"color:#bb7d01\"><i>scale</span>" T Transform11.scale}
+ addUserKnob {7 slide2 l "<span style=\"color:#bb7d01\"><i>position</span>" R -3 5}
+ slide2 1
+ addUserKnob {41 translate_2 l translate T Transform11.translate}
+ addUserKnob {41 rotate_3 l rotate T Transform11.rotate}
+ addUserKnob {41 size_2 l blur T Blur4.size}
+ addUserKnob {41 saturation_8 l saturation T Saturation9.saturation}
+ addUserKnob {41 white_8 l gain T Grade9.white}
+ addUserKnob {41 value_2 l brightness T Multiply3.value}
+ addUserKnob {6 ftc_3 l "&nbsp;&nbsp;<span style=\"color:#ba0\"><i>fade towars center</span>" t "\nThe asset will fade out as it comes closer to the format center.\n" +STARTLINE}
+ addUserKnob {12 ftc_6 l min/max t "\nmin = percentage of the guideframe where the fade out starts\n\nmax = percentage where the asset is completely faded out\n\nTo visualize it enable the guideframe overlay." +HIDDEN}
+ ftc_6 {30 15}
+ addUserKnob {6 relscale_3 l "&nbsp;&nbsp;<span style=\"color:#bb120f\"><i>relative scale</span>" t "scales the element based on its distance to the format center" +STARTLINE}
+ addUserKnob {4 type_3 l "<i>type&nbsp;" t "\nfunction that drives the scale\n\nlinear\nquadratic = x²\ncubic = x³" +HIDDEN M {linear quadratic cubic "" "" "" "" "" ""}}
+ type_3 quadratic
+ addUserKnob {7 relscalemult_3 l "<i>&nbsp;&nbsp;multiply&nbsp;&nbsp;" -STARTLINE +HIDDEN R 0 2}
+ relscalemult_3 1
+ addUserKnob {6 relstretch3 l "&nbsp;&nbsp;<span style=\"color:#33a20f\"><i>relative stretch</span>" +STARTLINE}
+ addUserKnob {4 stretchtype3 l type t "\nfunction that drives the scale\n\nlinear\nquadratic = x²\ncubic = x³" +HIDDEN M {linear quadratic cubic "" "" "" "" "" "" "" "" "" ""}}
+ stretchtype3 quadratic
+ addUserKnob {6 flip_3 l "<i>&nbsp;&nbsp;change axis" t "\nchange the stretch direction from x to y" -STARTLINE +HIDDEN}
+ addUserKnob {7 relstretchmult_3 l "<i>&nbsp;&nbsp;multiply&nbsp;&nbsp;" +HIDDEN R 0 2}
+ relstretchmult_3 1
+ addUserKnob {20 endGroup_5 l endGroup n -1}
+ addUserKnob {26 ""}
+ addUserKnob {20 copyelements l "copy pieces"}
+ addUserKnob {6 enablecopies l "enable all" +STARTLINE}
+ enablecopies true
+ addUserKnob {26 ""}
+ addUserKnob {20 group l "Flare 1" n 1}
+ addUserKnob {6 copy11 l "&nbsp;&nbsp;<span style=\"color:#ff0\"><b>Copy 1</span>" +STARTLINE}
+ addUserKnob {41 scale_6 l "<span style=\"color:#bb7d01\"><i>scale</span>" T Transform48.scale}
+ addUserKnob {7 movecopy11 l "<span style=\"color:#bb7d01\"><i>position</span>" R -3 5}
+ movecopy11 1.4
+ addUserKnob {41 rotate_6 l rotate T Transform48.rotate}
+ addUserKnob {41 size_4 l blur T Blur5.size}
+ addUserKnob {41 saturation T Saturation1.saturation}
+ addUserKnob {41 white_4 l gain T Grade5.white}
+ addUserKnob {41 multiply_4 l brightness T Grade5.multiply}
+ addUserKnob {4 operationfc1 l operation M {add minimum multiply "" "" "" "" ""}}
+ addUserKnob {26 ""}
+ addUserKnob {6 copy12 l "&nbsp;&nbsp;<span style=\"color:#ff0\"><b>Copy 2</span>" +STARTLINE}
+ addUserKnob {41 scale_7 l "<span style=\"color:#bb7d01\"><i>scale</span>" T Transform47.scale}
+ addUserKnob {7 movecopy12 l "<span style=\"color:#bb7d01\"><i>position</span>" R -3 5}
+ movecopy12 0.9
+ addUserKnob {41 rotate_7 l rotate T Transform47.rotate}
+ addUserKnob {41 size_5 l blur T Blur6.size}
+ addUserKnob {41 saturation_1 l saturation T Saturation2.saturation}
+ addUserKnob {41 white_5 l gain T Grade6.white}
+ addUserKnob {41 multiply_5 l brightness T Grade6.multiply}
+ addUserKnob {4 operationfc1_1 l operation M {add minimum multiply "" "" "" ""}}
+ addUserKnob {20 endGroup n -1}
+ addUserKnob {26 ""}
+ addUserKnob {20 group_1 l "Flare 2" n 1}
+ group_1 0
+ addUserKnob {6 copy21 l "&nbsp;&nbsp;<span style=\"color:#f40\"><b>Copy 1</span>" +STARTLINE}
+ addUserKnob {41 scale_8 l "<span style=\"color:#bb7d01\"><i>scale</span>" T Transform50.scale}
+ addUserKnob {7 movecopy21 l "<span style=\"color:#bb7d01\"><i>position</span>" R -3 5}
+ movecopy21 1.7
+ addUserKnob {41 rotate_8 l rotate T Transform50.rotate}
+ addUserKnob {41 size_6 l blur T Blur7.size}
+ addUserKnob {41 saturation_2 l saturation T Saturation3.saturation}
+ addUserKnob {41 white_2 l gain T Grade3.white}
+ addUserKnob {41 multiply_2 l brightness T Grade3.multiply}
+ addUserKnob {4 operationfc2 l operation M {add minimum multiply "" "" ""}}
+ addUserKnob {26 ""}
+ addUserKnob {6 copy22 l "&nbsp;&nbsp;<span style=\"color:#f40\"><b>Copy 2</span>" +STARTLINE}
+ addUserKnob {41 scale_9 l "<span style=\"color:#bb7d01\"><i>scale</span>" T Transform49.scale}
+ addUserKnob {7 movecopy22 l "<span style=\"color:#bb7d01\"><i>position</span>" R -3 5}
+ movecopy22 1.9
+ addUserKnob {41 rotate_9 l rotate T Transform49.rotate}
+ addUserKnob {41 size_7 l blur T Blur8.size}
+ addUserKnob {41 saturation_3 l saturation T Saturation4.saturation}
+ addUserKnob {41 white_3 l gain T Grade4.white}
+ addUserKnob {41 multiply_3 l brightness T Grade4.multiply}
+ addUserKnob {4 operationfc2_2 l operation M {add minimum multiply "" "" "" ""}}
+ addUserKnob {20 endGroup_1 l endGroup n -1}
+ addUserKnob {26 ""}
+ addUserKnob {20 group_2 l "Flare 3" n 1}
+ group_2 0
+ addUserKnob {6 copy31 l "&nbsp;&nbsp;<span style=\"color:#0a4\"><b>Copy 1</span>" +STARTLINE}
+ addUserKnob {41 scale_10 l "<span style=\"color:#bb7d01\"><i>scale</span>" T Transform51.scale}
+ addUserKnob {7 movecopy31 l "<span style=\"color:#bb7d01\"><i>position</span>" R -3 5}
+ movecopy31 2.1
+ addUserKnob {41 rotate_10 l rotate T Transform51.rotate}
+ addUserKnob {41 size_8 l blur T Blur9.size}
+ addUserKnob {41 saturation_4 l saturation T Saturation5.saturation}
+ addUserKnob {41 white l gain T Grade1.white}
+ addUserKnob {41 multiply l brightness T Grade1.multiply}
+ addUserKnob {4 operationfc3 l operation M {add minimum multiply "" ""}}
+ addUserKnob {26 ""}
+ addUserKnob {6 copy32 l "&nbsp;&nbsp;<span style=\"color:#0a4\"><b>Copy 2</span>" +STARTLINE}
+ addUserKnob {41 scale_11 l "<span style=\"color:#bb7d01\"><i>scale</span>" T Transform52.scale}
+ addUserKnob {7 movecopy32 l "<span style=\"color:#bb7d01\"><i>position</span>" R -3 5}
+ movecopy32 2.3
+ addUserKnob {41 rotate_11 l rotate T Transform52.rotate}
+ addUserKnob {41 size_9 l blur T Blur10.size}
+ addUserKnob {41 saturation_5 l saturation T Saturation6.saturation}
+ addUserKnob {41 white_1 l gain T Grade2.white}
+ addUserKnob {41 multiply_1 l brightness T Grade2.multiply}
+ addUserKnob {4 operationfc3_2 l operation M {add minimum multiply "" ""}}
+ addUserKnob {20 endGroup_2 l endGroup n -1}
+ addUserKnob {20 rainbow_1 l rainbow}
+ addUserKnob {6 rainbow l "&nbsp;&nbsp;<span style=\"color:#ff0\"><b>Rainbow Element</span>" +STARTLINE}
+ addUserKnob {6 breakuppattern l "breakup pattern" t "\ncuts rays into the shape to give more detail" +STARTLINE}
+ breakuppattern true
+ addUserKnob {6 animatebreakup l animate t "\nThe rainbow is being broken up by a pattern. By checking animate this pattern will not move with the element causing animation in the breakup when the element is moving." -STARTLINE}
+ animatebreakup true
+ addUserKnob {41 size_14 l blur T Blur22.size}
+ addUserKnob {41 rotate_12 l rotate T Transform79.rotate}
+ addUserKnob {41 scale_15 l scale T Transform79.scale}
+ addUserKnob {7 ovalshape l "oval shape" t "\nModify how oval the shape is." R 0 2}
+ ovalshape 1.3
+ addUserKnob {7 saturation_9 l saturation R 0 2}
+ saturation_9 1.4
+ addUserKnob {7 offcol l "offset colors"}
+ addUserKnob {41 white_9 l gain T Grade10.white}
+ addUserKnob {41 multiply_6 l multiply T Grade10.multiply}
+ addUserKnob {7 shim3mix l mix}
+ shim3mix 0.2
+ addUserKnob {26 ""}
+ addUserKnob {6 fadetocenter l "fade towars center" t "\nThe elemenent will start to fade out as it gets closer to the format center. " +STARTLINE}
+ fadetocenter true
+ addUserKnob {3 maxfade l "&nbsp;&nbsp;&nbsp;start&nbsp;" t "\nstart = percentage of the guideframe where the fade out starts\n\nend = percentage where the asset is completely faded out\n\nTo visualize it enable the guideframe overlay."}
+ maxfade 60
+ addUserKnob {3 minfade l "&nbsp;end&nbsp;" t "\nstart = percentage of the guideframe where the fade out starts\n\nend = percentage where the asset is completely faded out\n\nTo visualize it enable the guideframe overlay." -STARTLINE}
+ minfade 20
+ addUserKnob {6 relscalerb l "&nbsp;&nbsp;<span style=\"color:#bb120f\"><i>relative scale</span>" +STARTLINE}
+ addUserKnob {4 type_4 l "scale type" t "linear = 1x1\nqudratic = x²\ncubic = x³" +HIDDEN M {linear quadratic cubic "" ""}}
+ type_4 quadratic
+ addUserKnob {7 relscalemult_4 l "&nbsp;&nbsp;<i>multiply&nbsp;&nbsp;" -STARTLINE +HIDDEN R 0 2}
+ relscalemult_4 1
+ addUserKnob {6 relstretchrb l "&nbsp;&nbsp;<span style=\"color:#33a20f\"><i>relative stretch</span>" +STARTLINE}
+ addUserKnob {6 flip_4 l "<i>&nbsp;&nbsp;change axis" t "\nchanges the stretch axis from x to y" -STARTLINE +HIDDEN}
+ addUserKnob {4 rbtype l type +HIDDEN M {linear quadratic cubic "" ""}}
+ rbtype quadratic
+ addUserKnob {7 stretchmultrb l "&nbsp;&nbsp;<i>multiply&nbsp;&nbsp;" -STARTLINE +HIDDEN R 0 2}
+ stretchmultrb 1
+ addUserKnob {20 edgeshimmer l shimmer}
+ addUserKnob {6 enableshimmer l "enable shimmer" +STARTLINE}
+ enableshimmer true
+ addUserKnob {7 brightshimall l "brightness all"}
+ brightshimall 1
+ addUserKnob {7 satshimall l "saturation all" R 0 2}
+ satshimall 1
+ addUserKnob {7 blurshimall l "blur all" R 0 200}
+ addUserKnob {26 ""}
+ addUserKnob {20 group_7 l "Element 1" n 1}
+ addUserKnob {6 element1 l "&nbsp;&nbsp;<span style=\"color:#ff0\"><b>Element 1</span>" +STARTLINE}
+ addUserKnob {41 scale_12 l scale T Transform53.scale}
+ addUserKnob {41 color T Constant1.color}
+ addUserKnob {41 size_10 l blur T Blur11.size}
+ addUserKnob {6 smoothblur1 l smooth -STARTLINE}
+ smoothblur1 true
+ addUserKnob {6 ffc_2 l "fade towards center" t "\nwhen enabled the shape will fade in or out as is comes closer to the format center" +STARTLINE}
+ addUserKnob {12 cl_shimmer_1 l min/max t "\nmin = percentage of the guideframe where the fade out starts\n\nmax = percentage where the asset is completely faded out\n\nTo visualize it enable the guideframe overlay." +HIDDEN}
+ cl_shimmer_1 {80 20}
+ addUserKnob {7 shim1mix l mix}
+ shim1mix 0.015
+ addUserKnob {26 ""}
+ addUserKnob {6 cutout1 l "cut outside" t "\nCuts of the outside to create a ring." +STARTLINE}
+ addUserKnob {7 csoft1 l "cut softness"}
+ csoft1 0.5
+ addUserKnob {41 size_13 l "shift cut" t "\nexpands/contracts the cutting point" T Dilate2.size}
+ addUserKnob {6 addoutline1 l outline t "\nPlaces and outline around the edge that will show when \"cut outside\" is enabled." +STARTLINE}
+ addUserKnob {41 value_7 l "line strength" t "\noutline thickness" T Multiply24.value}
+ addUserKnob {6 abbr_1 l "color shift" t "\nenables cromatic abberation to the element" +STARTLINE}
+ addUserKnob {41 amount l "" t "\ncolor shift strength" -STARTLINE T MS_cromatic.amount}
+ addUserKnob {20 endGroup_7 l endGroup n -1}
+ addUserKnob {26 ""}
+ addUserKnob {20 group_8 l "Element 2" n 1}
+ group_8 0
+ addUserKnob {6 element2 l "&nbsp;&nbsp;<span style=\"color:#ff0\"><b>Element 2</span>" +STARTLINE}
+ addUserKnob {41 scale_13 l scale T Transform55.scale}
+ addUserKnob {41 color_1 l color T Constant3.color}
+ addUserKnob {41 size_11 l blur T Blur12.size}
+ addUserKnob {6 smoothblur2 l smooth -STARTLINE}
+ smoothblur2 true
+ addUserKnob {6 ffc_3 l "fade from center" t "\nwhen enabled the shape will fade in or out as is comes closer to the format center" +STARTLINE}
+ addUserKnob {12 cl_shimmer_2 l min/max t "\nmin = percentage of the guideframe where the fade out starts\n\nmax = percentage where the asset is completely faded out\n\nTo visualize it enable the guideframe overlay." +HIDDEN}
+ cl_shimmer_2 {80 20}
+ addUserKnob {7 shim2mix l mix}
+ shim2mix 0.012
+ addUserKnob {26 ""}
+ addUserKnob {6 cutout2 l "cut outside" t "\nCuts of the outside to create a ring." +STARTLINE}
+ addUserKnob {7 csoft2 l "cut softness"}
+ csoft2 0.5
+ addUserKnob {41 size_12 l "shift cut" t "\nexpands/contracts the cutting point" T Dilate1.size}
+ addUserKnob {6 addoutline2 l outline t "\nPlaces and outline around the edge that will show when \"cut outside\" is enabled." +STARTLINE}
+ addUserKnob {41 value_6 l "line strength" t "\noutline thickness" T Multiply23.value}
+ addUserKnob {6 abbr_2 l "color shift" t "\nenables cromatic abberation to the element" +STARTLINE}
+ addUserKnob {41 amount_1 l "" t "\ncolor shift strength" -STARTLINE T MS_cromatic1.amount}
+ addUserKnob {20 endGroup_8 l endGroup n -1}
+ addUserKnob {26 ""}
+ addUserKnob {6 moverel1 l "&nbsp;&nbsp;<span style=\"color:#6b9\"><b>Move Relative</span>" t "\nWill make the shimmer move relatively to the flare center." +STARTLINE}
+ moverel1 true
+ addUserKnob {6 invrelmove1 l "invert movement" t "\nInverts the relative movement" -STARTLINE}
+ addUserKnob {7 offshimstrength l strength t "\nStrength of the relative movement to the flare center." R 0 5}
+ offshimstrength 3
+ addUserKnob {7 strengthoffset l "offset shapes" t "\nControls the offset between the two circles." R -0.5 0.5}
+ strengthoffset 0.4
+ addUserKnob {26 ""}
+ addUserKnob {6 enableexclude l "&nbsp;&nbsp;<span style=\"color:#b69\"><b>Exclusion Mask</span>" t "\nThis will occlude either the shimmer at the area of the core flare or the opposite side of it depending on if invert movement is checked or not.\n\nDoes not apply to rainbow element!" +STARTLINE}
+ addUserKnob {6 dispexmask l "&nbsp;&nbsp;<i>display mask" -STARTLINE}
+ addUserKnob {6 invexcludemask l "invert mask" -STARTLINE}
+ addUserKnob {6 excluderelmove l "move relative" t "\nMoves the mask relative to the flare centers position" +STARTLINE}
+ excluderelmove true
+ addUserKnob {6 invertexclude l "invert movement" t "\ninverts relative movement" -STARTLINE}
+ addUserKnob {41 scale_14 l scale T Transform66.scale}
+ addUserKnob {7 excludestrength l density t "\nmask strength" R 0 5}
+ excludestrength 2.5
+ addUserKnob {7 mixexclusion l mix}
+ mixexclusion 1
+ addUserKnob {20 bloom}
+ addUserKnob {6 enablebloom l enable +STARTLINE}
+ enablebloom true
+ addUserKnob {6 ffc_1 l "fade from center" t "\nwhen enabled the shape will fade in as is comes closer to the format center" +STARTLINE}
+ ffc_1 true
+ addUserKnob {12 cl_bloom_n l min/max t "\nmin = percentage of the guideframe where the fade in starts\n\nmax = percentage where the asset is completely faded in\n\nTo visualize it enable the guideframe overlay."}
+ cl_bloom_n {80 0}
+ addUserKnob {41 color_2 l color T Constant4.color}
+ addUserKnob {7 mixbloom l mix}
+ mixbloom 0.2
+ addUserKnob {20 info}
+ addUserKnob {26 _2 l "" +STARTLINE T "<br><span style=\"color:#aaa;font-family:sans-serif;font-size:7pt\">node created by <b><span style=\"color:#aaaa00\">Johannes Kretschmer</span></b> mail: Jolegodrum@t-online.de - Version 1.1 - 2025 / part of  <span style=\"color:#aaa;font-family:sans-serif\"><b><span style=\"color:#ffaf24\">MANGO SUITE</span></b><br>\n"}
+ addUserKnob {26 _3 l "" +STARTLINE T "<br><a href=\"https://youtu.be/JBCQGOQ4ZCY\"><b><span style=\"color:#aaa\"><i>watch tutorial</span></b></a>&nbsp;&nbsp;&nbsp;"}
+ addUserKnob {22 updatenotes l "update notes" -STARTLINE T "nuke.message(\"Version 1.1:<br>- fixed guide frames overlay middle cross which was not centered with some formats<br>- added 'mirror mult' slider for all center assets<br>- 'display mask' checker for exclusion mask added\")"}
+}
+ BackdropNode {
+  inputs 0
+  name BackdropNode1
+  tile_color 0x6b6b8e01
+  label "<center><b>lens pieces"
+  note_font Verdana
+  note_font_size 40
+  xpos -4342
+  ypos -1381
+  border_width 10
+  bdwidth 1892
+  bdheight 2637
+  addUserKnob {20 "Backdrop Settings"}
+  addUserKnob {3 padding l Padding}
+  padding 40
+  addUserKnob {22 snap l "Snap to selected nodes" -STARTLINE T "this = nuke.thisNode()\nselNodes = nuke.selectedNodes()\npadding = this.knob('padding').value()\nif len(selNodes)== 0:\n\tpass\nelse:\n\tbdX = min(\[node.xpos() for node in selNodes]) - padding\n\tbdY = min(\[node.ypos() for node in selNodes]) - padding - 60\n\tbdW = max(\[node.xpos() + node.screenWidth() for node in selNodes]) + padding\n\tbdH = max(\[node.ypos() + node.screenHeight() for node in selNodes]) + padding\n\tthis.knob('xpos').setValue(bdX)\n\tthis.knob('ypos').setValue(bdY)\n\tthis.knob('bdwidth').setValue(bdW-bdX)\n\tthis.knob('bdheight').setValue(bdH-bdY)"}
+ }
+ BackdropNode {
+  inputs 0
+  name BackdropNode10
+  tile_color 0xad8973ff
+  label <center>bloom
+  note_font "Verdana Bold"
+  note_font_size 42
+  xpos -1834
+  ypos 5864
+  bdwidth 714
+  bdheight 713
+ }
+ BackdropNode {
+  inputs 0
+  name BackdropNode11
+  tile_color 0xaaaaaa00
+  label "<center>occlusion sampling"
+  note_font "Verdana Bold"
+  note_font_size 42
+  xpos -199
+  ypos 5894
+  bdwidth 411
+  bdheight 994
+ }
+ BackdropNode {
+  inputs 0
+  name BackdropNode2
+  tile_color 0xc6a03f01
+  label "<center><b>center flares"
+  note_font Verdana
+  note_font_size 40
+  xpos -1771
+  ypos -804
+  border_width 10
+  bdwidth 641
+  bdheight 1531
+  addUserKnob {20 "Backdrop Settings"}
+  addUserKnob {3 padding l Padding}
+  padding 40
+  addUserKnob {22 snap l "Snap to selected nodes" -STARTLINE T "this = nuke.thisNode()\nselNodes = nuke.selectedNodes()\npadding = this.knob('padding').value()\nif len(selNodes)== 0:\n\tpass\nelse:\n\tbdX = min(\[node.xpos() for node in selNodes]) - padding\n\tbdY = min(\[node.ypos() for node in selNodes]) - padding - 60\n\tbdW = max(\[node.xpos() + node.screenWidth() for node in selNodes]) + padding\n\tbdH = max(\[node.ypos() + node.screenHeight() for node in selNodes]) + padding\n\tthis.knob('xpos').setValue(bdX)\n\tthis.knob('ypos').setValue(bdY)\n\tthis.knob('bdwidth').setValue(bdW-bdX)\n\tthis.knob('bdheight').setValue(bdH-bdY)"}
+ }
+ BackdropNode {
+  inputs 0
+  name BackdropNode3
+  tile_color 0x6c6c6c01
+  label "<center><b>distance / fading calculations"
+  note_font Verdana
+  note_font_size 40
+  xpos -192
+  ypos 528
+  border_width 10
+  bdwidth 747
+  bdheight 283
+  addUserKnob {20 "Backdrop Settings"}
+  addUserKnob {3 padding l Padding}
+  padding 40
+  addUserKnob {22 snap l "Snap to selected nodes" -STARTLINE T "this = nuke.thisNode()\nselNodes = nuke.selectedNodes()\npadding = this.knob('padding').value()\nif len(selNodes)== 0:\n\tpass\nelse:\n\tbdX = min(\[node.xpos() for node in selNodes]) - padding\n\tbdY = min(\[node.ypos() for node in selNodes]) - padding - 60\n\tbdW = max(\[node.xpos() + node.screenWidth() for node in selNodes]) + padding\n\tbdH = max(\[node.ypos() + node.screenHeight() for node in selNodes]) + padding\n\tthis.knob('xpos').setValue(bdX)\n\tthis.knob('ypos').setValue(bdY)\n\tthis.knob('bdwidth').setValue(bdW-bdX)\n\tthis.knob('bdheight').setValue(bdH-bdY)"}
+ }
+ BackdropNode {
+  inputs 0
+  name BackdropNode4
+  tile_color 0x9b3e3e01
+  label "<center><b>edge pop"
+  note_font Verdana
+  note_font_size 40
+  xpos -2280
+  ypos -216
+  border_width 10
+  bdwidth 240
+  bdheight 946
+  addUserKnob {20 "Backdrop Settings"}
+  addUserKnob {3 padding l Padding}
+  padding 40
+  addUserKnob {22 snap l "Snap to selected nodes" -STARTLINE T "this = nuke.thisNode()\nselNodes = nuke.selectedNodes()\npadding = this.knob('padding').value()\nif len(selNodes)== 0:\n\tpass\nelse:\n\tbdX = min(\[node.xpos() for node in selNodes]) - padding\n\tbdY = min(\[node.ypos() for node in selNodes]) - padding - 60\n\tbdW = max(\[node.xpos() + node.screenWidth() for node in selNodes]) + padding\n\tbdH = max(\[node.ypos() + node.screenHeight() for node in selNodes]) + padding\n\tthis.knob('xpos').setValue(bdX)\n\tthis.knob('ypos').setValue(bdY)\n\tthis.knob('bdwidth').setValue(bdW-bdX)\n\tthis.knob('bdheight').setValue(bdH-bdY)"}
+ }
+ BackdropNode {
+  inputs 0
+  name BackdropNode5
+  tile_color 0x777777ff
+  label "<center>edge shimmer"
+  note_font "Verdana Bold"
+  note_font_size 42
+  xpos -2427
+  ypos 1659
+  bdwidth 1309
+  bdheight 1874
+ }
+ BackdropNode {
+  inputs 0
+  name BackdropNode6
+  tile_color 0x9b3e3e01
+  label "<center><b>focus and focal length initialize"
+  note_font Verdana
+  note_font_size 40
+  xpos -190
+  ypos 867
+  border_width 10
+  bdwidth 747
+  bdheight 262
+  addUserKnob {20 "Backdrop Settings"}
+  addUserKnob {3 padding l Padding}
+  padding 40
+  addUserKnob {22 snap l "Snap to selected nodes" -STARTLINE T "this = nuke.thisNode()\nselNodes = nuke.selectedNodes()\npadding = this.knob('padding').value()\nif len(selNodes)== 0:\n\tpass\nelse:\n\tbdX = min(\[node.xpos() for node in selNodes]) - padding\n\tbdY = min(\[node.ypos() for node in selNodes]) - padding - 60\n\tbdW = max(\[node.xpos() + node.screenWidth() for node in selNodes]) + padding\n\tbdH = max(\[node.ypos() + node.screenHeight() for node in selNodes]) + padding\n\tthis.knob('xpos').setValue(bdX)\n\tthis.knob('ypos').setValue(bdY)\n\tthis.knob('bdwidth').setValue(bdW-bdX)\n\tthis.knob('bdheight').setValue(bdH-bdY)"}
+ }
+ BackdropNode {
+  inputs 0
+  name BackdropNode7
+  tile_color 0xaaaaaa00
+  label "<center>guide frame overlay"
+  note_font "Verdana Bold"
+  note_font_size 42
+  xpos -2319
+  ypos 6669
+  bdwidth 1196
+  bdheight 971
+ }
+ BackdropNode {
+  inputs 0
+  name BackdropNode9
+  tile_color 0x6b6247ff
+  label <center>rainbow
+  note_font "Verdana Bold"
+  note_font_size 42
+  xpos -2413
+  ypos 3596
+  bdwidth 1296
+  bdheight 2185
+ }
+ BackdropNode {
+  inputs 0
+  name BackdropNode8
+  tile_color 0xc6a03f01
+  label "<center><b>focus / focal lentgh"
+  note_font Verdana
+  note_font_size 40
+  xpos -4269
+  ypos -396
+  border_width 10
+  bdwidth 1708
+  bdheight 329
+  z_order 1
+  addUserKnob {20 "Backdrop Settings"}
+  addUserKnob {3 padding l Padding}
+  padding 40
+  addUserKnob {22 snap l "Snap to selected nodes" -STARTLINE T "this = nuke.thisNode()\nselNodes = nuke.selectedNodes()\npadding = this.knob('padding').value()\nif len(selNodes)== 0:\n\tpass\nelse:\n\tbdX = min(\[node.xpos() for node in selNodes]) - padding\n\tbdY = min(\[node.ypos() for node in selNodes]) - padding - 60\n\tbdW = max(\[node.xpos() + node.screenWidth() for node in selNodes]) + padding\n\tbdH = max(\[node.ypos() + node.screenHeight() for node in selNodes]) + padding\n\tthis.knob('xpos').setValue(bdX)\n\tthis.knob('ypos').setValue(bdY)\n\tthis.knob('bdwidth').setValue(bdW-bdX)\n\tthis.knob('bdheight').setValue(bdH-bdY)"}
+ }
+ Add {
+  inputs 0
+  value {{parent.measure.distance/(formfactor)}}
+  name rel_distance
+  xpos -1660
+  ypos 4772
+  hide_input true
+  addUserKnob {20 User}
+  addUserKnob {7 formfactor l "form factor"}
+  formfactor {{((parent.get_res.formatcenter.u)/100)/10}}
+ }
+ Add {
+  inputs 0
+  value {{parent.offshimstrength/10}}
+  name relmove
+  xpos -1840
+  ypos 1824
+  hide_input true
+ }
+ NoOp {
+  inputs 0
+  name measure
+  tile_color 0x1fff00ff
+  label "distance\n"
+  note_font "Verdana Bold Italic"
+  xpos 140
+  ypos 704
+  hide_input true
+  addUserKnob {20 settings}
+  addUserKnob {13 point1 l "<span style=\"color:#aaa\"><i><span style=\"color:#88f\">point 1</span>&nbsp;"}
+  point1 {{parent.center_1.flarecenter.x} {parent.center_1.flarecenter.y} 0}
+  addUserKnob {13 point2 l "<span style=\"color:#aaa\"><i><span style=\"color:#88f\">point 2</span>&nbsp;"}
+  point2 {{parent.get_res.formatcenter.u} {parent.get_res.formatcenter.v} 0}
+  addUserKnob {26 ""}
+  addUserKnob {7 distance l "<span style=\"color:#aaa\"><b><span style=\"color:#ff0\">distance</span></b>"}
+  distance {{"sqrt(pow(point1.x-point2.x, 2) + pow(point1.y-point2.y, 2) + pow(point1.z-point2.z, 2))"}}
+ }
+ NoOp {
+  inputs 0
+  name items
+  xpos 140
+  ypos 1030
+  hide_input true
+  addUserKnob {20 User}
+  addUserKnob {7 float1 l "<span style=\"color:#f00\"><b><i>float 1</span>"}
+  float1 {{parent.Transform4.translate.x}}
+  addUserKnob {7 float2 l "float 1.1"}
+  float2 {{parent.Transform46.translate.x}}
+  addUserKnob {7 float3 l "float 1.2"}
+  float3 {{parent.Transform45.translate.x}}
+  addUserKnob {7 float4 l "<span style=\"color:#0f0\"><b><i>float 2</span>"}
+  float4 {{parent.Transform6.translate.x}}
+  addUserKnob {7 float5 l "float5 2.1"}
+  float5 {{parent.Transform44.translate.x}}
+  addUserKnob {7 float6 l "float 2.2"}
+  float6 {{parent.Transform43.translate.x}}
+  addUserKnob {7 float7 l "<span style=\"color:#0ff\"><b><i>float 3</span>"}
+  float7 {{parent.Transform13.translate.x}}
+  addUserKnob {7 float8 l "float 3.1"}
+  float8 {{parent.Transform42.translate.x}}
+  addUserKnob {7 float9 l "float 3.2"}
+  float9 {{parent.Transform38.translate.x}}
+  addUserKnob {26 ""}
+  addUserKnob {7 centerval}
+  centerval {{parent.center_1.flarecenter.x-get_res.formatcenter.u}}
+  addUserKnob {26 ""}
+  addUserKnob {3 id1 l "<span style=\"color:#f00\"><b><i>id 1</span>"}
+  id1 -1
+  addUserKnob {3 id2 l "id 1.1"}
+  id2 2
+  addUserKnob {3 id3 l "id 1.2"}
+  id3 1
+  addUserKnob {3 id4 l "<span style=\"color:#0f0\"><b><i>id 2</span>"}
+  id4 -2
+  addUserKnob {3 id5 l "id 2.1"}
+  id5 3
+  addUserKnob {3 id6 l "id 2.2"}
+  id6 4
+  addUserKnob {3 id7 l "<span style=\"color:#0ff\"><b><i>id 3</span>"}
+  id7 6
+  addUserKnob {3 id8 l "id 3.1"}
+  id8 5
+  addUserKnob {3 id9 l "id 3.2"}
+  id9 7
+ }
+ NoOp {
+  inputs 0
+  name measure5
+  tile_color 0x1fff00ff
+  label "distance\n"
+  note_font "Verdana Bold Italic"
+  xpos -3701
+  ypos 944
+  hide_input true
+  addUserKnob {20 settings}
+  addUserKnob {13 point1 l "<span style=\"color:#aaa\"><i><span style=\"color:#88f\">point 1</span>&nbsp;"}
+  point1 {{parent.get_res.formatcenter.u} {parent.get_res.formatcenter.v} 0}
+  addUserKnob {13 point2 l "<span style=\"color:#aaa\"><i><span style=\"color:#88f\">point 2</span>&nbsp;"}
+  point2 {{(abs(parent.Transform13.translate.x))+get_res.formatcenter.u} {(abs(parent.Transform13.translate.y))+get_res.formatcenter.v} 0}
+  addUserKnob {26 ""}
+  addUserKnob {7 distance l "<span style=\"color:#aaa\"><b><span style=\"color:#ff0\">distance</span></b>"}
+  distance {{"sqrt(pow(point1.x-point2.x, 2) + pow(point1.y-point2.y, 2) + pow(point1.z-point2.z, 2))"}}
+ }
+ NoOp {
+  inputs 0
+  name measure4
+  tile_color 0x1fff00ff
+  label "distance\n"
+  note_font "Verdana Bold Italic"
+  xpos -3164
+  ypos 944
+  hide_input true
+  addUserKnob {20 settings}
+  addUserKnob {13 point1 l "<span style=\"color:#aaa\"><i><span style=\"color:#88f\">point 1</span>&nbsp;"}
+  point1 {{parent.get_res.formatcenter.u} {parent.get_res.formatcenter.v} 0}
+  addUserKnob {13 point2 l "<span style=\"color:#aaa\"><i><span style=\"color:#88f\">point 2</span>&nbsp;"}
+  point2 {{(abs(parent.Transform6.translate.x))+get_res.formatcenter.u} {(abs(parent.Transform6.translate.y))+get_res.formatcenter.v} 0}
+  addUserKnob {26 ""}
+  addUserKnob {7 distance l "<span style=\"color:#aaa\"><b><span style=\"color:#ff0\">distance</span></b>"}
+  distance {{"sqrt(pow(point1.x-point2.x, 2) + pow(point1.y-point2.y, 2) + pow(point1.z-point2.z, 2))"}}
+ }
+ NoOp {
+  inputs 0
+  name measure3
+  tile_color 0x1fff00ff
+  label "distance\n"
+  note_font "Verdana Bold Italic"
+  xpos -2620
+  ypos 944
+  hide_input true
+  addUserKnob {20 settings}
+  addUserKnob {13 point1 l "<span style=\"color:#aaa\"><i><span style=\"color:#88f\">point 1</span>&nbsp;"}
+  point1 {{parent.get_res.formatcenter.u} {parent.get_res.formatcenter.v} 0}
+  addUserKnob {13 point2 l "<span style=\"color:#aaa\"><i><span style=\"color:#88f\">point 2</span>&nbsp;"}
+  point2 {{(abs(parent.Transform4.translate.x))+get_res.formatcenter.u} {(abs(parent.Transform4.translate.y))+get_res.formatcenter.v} 0}
+  addUserKnob {26 ""}
+  addUserKnob {7 distance l "<span style=\"color:#aaa\"><b><span style=\"color:#ff0\">distance</span></b>"}
+  distance {{"sqrt(pow(point1.x-point2.x, 2) + pow(point1.y-point2.y, 2) + pow(point1.z-point2.z, 2))"}}
+ }
+ NoOp {
+  inputs 0
+  name clampfr
+  xpos -1480
+  ypos 6310
+  hide_input true
+  addUserKnob {20 User}
+  addUserKnob {12 cl_bloom l clamp}
+  cl_bloom {{parent.cl_bloom_n.x} {parent.cl_bloom_n.y}}
+ }
+ NoOp {
+  inputs 0
+  name zoom_ctrl
+  tile_color 0xff5555ff
+  note_font "Verdana Bold"
+  xpos -4360
+  ypos -10
+  hide_input true
+  addUserKnob {20 User}
+  addUserKnob {7 zoom l "zoom mapping" R -1 2}
+  zoom {{((parent.focallength/8)/4)+0.75}}
+ }
+ Add {
+  inputs 0
+  value {{parent.maxfade}}
+  name clamp_from
+  xpos -1660
+  ypos 5264
+  hide_input true
+  addUserKnob {20 User}
+  addUserKnob {7 mincl l end}
+  mincl {{parent.minfade}}
+ }
+ Input {
+  inputs 0
+  name occlusion
+  xpos -40
+  ypos 6070
+  number 7
+  addUserKnob {20 User}
+ }
+ Shuffle2 {
+  fromInput1 {{0} B}
+  fromInput2 {{0} B}
+  mappings "4 rgba.alpha 0 3 rgba.red 0 0 rgba.alpha 0 3 rgba.green 0 1 rgba.alpha 0 3 rgba.blue 0 2 rgba.alpha 0 3 rgba.alpha 0 3"
+  name Shuffle3
+  label "\[value in1]"
+  xpos -40
+  ypos 6144
+ }
+ Constant {
+  inputs 0
+  name Constant2
+  xpos -940
+  ypos 46
+ }
+ AdjBBox {
+  numpixels {{parent.growbbox}}
+  name AdjBBox1
+  xpos -940
+  ypos 150
+ }
+ Dot {
+  name Dot1
+  xpos -907
+  ypos 233
+ }
+set N245f6800 [stack 0]
+ Dot {
+  name Dot2
+  xpos -727
+  ypos 233
+ }
+set N245f6c00 [stack 0]
+ Dot {
+  name Dot46
+  xpos 713
+  ypos 233
+ }
+ Shuffle2 {
+  fromInput1 {{0} B}
+  fromInput2 {{0} B}
+  mappings "4 white -1 -1 rgba.red 0 0 white -1 -1 rgba.green 0 1 white -1 -1 rgba.blue 0 2 black -1 -1 rgba.alpha 0 3"
+  name Shuffle2
+  label "\[value in1]"
+  xpos 680
+  ypos 6224
+ }
+ Dot {
+  name Dot29
+  xpos 713
+  ypos 6312
+ }
+ Merge2 {
+  inputs 2
+  operation screen
+  bbox B
+  name Merge36
+  xpos -40
+  ypos 6310
+ }
+ Shuffle2 {
+  fromInput1 {{0} B}
+  fromInput2 {{0} B}
+  mappings "4 rgba.alpha 0 3 rgba.red 0 0 rgba.alpha 0 3 rgba.green 0 1 rgba.alpha 0 3 rgba.blue 0 2 rgba.alpha 0 3 rgba.alpha 0 3"
+  name Shuffle5
+  label "\[value in1]"
+  xpos -40
+  ypos 6384
+ }
+ Clamp {
+  channels rgba
+  name Clamp2
+  xpos -40
+  ypos 6464
+ }
+ Dilate {
+  channels rgba
+  size {{parent.shiftfade}}
+  name Dilate5
+  xpos -40
+  ypos 6550
+ }
+ Blur {
+  channels rgba
+  size {{parent.bltran}}
+  name Blur21
+  xpos -40
+  ypos 6630
+ }
+ Expression {
+  channel3 alpha
+  expr3 "isinf(a) ? 1:a"
+  name Expression1
+  xpos -40
+  ypos 6710
+ }
+ NoOp {
+  name occlude
+  note_font "Verdana Bold"
+  xpos -40
+  ypos 6790
+  addUserKnob {20 User}
+  addUserKnob {12 sampler}
+  sampler {{parent.center_1.flarecenter} {parent.center_1.flarecenter}}
+  addUserKnob {18 sval l "sample value"}
+  sval {{"occlusion==1 ? \[sample this alpha sampler.x sampler.y] : 1"} 0 0}
+  addUserKnob {6 sval_panelDropped l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 color_rgb_panelDropped l "panel dropped state" +HIDDEN +STARTLINE}
+ }
+push $N245f6c00
+ NoOp {
+  name get_res
+  tile_color 0xff5f00ff
+  xpos -760
+  ypos 310
+  addUserKnob {20 User}
+  addUserKnob {30 res l "input resolution"}
+  res {{"\[value input.format.r]"} {"\[value input.format.t]"}}
+  addUserKnob {30 formatcenter l "format center"}
+  formatcenter {{res.u/2} {res.v/2}}
+  addUserKnob {7 bl l "b length"}
+  bl {{(get_res.formatcenter.u)-(center_1.flarecenter.x)}}
+  addUserKnob {7 cl l "c length"}
+  cl {{parent.measure.distance}}
+  addUserKnob {7 inaspect l aspect R 0 2}
+  inaspect {{"\[value input.pixel_aspect]" x1000 1}}
+  addUserKnob {26 ""}
+  addUserKnob {7 formdist l "format distance"}
+  formdist {{"max((((sqrt(pow2(max(0, 0-center_1.flarecenter.x, center_1.flarecenter.x-(Constant2.format.width))) + pow2(max(0, 0-center_1.flarecenter.y, center_1.flarecenter.y-(Constant2.format.height)))))-offsetfade)),0)"}}
+  addUserKnob {7 popdistance l "pop distance"}
+  popdistance {{"abs(max (\n\nsqrt(pow2(max(0, 0-center_1.flarecenter.x, center_1.flarecenter.x-width)) + pow2(max(0, 0-center_1.flarecenter.y, center_1.flarecenter.y-height)))  ,  \n\nmin(center_1.flarecenter.x, width-center_1.flarecenter.x, center_1.flarecenter.y, height-center_1.flarecenter.y)\n\n)-popoffset)"}}
+ }
+ Dot {
+  name Dot8
+  xpos -728
+  ypos 7753
+ }
+ Reformat {
+  inputs 0
+  type "to box"
+  box_width {{parent.get_res.res.u}}
+  box_height {{parent.get_res.res.v}}
+  box_fixed true
+  box_pixel_aspect {{parent.get_res.inaspect}}
+  name Reformat10
+  xpos -1300
+  ypos 6791
+  hide_input true
+ }
+set N285d6000 [stack 0]
+ Dot {
+  name Dot48
+  xpos -1807
+  ypos 6793
+ }
+set N285d6800 [stack 0]
+ Dot {
+  name Dot36
+  xpos -2166
+  ypos 6793
+ }
+ Shuffle2 {
+  fromInput1 {{0} B}
+  fromInput2 {{0} B}
+  mappings "4 white -1 -1 rgba.red 0 0 white -1 -1 rgba.green 0 1 white -1 -1 rgba.blue 0 2 white -1 -1 rgba.alpha 0 3"
+  name Shuffle6
+  xpos -2198
+  ypos 6950
+ }
+set N285d7000 [stack 0]
+ Crop {
+  box {{0+range1} {0+range1} {parent.Reformat10.box_width-range1} {parent.Reformat10.box_height-range1}}
+  name Crop5
+  xpos -2020
+  ypos 7030
+  addUserKnob {20 User}
+  addUserKnob {7 range1 l range}
+  range1 4
+ }
+push $N285d7000
+ Merge2 {
+  inputs 2
+  operation from
+  name Merge43
+  xpos -2199
+  ypos 7030
+ }
+ Dot {
+  name Dot49
+  xpos -2167
+  ypos 7513
+ }
+ Dot {
+  name Dot47
+  xpos -1447
+  ypos 7513
+ }
+set N24604000 [stack 0]
+ Reformat {
+  inputs 0
+  format "3840 2160 0 0 3840 2160 1 UHD_4K"
+  name Reformat19
+  xpos -1840
+  ypos 7190
+  hide_input true
+ }
+ Text2 {
+  font_size_toolbar 30
+  font_width_toolbar 100
+  font_height_toolbar 100
+  message "100 %"
+  old_message {{49 48 48 32 37}
+    }
+  box {20 1092 200 1130}
+  yjustify bottom
+  transforms {{0 2}
+    }
+  font_size_values {{0 30 1 30 2 30 3 30 4 30 0 90 1 90 2 90 4 90}
+    }
+  font {{ Arial : Regular : arial.ttf : 0 }}
+  global_font_scale 1.1
+  font_size 30
+  center {960 540}
+  cursor_initialised true
+  autofit_bbox false
+  initial_cursor_position {{36.39978027 501.1999512}
+    }
+  group_animations {{0} imported: 0 selected: items: "root transform/"}
+  animation_layers {{1 11 960 540 0 0 1 1 0 0 0 0}
+    }
+  name Text1
+  label 100
+  xpos -1840
+  ypos 7264
+ }
+ Text2 {
+  font_size_toolbar 30
+  font_width_toolbar 100
+  font_height_toolbar 100
+  message "0 %"
+  old_message {{48 32 37}
+    }
+  box {10 1092 1900 1130}
+  xjustify right
+  yjustify bottom
+  transforms {{0 2}
+    }
+  font_size_values {{0 30 1 30 2 30 0 90 2 90}
+    }
+  font {{ Arial : Regular : arial.ttf : 0 }}
+  global_font_scale 1.1
+  font_size 30
+  center {960 540}
+  cursor_initialised true
+  autofit_bbox false
+  initial_cursor_position {{36.39978027 501.1999512}
+    }
+  group_animations {{0} imported: 0 selected: items: "root transform/"}
+  animation_layers {{1 11 960 540 0 0 1 1 0 0 0 0}
+    }
+  name Text2
+  label 100
+  xpos -1840
+  ypos 7344
+ }
+ Reformat {
+  type "to box"
+  box_width {{parent.get_res.res.u}}
+  box_height {{parent.get_res.res.v}}
+  box_fixed true
+  box_pixel_aspect {{parent.get_res.inaspect}}
+  name Reformat18
+  xpos -1840
+  ypos 7430
+ }
+push $N285d6800
+ Radial {
+  area {{"(\[value input.format.r]/2)-(\[value input.format.r]/180)"} {"(\[value input.format.t]/2)-(\[value input.format.r]/180*get_res.inaspect)"} {"(\[value input.format.r]/2)+(\[value input.format.r]/180)"} {"(\[value input.format.t]/2)+(\[value input.format.r]/180*get_res.inaspect)"}}
+  softness 0
+  name Radial8
+  xpos -1840
+  ypos 6950
+ }
+ Dot {
+  name Dot53
+  xpos -1807
+  ypos 7113
+ }
+push $N285d6000
+ Dot {
+  name Dot50
+  xpos -1268
+  ypos 6874
+ }
+set N2099e400 [stack 0]
+ Dot {
+  name Dot51
+  xpos -1448
+  ypos 6874
+ }
+set N2099e800 [stack 0]
+ Dot {
+  name Dot52
+  xpos -1628
+  ypos 6874
+ }
+ Grid {
+  number 1
+  size 4
+  translate {{(parent.Reformat10.box_width/2-2)} {parent.Reformat10.box_height/2-2}}
+  name Grid3
+  xpos -1661
+  ypos 7030
+ }
+ Merge2 {
+  inputs 2
+  operation mask
+  name Merge48
+  xpos -1661
+  ypos 7110
+ }
+ Dot {
+  name Dot54
+  xpos -1628
+  ypos 7194
+ }
+push $N2099e800
+ Grid {
+  number {20 0}
+  size 6
+  name Grid1
+  xpos -1481
+  ypos 7030
+ }
+ Crop {
+  box {0 0 {parent.Reformat10.box_width/2} {parent.Reformat10.box_height}}
+  name Crop6
+  xpos -1481
+  ypos 7110
+ }
+push $N2099e400
+ Grid {
+  number {0 1}
+  size 4
+  translate {0 {(parent.Reformat10.box_height/2)-1}}
+  name Grid2
+  xpos -1301
+  ypos 6950
+ }
+ Multiply {
+  value 0.15
+  name Multiply38
+  xpos -1301
+  ypos 7025
+ }
+ Merge2 {
+  inputs 2
+  operation mask
+  name Merge44
+  xpos -1301
+  ypos 7110
+ }
+ Merge2 {
+  inputs 2
+  name Merge49
+  xpos -1301
+  ypos 7190
+ }
+ Merge2 {
+  inputs 2
+  name Merge46
+  xpos -1300
+  ypos 7430
+ }
+ Merge2 {
+  inputs 2
+  name Merge45
+  xpos -1301
+  ypos 7510
+ }
+push $N24604000
+ Switch {
+  inputs 2
+  which {{parent.ruler1}}
+  name Switch4
+  xpos -1300
+  ypos 7590
+ }
+ Input {
+  inputs 0
+  name mask
+  xpos -400
+  ypos 390
+ }
+ Dot {
+  name Dot10
+  xpos -367
+  ypos 793
+ }
+set N3625e000 [stack 0]
+ Dot {
+  name Dot13
+  xpos -367
+  ypos 873
+ }
+set N3625e400 [stack 0]
+ Dot {
+  name Dot16
+  xpos -367
+  ypos 953
+ }
+set N3625e800 [stack 0]
+ Dot {
+  name Dot6
+  xpos -367
+  ypos 1433
+ }
+set N3625ec00 [stack 0]
+ Dot {
+  name Dot7
+  xpos -367
+  ypos 1513
+ }
+set N3625f000 [stack 0]
+ Dot {
+  name Dot12
+  xpos -367
+  ypos 1593
+ }
+set N3625f400 [stack 0]
+ Dot {
+  name Dot42
+  xpos -367
+  ypos 3273
+ }
+set N3625f800 [stack 0]
+ Dot {
+  name Dot43
+  xpos -367
+  ypos 3353
+ }
+set N3625fc00 [stack 0]
+ Dot {
+  name Dot41
+  xpos -367
+  ypos 5673
+ }
+set N36278000 [stack 0]
+ Dot {
+  name Dot44
+  xpos -367
+  ypos 6473
+ }
+ Constant {
+  inputs 0
+  color {1 0.9 0.6 1}
+  format {{{parent.Constant2.format}}}
+  name Constant4
+  xpos -1660
+  ypos 6046
+ }
+ AdjBBox {
+  numpixels {{parent.growbbox}}
+  name AdjBBox4
+  xpos -1660
+  ypos 6150
+ }
+ Multiply {
+  value 0.1
+  name Multiply30
+  xpos -1660
+  ypos 6224
+ }
+ Multiply {
+  value {{"((clamp(((((measure.distance*2)*100)/(get_res.res.u))-(clampfr.cl_bloom.y))/(clampfr.cl_bloom.x-clamp_from.mincl), 0, 1))*-1)+1"}}
+  name Multiply29
+  tile_color 0xe9ff55ff
+  label "fade from center"
+  xpos -1660
+  ypos 6298
+  disable {{!parent.ffc_1}}
+ }
+ Dot {
+  name Dot45
+  xpos -1627
+  ypos 6473
+ }
+ Multiply {
+  value {{clamp(1-(1*(get_res.formdist)/fadedistance))}}
+  name Multiply34
+  tile_color 0xb4aaffff
+  label "auto fade"
+  xpos -1300
+  ypos 6458
+  disable {{!parent.enableautofade}}
+ }
+push $N36278000
+ Reformat {
+  inputs 0
+  format "4096 4096 0 0 4096 4096 1 square_4k"
+  name Reformat15
+  xpos -2020
+  ypos 3738
+  hide_input true
+ }
+set Nb3db8000 [stack 0]
+ Dot {
+  name Dot39
+  xpos -2167
+  ypos 3746
+ }
+ Noise {
+  size 6
+  octaves 8
+  nyquist false
+  lacunarity 9.6
+  gain 0.715
+  gamma 0.81
+  center {960 540}
+  name Noise1
+  xpos -2200
+  ypos 3824
+ }
+ Crop {
+  box {1900 1900 2196 2196}
+  name Crop2
+  xpos -2200
+  ypos 3904
+ }
+ Reformat {
+  type "to box"
+  box_width {{parent.get_res.res.u}}
+  box_height {{parent.get_res.res.v}}
+  box_fixed true
+  box_pixel_aspect {{parent.get_res.inaspect}}
+  resize height
+  pbb true
+  name Reformat17
+  xpos -2200
+  ypos 4064
+ }
+ GodRays {
+  scale 55
+  center {{parent.Reformat17.box_width/2} {parent.Reformat17.box_height/2}}
+  steps 11
+  max true
+  name GodRays2
+  xpos -2200
+  ypos 4138
+ }
+ Transform {
+  center {{parent.Transform77.center/2} {parent.Transform77.center/2}}
+  name Transform80
+  xpos -2200
+  ypos 4310
+ }
+ Transform {
+  rotate {{"((center_1.flarecenter.y) < (get_res.formatcenter.v) ? (degrees(acos((get_res.bl)/(get_res.cl)))) : ((degrees(acos((get_res.bl)/(get_res.cl))))*-1))-90"}}
+  center {{parent.get_res.formatcenter} {parent.get_res.formatcenter}}
+  name Transform76
+  label "relative\nrotation"
+  xpos -2201
+  ypos 4372
+  disable {{!parent.animatebreakup}}
+ }
+ Transform {
+  translate {{(parent.center_1.flarecenter)-((get_res.res.u)/2)} {(parent.center_1.flarecenter)-((get_res.res.v)/2)}}
+  center {{parent.get_res.res.u} {parent.get_res.res.v}}
+  motionblur {{parent.motionblur}}
+  shutteroffset centred
+  name Transform77
+  xpos -2201
+  ypos 4464
+ }
+ Transform {
+  center {960 540}
+  motionblur {{parent.motionblur}}
+  shutteroffset centred
+  name Transform32
+  tile_color 0x3fffff
+  label motionblur
+  note_font "Verdana Italic"
+  xpos -2200
+  ypos 4538
+ }
+ set Cb3de1000 [stack 0]
+ Crop {
+  box {{parent.growbbox*-1} {parent.growbbox*-1} {parent.get_res.res.u+growbbox} {parent.get_res.res.v+growbbox}}
+  name Crop3
+  xpos -2200
+  ypos 4618
+ }
+ Dot {
+  name Dot40
+  xpos -2169
+  ypos 4707
+ }
+push $Nb3db8000
+ Dot {
+  name Dot37
+  xpos -1808
+  ypos 3747
+ }
+ Radial {
+  area {0 0 4096 4096}
+  softness 0
+  name Radial6
+  xpos -1841
+  ypos 3824
+ }
+ Transform {
+  translate {0 2048}
+  center {2048 0}
+  name Transform70
+  xpos -1841
+  ypos 3904
+ }
+ Transform {
+  scale {0.2 {(0.2*ovalshape)}}
+  center {2048 2048}
+  name Transform69
+  tile_color 0xb4ffaaff
+  label scale
+  xpos -1841
+  ypos 3978
+ }
+ Reformat {
+  type "to box"
+  box_width {{parent.get_res.res.u}}
+  box_height {{parent.get_res.res.v}}
+  box_fixed true
+  box_pixel_aspect {{parent.get_res.inaspect}}
+  resize height
+  pbb true
+  name Reformat14
+  xpos -1840
+  ypos 4064
+ }
+ Transform {
+  scale {{(1+((pow((rel_distance.value*((type_4==0?1:(type_4==2?0.01:0.03))*relscalemult_4)),(type_4+1))/((get_res.formatcenter.u+get_res.formatcenter.v)/2))*relscalemult_4))}}
+  center {{parent.get_res.formatcenter} {parent.get_res.formatcenter}}
+  name Transform75
+  tile_color 0xffffffff
+  label "relative scale"
+  xpos -1840
+  ypos 4138
+  disable {{!parent.relscalerb}}
+ }
+ Transform {
+  rotate {{"((center_1.flarecenter.y) < (get_res.formatcenter.v) ? (degrees(acos((get_res.bl)/(get_res.cl)))) : ((degrees(acos((get_res.bl)/(get_res.cl))))*-1))-90"}}
+  center {{parent.get_res.formatcenter} {parent.get_res.formatcenter}}
+  name Transform68
+  label "relative\nrotation"
+  xpos -1840
+  ypos 4212
+ }
+ Transform {
+  scale {{"flip_4==1 ? 1 : (1+((pow((rel_distance.value*((rbtype==0?1:(rbtype==2?0.01:0.03))*stretchmultrb)),(rbtype+1))/((get_res.formatcenter.u+get_res.formatcenter.v)/2))*stretchmultrb))"} {"flip_4==1 ? (1+((pow((rel_distance.value*((rbtype==0?1:(rbtype==2?0.01:0.03))*stretchmultrb)),(rbtype+1))/((get_res.formatcenter.u+get_res.formatcenter.v)/2))*stretchmultrb)) : 1"}}
+  center {{parent.get_res.formatcenter} {parent.get_res.formatcenter}}
+  name Transform81
+  tile_color 0xffd455ff
+  label "relative stretch"
+  xpos -1840
+  ypos 4298
+  disable {{!parent.relstretchrb}}
+ }
+ Transform {
+  translate {{(parent.center_1.flarecenter)-((get_res.res.u)/2)} {(parent.center_1.flarecenter)-((get_res.res.v)/2)}}
+  center {{parent.get_res.res.u} {parent.get_res.res.v}}
+  motionblur {{parent.motionblur}}
+  shutteroffset centred
+  name Transform67
+  xpos -1840
+  ypos 4384
+ }
+push $Nb3db8000
+ Radial {
+  area {0 0 4096 4096}
+  softness 0
+  name Radial7
+  xpos -2020
+  ypos 3824
+ }
+ Transform {
+  translate {0 2048}
+  center {2048 0}
+  name Transform71
+  xpos -2020
+  ypos 3904
+ }
+ Transform {
+  scale {{parent.Transform69.scale*1.1} {parent.Transform69.scale*1.1}}
+  center {2048 2048}
+  name Transform72
+  tile_color 0xb4ffaaff
+  label scale
+  xpos -2020
+  ypos 3978
+ }
+ Reformat {
+  type "to box"
+  box_width {{parent.get_res.res.u}}
+  box_height {{parent.get_res.res.v}}
+  box_fixed true
+  box_pixel_aspect {{parent.get_res.inaspect}}
+  resize height
+  pbb true
+  name Reformat16
+  xpos -2020
+  ypos 4064
+ }
+ Transform {
+  scale {{(1+((pow((rel_distance.value*((type_4==0?1:(type_4==2?0.01:0.03))*relscalemult_4)),(type_4+1))/((get_res.formatcenter.u+get_res.formatcenter.v)/2))*relscalemult_4))}}
+  center {{parent.get_res.formatcenter} {parent.get_res.formatcenter}}
+  name Transform78
+  tile_color 0xffffffff
+  label "relative scale"
+  xpos -2020
+  ypos 4138
+  disable {{!parent.relscalerb}}
+ }
+ Transform {
+  rotate {{"((center_1.flarecenter.y) < (get_res.formatcenter.v) ? (degrees(acos((get_res.bl)/(get_res.cl)))) : ((degrees(acos((get_res.bl)/(get_res.cl))))*-1))-90"}}
+  center {{parent.get_res.formatcenter} {parent.get_res.formatcenter}}
+  name Transform73
+  label "relative\nrotation"
+  xpos -2020
+  ypos 4212
+ }
+ Transform {
+  scale {{"flip_4==1 ? 1 : (1+((pow((rel_distance.value*((rbtype==0?1:(rbtype==2?0.01:0.03))*stretchmultrb)),(rbtype+1))/((get_res.formatcenter.u+get_res.formatcenter.v)/2))*stretchmultrb))"} {"flip_4==1 ? (1+((pow((rel_distance.value*((rbtype==0?1:(rbtype==2?0.01:0.03))*stretchmultrb)),(rbtype+1))/((get_res.formatcenter.u+get_res.formatcenter.v)/2))*stretchmultrb)) : 1"}}
+  center {{parent.get_res.formatcenter} {parent.get_res.formatcenter}}
+  name Transform82
+  tile_color 0xffd455ff
+  label "relative stretch"
+  xpos -2020
+  ypos 4298
+  disable {{!parent.relstretchrb}}
+ }
+ Transform {
+  translate {{(parent.center_1.flarecenter)-((get_res.res.u)/2)} {(parent.center_1.flarecenter)-((get_res.res.v)/2)}}
+  center {{parent.get_res.res.u} {parent.get_res.res.v}}
+  motionblur {{parent.motionblur}}
+  shutteroffset centred
+  name Transform74
+  xpos -2020
+  ypos 4384
+ }
+ Dot {
+  name Dot38
+  xpos -1988
+  ypos 4467
+ }
+ Merge2 {
+  inputs 2
+  operation stencil
+  name Merge27
+  xpos -1840
+  ypos 4464
+ }
+ Transform {
+  center {{parent.center_1.flarecenter} {parent.center_1.flarecenter}}
+  name Transform79
+  xpos -1840
+  ypos 4544
+ }
+clone $Cb3de1000 {
+  xpos -1840
+  ypos 4618
+  selected false
+ }
+ Merge2 {
+  inputs 2
+  operation stencil
+  name Merge28
+  xpos -1840
+  ypos 4704
+  disable {{!parent.breakuppattern}}
+ }
+ GodRays {
+  scale 1.16
+  center {{((parent.get_res.formatcenter)+Transform74.translate.x)*0.95} {((parent.get_res.formatcenter)+Transform74.translate.y)*0.95}}
+  name GodRays1
+  xpos -1840
+  ypos 4778
+ }
+ GodRays {
+  channels {-rgba.red -rgba.green rgba.blue none}
+  scale 1.15
+  center {{((parent.get_res.formatcenter)+Transform74.translate.x)*0.99} {((parent.get_res.formatcenter)+Transform74.translate.y)*0.99}}
+  name GodRays3
+  tile_color 0xff5555ff
+  xpos -1840
+  ypos 4864
+ }
+ GodRays {
+  channels {-rgba.red rgba.green -rgba.blue none}
+  scale 1.09
+  center {{((parent.get_res.formatcenter)+Transform74.translate.x)*0.99} {((parent.get_res.formatcenter)+Transform74.translate.y)*0.99}}
+  name GodRays4
+  tile_color 0xff5555ff
+  xpos -1840
+  ypos 4944
+ }
+ Group {
+  name MS_hue_saturation
+  tile_color 0xefb500ff
+  note_font "Verdana Bold Italic"
+  xpos -1840
+  ypos 5030
+  addUserKnob {20 grade}
+  addUserKnob {6 color_rgb_panelDropped l "panel dropped state" +HIDDEN +STARTLINE}
+  addUserKnob {26 _4 l "" +STARTLINE T "<span style=\"color:#aaa;font-family:sans-serif\"><b><span style=\"color:#ffaf24\">MS_Hue Satuaration (Ae) v.1.0</span></b>"}
+  addUserKnob {26 ""}
+  addUserKnob {41 channels T GradeMaster.channels}
+  addUserKnob {41 add l master T GradeMaster.add}
+  addUserKnob {41 black l darks T GradeMaster.black}
+  addUserKnob {41 gamma l mids T GradeMaster.gamma}
+  addUserKnob {41 multiply l whites T GradeMaster.multiply}
+  addUserKnob {41 saturation T Saturation1.saturation}
+  addUserKnob {41 reverse T GradeMaster.reverse}
+  addUserKnob {41 black_clamp l "black clamp" -STARTLINE T GradeMaster.black_clamp}
+  addUserKnob {41 white_clamp l "white clamp" -STARTLINE T GradeMaster.white_clamp}
+  addUserKnob {26 ""}
+  addUserKnob {26 "" l mask T ""}
+  addUserKnob {41 maskChannelInput l "" -STARTLINE T GradeMaster.maskChannelInput}
+  addUserKnob {6 invert -STARTLINE}
+  addUserKnob {26 "" l "mix luminance" T ""}
+  addUserKnob {41 enable_mix_luminance l "" -STARTLINE T GradeMaster.enable_mix_luminance}
+  addUserKnob {41 mix_luminance l "" -STARTLINE T GradeMaster.mix_luminance}
+  addUserKnob {41 mix T GradeMaster.mix}
+  addUserKnob {20 _2 l info}
+  addUserKnob {26 _5 l "" +STARTLINE T "This grade lets you affect just the hue \nwithout changing anything else.\n\n"}
+  addUserKnob {26 _3 l "" +STARTLINE T "<span style=\"color:#aaa;font-family:sans-serif;font-size:7pt\">node created by <b><span style=\"color:#aaaa00\">Johannes Kretschmer</span></b> mail: Jolegodrum@t-online.de - Version 1.0 - 2024 / part of  <span style=\"color:#aaa;font-family:sans-serif\"><b><span style=\"color:#ffaf24\">MANGO SUITE</span></b>\n"}
+ }
+  Grade {
+   inputs 0
+   add {{parent.parent.offcol}}
+   black_clamp false
+   name GradeMaster
+   tile_color 0xff0000ff
+   xpos -940
+   ypos 470
+   hide_input true
+  }
+  Input {
+   inputs 0
+   name mask
+   xpos -220
+   ypos 70
+   number 1
+   addUserKnob {20 User}
+   addUserKnob {6 connected +STARTLINE}
+   connected {{"\[exists input1]"}}
+  }
+  Dot {
+   name Dot2
+   xpos -188
+   ypos 153
+  }
+set Nb3eb5000 [stack 0]
+  Dot {
+   name Dot14
+   xpos -7
+   ypos 153
+  }
+set Nb3eb5400 [stack 0]
+  Dot {
+   name Dot13
+   xpos -7
+   ypos 393
+  }
+push $Nb3eb5000
+  Invert {
+   name Invert1
+   xpos -220
+   ypos 228
+  }
+push $Nb3eb5400
+  Switch {
+   inputs 2
+   which {{parent.invert}}
+   name Switch3
+   xpos -220
+   ypos 312
+  }
+  Switch {
+   inputs 2
+   which {{mask.connected?0:1}}
+   name Switch2
+   xpos -220
+   ypos 390
+  }
+  Dot {
+   name Dot9
+   xpos -187
+   ypos 473
+  }
+set Nb3ef8000 [stack 0]
+  Dot {
+   name Dot3
+   xpos -187
+   ypos 633
+  }
+set Nb3ef8400 [stack 0]
+  Dot {
+   name Dot6
+   xpos -187
+   ypos 713
+  }
+  Input {
+   inputs 0
+   name Input1
+   xpos -579
+   ypos 230
+  }
+  Dot {
+   name Dot4
+   xpos -547
+   ypos 310
+  }
+set Nb3ef9000 [stack 0]
+  Dot {
+   name Dot5
+   xpos -727
+   ypos 313
+  }
+  Dot {
+   name Dot1
+   xpos -727
+   ypos 712
+  }
+push $Nb3ef8400
+push $Nb3ef8000
+push $Nb3ef9000
+  Colorspace {
+   colorspace_out HSV
+   name Colorspace13
+   xpos -580
+   ypos 390
+  }
+  Grade {
+   inputs 1+1
+   channels {rgba.red -rgba.green -rgba.blue none}
+   blackpoint {{parent.GradeMaster.blackpoint}}
+   whitepoint {{parent.GradeMaster.whitepoint}}
+   black {{parent.GradeMaster.black}}
+   white {{parent.GradeMaster.white}}
+   multiply {{parent.GradeMaster.multiply}}
+   add {{parent.GradeMaster.add}}
+   gamma {{parent.GradeMaster.gamma}}
+   mix_luminance {{parent.GradeMaster.mix_luminance}}
+   name GradeHUE
+   xpos -580
+   ypos 470
+  }
+  Colorspace {
+   colorspace_in HSV
+   name Colorspace14
+   xpos -580
+   ypos 550
+  }
+  Saturation {
+   inputs 1+1
+   name Saturation1
+   xpos -580
+   ypos 630
+  }
+  Dissolve {
+   inputs 2+1
+   which {{(parent.GradeMaster.mix*-1)+1}}
+   name Dissolve1
+   xpos -580
+   ypos 704
+  }
+  Output {
+   name Output1
+   xpos -580
+   ypos 870
+  }
+ end_group
+ Crop {
+  box {{parent.growbbox*-1} {parent.growbbox*-1} {parent.get_res.res.u+growbbox} {parent.get_res.res.v+growbbox}}
+  name Crop4
+  xpos -1840
+  ypos 5110
+ }
+ Saturation {
+  saturation {{parent.saturation_9}}
+  name Saturation20
+  xpos -1840
+  ypos 5190
+ }
+ Multiply {
+  name Multiply25
+  xpos -1840
+  ypos 5264
+ }
+ Multiply {
+  value {{"clamp(((((measure.distance*2)*100)/(get_res.res.u))-(clamp_from.mincl))/(clamp_from.value-clamp_from.mincl), 0, 1)"}}
+  name Multiply27
+  tile_color 0xe9ff55ff
+  label "fade to center"
+  xpos -1840
+  ypos 5338
+  disable {{!parent.fadetocenter}}
+ }
+ Multiply {
+  value {{strengthall1}}
+  name Multiply28
+  label ALL
+  xpos -1840
+  ypos 5418
+ }
+ Saturation {
+  saturation {{parent.satallc}}
+  name Saturation18
+  label all
+  xpos -1840
+  ypos 5504
+ }
+ Saturation {
+  saturation 0.8
+  name Saturation19
+  xpos -1840
+  ypos 5590
+ }
+ Grade {
+  name Grade10
+  xpos -1840
+  ypos 5670
+ }
+ Blur {
+  name Blur22
+  xpos -1660
+  ypos 5664
+ }
+ Multiply {
+  value {{clamp(1-(1*(get_res.formdist)/fadedistance))}}
+  name Multiply26
+  tile_color 0xb4aaffff
+  label "auto fade"
+  xpos -1300
+  ypos 5658
+  disable {{!parent.enableautofade}}
+ }
+push $N245f6800
+ Dot {
+  name Dot31
+  xpos -1872
+  ypos 3160
+  hide_input true
+ }
+ Reformat {
+  inputs 0
+  type "to box"
+  box_width {{parent.get_res.res.u}}
+  box_height {{parent.get_res.res.v}}
+  box_fixed true
+  box_pixel_aspect {{parent.get_res.inaspect}}
+  name Reformat13
+  xpos -1838
+  ypos 2870
+  hide_input true
+ }
+ Radial {
+  cliptype none
+  area {0 0 {parent.get_res.res.u} {area.r}}
+  softness 0.5
+  p1 {206 644}
+  p0 {208 246}
+  name Radial5
+  xpos -1838
+  ypos 2950
+ }
+ Transform {
+  translate {{"excluderelmove == 1 ? \ninvertexclude == 1 ? (((get_res.res.u/2)+(center_1.flarecenter*-1))*-1)*excludestrength : ((get_res.res.u/2)+(center_1.flarecenter*-1))*excludestrength\n: 0"} {"excluderelmove == 1 ? \ninvertexclude == 1 ? (((get_res.res.v/2)+(center_1.flarecenter*-1))*-1)*excludestrength : ((get_res.res.v/2)+(center_1.flarecenter*-1))*excludestrength\n: 0"}}
+  scale 3
+  center {{parent.get_res.formatcenter} {parent.get_res.formatcenter}}
+  shutteroffset centred
+  name Transform66
+  xpos -1838
+  ypos 3030
+ }
+ Invert {
+  name Invert2
+  xpos -1838
+  ypos 3104
+  disable {{parent.invexcludemask}}
+ }
+ CopyBBox {
+  inputs 2
+  name CopyBBox4
+  xpos -1838
+  ypos 3190
+ }
+set Nb5b69400 [stack 0]
+ Dot {
+  name Dot55
+  xpos -1806
+  ypos 3433
+ }
+push $N3625fc00
+push $Nb5b69400
+ Reformat {
+  inputs 0
+  type "to box"
+  box_width {{parent.get_res.res.u}}
+  box_height {{parent.get_res.res.v}}
+  box_fixed true
+  box_pixel_aspect {{parent.get_res.inaspect}}
+  name Reformat11
+  xpos -2019
+  ypos 2390
+  hide_input true
+ }
+ Radial {
+  area {0 0 {parent.get_res.res.u} {parent.get_res.res.v}}
+  softness {{parent.csoft2/50}}
+  name Radial3
+  xpos -2019
+  ypos 2470
+ }
+ Dilate {
+  size 10
+  name Dilate1
+  xpos -2019
+  ypos 2544
+ }
+ Transform {
+  translate {{"moverel1==1 ? invrelmove1==1 ? (((get_res.res.u/2)+(center_1.flarecenter*-1))*(relmove.value*strengthoffset)*-1) : ((get_res.res.u/2)+(center_1.flarecenter*-1))*(relmove.value*strengthoffset) : 0"} {"moverel1==1 ? invrelmove1==1 ? (((get_res.res.v/2)+(center_1.flarecenter*-1))*(relmove.value*strengthoffset)*-1) : ((get_res.res.v/2)+(center_1.flarecenter*-1))*(relmove.value*strengthoffset) : 0"}}
+  scale {{parent.Transform55.scale} {parent.Transform55.scale}}
+  center {{parent.get_res.formatcenter} {parent.get_res.formatcenter}}
+  shutteroffset centred
+  name Transform64
+  xpos -2019
+  ypos 2630
+ }
+clone $Cb3de1000 {
+  xpos -2019
+  ypos 2698
+  selected false
+ }
+set Nb5b97000 [stack 0]
+ Dilate {
+  name Dilate3
+  xpos -1894
+  ypos 2778
+ }
+push $Nb5b97000
+ Merge2 {
+  inputs 2
+  operation stencil
+  name Merge20
+  xpos -2019
+  ypos 2784
+ }
+ Multiply {
+  value 2
+  name Multiply23
+  xpos -2019
+  ypos 2858
+ }
+push $Nb5b97000
+push $N3625f400
+ Input {
+  inputs 0
+  name f3
+  xpos -3822
+  ypos -1130
+  number 3
+ }
+ Reformat {
+  type "to box"
+  box_width {{parent.get_res.res.u}}
+  box_height {{parent.get_res.res.v}}
+  box_fixed true
+  box_pixel_aspect {{parent.get_res.inaspect}}
+  resize height
+  pbb true
+  name Reformat5
+  xpos -3821
+  ypos -1048
+ }
+ Transform {
+  center {{parent.get_res.formatcenter} {parent.get_res.formatcenter}}
+  name Transform11
+  tile_color 0xffaac9ff
+  label scale/rotate
+  xpos -3821
+  ypos -968
+ }
+ Transform {
+  scale {{"flip_3==1 ? 1 : (1+((pow((measure.distance*((type_3==0?1:(stretchtype3==2?0.01:0.03))*relstretchmult_3)),(stretchtype3+1))/((get_res.formatcenter.u+get_res.formatcenter.v)/2))*relstretchmult_3))"} {"flip_3==1 ? (1+((pow((measure.distance*((type_3==0?1:(stretchtype3==2?0.01:0.03))*relstretchmult_3)),(stretchtype3+1))/((get_res.formatcenter.u+get_res.formatcenter.v)/2))*relstretchmult_3)) : 1"}}
+  center {{parent.get_res.formatcenter} {parent.get_res.formatcenter}}
+  name Transform39
+  tile_color 0xaaaaaaff
+  label "relative stretch"
+  xpos -3822
+  ypos -888
+  disable {{!parent.relstretch3}}
+ }
+ Transform {
+  rotate {{"(center_1.flarecenter.y) < (get_res.formatcenter.v) ? (degrees(acos((get_res.bl)/(get_res.cl)))) : ((degrees(acos((get_res.bl)/(get_res.cl))))*-1)"}}
+  center {{parent.get_res.formatcenter} {parent.get_res.formatcenter}}
+  name Transform20
+  label "relative\nrotation"
+  xpos -3822
+  ypos -813
+  disable {{!parent.relrot_3}}
+ }
+ Transform {
+  rotate {{parent.rotateall}}
+  scale {{parent.scaleall*0.1}}
+  center {{parent.get_res.formatcenter} {parent.get_res.formatcenter}}
+  name Transform14
+  tile_color 0xdfff00ff
+  label "rotate/scale ALL"
+  xpos -3822
+  ypos -727
+ }
+ Transform {
+  scale {1 {1/parent.aspect}}
+  center {{parent.get_res.formatcenter} {parent.get_res.formatcenter}}
+  name Transform12
+  tile_color 0x6aff55ff
+  label aspect
+  xpos -3822
+  ypos -647
+  disable {{!parent.useaspect3}}
+ }
+ Transform {
+  scale {{(1+((pow((measure.distance*((type_3==0?1:(type_3==2?0.01:0.03))*relscalemult_3)),(type_3+1))/((get_res.formatcenter.u+get_res.formatcenter.v)/2))*relscalemult_3))}}
+  center {{parent.get_res.formatcenter} {parent.get_res.formatcenter}}
+  name Transform34
+  tile_color 0xffffffff
+  label "relative scale"
+  xpos -3822
+  ypos -575
+  disable {{!parent.relscale_3}}
+ }
+set Nb5c02000 [stack 0]
+ Dot {
+  name Dot26
+  xpos -3967
+  ypos -566
+ }
+set Nb5c02400 [stack 0]
+ Dot {
+  name Dot17
+  xpos -4147
+  ypos -566
+ }
+ Transform {
+  scale 0.8
+  center {{parent.get_res.formatcenter} {parent.get_res.formatcenter}}
+  name Transform52
+  tile_color 0xaaffbfff
+  label scale
+  xpos -4180
+  ypos -495
+ }
+ Transform {
+  scale {{1+(((sin((focus)*2))/30)*((get_res.res.u)/100))*focmult}}
+  center {{parent.get_res.formatcenter} {parent.get_res.formatcenter}}
+  name Transform54
+  tile_color 0xffc9aaff
+  label focus/zoom/aperture
+  xpos -4180
+  ypos -256
+  disable {{!parent.enablefocus}}
+ }
+ Transform {
+  translate {{"movecopy32<1 ? ((((get_res.res.u)-(center_1.flarecenter.x))-((get_res.res.u)/2)))*(movecopy32-1)/(enablefocallength==1 ? (zoom_ctrl.zoom):1) : ((((get_res.res.u)-(center_1.flarecenter.x))-((get_res.res.u)/2)))*(movecopy32-1)*(enablefocallength==1 ? (zoom_ctrl.zoom):1)"} {"movecopy32<1 ? ((((get_res.res.v)-(center_1.flarecenter.y))-((get_res.res.v)/2)))*(movecopy32-1)/(enablefocallength==1 ? (zoom_ctrl.zoom):1) : ((((get_res.res.v)-(center_1.flarecenter.y))-((get_res.res.v)/2)))*(movecopy32-1)*(enablefocallength==1 ? (zoom_ctrl.zoom):1)"}}
+  name Transform38
+  label "flare pos"
+  xpos -4180
+  ypos -176
+ }
+clone $Cb3de1000 {
+  xpos -4179
+  ypos -16
+  selected false
+ }
+ Saturation {
+  name Saturation6
+  xpos -4180
+  ypos 150
+ }
+ Grade {
+  name Grade2
+  xpos -4181
+  ypos 233
+ }
+ Blur {
+  name Blur10
+  xpos -4180
+  ypos 307
+ }
+ Dot {
+  name Dot18
+  xpos -4147
+  ypos 473
+ }
+set Nb5c30800 [stack 0]
+push $Nb5c02400
+ Transform {
+  scale 0.6
+  center {{parent.get_res.formatcenter} {parent.get_res.formatcenter}}
+  name Transform51
+  tile_color 0xaaffbfff
+  label scale
+  xpos -3999
+  ypos -495
+ }
+ Transform {
+  scale {{1+(((sin((1.5+focus)*2))/30)*((get_res.res.u)/100))*focmult}}
+  center {{parent.get_res.formatcenter} {parent.get_res.formatcenter}}
+  name Transform56
+  tile_color 0xffc9aaff
+  label focus/zoom/aperture
+  xpos -3998
+  ypos -256
+  disable {{!parent.enablefocus}}
+ }
+ Transform {
+  translate {{"movecopy31<1 ? ((((get_res.res.u)-(center_1.flarecenter.x))-((get_res.res.u)/2)))*(movecopy31-1)/(enablefocallength==1 ? (zoom_ctrl.zoom):1) : ((((get_res.res.u)-(center_1.flarecenter.x))-((get_res.res.u)/2)))*(movecopy31-1)*(enablefocallength==1 ? (zoom_ctrl.zoom):1)"} {"movecopy31<1 ? ((((get_res.res.v)-(center_1.flarecenter.y))-((get_res.res.v)/2)))*(movecopy31-1)/(enablefocallength==1 ? (zoom_ctrl.zoom):1) : ((((get_res.res.v)-(center_1.flarecenter.y))-((get_res.res.v)/2)))*(movecopy31-1)*(enablefocallength==1 ? (zoom_ctrl.zoom):1)"}}
+  name Transform42
+  label "flare pos"
+  xpos -3998
+  ypos -176
+ }
+clone $Cb3de1000 {
+  xpos -3998
+  ypos -16
+  selected false
+ }
+ Saturation {
+  name Saturation5
+  xpos -3999
+  ypos 150
+ }
+ Grade {
+  name Grade1
+  xpos -4000
+  ypos 233
+ }
+ Blur {
+  name Blur9
+  xpos -3999
+  ypos 304
+ }
+ Dot {
+  name Dot23
+  xpos -3967
+  ypos 393
+ }
+set Nb5c64800 [stack 0]
+push $Nb5c02000
+ Transform {
+  scale {{1+(((sin((0.5+focus)*2))/30)*((get_res.res.u)/100))*focmult}}
+  center {{parent.get_res.formatcenter} {parent.get_res.formatcenter}}
+  name Transform57
+  tile_color 0xffc9aaff
+  label focus/zoom/aperture
+  xpos -3820
+  ypos -256
+  disable {{!parent.enablefocus}}
+ }
+ Transform {
+  translate {{"slide2<0 ? ((((get_res.res.u)-(center_1.flarecenter.x))-((get_res.res.u)/2)))*slide2/(enablefocallength==1 ? (zoom_ctrl.zoom):1) : ((((get_res.res.u)-(center_1.flarecenter.x))-((get_res.res.u)/2)))*slide2*(enablefocallength==1 ? (zoom_ctrl.zoom):1)"} {"slide2<0? ((((get_res.res.v)-(center_1.flarecenter.y))-((get_res.res.v)/2)))*slide2/(enablefocallength==1 ? (zoom_ctrl.zoom):1) : ((((get_res.res.v)-(center_1.flarecenter.y))-((get_res.res.v)/2)))*slide2*(enablefocallength==1 ? (zoom_ctrl.zoom):1)"}}
+  name Transform13
+  label "flare pos"
+  xpos -3820
+  ypos -176
+ }
+clone $Cb3de1000 {
+  xpos -3820
+  ypos -16
+  selected false
+ }
+ Saturation {
+  name Saturation9
+  xpos -3820
+  ypos 150
+ }
+ Grade {
+  name Grade9
+  xpos -3820
+  ypos 230
+ }
+ Blur {
+  name Blur4
+  xpos -3820
+  ypos 307
+ }
+ Multiply {
+  name Multiply3
+  xpos -3820
+  ypos 384
+ }
+set Nb5ca6400 [stack 0]
+ Merge2 {
+  inputs 2
+  operation multiply
+  name Merge41
+  xpos -3729
+  ypos 468
+  disable {{"enablecopies==1 ? !parent.copy31:1"}}
+ }
+push $Nb5c64800
+push $Nb5ca6400
+ Merge2 {
+  inputs 2
+  operation min
+  name Merge34
+  xpos -3820
+  ypos 470
+  disable {{"enablecopies==1 ? !parent.copy31:1"}}
+ }
+push $Nb5c64800
+push $Nb5ca6400
+ Merge2 {
+  inputs 2
+  operation plus
+  name Merge7
+  xpos -3916
+  ypos 470
+  disable {{"enablecopies==1 ? !parent.copy31:1"}}
+ }
+ Switch {
+  inputs 3
+  which {{parent.operationfc3}}
+  name Switch7
+  xpos -3820
+  ypos 550
+ }
+set Nb5c9aa00 [stack 0]
+ Merge2 {
+  inputs 2
+  operation multiply
+  name Merge42
+  xpos -3727
+  ypos 630
+  disable {{"enablecopies==1 ? !parent.copy32:1"}}
+ }
+push $Nb5c30800
+push $Nb5c9aa00
+ Merge2 {
+  inputs 2
+  operation min
+  name Merge35
+  xpos -3820
+  ypos 630
+  disable {{"enablecopies==1 ? !parent.copy32:1"}}
+ }
+push $Nb5c30800
+push $Nb5c9aa00
+ Merge2 {
+  inputs 2
+  operation plus
+  name Merge9
+  xpos -3915
+  ypos 630
+  disable {{"enablecopies==1 ? !parent.copy32:1"}}
+ }
+ Switch {
+  inputs 3
+  which {{parent.operationfc3_2}}
+  name Switch8
+  xpos -3820
+  ypos 710
+ }
+ Defocus {
+  defocus {{parent.blurall}}
+  name Defocus7
+  xpos -3820
+  ypos 784
+ }
+ Multiply {
+  value {{parent.strengthall}}
+  name Multiply4
+  label ALL
+  xpos -3820
+  ypos 858
+ }
+ Multiply {
+  value {{"clamp(((((measure5.distance*2)*100)/(get_res.res.u))-(ftc_6.y))/(ftc_6.x-ftc_6.y), 0, 1)"}}
+  name Multiply33
+  tile_color 0xe9ff55ff
+  label "fade to center"
+  xpos -3820
+  ypos 938
+  disable {{!parent.ftc_3}}
+ }
+ Multiply {
+  value {{clamp(1-(1*(get_res.formdist)/fadedistance))}}
+  name Multiply17
+  tile_color 0xb4aaffff
+  label "auto fade"
+  xpos -3820
+  ypos 1025
+  disable {{!parent.enableautofade}}
+ }
+ Saturation {
+  saturation {{parent.satallp}}
+  name Saturation10
+  label all
+  xpos -3820
+  ypos 1117
+ }
+ Remove {
+  channels alpha
+  name Remove1
+  xpos -3820
+  ypos 1184
+ }
+ Dot {
+  name Dot11
+  xpos -3788
+  ypos 1593
+ }
+push $N3625f000
+ Input {
+  inputs 0
+  name f2
+  xpos -3281
+  ypos -1130
+  number 2
+ }
+ Reformat {
+  type "to box"
+  box_width {{parent.get_res.res.u}}
+  box_height {{parent.get_res.res.v}}
+  box_fixed true
+  box_pixel_aspect {{parent.get_res.inaspect}}
+  resize height
+  pbb true
+  name Reformat3
+  xpos -3281
+  ypos -1048
+ }
+ Transform {
+  center {{parent.get_res.formatcenter} {parent.get_res.formatcenter}}
+  name Transform1
+  tile_color 0xffaac9ff
+  label scale/rotate
+  xpos -3281
+  ypos -968
+ }
+ Transform {
+  scale {{"flip_2==1 ? 1 : (1+((pow((measure.distance*((stretchtype2==0?1:(stretchtype2==2?0.01:0.03))*relstretchmult_2)),(stretchtype2+1))/((get_res.formatcenter.u+get_res.formatcenter.v)/2))*relstretchmult_2))"} {"flip_2==1 ? (1+((pow((measure.distance*((stretchtype2==0?1:(stretchtype2==2?0.01:0.03))*relstretchmult_2)),(stretchtype2+1))/((get_res.formatcenter.u+get_res.formatcenter.v)/2))*relstretchmult_2)) : 1"}}
+  center {{parent.get_res.formatcenter} {parent.get_res.formatcenter}}
+  name Transform40
+  tile_color 0xaaaaaaff
+  label "relative stretch"
+  xpos -3281
+  ypos -889
+  disable {{!parent.relstretch2}}
+ }
+ Transform {
+  rotate {{"(center_1.flarecenter.y) < (get_res.formatcenter.v) ? (degrees(acos((get_res.bl)/(get_res.cl)))) : ((degrees(acos((get_res.bl)/(get_res.cl))))*-1)"}}
+  center {{parent.get_res.formatcenter} {parent.get_res.formatcenter}}
+  name Transform19
+  label "relative\nrotation"
+  xpos -3282
+  ypos -814
+  disable {{!parent.relrot_2}}
+ }
+ Transform {
+  rotate {{parent.rotateall}}
+  scale {{parent.scaleall*0.1}}
+  center {{parent.get_res.formatcenter} {parent.get_res.formatcenter}}
+  name Transform15
+  tile_color 0xdfff00ff
+  label "rotate/scale ALL"
+  xpos -3282
+  ypos -728
+ }
+ Transform {
+  scale {1 {1/parent.aspect}}
+  center {{parent.get_res.formatcenter} {parent.get_res.formatcenter}}
+  name Transform3
+  tile_color 0x6aff55ff
+  label aspect
+  xpos -3282
+  ypos -655
+  disable {{!parent.useaspect2}}
+ }
+ Transform {
+  scale {{(1+((pow(((measure.distance)*((type_2==0?1:(type_2==2?0.01:0.03))*relscalemult_2)),(type_2+1))/((get_res.formatcenter.u+get_res.formatcenter.v)/2))*(relscalemult_2)))}}
+  center {{parent.get_res.formatcenter} {parent.get_res.formatcenter}}
+  name Transform33
+  tile_color 0xffffffff
+  label "relative scale"
+  xpos -3282
+  ypos -576
+  disable {{!parent.relscale_2}}
+ }
+set Nb5d33c00 [stack 0]
+ Dot {
+  name Dot19
+  xpos -3427
+  ypos -567
+ }
+set Nb653a000 [stack 0]
+ Dot {
+  name Dot20
+  xpos -3607
+  ypos -567
+ }
+ Transform {
+  scale 0.6
+  center {{parent.get_res.formatcenter} {parent.get_res.formatcenter}}
+  name Transform49
+  tile_color 0xaaffbfff
+  label scale
+  xpos -3640
+  ypos -496
+ }
+ Transform {
+  scale {{1+(((sin((1+focus)*2))/30)*((get_res.res.u)/100))*focmult}}
+  center {{parent.get_res.formatcenter} {parent.get_res.formatcenter}}
+  name Transform58
+  tile_color 0xffc9aaff
+  label focus/zoom/aperture
+  xpos -3640
+  ypos -256
+  disable {{!parent.enablefocus}}
+ }
+ Transform {
+  translate {{"movecopy22<1 ? ((((get_res.res.u)-(center_1.flarecenter.x))-((get_res.res.u)/2)))*(movecopy22-1)/(enablefocallength==1 ? (zoom_ctrl.zoom):1) : ((((get_res.res.u)-(center_1.flarecenter.x))-((get_res.res.u)/2)))*(movecopy22-1)*(enablefocallength==1 ? (zoom_ctrl.zoom):1)"} {"movecopy22<1 ? ((((get_res.res.v)-(center_1.flarecenter.y))-((get_res.res.v)/2)))*(movecopy22-1)/(enablefocallength==1 ? (zoom_ctrl.zoom):1) : ((((get_res.res.v)-(center_1.flarecenter.y))-((get_res.res.v)/2)))*(movecopy22-1)*(enablefocallength==1 ? (zoom_ctrl.zoom):1)"}}
+  name Transform43
+  label "flare pos"
+  xpos -3640
+  ypos -176
+ }
+clone $Cb3de1000 {
+  xpos -3639
+  ypos -16
+  selected false
+ }
+ Saturation {
+  name Saturation4
+  xpos -3640
+  ypos 150
+ }
+ Grade {
+  name Grade4
+  xpos -3641
+  ypos 233
+ }
+ Blur {
+  name Blur8
+  xpos -3640
+  ypos 307
+ }
+ Dot {
+  name Dot21
+  xpos -3607
+  ypos 473
+ }
+set Nb6570400 [stack 0]
+push $Nb653a000
+ Transform {
+  scale 0.7
+  center {{parent.get_res.formatcenter} {parent.get_res.formatcenter}}
+  name Transform50
+  tile_color 0xaaffbfff
+  label scale
+  xpos -3460
+  ypos -496
+ }
+ Transform {
+  scale {{1+(((sin((2.5+focus)*2))/30)*((get_res.res.u)/100))*focmult}}
+  center {{parent.get_res.formatcenter} {parent.get_res.formatcenter}}
+  name Transform59
+  tile_color 0xffc9aaff
+  label focus/zoom/aperture
+  xpos -3460
+  ypos -256
+  disable {{!parent.enablefocus}}
+ }
+ Transform {
+  translate {{"movecopy21<1 ? ((((get_res.res.u)-(center_1.flarecenter.x))-((get_res.res.u)/2)))*(movecopy21-1)/(enablefocallength==1 ? (zoom_ctrl.zoom):1) : ((((get_res.res.u)-(center_1.flarecenter.x))-((get_res.res.u)/2)))*(movecopy21-1)*(enablefocallength==1 ? (zoom_ctrl.zoom):1)"} {"movecopy21<1 ? ((((get_res.res.v)-(center_1.flarecenter.y))-((get_res.res.v)/2)))*(movecopy21-1)/(enablefocallength==1 ? (zoom_ctrl.zoom):1) : ((((get_res.res.v)-(center_1.flarecenter.y))-((get_res.res.v)/2)))*(movecopy21-1)*(enablefocallength==1 ? (zoom_ctrl.zoom):1)"}}
+  name Transform44
+  label "flare pos"
+  xpos -3460
+  ypos -176
+ }
+clone $Cb3de1000 {
+  xpos -3459
+  ypos -16
+  selected false
+ }
+ Saturation {
+  name Saturation3
+  xpos -3460
+  ypos 150
+ }
+ Grade {
+  name Grade3
+  xpos -3461
+  ypos 236
+ }
+ Blur {
+  name Blur7
+  xpos -3460
+  ypos 307
+ }
+ Dot {
+  name Dot27
+  xpos -3427
+  ypos 393
+ }
+set Nb65a4400 [stack 0]
+push $Nb5d33c00
+ Transform {
+  scale {{1+(((sin((0.3+focus)*2))/30)*((get_res.res.u)/100))*focmult}}
+  center {{parent.get_res.formatcenter} {parent.get_res.formatcenter}}
+  name Transform60
+  tile_color 0xffc9aaff
+  label focus/zoom/aperture
+  xpos -3280
+  ypos -256
+  disable {{!parent.enablefocus}}
+ }
+ Transform {
+  translate {{"slide1<0 ? ((((get_res.res.u)-(center_1.flarecenter.x))-((get_res.res.u)/2)))*slide1/(enablefocallength==1 ? (zoom_ctrl.zoom):1) : ((((get_res.res.u)-(center_1.flarecenter.x))-((get_res.res.u)/2)))*slide1*(enablefocallength==1 ? (zoom_ctrl.zoom):1)"} {"slide1<0 ? ((((get_res.res.v)-(center_1.flarecenter.y))-((get_res.res.v)/2)))*slide1/(enablefocallength==1 ? (zoom_ctrl.zoom):1) : ((((get_res.res.v)-(center_1.flarecenter.y))-((get_res.res.v)/2)))*slide1*(enablefocallength==1 ? (zoom_ctrl.zoom):1)"}}
+  name Transform6
+  label "flare pos"
+  xpos -3280
+  ypos -176
+ }
+clone $Cb3de1000 {
+  xpos -3279
+  ypos -16
+  selected false
+ }
+ Saturation {
+  name Saturation8
+  xpos -3280
+  ypos 150
+ }
+ Grade {
+  name Grade8
+  xpos -3280
+  ypos 230
+ }
+ Blur {
+  name Blur2
+  xpos -3280
+  ypos 305
+ }
+ Multiply {
+  name Multiply2
+  xpos -3280
+  ypos 384
+ }
+set Nb65e0000 [stack 0]
+ Merge2 {
+  inputs 2
+  operation multiply
+  name Merge38
+  xpos -3182
+  ypos 470
+  disable {{"enablecopies==1 ? !parent.copy21:1"}}
+ }
+push $Nb65a4400
+push $Nb65e0000
+ Merge2 {
+  inputs 2
+  operation min
+  name Merge32
+  xpos -3280
+  ypos 470
+  disable {{"enablecopies==1 ? !parent.copy21:1"}}
+ }
+push $Nb65a4400
+push $Nb65e0000
+ Merge2 {
+  inputs 2
+  operation plus
+  name Merge10
+  xpos -3377
+  ypos 470
+  disable {{"enablecopies==1 ? !parent.copy21:1"}}
+ }
+ Switch {
+  inputs 3
+  which {{parent.operationfc2}}
+  name Switch6
+  xpos -3280
+  ypos 550
+ }
+set Nb65d1900 [stack 0]
+ Merge2 {
+  inputs 2
+  operation min
+  name Merge40
+  xpos -3183
+  ypos 630
+  disable {{"enablecopies==1 ? !parent.copy22:1"}}
+ }
+push $Nb6570400
+push $Nb65d1900
+ Merge2 {
+  inputs 2
+  operation min
+  name Merge33
+  xpos -3280
+  ypos 630
+  disable {{"enablecopies==1 ? !parent.copy22:1"}}
+ }
+push $Nb6570400
+push $Nb65d1900
+ Merge2 {
+  inputs 2
+  operation plus
+  name Merge11
+  xpos -3377
+  ypos 630
+  disable {{"enablecopies==1 ? !parent.copy22:1"}}
+ }
+ Switch {
+  inputs 3
+  which {{parent.operationfc2_2}}
+  name Switch5
+  xpos -3280
+  ypos 710
+ }
+ Defocus {
+  defocus {{parent.blurall}}
+  name Defocus8
+  xpos -3280
+  ypos 784
+ }
+ Multiply {
+  value {{parent.strengthall}}
+  name Multiply5
+  label ALL
+  xpos -3280
+  ypos 858
+ }
+ Multiply {
+  value {{"clamp(((((measure4.distance*2)*100)/(get_res.res.u))-(ftc_5.y))/(ftc_5.x-ftc_5.y), 0, 1)"}}
+  name Multiply32
+  tile_color 0xe9ff55ff
+  label "fade to center"
+  xpos -3280
+  ypos 938
+  disable {{!parent.ftc_2}}
+ }
+ Multiply {
+  value {{clamp(1-(1*(get_res.formdist)/fadedistance))}}
+  name Multiply18
+  tile_color 0xb4aaffff
+  label "auto fade"
+  xpos -3280
+  ypos 1025
+  disable {{!parent.enableautofade}}
+ }
+ Saturation {
+  saturation {{parent.satallp}}
+  name Saturation11
+  label all
+  xpos -3280
+  ypos 1104
+ }
+ Remove {
+  channels alpha
+  name Remove2
+  xpos -3280
+  ypos 1184
+ }
+ Dot {
+  name Dot4
+  xpos -3248
+  ypos 1513
+ }
+push $N3625ec00
+ Input {
+  inputs 0
+  name f1
+  xpos -2741
+  ypos -1130
+  number 1
+ }
+ Reformat {
+  type "to box"
+  box_width {{parent.get_res.res.u}}
+  box_height {{parent.get_res.res.v}}
+  box_fixed true
+  box_pixel_aspect {{parent.get_res.inaspect}}
+  resize height
+  pbb true
+  name Reformat2
+  xpos -2740
+  ypos -1046
+ }
+ Transform {
+  center {{parent.get_res.formatcenter} {parent.get_res.formatcenter}}
+  name Transform2
+  tile_color 0xffaac9ff
+  label scale/rotate
+  xpos -2740
+  ypos -966
+ }
+ Transform {
+  scale {{"flip_1==1 ? 1 : (1+((pow((measure.distance*((stretchtype1==0?1:(stretchtype1==2?0.01:0.03))*relstretchmult_1)),(stretchtype1+1))/((get_res.formatcenter.u+get_res.formatcenter.v)/2))*relstretchmult_1))"} {"flip_1==1 ? (1+((pow((measure.distance*((stretchtype1==0?1:(stretchtype1==2?0.01:0.03))*relstretchmult_1)),(stretchtype1+1))/((get_res.formatcenter.u+get_res.formatcenter.v)/2))*relstretchmult_1)) : 1"}}
+  center {{parent.get_res.formatcenter} {parent.get_res.formatcenter}}
+  name Transform41
+  tile_color 0xaaaaaaff
+  label "relative stretch"
+  xpos -2740
+  ypos -887
+  disable {{!parent.relstretch1}}
+ }
+ Transform {
+  rotate {{"(center_1.flarecenter.y) < (get_res.formatcenter.v) ? (degrees(acos((get_res.bl)/(get_res.cl)))) : ((degrees(acos((get_res.bl)/(get_res.cl))))*-1)"}}
+  center {{parent.get_res.formatcenter} {parent.get_res.formatcenter}}
+  name Transform18
+  label "relative\nrotation"
+  xpos -2741
+  ypos -812
+  disable {{!parent.relrot_1}}
+ }
+ Transform {
+  rotate {{parent.rotateall}}
+  scale {{parent.scaleall*0.1}}
+  center {{parent.get_res.formatcenter} {parent.get_res.formatcenter}}
+  name Transform16
+  tile_color 0xdfff00ff
+  label "rotate/scale ALL"
+  xpos -2741
+  ypos -726
+ }
+ Transform {
+  scale {1 {1/parent.aspect}}
+  center {{parent.get_res.formatcenter} {parent.get_res.formatcenter}}
+  name Transform5
+  tile_color 0x6aff55ff
+  label aspect
+  xpos -2741
+  ypos -645
+  disable {{!parent.useaspect1}}
+ }
+ Transform {
+  scale {{(1+((pow((measure.distance*((type_1==0?1:(type_1==2?0.01:0.03))*relscalemult_1)),(type_1+1))/((get_res.formatcenter.u+get_res.formatcenter.v)/2))*relscalemult_1))}}
+  center {{parent.get_res.formatcenter} {parent.get_res.formatcenter}}
+  name Transform31
+  tile_color 0xffffffff
+  label "relative scale"
+  xpos -2741
+  ypos -574
+  disable {{!parent.relscale_1}}
+ }
+set Nb665f800 [stack 0]
+ Dot {
+  name Dot24
+  xpos -2889
+  ypos -566
+ }
+set Nb665fc00 [stack 0]
+ Dot {
+  name Dot25
+  xpos -3070
+  ypos -566
+ }
+ Transform {
+  scale 0.8
+  center {{parent.get_res.formatcenter} {parent.get_res.formatcenter}}
+  name Transform47
+  tile_color 0xaaffbfff
+  label scale
+  xpos -3102
+  ypos -496
+ }
+ Transform {
+  scale {{1+(((sin((2+focus)*2))/30)*((get_res.res.u)/100))*focmult}}
+  center {{parent.get_res.formatcenter} {parent.get_res.formatcenter}}
+  name Transform61
+  tile_color 0xffc9aaff
+  label focus/zoom/aperture
+  xpos -3100
+  ypos -256
+  disable {{!parent.enablefocus}}
+ }
+ Transform {
+  translate {{"movecopy12<1 ? ((((get_res.res.u)-(center_1.flarecenter.x))-((get_res.res.u)/2)))*(movecopy12-1)/(enablefocallength==1 ? (zoom_ctrl.zoom):1) : ((((get_res.res.u)-(center_1.flarecenter.x))-((get_res.res.u)/2)))*(movecopy12-1)*(enablefocallength==1 ? (zoom_ctrl.zoom):1)"} {"movecopy12<1 ? ((((get_res.res.v)-(center_1.flarecenter.y))-((get_res.res.v)/2)))*(movecopy12-1)/(enablefocallength==1 ? (zoom_ctrl.zoom):1) : ((((get_res.res.v)-(center_1.flarecenter.y))-((get_res.res.v)/2)))*(movecopy12-1)*(enablefocallength==1 ? (zoom_ctrl.zoom):1)"}}
+  name Transform45
+  label "flare pos"
+  xpos -3100
+  ypos -176
+ }
+clone $Cb3de1000 {
+  xpos -3099
+  ypos -16
+  selected false
+ }
+ Saturation {
+  name Saturation2
+  xpos -3100
+  ypos 150
+ }
+ Grade {
+  white {0.416662842 1 0.3333333433 1}
+  name Grade6
+  xpos -3101
+  ypos 233
+ }
+ Blur {
+  name Blur6
+  xpos -3100
+  ypos 304
+ }
+ Dot {
+  name Dot22
+  xpos -3068
+  ypos 473
+ }
+set Nb66cc000 [stack 0]
+push $Nb665fc00
+ Transform {
+  scale 0.8
+  center {{parent.get_res.formatcenter} {parent.get_res.formatcenter}}
+  name Transform48
+  tile_color 0xaaffbfff
+  label scale
+  xpos -2922
+  ypos -495
+ }
+ Transform {
+  scale {{1+(((sin((1.2+focus)*2))/30)*((get_res.res.u)/100))*focmult}}
+  center {{parent.get_res.formatcenter} {parent.get_res.formatcenter}}
+  name Transform62
+  tile_color 0xffc9aaff
+  label focus/zoom/aperture
+  xpos -2920
+  ypos -256
+  disable {{!parent.enablefocus}}
+ }
+ Transform {
+  translate {{"movecopy11<1 ? ((((get_res.res.u)-(center_1.flarecenter.x))-((get_res.res.u)/2)))*(movecopy11-1)/(enablefocallength==1 ? (zoom_ctrl.zoom):1) : ((((get_res.res.u)-(center_1.flarecenter.x))-((get_res.res.u)/2)))*(movecopy11-1)*(enablefocallength==1 ? (zoom_ctrl.zoom):1)"} {"movecopy11<1 ? ((((get_res.res.v)-(center_1.flarecenter.y))-((get_res.res.v)/2)))*(movecopy11-1)/(enablefocallength==1 ? (zoom_ctrl.zoom):1) : ((((get_res.res.v)-(center_1.flarecenter.y))-((get_res.res.v)/2)))*(movecopy11-1)*(enablefocallength==1 ? (zoom_ctrl.zoom):1)"}}
+  name Transform46
+  label "flare pos"
+  xpos -2920
+  ypos -176
+ }
+clone $Cb3de1000 {
+  xpos -2920
+  ypos -16
+  selected false
+ }
+ Saturation {
+  name Saturation1
+  xpos -2920
+  ypos 150
+ }
+ Grade {
+  name Grade5
+  xpos -2920
+  ypos 230
+ }
+ Blur {
+  name Blur5
+  xpos -2920
+  ypos 304
+ }
+ Dot {
+  name Dot28
+  xpos -2887
+  ypos 393
+ }
+set Nb6704000 [stack 0]
+push $Nb665f800
+ Transform {
+  scale {{1+(((sin((3+focus)*2))/30)*((get_res.res.u)/100))*focmult}}
+  center {{parent.get_res.formatcenter} {parent.get_res.formatcenter}}
+  name Transform63
+  tile_color 0xffc9aaff
+  label focus/zoom/aperture
+  xpos -2740
+  ypos -256
+  disable {{!parent.enablefocus}}
+ }
+ Transform {
+  translate {{"slide<0 ? ((((get_res.res.u)-(center_1.flarecenter.x))-((get_res.res.u)/2)))*slide/(enablefocallength==1 ? (zoom_ctrl.zoom):1) : ((((get_res.res.u)-(center_1.flarecenter.x))-((get_res.res.u)/2)))*slide*(enablefocallength==1 ? (zoom_ctrl.zoom):1)"} {"slide<0 ? ((((get_res.res.v)-(center_1.flarecenter.y))-((get_res.res.v)/2)))*slide/(enablefocallength==1 ? (zoom_ctrl.zoom):1) : ((((get_res.res.v)-(center_1.flarecenter.y))-((get_res.res.v)/2)))*slide*(enablefocallength==1 ? (zoom_ctrl.zoom):1)"}}
+  name Transform4
+  label "flare pos"
+  xpos -2740
+  ypos -176
+ }
+clone $Cb3de1000 {
+  xpos -2739
+  ypos -16
+  selected false
+ }
+ Saturation {
+  name Saturation7
+  xpos -2739
+  ypos 150
+ }
+ Grade {
+  name Grade7
+  xpos -2739
+  ypos 230
+ }
+ Blur {
+  name Blur1
+  xpos -2739
+  ypos 304
+ }
+ Multiply {
+  name Multiply1
+  xpos -2739
+  ypos 384
+ }
+set Nb6705c00 [stack 0]
+ Merge2 {
+  inputs 2
+  operation multiply
+  name Merge37
+  xpos -2642
+  ypos 470
+  disable {{"enablecopies==1 ? !parent.copy11:1"}}
+ }
+push $Nb6704000
+push $Nb6705c00
+ Merge2 {
+  inputs 2
+  operation min
+  name Merge30
+  xpos -2739
+  ypos 470
+  disable {{"enablecopies==1 ? !parent.copy11:1"}}
+ }
+push $Nb6704000
+push $Nb6705c00
+ Merge2 {
+  inputs 2
+  operation plus
+  name Merge12
+  xpos -2831
+  ypos 470
+  disable {{"enablecopies==1 ? !parent.copy11:1"}}
+ }
+ Switch {
+  inputs 3
+  which {{parent.operationfc1}}
+  name Switch2
+  xpos -2739
+  ypos 550
+ }
+set Nb741c800 [stack 0]
+ Merge2 {
+  inputs 2
+  operation multiply
+  name Merge39
+  xpos -2645
+  ypos 630
+  disable {{"enablecopies==1 ? !parent.copy12:1"}}
+ }
+push $Nb66cc000
+push $Nb741c800
+ Merge2 {
+  inputs 2
+  operation min
+  name Merge31
+  xpos -2739
+  ypos 630
+  disable {{"enablecopies==1 ? !parent.copy12:1"}}
+ }
+push $Nb66cc000
+push $Nb741c800
+ Merge2 {
+  inputs 2
+  operation plus
+  name Merge13
+  xpos -2831
+  ypos 631
+  disable {{"enablecopies==1 ? !parent.copy12:1"}}
+ }
+ Switch {
+  inputs 3
+  which {{parent.operationfc1_1}}
+  name Switch3
+  xpos -2739
+  ypos 710
+ }
+ Defocus {
+  defocus {{parent.blurall}}
+  name Defocus9
+  xpos -2739
+  ypos 784
+ }
+ Multiply {
+  value {{parent.strengthall}}
+  name Multiply6
+  label ALL
+  xpos -2739
+  ypos 858
+ }
+ Multiply {
+  value {{"clamp(((((measure3.distance*2)*100)/(get_res.res.u))-(ftc_4.y))/(ftc_4.x-ftc_4.y), 0, 1)"}}
+  name Multiply31
+  tile_color 0xe9ff55ff
+  label "fade to center"
+  xpos -2739
+  ypos 938
+  disable {{!parent.ftc_1}}
+ }
+ Multiply {
+  value {{clamp(1-(1*(get_res.formdist)/fadedistance))}}
+  name Multiply19
+  tile_color 0xb4aaffff
+  label "auto fade"
+  xpos -2739
+  ypos 1018
+  disable {{!parent.enableautofade}}
+ }
+ Saturation {
+  saturation {{parent.satallp}}
+  name Saturation12
+  label all
+  xpos -2739
+  ypos 1104
+ }
+ Remove {
+  channels alpha
+  name Remove3
+  xpos -2739
+  ypos 1184
+ }
+ Dot {
+  name Dot3
+  xpos -2707
+  ypos 1433
+ }
+ Reformat {
+  inputs 0
+  format "512 512 0 0 512 512 1 square_512"
+  name Reformat8
+  xpos -2200
+  ypos -16
+  hide_input true
+ }
+ Radial {
+  area {128 128 384 384}
+  softness 0
+  name Radial1
+  xpos -2200
+  ypos 70
+ }
+ Transform {
+  scale 0.3
+  center {256 256}
+  name Transform36
+  xpos -2200
+  ypos 150
+ }
+ Blur {
+  size 100
+  name Blur3
+  xpos -2200
+  ypos 224
+ }
+ Reformat {
+  type "to box"
+  box_width {{parent.get_res.res.u}}
+  box_height {{parent.get_res.res.v}}
+  box_fixed true
+  box_pixel_aspect {{parent.get_res.inaspect}}
+  resize height
+  pbb true
+  name Reformat1
+  xpos -2200
+  ypos 310
+ }
+ Transform {
+  scale {{parent.popmasksize}}
+  center {{parent.get_res.formatcenter} {parent.get_res.formatcenter}}
+  name Transform37
+  tile_color 0xaaffbfff
+  label "pop size"
+  xpos -2200
+  ypos 464
+ }
+ Transform {
+  translate {{(parent.center_1.flarecenter)-((get_res.res.u)/2)} {(parent.center_1.flarecenter)-((get_res.res.v)/2)}}
+  center {{parent.get_res.res.u} {parent.get_res.res.v}}
+  name Transform35
+  xpos -2200
+  ypos 630
+ }
+ Dot {
+  name Dot5
+  xpos -2167
+  ypos 1112
+ }
+set Nb74c1800 [stack 0]
+ Shuffle2 {
+  fromInput1 {{0} B}
+  fromInput2 {{0} B}
+  mappings "4 rgba.alpha 0 3 rgba.red 0 0 rgba.alpha 0 3 rgba.alpha 0 3 black -1 -1 rgba.green 0 1 black -1 -1 rgba.blue 0 2"
+  name Shuffle1
+  label "\[value in1]"
+  xpos -2200
+  ypos 1264
+ }
+push $N3625e800
+ Input {
+  inputs 0
+  name c3
+  xpos -1661
+  ypos -649
+  number 6
+ }
+ Reformat {
+  type "to box"
+  box_width {{parent.get_res.res.u}}
+  box_height {{parent.get_res.res.v}}
+  box_fixed true
+  box_pixel_aspect {{parent.get_res.inaspect}}
+  resize height
+  pbb true
+  name Reformat7
+  xpos -1661
+  ypos -568
+ }
+ Transform {
+  center {{parent.get_res.formatcenter.u} {parent.get_res.formatcenter.v}}
+  name Transform26
+  tile_color 0xffaac9ff
+  label scale/rotate
+  xpos -1661
+  ypos -495
+ }
+ Transform {
+  rotate {{"invrot2==1 ? ((((get_res.formatcenter.u)-(center_1.flarecenter.x))/(get_res.formatcenter.u)*100)*rotmult2) : ((((get_res.formatcenter.u)-(center_1.flarecenter.x))/(get_res.formatcenter.u)*100)*rotmult2)*-1"}}
+  center {{parent.get_res.formatcenter.u} {parent.get_res.formatcenter.v}}
+  name Transform27
+  label "relative\nrotation"
+  xpos -1661
+  ypos -341
+  disable {{!parent.relrot_5}}
+ }
+ Transform {
+  rotate {{curve}}
+  scale {{parent.scaleall1}}
+  center {{parent.get_res.formatcenter.u} {parent.get_res.formatcenter.v}}
+  name Transform28
+  tile_color 0xdfff00ff
+  label "rotate/strength ALL"
+  xpos -1661
+  ypos -255
+ }
+ Transform {
+  scale {1 {1/parent.aspect}}
+  center {{parent.get_res.formatcenter.u} {parent.get_res.formatcenter.v}}
+  name Transform29
+  tile_color 0x6aff55ff
+  label aspect
+  xpos -1661
+  ypos -175
+  disable {{!parent.useaspect5}}
+ }
+ Transform {
+  translate {{"movean6==1 ? (((parent.center_1.flarecenter)-((get_res.res.u)/2))*-1)*moveanmult3 : ((parent.center_1.flarecenter)-((get_res.res.u)/2))"} {"movean3==1 ? (((parent.center_1.flarecenter)-((get_res.res.v)/2))*-1)*moveanmult3 : ((parent.center_1.flarecenter)-((get_res.res.v)/2))"}}
+  center {{parent.get_res.res.u} {parent.get_res.res.v}}
+  name Transform25
+  label "+ mirror"
+  xpos -1660
+  ypos -96
+ }
+clone $Cb3de1000 {
+  xpos -1661
+  ypos 64
+  selected false
+ }
+ Defocus {
+  defocus 0
+  name Defocus3
+  xpos -1661
+  ypos 146
+ }
+ Defocus {
+  defocus {{parent.blurall1}}
+  name Defocus4
+  xpos -1661
+  ypos 225
+ }
+ Multiply {
+  name Multiply11
+  xpos -1661
+  ypos 306
+ }
+ Multiply {
+  value {{strengthall1}}
+  name Multiply12
+  label ALL
+  xpos -1661
+  ypos 380
+ }
+ Remove {
+  channels alpha
+  name Remove6
+  xpos -1661
+  ypos 465
+ }
+ Multiply {
+  value {{clamp(1-(1*(get_res.formdist)/fadedistance))}}
+  name Multiply14
+  tile_color 0xb4aaffff
+  label "auto fade"
+  xpos -1661
+  ypos 539
+  disable {{!parent.enableautofade}}
+ }
+ Saturation {
+  saturation {{parent.satallc}}
+  name Saturation13
+  label all
+  xpos -1660
+  ypos 625
+ }
+ Dot {
+  name Dot15
+  xpos -1627
+  ypos 953
+ }
+push $N3625e400
+ Input {
+  inputs 0
+  name c2
+  xpos -1481
+  ypos -649
+  number 5
+ }
+ Reformat {
+  type "to box"
+  box_width {{parent.get_res.res.u}}
+  box_height {{parent.get_res.res.v}}
+  box_fixed true
+  box_pixel_aspect {{parent.get_res.inaspect}}
+  resize height
+  pbb true
+  name Reformat6
+  xpos -1481
+  ypos -569
+ }
+ Transform {
+  center {{parent.get_res.formatcenter} {parent.get_res.formatcenter}}
+  name Transform10
+  tile_color 0xffaac9ff
+  label scale/rotate
+  xpos -1481
+  ypos -496
+ }
+ Transform {
+  rotate {{"invrot1==1 ? ((((get_res.formatcenter.u)-(center_1.flarecenter.x))/(get_res.formatcenter.u)*100)*rotmult1) : ((((get_res.formatcenter.u)-(center_1.flarecenter.x))/(get_res.formatcenter.u)*100)*rotmult1)*-1"}}
+  center {{parent.get_res.formatcenter} {parent.get_res.formatcenter}}
+  name Transform22
+  label "relative\nrotation"
+  xpos -1481
+  ypos -342
+  disable {{!parent.relrot_4}}
+ }
+ Transform {
+  rotate {{curve}}
+  scale {{parent.scaleall1}}
+  center {{parent.get_res.formatcenter} {parent.get_res.formatcenter}}
+  name Transform23
+  tile_color 0xdfff00ff
+  label "rotate/strength ALL"
+  xpos -1481
+  ypos -256
+ }
+ Transform {
+  scale {1 {1/parent.aspect}}
+  center {{parent.get_res.formatcenter} {parent.get_res.formatcenter}}
+  name Transform24
+  tile_color 0x6aff55ff
+  label aspect
+  xpos -1481
+  ypos -176
+  disable {{!parent.useaspect4}}
+ }
+ Transform {
+  translate {{"movean5==1 ? (((parent.center_1.flarecenter)-((get_res.res.u)/2))*-1)*moveanmult2 : ((parent.center_1.flarecenter)-((get_res.res.u)/2))"} {"movean2==1 ? (((parent.center_1.flarecenter)-((get_res.res.v)/2))*-1)*moveanmult2 : ((parent.center_1.flarecenter)-((get_res.res.v)/2))"}}
+  center {{parent.get_res.res.u} {parent.get_res.res.v}}
+  name Transform83
+  label "+ mirror"
+  xpos -1481
+  ypos -96
+ }
+clone $Cb3de1000 {
+  xpos -1481
+  ypos 64
+  selected false
+ }
+ Defocus {
+  name Defocus2
+  xpos -1481
+  ypos 145
+ }
+ Defocus {
+  defocus {{parent.blurall1}}
+  name Defocus5
+  xpos -1481
+  ypos 225
+ }
+ Multiply {
+  name Multiply9
+  xpos -1481
+  ypos 305
+ }
+ Multiply {
+  value {{strengthall1}}
+  name Multiply10
+  label ALL
+  xpos -1481
+  ypos 379
+ }
+ Remove {
+  channels alpha
+  name Remove5
+  xpos -1481
+  ypos 465
+ }
+ Multiply {
+  value {{clamp(1-(1*(get_res.formdist)/fadedistance))}}
+  name Multiply15
+  tile_color 0xb4aaffff
+  label "auto fade"
+  xpos -1481
+  ypos 539
+  disable {{!parent.enableautofade}}
+ }
+ Saturation {
+  saturation {{parent.satallc}}
+  name Saturation14
+  label all
+  xpos -1481
+  ypos 625
+ }
+ Dot {
+  name Dot14
+  xpos -1447
+  ypos 873
+ }
+push $N3625e000
+ Input {
+  inputs 0
+  name c1
+  xpos -1301
+  ypos -649
+  number 4
+ }
+ Reformat {
+  type "to box"
+  box_width {{parent.get_res.res.u}}
+  box_height {{parent.get_res.res.v}}
+  box_fixed true
+  box_pixel_aspect {{parent.get_res.inaspect}}
+  resize height
+  pbb true
+  name Reformat4
+  xpos -1301
+  ypos -569
+ }
+ Transform {
+  center {{parent.get_res.formatcenter} {parent.get_res.formatcenter}}
+  name Transform7
+  tile_color 0xffaac9ff
+  label scale/rotate
+  xpos -1301
+  ypos -496
+ }
+ Transform {
+  rotate {{"invrot==1 ? ((((get_res.formatcenter.u)-(center_1.flarecenter.x))/(get_res.formatcenter.u)*100)*rotmult) : ((((get_res.formatcenter.u)-(center_1.flarecenter.x))/(get_res.formatcenter.u)*100)*rotmult)*-1"}}
+  center {{parent.get_res.formatcenter} {parent.get_res.formatcenter}}
+  name Transform21
+  label "relative\nrotation"
+  xpos -1301
+  ypos -342
+  disable {{!parent.relrot}}
+ }
+ Transform {
+  rotate {{curve}}
+  scale {{parent.scaleall1}}
+  center {{parent.get_res.formatcenter} {parent.get_res.formatcenter}}
+  name Transform17
+  tile_color 0xdfff00ff
+  label "rotate/strength ALL"
+  xpos -1301
+  ypos -256
+ }
+ Transform {
+  scale {1 {1/parent.aspect}}
+  center {{parent.get_res.formatcenter} {parent.get_res.formatcenter}}
+  name Transform8
+  tile_color 0x6aff55ff
+  label aspect
+  xpos -1301
+  ypos -176
+  disable {{!parent.useaspect}}
+ }
+ Transform {
+  translate {{"movean4==1 ? (((parent.center_1.flarecenter)-((get_res.res.u)/2))*-1)*moveanmult1 : ((parent.center_1.flarecenter)-((get_res.res.u)/2))"} {"movean1==1 ? (((parent.center_1.flarecenter)-((get_res.res.v)/2))*-1)*moveanmult1 : ((parent.center_1.flarecenter)-((get_res.res.v)/2))"}}
+  center {{parent.get_res.res.u} {parent.get_res.res.v}}
+  name Transform9
+  label "+ mirror"
+  xpos -1301
+  ypos -96
+ }
+clone $Cb3de1000 {
+  xpos -1301
+  ypos 64
+  selected false
+ }
+ Defocus {
+  defocus 0
+  name Defocus1
+  xpos -1301
+  ypos 144
+ }
+ Defocus {
+  defocus {{parent.blurall1}}
+  name Defocus6
+  xpos -1301
+  ypos 224
+ }
+ Multiply {
+  name Multiply7
+  xpos -1300
+  ypos 305
+ }
+ Multiply {
+  value {{strengthall1}}
+  name Multiply8
+  label ALL
+  xpos -1300
+  ypos 379
+ }
+ Remove {
+  channels alpha
+  name Remove4
+  xpos -1300
+  ypos 465
+ }
+ Multiply {
+  value {{clamp(1-(1*(get_res.formdist)/fadedistance))}}
+  name Multiply16
+  tile_color 0xb4aaffff
+  label "auto fade"
+  xpos -1300
+  ypos 539
+  disable {{!parent.enableautofade}}
+ }
+ Saturation {
+  saturation {{parent.satallc}}
+  name Saturation15
+  label all
+  xpos -1300
+  ypos 625
+ }
+ Dot {
+  name Dot9
+  xpos -1267
+  ypos 793
+ }
+push $N245f6800
+ NoOp {
+  name center_1
+  tile_color 0xdfff00ff
+  note_font "Verdana Bold"
+  xpos -940
+  ypos 310
+  addUserKnob {20 User}
+  addUserKnob {12 flarecenter l "flare center"}
+  flarecenter {300 300}
+ }
+ Merge2 {
+  inputs 2+1
+  operation plus
+  bbox B
+  maskChannelInput {{{parent.Merge1.maskChannelInput}}}
+  invert_mask {{parent.Merge1.invert_mask}}
+  mix {{"enableall1==1 ? parent.mixall:0"}}
+  name Merge3
+  xpos -940
+  ypos 790
+  disable {{!parent.enablecenter}}
+ }
+ Merge2 {
+  inputs 2+1
+  operation plus
+  bbox B
+  maskChannelInput {{{parent.Merge1.maskChannelInput}}}
+  invert_mask {{parent.Merge1.invert_mask}}
+  mix {{"enableall1==1 ? parent.mixall:0"}}
+  name Merge5
+  xpos -940
+  ypos 870
+  disable {{!parent.enablecenter1}}
+ }
+ Merge2 {
+  inputs 2+1
+  operation plus
+  bbox B
+  maskChannelInput {{{parent.Merge1.maskChannelInput}}}
+  invert_mask {{parent.Merge1.invert_mask}}
+  mix {{"enableall1==1 ? parent.mixall:0"}}
+  name Merge6
+  xpos -940
+  ypos 950
+  disable {{!parent.enablecenter2}}
+ }
+set N2ab05800 [stack 0]
+ Merge2 {
+  inputs 2
+  name Merge8
+  xpos -1120
+  ypos 1270
+ }
+push $Nb74c1800
+push $N2ab05800
+ Multiply {
+  inputs 1+1
+  value {{parent.popbrightness}}
+  mix {{"popoffset ==0 ? \nclamp((1-(1*get_res.popdistance/poprange)),0,1) \n: \n(center_1.flarecenter.x)>=0 && (center_1.flarecenter.x)<=(get_res.res.u) && (center_1.flarecenter.y)>=0 && (center_1.flarecenter.y)<= (get_res.res.v) ? 0:clamp((1-(1*get_res.popdistance/poprange)),0,1)\n"}}
+  name Multiply13
+  xpos -940
+  ypos 1104
+  disable {{!parent.enableedgepop}}
+ }
+push $Nb74c1800
+push $N2ab05800
+ Multiply {
+  inputs 1+1
+  value {{parent.popbrightness}}
+  mix {{"popoffset ==0 ? \nclamp((1-(1*get_res.popdistance/poprange)),0,1) \n: \n(center_1.flarecenter.x)>=0 && (center_1.flarecenter.x)<=(get_res.res.u) && (center_1.flarecenter.y)>=0 && (center_1.flarecenter.y)<= (get_res.res.v) ? clamp((1-(1*get_res.popdistance/poprange)),0,1):0\n"}}
+  name Multiply21
+  xpos -1120
+  ypos 1104
+  disable {{!parent.enableedgepop}}
+ }
+ Switch {
+  inputs 2
+  which {{!parent.popdirection}}
+  name pop_offset
+  xpos -940
+  ypos 1196
+ }
+ Switch {
+  inputs 2
+  which {{parent.showpopmask}}
+  name Switch1
+  label "show mask"
+  xpos -940
+  ypos 1264
+ }
+ Merge2 {
+  inputs 2+1
+  operation plus
+  bbox B
+  mix {{"enableall==1? parent.mixall:0"}}
+  name Merge1
+  xpos -940
+  ypos 1430
+  disable {{!parent.enablea}}
+ }
+ Merge2 {
+  inputs 2+1
+  operation plus
+  bbox B
+  maskChannelInput {{{parent.Merge1.maskChannelInput}}}
+  invert_mask {{parent.Merge1.invert_mask}}
+  mix {{"enableall==1? parent.mixall:0"}}
+  name Merge2
+  xpos -940
+  ypos 1510
+  disable {{!parent.enableb}}
+ }
+ Merge2 {
+  inputs 2+1
+  operation plus
+  bbox B
+  maskChannelInput {{{parent.Merge1.maskChannelInput}}}
+  invert_mask {{parent.Merge1.invert_mask}}
+  mix {{"enableall==1? parent.mixall:0"}}
+  name Merge4
+  xpos -940
+  ypos 1590
+  disable {{!parent.enablec}}
+ }
+ Dot {
+  name Dot33
+  xpos -908
+  ypos 2553
+ }
+set N2ab3d400 [stack 0]
+ Dot {
+  name Dot35
+  xpos -2319
+  ypos 2556
+  hide_input true
+ }
+ Reformat {
+  inputs 0
+  type "to box"
+  box_width {{parent.get_res.res.u}}
+  box_height {{parent.get_res.res.v}}
+  box_fixed true
+  box_pixel_aspect {{parent.get_res.inaspect}}
+  name Reformat9
+  xpos -1840
+  ypos 1910
+  hide_input true
+ }
+ Radial {
+  area {0 0 {parent.get_res.res.u} {parent.get_res.res.v}}
+  softness 0
+  name Radial2
+  xpos -1840
+  ypos 1990
+ }
+set N2ab82400 [stack 0]
+ Transform {
+  translate {{"moverel1==1 ? invrelmove1==1 ? (((get_res.res.u/2)+(center_1.flarecenter*-1))*(relmove.value*strengthoffset)*-1) : ((get_res.res.u/2)+(center_1.flarecenter*-1))*(relmove.value*strengthoffset) : 0"} {"moverel1==1 ? invrelmove1==1 ? (((get_res.res.v/2)+(center_1.flarecenter*-1))*(relmove.value*strengthoffset)*-1) : ((get_res.res.v/2)+(center_1.flarecenter*-1))*(relmove.value*strengthoffset) : 0"}}
+  scale {1 1.5}
+  center {{parent.get_res.formatcenter} {parent.get_res.formatcenter}}
+  shutteroffset centred
+  name Transform55
+  xpos -2020
+  ypos 1991
+ }
+clone $Cb3de1000 {
+  xpos -2020
+  ypos 2064
+  selected false
+ }
+ Invert {
+  name Invert1
+  xpos -2020
+  ypos 2144
+ }
+ Constant {
+  inputs 0
+  color {0.11 1 0.47 1}
+  format {{{parent.Constant2.format}}}
+  name Constant3
+  xpos -2200
+  ypos 1886
+ }
+ AdjBBox {
+  numpixels {{parent.growbbox}}
+  name AdjBBox3
+  xpos -2200
+  ypos 1990
+ }
+ Merge2 {
+  inputs 2
+  operation mask
+  bbox B
+  name Merge17
+  xpos -2200
+  ypos 2150
+ }
+ Blur {
+  size 70
+  name Blur12
+  xpos -2200
+  ypos 2224
+ }
+ Blur {
+  size {{parent.Blur12.size*2}}
+  mix 0.23
+  name Blur15
+  xpos -2200
+  ypos 2304
+  disable {{!parent.smoothblur2}}
+ }
+ Blur {
+  size {{parent.Blur12.size*4}}
+  mix 0.15
+  name Blur16
+  xpos -2200
+  ypos 2384
+  disable {{!parent.smoothblur2}}
+ }
+ Blur {
+  size {{parent.blurshimall}}
+  name Blur13
+  xpos -2200
+  ypos 2476
+ }
+ CopyBBox {
+  inputs 2
+  name CopyBBox3
+  xpos -2200
+  ypos 2554
+ }
+ Saturation {
+  saturation {{parent.satshimall}}
+  name Saturation17
+  xpos -2199
+  ypos 2624
+ }
+ Merge2 {
+  inputs 2
+  operation mask
+  bbox B
+  name Merge14
+  xpos -2199
+  ypos 2704
+  disable {{!parent.cutout2}}
+ }
+ Merge2 {
+  inputs 2
+  operation plus
+  bbox B
+  name Merge21
+  xpos -2198
+  ypos 2864
+  disable {{!parent.addoutline2}}
+ }
+ Group {
+  name MS_cromatic1
+  tile_color 0xefb500ff
+  note_font "Verdana Bold Italic"
+  xpos -2198
+  ypos 3030
+  disable {{!parent.abbr_2}}
+  addUserKnob {20 User l "color shift"}
+  addUserKnob {26 _1 l "" +STARTLINE T "<span style=\"color:#aaa;font-family:sans-serif\"><b><span style=\"color:#ffaf24\">MS_Cromatic v.1.0</span></b>"}
+  addUserKnob {26 ""}
+  addUserKnob {7 amount l <b>amount R -0.02 0.02}
+  amount 0.005
+  addUserKnob {41 steps l "&nbsp;&nbsp;quality&nbsp;" -STARTLINE T GodRays1.steps}
+  addUserKnob {26 text_1 l "<span style=\"color:#f00\"><b>Red</b></span>"}
+  addUserKnob {41 translate_3 l translate T GodRays1.translate}
+  addUserKnob {41 size_5 l "blur size" T Blur1.size}
+  addUserKnob {26 text_2 l "<span style=\"color:#0f0\"><b>Green</b></span>"}
+  addUserKnob {7 shiftgreen l "shift green" R -0.02 0.02}
+  addUserKnob {41 translate_4 l translate T GodRays2.translate}
+  addUserKnob {41 size_4 l "blur size" T Blur2.size}
+  addUserKnob {26 text_3 l "<span style=\"color:#00f\"><b>Blue</b></span>"}
+  addUserKnob {6 parentbluetored l "&nbsp;&nbsp;<i>parent blue to red" +STARTLINE}
+  parentbluetored true
+  addUserKnob {7 shiftblue l "shift blue" R -0.02 0.02}
+  addUserKnob {41 translate_5 l translate T GodRays4.translate}
+  addUserKnob {41 size_6 l "blur size" T Blur3.size}
+  addUserKnob {26 ""}
+  addUserKnob {41 maskChannel l "mask channel" T Keymix1.maskChannel}
+  addUserKnob {41 invertMask l invert -STARTLINE T Keymix1.invertMask}
+  addUserKnob {41 mix T Keymix1.mix}
+  addUserKnob {6 keepalpha l "keep alpha" t "keep the alpha from the original" +STARTLINE}
+  keepalpha true
+  addUserKnob {6 crop l "preserve bounding box" t "keep input bounding box" -STARTLINE}
+  crop true
+  addUserKnob {20 fringe}
+  addUserKnob {26 gradeedgefringe l "grade edge fringe"}
+  addUserKnob {6 enablegrade l "enable coloring" +STARTLINE}
+  addUserKnob {41 channels T Grade1.channels}
+  addUserKnob {41 multiply T Grade1.multiply}
+  addUserKnob {41 saturation T Saturation2.saturation}
+  addUserKnob {20 info}
+  addUserKnob {26 text l "" +STARTLINE T "<br><span style=\"color:#aaa;font-family:sans-serif;font-size:7pt\">node created by <b><span style=\"color:#aaaa00\">Johannes Kretschmer</span></b> mail: Jolegodrum@t-online.de - Version 1.0 - 2024 / part of  <span style=\"color:#aaa;font-family:sans-serif\"><b><span style=\"color:#ffaf24\">MANGO SUITE</span></b>\n"}
+  addUserKnob {26 _2 l "" +STARTLINE T "<br><a href=\"https://youtu.be/PcjKT30k1rw\"><b><span style=\"color:#aaa\"><i>watch tutorial</span></b></a>"}
+ }
+  BackdropNode {
+   inputs 0
+   name BackdropNode1
+   tile_color 0x8e8e3800
+   label "cromatic abberation (var_1)"
+   note_font_size 42
+   xpos -651
+   ypos -828
+   bdwidth 780
+   bdheight 598
+  }
+  Input {
+   inputs 0
+   name Input1
+   xpos -400
+   ypos -970
+  }
+  Dot {
+   name Dot1
+   xpos -367
+   ypos -887
+  }
+set N2ac10400 [stack 0]
+  Dot {
+   name Dot2
+   xpos -727
+   ypos -886
+  }
+  Dot {
+   name Dot13
+   xpos -726
+   ypos -166
+  }
+set N2ac10c00 [stack 0]
+  Shuffle2 {
+   fromInput1 {{0} B}
+   fromInput2 {{0} B}
+   mappings "4 rgba.red 0 0 rgba.red 0 0 rgba.green 0 1 rgba.green 0 1 rgba.blue 0 2 rgba.blue 0 2 white -1 -1 rgba.alpha 0 3"
+   name Shuffle1
+   xpos -760
+   ypos -90
+  }
+  Dot {
+   name Dot3
+   xpos -726
+   ypos -6
+  }
+set N2ac11400 [stack 0]
+  Dot {
+   name Dot7
+   xpos -726
+   ypos 713
+  }
+push $N2ac10400
+  Dot {
+   name Dot21
+   xpos 354
+   ypos -886
+  }
+set N2ac11c00 [stack 0]
+  Input {
+   inputs 0
+   name mask
+   xpos -40
+   ypos -120
+   number 1
+  }
+  Dot {
+   name Dot6
+   xpos -6
+   ypos -6
+  }
+  Invert {
+   name Invert1
+   xpos -220
+   ypos -16
+  }
+push $N2ac11400
+push $N2ac10400
+  Dot {
+   name Dot29
+   xpos -367
+   ypos -727
+  }
+set N2ac2cc00 [stack 0]
+  Dot {
+   name Dot16
+   xpos -187
+   ypos -727
+  }
+  Shuffle2 {
+   fromInput1 {{0} B}
+   fromInput2 {{0} B}
+   mappings "4 rgba.blue 0 2 rgba.blue 0 2 black -1 -1 rgba.red 0 0 black -1 -1 rgba.green 0 1 black -1 -1 rgba.alpha 0 3"
+   name Shuffle12
+   label BLUE
+   xpos -220
+   ypos -656
+  }
+set N2ac2d400 [stack 0]
+  Dot {
+   name Dot19
+   xpos -7
+   ypos -647
+  }
+  GodRays {
+   channels rgb
+   translate {{(parent.GodRays1.translate.x)*-1} {(parent.GodRays1.translate.y)*-1}}
+   scale {{(1/parent.GodRays1.scale+(Add1.value))+(1-(GodRays1.scale))}}
+   center {{parent.Crop1.box.r/2} {parent.Crop1.box.t/2}}
+   steps {{parent.GodRays1.steps}}
+   name GodRays6
+   label BLUE
+   xpos -39
+   ypos -576
+  }
+  Dot {
+   name Dot18
+   xpos -7
+   ypos -488
+  }
+push $N2ac2d400
+  GodRays {
+   channels rgb
+   scale {{1+(Add1.value)}}
+   center {{parent.Crop1.box.r/2} {parent.Crop1.box.t/2}}
+   steps {{parent.GodRays1.steps}}
+   name GodRays4
+   label BLUE
+   xpos -219
+   ypos -576
+  }
+  Switch {
+   inputs 2
+   which {{parent.parentbluetored}}
+   name Switch5
+   xpos -220
+   ypos -490
+  }
+  Blur {
+   channels {-rgba.red -rgba.green rgba.blue none}
+   name Blur3
+   xpos -220
+   ypos -410
+  }
+  Dot {
+   name Dot8
+   xpos -187
+   ypos -328
+  }
+push 0
+push $N2ac2cc00
+  Dot {
+   name Dot17
+   xpos -550
+   ypos -727
+  }
+  Shuffle2 {
+   fromInput1 {{0} B}
+   fromInput2 {{0} B}
+   mappings "4 rgba.red 0 0 rgba.red 0 0 black -1 -1 rgba.green 0 1 black -1 -1 rgba.blue 0 2 black -1 -1 rgba.alpha 0 3"
+   name Shuffle10
+   label "RED\n"
+   xpos -582
+   ypos -652
+  }
+  GodRays {
+   channels rgb
+   scale {{parent.amount+1}}
+   center {{parent.Crop1.box.r/2} {parent.Crop1.box.t/2}}
+   steps 4
+   name GodRays1
+   label RED
+   xpos -582
+   ypos -576
+  }
+  Blur {
+   channels {rgba.red -rgba.green -rgba.blue none}
+   name Blur1
+   xpos -582
+   ypos -410
+  }
+  Dot {
+   name Dot5
+   xpos -548
+   ypos -326
+  }
+push $N2ac2cc00
+  Shuffle2 {
+   fromInput1 {{0} B}
+   fromInput2 {{0} B}
+   mappings "4 rgba.green 0 1 rgba.green 0 1 black -1 -1 rgba.blue 0 2 black -1 -1 rgba.red 0 0 black -1 -1 rgba.alpha 0 3"
+   name Shuffle11
+   label "GREEN\n"
+   xpos -399
+   ypos -656
+  }
+  GodRays {
+   channels rgb
+   scale {{(1/parent.GodRays1.scale)+shiftgreen}}
+   center {{parent.Crop1.box.r/2} {parent.Crop1.box.t/2}}
+   steps {{parent.GodRays1.steps}}
+   name GodRays2
+   label GREEN
+   xpos -400
+   ypos -576
+  }
+  Blur {
+   channels {-rgba.red rgba.green -rgba.blue none}
+   name Blur2
+   xpos -400
+   ypos -410
+  }
+  Merge2 {
+   inputs 3+1
+   operation plus
+   name Merge6
+   xpos -400
+   ypos -330
+  }
+  Keymix {
+   inputs 3
+   name Keymix1
+   xpos -400
+   ypos -15
+  }
+set N2ac8d400 [stack 0]
+push $N2ac10c00
+  Dot {
+   name Dot4
+   xpos -546
+   ypos -166
+  }
+push $N2ac8d400
+  Copy {
+   inputs 2
+   from0 rgba.alpha
+   to0 rgba.alpha
+   name Copy1
+   xpos -580
+   ypos 144
+  }
+  Switch {
+   inputs 2
+   which {{!parent.keepalpha}}
+   name keep_alpha
+   xpos -400
+   ypos 150
+  }
+set N2ac5a800 [stack 0]
+  Merge2 {
+   inputs 2
+   operation difference
+   name Merge5
+   xpos 320
+   ypos 150
+  }
+  Saturation {
+   saturation 0
+   name Saturation1
+   xpos 320
+   ypos 230
+  }
+  Shuffle2 {
+   fromInput1 {{0} B}
+   fromInput2 {{0} B}
+   mappings "4 rgba.red 0 0 rgba.red 0 0 rgba.red 0 0 rgba.green 0 1 rgba.red 0 0 rgba.blue 0 2 rgba.red 0 0 rgba.alpha 0 3"
+   name Shuffle9
+   xpos 320
+   ypos 310
+  }
+  Grade {
+   channels rgba
+   whitepoint 0.19
+   white_clamp true
+   name Grade2
+   xpos 320
+   ypos 390
+  }
+  Dot {
+   name Dot22
+   xpos 354
+   ypos 474
+  }
+  Dot {
+   name Dot25
+   xpos -186
+   ypos 474
+  }
+set Nb8daf400 [stack 0]
+  Dot {
+   name Dot26
+   xpos -186
+   ypos 554
+  }
+push $Nb8daf400
+push $N2ac5a800
+  Dot {
+   name Dot27
+   xpos -367
+   ypos 394
+  }
+set Nb8dafc00 [stack 0]
+  Grade {
+   inputs 1+1
+   white 1.02
+   multiply {1 0.6708187461 0.05138373375 1}
+   name Grade1
+   xpos -400
+   ypos 472
+  }
+  Saturation {
+   inputs 1+1
+   name Saturation2
+   xpos -400
+   ypos 550
+  }
+push $Nb8dafc00
+  Dot {
+   name Dot28
+   xpos -546
+   ypos 394
+  }
+  Dot {
+   name Dot24
+   xpos -546
+   ypos 634
+  }
+  Switch {
+   inputs 2
+   which {{parent.enablegrade}}
+   name Switch2
+   xpos -400
+   ypos 630
+  }
+  CopyBBox {
+   inputs 2
+   name CopyBBox1
+   xpos -400
+   ypos 710
+  }
+  Crop {
+   box {0 0 {parent.NoOp2.uv.u} {parent.NoOp2.uv.v}}
+   name Crop1
+   xpos -401
+   ypos 790
+   disable {{parent.crop}}
+  }
+  Output {
+   name Output1
+   xpos -400
+   ypos 994
+  }
+push $N2ac11c00
+  Dot {
+   name Dot20
+   label " input"
+   note_font "Verdana Bold"
+   xpos -186
+   ypos 714
+   hide_input true
+  }
+  NoOp {
+   name NoOp2
+   xpos -220
+   ypos 790
+   addUserKnob {20 User}
+   addUserKnob {30 uv}
+   uv {{"\[value input.format.r]"} {"\[value input.format.t]"}}
+   addUserKnob {6 color_rgba_panelDropped l "panel dropped state" +HIDDEN +STARTLINE}
+   addUserKnob {6 color_rgb_panelDropped l "panel dropped state" +HIDDEN +STARTLINE}
+  }
+  Add {
+   inputs 0
+   value {{parent.shiftblue}}
+   name Add1
+   tile_color 0xa92b2bff
+   xpos -39
+   ypos -408
+   hide_input true
+  }
+ end_group
+ Merge2 {
+  inputs 2
+  operation mask
+  bbox B
+  mix {{parent.mixexclusion}}
+  name Merge24
+  xpos -2198
+  ypos 3190
+  disable {{!parent.enableexclude}}
+ }
+ Multiply {
+  value {{"((clamp(((((measure.distance*2)*100)/(get_res.res.u))-(cl_shimmer_2.y))/(cl_shimmer_2.x-cl_shimmer_2.y), 0, 1))*-1)+1"}}
+  name Multiply35
+  tile_color 0xe9ff55ff
+  label "fade from center"
+  xpos -2198
+  ypos 3258
+  disable {{!parent.ffc_3}}
+ }
+ Dot {
+  name Dot32
+  xpos -2166
+  ypos 3352
+ }
+ Multiply {
+  value {{clamp(1-(1*(get_res.formdist)/fadedistance))}}
+  name Multiply22
+  tile_color 0xb4aaffff
+  label "auto fade"
+  xpos -1300
+  ypos 3338
+  disable {{!parent.enableautofade}}
+ }
+push $N3625f800
+push $Nb5b69400
+ Reformat {
+  inputs 0
+  type "to box"
+  box_width {{parent.get_res.res.u}}
+  box_height {{parent.get_res.res.v}}
+  box_fixed true
+  box_pixel_aspect {{parent.get_res.inaspect}}
+  name Reformat12
+  xpos -1659
+  ypos 2390
+  hide_input true
+ }
+ Radial {
+  area {0 0 {parent.get_res.res.u} {parent.get_res.res.v}}
+  softness {{parent.csoft1/50}}
+  name Radial4
+  xpos -1659
+  ypos 2470
+ }
+ Dilate {
+  size 10
+  name Dilate2
+  xpos -1659
+  ypos 2544
+ }
+ Transform {
+  translate {{"moverel1==1 ? invrelmove1==1 ? (((get_res.res.u/2)+(center_1.flarecenter*-1))*(relmove.value)*-1) : ((get_res.res.u/2)+(center_1.flarecenter*-1))*(relmove.value) : 0"} {"moverel1==1 ? invrelmove1==1 ? (((get_res.res.v/2)+(center_1.flarecenter*-1))*(relmove.value)*-1) : ((get_res.res.v/2)+(center_1.flarecenter*-1))*(relmove.value) : 0"}}
+  scale {{parent.Transform53.scale} {parent.Transform53.scale}}
+  center {{parent.get_res.formatcenter} {parent.get_res.formatcenter}}
+  shutteroffset centred
+  name Transform65
+  xpos -1659
+  ypos 2630
+ }
+clone $Cb3de1000 {
+  xpos -1659
+  ypos 2698
+  selected false
+ }
+set Nb8e44c00 [stack 0]
+ Dilate {
+  name Dilate4
+  xpos -1783
+  ypos 2778
+ }
+push $Nb8e44c00
+ Merge2 {
+  inputs 2
+  operation stencil
+  name Merge22
+  xpos -1659
+  ypos 2784
+ }
+ Multiply {
+  value 2
+  name Multiply24
+  xpos -1659
+  ypos 2864
+ }
+push $Nb8e44c00
+push $N2ab3d400
+ Dot {
+  name Dot34
+  xpos -1267
+  ypos 2552
+  hide_input true
+ }
+push $N2ab82400
+ Transform {
+  translate {{"moverel1==1 ? invrelmove1==1 ? (((get_res.res.u/2)+(center_1.flarecenter*-1))*(relmove.value)*-1) : ((get_res.res.u/2)+(center_1.flarecenter*-1))*(relmove.value) : 0"} {"moverel1==1 ? invrelmove1==1 ? (((get_res.res.v/2)+(center_1.flarecenter*-1))*(relmove.value)*-1) : ((get_res.res.v/2)+(center_1.flarecenter*-1))*(relmove.value) : 0"}}
+  scale {0.9 1}
+  center {{parent.get_res.formatcenter} {parent.get_res.formatcenter}}
+  shutteroffset centred
+  name Transform53
+  xpos -1660
+  ypos 1990
+ }
+clone $Cb3de1000 {
+  xpos -1660
+  ypos 2064
+  selected false
+ }
+ Dot {
+  name Dot30
+  xpos -1627
+  ypos 2153
+ }
+ Constant {
+  inputs 0
+  color {1.3 1.19 0.8 1}
+  format {{{parent.Constant2.format}}}
+  name Constant1
+  xpos -1480
+  ypos 1886
+ }
+ AdjBBox {
+  numpixels {{parent.growbbox}}
+  name AdjBBox2
+  xpos -1480
+  ypos 1990
+ }
+ Merge2 {
+  inputs 2
+  operation stencil
+  bbox B
+  name Merge16
+  xpos -1480
+  ypos 2150
+ }
+ Blur {
+  size 60
+  name Blur11
+  xpos -1480
+  ypos 2224
+ }
+ Blur {
+  size {{parent.Blur11.size*2}}
+  mix 0.23
+  name Blur17
+  xpos -1480
+  ypos 2304
+  disable {{!parent.smoothblur1}}
+ }
+ Blur {
+  size {{parent.Blur11.size*4}}
+  mix 0.15
+  name Blur18
+  xpos -1480
+  ypos 2384
+  disable {{!parent.smoothblur1}}
+ }
+ Blur {
+  size {{parent.blurshimall}}
+  name Blur14
+  xpos -1480
+  ypos 2464
+ }
+ CopyBBox {
+  inputs 2
+  name CopyBBox2
+  xpos -1480
+  ypos 2550
+ }
+ Saturation {
+  saturation {{parent.satshimall}}
+  name Saturation16
+  xpos -1480
+  ypos 2624
+ }
+ Merge2 {
+  inputs 2
+  operation mask
+  bbox B
+  name Merge19
+  xpos -1480
+  ypos 2704
+  disable {{!parent.cutout1}}
+ }
+ Merge2 {
+  inputs 2
+  operation plus
+  bbox B
+  name Merge23
+  xpos -1480
+  ypos 2870
+  disable {{!parent.addoutline1}}
+ }
+ Group {
+  name MS_cromatic
+  tile_color 0xefb500ff
+  note_font "Verdana Bold Italic"
+  xpos -1480
+  ypos 3030
+  disable {{!parent.abbr_1}}
+  addUserKnob {20 User l "color shift"}
+  addUserKnob {26 _1 l "" +STARTLINE T "<span style=\"color:#aaa;font-family:sans-serif\"><b><span style=\"color:#ffaf24\">MS_Cromatic v.1.0</span></b>"}
+  addUserKnob {26 ""}
+  addUserKnob {7 amount l <b>amount R -0.02 0.02}
+  amount 0.005
+  addUserKnob {41 steps l "&nbsp;&nbsp;quality&nbsp;" -STARTLINE T GodRays1.steps}
+  addUserKnob {26 text_1 l "<span style=\"color:#f00\"><b>Red</b></span>"}
+  addUserKnob {41 translate_3 l translate T GodRays1.translate}
+  addUserKnob {41 size_5 l "blur size" T Blur1.size}
+  addUserKnob {26 text_2 l "<span style=\"color:#0f0\"><b>Green</b></span>"}
+  addUserKnob {7 shiftgreen l "shift green" R -0.02 0.02}
+  addUserKnob {41 translate_4 l translate T GodRays2.translate}
+  addUserKnob {41 size_4 l "blur size" T Blur2.size}
+  addUserKnob {26 text_3 l "<span style=\"color:#00f\"><b>Blue</b></span>"}
+  addUserKnob {6 parentbluetored l "&nbsp;&nbsp;<i>parent blue to red" +STARTLINE}
+  parentbluetored true
+  addUserKnob {7 shiftblue l "shift blue" R -0.02 0.02}
+  addUserKnob {41 translate_5 l translate T GodRays4.translate}
+  addUserKnob {41 size_6 l "blur size" T Blur3.size}
+  addUserKnob {26 ""}
+  addUserKnob {41 maskChannel l "mask channel" T Keymix1.maskChannel}
+  addUserKnob {41 invertMask l invert -STARTLINE T Keymix1.invertMask}
+  addUserKnob {41 mix T Keymix1.mix}
+  addUserKnob {6 keepalpha l "keep alpha" t "keep the alpha from the original" +STARTLINE}
+  keepalpha true
+  addUserKnob {6 crop l "preserve bounding box" t "keep input bounding box" -STARTLINE}
+  crop true
+  addUserKnob {20 fringe}
+  addUserKnob {26 gradeedgefringe l "grade edge fringe"}
+  addUserKnob {6 enablegrade l "enable coloring" +STARTLINE}
+  addUserKnob {41 channels T Grade1.channels}
+  addUserKnob {41 multiply T Grade1.multiply}
+  addUserKnob {41 saturation T Saturation2.saturation}
+  addUserKnob {20 info}
+  addUserKnob {26 text l "" +STARTLINE T "<br><span style=\"color:#aaa;font-family:sans-serif;font-size:7pt\">node created by <b><span style=\"color:#aaaa00\">Johannes Kretschmer</span></b> mail: Jolegodrum@t-online.de - Version 1.0 - 2024 / part of  <span style=\"color:#aaa;font-family:sans-serif\"><b><span style=\"color:#ffaf24\">MANGO SUITE</span></b>\n"}
+  addUserKnob {26 _2 l "" +STARTLINE T "<br><a href=\"https://youtu.be/PcjKT30k1rw\"><b><span style=\"color:#aaa\"><i>watch tutorial</span></b></a>"}
+ }
+  BackdropNode {
+   inputs 0
+   name BackdropNode1
+   tile_color 0x8e8e3800
+   label "cromatic abberation (var_1)"
+   note_font_size 42
+   xpos -651
+   ypos -828
+   bdwidth 780
+   bdheight 598
+  }
+  Input {
+   inputs 0
+   name Input1
+   xpos -400
+   ypos -970
+  }
+  Dot {
+   name Dot1
+   xpos -367
+   ypos -887
+  }
+set Nb8eb5c00 [stack 0]
+  Dot {
+   name Dot2
+   xpos -727
+   ypos -886
+  }
+  Dot {
+   name Dot13
+   xpos -726
+   ypos -166
+  }
+set Nb8ef8400 [stack 0]
+  Shuffle2 {
+   fromInput1 {{0} B}
+   fromInput2 {{0} B}
+   mappings "4 rgba.red 0 0 rgba.red 0 0 rgba.green 0 1 rgba.green 0 1 rgba.blue 0 2 rgba.blue 0 2 white -1 -1 rgba.alpha 0 3"
+   name Shuffle1
+   xpos -760
+   ypos -90
+  }
+  Dot {
+   name Dot3
+   xpos -726
+   ypos -6
+  }
+set Nb8ef8c00 [stack 0]
+  Dot {
+   name Dot7
+   xpos -726
+   ypos 713
+  }
+push $Nb8eb5c00
+  Dot {
+   name Dot21
+   xpos 354
+   ypos -886
+  }
+set Nb8ef9400 [stack 0]
+  Input {
+   inputs 0
+   name mask
+   xpos -40
+   ypos -120
+   number 1
+  }
+  Dot {
+   name Dot6
+   xpos -6
+   ypos -6
+  }
+  Invert {
+   name Invert1
+   xpos -220
+   ypos -16
+  }
+push $Nb8ef8c00
+push $Nb8eb5c00
+  Dot {
+   name Dot29
+   xpos -367
+   ypos -727
+  }
+set Nb8f12400 [stack 0]
+  Dot {
+   name Dot16
+   xpos -187
+   ypos -727
+  }
+  Shuffle2 {
+   fromInput1 {{0} B}
+   fromInput2 {{0} B}
+   mappings "4 rgba.blue 0 2 rgba.blue 0 2 black -1 -1 rgba.red 0 0 black -1 -1 rgba.green 0 1 black -1 -1 rgba.alpha 0 3"
+   name Shuffle12
+   label BLUE
+   xpos -220
+   ypos -656
+  }
+set Nb8f12c00 [stack 0]
+  Dot {
+   name Dot19
+   xpos -7
+   ypos -647
+  }
+  GodRays {
+   channels rgb
+   translate {{(parent.GodRays1.translate.x)*-1} {(parent.GodRays1.translate.y)*-1}}
+   scale {{(1/parent.GodRays1.scale+(Add1.value))+(1-(GodRays1.scale))}}
+   center {{parent.Crop1.box.r/2} {parent.Crop1.box.t/2}}
+   steps {{parent.GodRays1.steps}}
+   name GodRays6
+   label BLUE
+   xpos -39
+   ypos -576
+  }
+  Dot {
+   name Dot18
+   xpos -7
+   ypos -488
+  }
+push $Nb8f12c00
+  GodRays {
+   channels rgb
+   scale {{1+(Add1.value)}}
+   center {{parent.Crop1.box.r/2} {parent.Crop1.box.t/2}}
+   steps {{parent.GodRays1.steps}}
+   name GodRays4
+   label BLUE
+   xpos -219
+   ypos -576
+  }
+  Switch {
+   inputs 2
+   which {{parent.parentbluetored}}
+   name Switch5
+   xpos -220
+   ypos -490
+  }
+  Blur {
+   channels {-rgba.red -rgba.green rgba.blue none}
+   name Blur3
+   xpos -220
+   ypos -410
+  }
+  Dot {
+   name Dot8
+   xpos -187
+   ypos -328
+  }
+push 0
+push $Nb8f12400
+  Dot {
+   name Dot17
+   xpos -550
+   ypos -727
+  }
+  Shuffle2 {
+   fromInput1 {{0} B}
+   fromInput2 {{0} B}
+   mappings "4 rgba.red 0 0 rgba.red 0 0 black -1 -1 rgba.green 0 1 black -1 -1 rgba.blue 0 2 black -1 -1 rgba.alpha 0 3"
+   name Shuffle10
+   label "RED\n"
+   xpos -582
+   ypos -652
+  }
+  GodRays {
+   channels rgb
+   scale {{parent.amount+1}}
+   center {{parent.Crop1.box.r/2} {parent.Crop1.box.t/2}}
+   steps 4
+   name GodRays1
+   label RED
+   xpos -582
+   ypos -576
+  }
+  Blur {
+   channels {rgba.red -rgba.green -rgba.blue none}
+   name Blur1
+   xpos -582
+   ypos -410
+  }
+  Dot {
+   name Dot5
+   xpos -548
+   ypos -326
+  }
+push $Nb8f12400
+  Shuffle2 {
+   fromInput1 {{0} B}
+   fromInput2 {{0} B}
+   mappings "4 rgba.green 0 1 rgba.green 0 1 black -1 -1 rgba.blue 0 2 black -1 -1 rgba.red 0 0 black -1 -1 rgba.alpha 0 3"
+   name Shuffle11
+   label "GREEN\n"
+   xpos -399
+   ypos -656
+  }
+  GodRays {
+   channels rgb
+   scale {{(1/parent.GodRays1.scale)+shiftgreen}}
+   center {{parent.Crop1.box.r/2} {parent.Crop1.box.t/2}}
+   steps {{parent.GodRays1.steps}}
+   name GodRays2
+   label GREEN
+   xpos -400
+   ypos -576
+  }
+  Blur {
+   channels {-rgba.red rgba.green -rgba.blue none}
+   name Blur2
+   xpos -400
+   ypos -410
+  }
+  Merge2 {
+   inputs 3+1
+   operation plus
+   name Merge6
+   xpos -400
+   ypos -330
+  }
+  Keymix {
+   inputs 3
+   name Keymix1
+   xpos -400
+   ypos -15
+  }
+set Nb8f7cc00 [stack 0]
+push $Nb8ef8400
+  Dot {
+   name Dot4
+   xpos -546
+   ypos -166
+  }
+push $Nb8f7cc00
+  Copy {
+   inputs 2
+   from0 rgba.alpha
+   to0 rgba.alpha
+   name Copy1
+   xpos -580
+   ypos 144
+  }
+  Switch {
+   inputs 2
+   which {{!parent.keepalpha}}
+   name keep_alpha
+   xpos -400
+   ypos 150
+  }
+set Nb8f38800 [stack 0]
+  Merge2 {
+   inputs 2
+   operation difference
+   name Merge5
+   xpos 320
+   ypos 150
+  }
+  Saturation {
+   saturation 0
+   name Saturation1
+   xpos 320
+   ypos 230
+  }
+  Shuffle2 {
+   fromInput1 {{0} B}
+   fromInput2 {{0} B}
+   mappings "4 rgba.red 0 0 rgba.red 0 0 rgba.red 0 0 rgba.green 0 1 rgba.red 0 0 rgba.blue 0 2 rgba.red 0 0 rgba.alpha 0 3"
+   name Shuffle9
+   xpos 320
+   ypos 310
+  }
+  Grade {
+   channels rgba
+   whitepoint 0.19
+   white_clamp true
+   name Grade2
+   xpos 320
+   ypos 390
+  }
+  Dot {
+   name Dot22
+   xpos 354
+   ypos 474
+  }
+  Dot {
+   name Dot25
+   xpos -186
+   ypos 474
+  }
+set Nb8fbac00 [stack 0]
+  Dot {
+   name Dot26
+   xpos -186
+   ypos 554
+  }
+push $Nb8fbac00
+push $Nb8f38800
+  Dot {
+   name Dot27
+   xpos -367
+   ypos 394
+  }
+set Nb8fbb400 [stack 0]
+  Grade {
+   inputs 1+1
+   white 1.02
+   multiply {1 0.6708187461 0.05138373375 1}
+   name Grade1
+   xpos -400
+   ypos 472
+  }
+  Saturation {
+   inputs 1+1
+   name Saturation2
+   xpos -400
+   ypos 550
+  }
+push $Nb8fbb400
+  Dot {
+   name Dot28
+   xpos -546
+   ypos 394
+  }
+  Dot {
+   name Dot24
+   xpos -546
+   ypos 634
+  }
+  Switch {
+   inputs 2
+   which {{parent.enablegrade}}
+   name Switch2
+   xpos -400
+   ypos 630
+  }
+  CopyBBox {
+   inputs 2
+   name CopyBBox1
+   xpos -400
+   ypos 710
+  }
+  Crop {
+   box {0 0 {parent.NoOp2.uv.u} {parent.NoOp2.uv.v}}
+   name Crop1
+   xpos -401
+   ypos 790
+   disable {{parent.crop}}
+  }
+  Output {
+   name Output1
+   xpos -400
+   ypos 994
+  }
+push $Nb8ef9400
+  Dot {
+   name Dot20
+   label " input"
+   note_font "Verdana Bold"
+   xpos -186
+   ypos 714
+   hide_input true
+  }
+  NoOp {
+   name NoOp2
+   xpos -220
+   ypos 790
+   addUserKnob {20 User}
+   addUserKnob {30 uv}
+   uv {{"\[value input.format.r]"} {"\[value input.format.t]"}}
+   addUserKnob {6 color_rgba_panelDropped l "panel dropped state" +HIDDEN +STARTLINE}
+   addUserKnob {6 color_rgb_panelDropped l "panel dropped state" +HIDDEN +STARTLINE}
+  }
+  Add {
+   inputs 0
+   value {{parent.shiftblue}}
+   name Add1
+   tile_color 0xa92b2bff
+   xpos -39
+   ypos -408
+   hide_input true
+  }
+ end_group
+ Merge2 {
+  inputs 2
+  operation mask
+  bbox B
+  mix {{parent.mixexclusion}}
+  name Merge25
+  xpos -1480
+  ypos 3190
+  disable {{!parent.enableexclude}}
+ }
+ Multiply {
+  value {{"((clamp(((((measure.distance*2)*100)/(get_res.res.u))-(cl_shimmer_1.y))/(cl_shimmer_1.x-cl_shimmer_1.y), 0, 1))*-1)+1"}}
+  name Multiply36
+  tile_color 0xe9ff55ff
+  label "fade from center"
+  xpos -1480
+  ypos 3258
+  disable {{!parent.ffc_2}}
+ }
+ Multiply {
+  value {{clamp(1-(1*(get_res.formdist)/fadedistance))}}
+  name Multiply20
+  tile_color 0xb4aaffff
+  label "auto fade"
+  xpos -1300
+  ypos 3258
+  disable {{!parent.enableautofade}}
+ }
+push $N2ab3d400
+ Merge2 {
+  inputs 2+1
+  operation plus
+  bbox B
+  Achannels rgb
+  Bchannels rgb
+  mix {{parent.shim1mix*brightshimall*mixall}}
+  name Merge15
+  xpos -940
+  ypos 3270
+  disable {{"enableshimmer==1? element1==1?0:1:1"}}
+ }
+ Merge2 {
+  inputs 2+1
+  operation plus
+  bbox B
+  Achannels rgb
+  Bchannels rgb
+  mix {{parent.shim2mix*brightshimall*mixall}}
+  name Merge18
+  xpos -940
+  ypos 3350
+  disable {{"enableshimmer==1? element2==1?0:1:1"}}
+ }
+ Merge2 {
+  inputs 2
+  name Merge50
+  xpos -940
+  ypos 3430
+  disable {{!parent.dispexmask}}
+ }
+ Merge2 {
+  inputs 2+1
+  operation plus
+  bbox B
+  Achannels rgb
+  Bchannels rgb
+  mix {{parent.shim3mix*brightshimall*mixall}}
+  name Merge26
+  xpos -940
+  ypos 5670
+  disable {{!parent.rainbow}}
+ }
+ Merge2 {
+  inputs 2+1
+  operation plus
+  bbox B
+  Achannels rgb
+  Bchannels rgb
+  mix {{parent.mixbloom*mixall}}
+  name Merge29
+  xpos -940
+  ypos 6470
+  disable {{!parent.enablebloom}}
+ }
+ Multiply {
+  value {{(parent.occlude.sval.r*-1)+1}}
+  name Multiply37
+  label "occlusion ctrl"
+  note_font "Verdana Bold"
+  xpos -940
+  ypos 6696
+  disable {{!parent.occlusion}}
+ }
+ Merge2 {
+  inputs 2
+  name Merge47
+  xpos -940
+  ypos 7590
+  disable {{!parent.guideframe}}
+ }
+ CopyBBox {
+  inputs 2
+  name CopyBBox1
+  xpos -940
+  ypos 7750
+  disable {{!parent.cropout}}
+ }
+ Crop {
+  box {0 0 {parent.get_res.res.u} {parent.get_res.res.v}}
+  name Crop1
+  xpos -940
+  ypos 7830
+  disable {{parent.cropout}}
+ }
+ Output {
+  name Output1
+  xpos -940
+  ypos 7990
+ }
+end_group

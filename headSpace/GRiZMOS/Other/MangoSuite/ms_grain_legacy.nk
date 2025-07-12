@@ -1,0 +1,261 @@
+set cut_paste_input [stack 0]
+version 15.0 v3
+push $cut_paste_input
+Group {
+ name MS_grain
+ tile_color 0xefb500ff
+ note_font "Verdana Bold Italic"
+ selected true
+ xpos 364
+ ypos -170
+ addUserKnob {20 settings}
+ addUserKnob {26 _1 l "" +STARTLINE T "<span style=\"color:#aaa;font-family:sans-serif\"><b><span style=\"color:#ffaf24\">MS_grain v.1.0</span></b>"}
+ addUserKnob {26 ""}
+ addUserKnob {41 seed T Grain2_2.seed}
+ addUserKnob {41 presets l "" -STARTLINE T Grain2_2.presets}
+ addUserKnob {26 _2 l "@b;Size"}
+ addUserKnob {41 red_size l red T Grain2_2.red_size}
+ addUserKnob {41 green_size l green T Grain2_2.green_size}
+ addUserKnob {41 blue_size l blue T Grain2_2.blue_size}
+ addUserKnob {26 "" l "@b;Irregularity"}
+ addUserKnob {41 red_i l red T Grain2_2.red_i}
+ addUserKnob {41 green_i l green T Grain2_2.green_i}
+ addUserKnob {41 blue_i l blue T Grain2_2.blue_i}
+ addUserKnob {26 "" l "@b;Intensity"}
+ addUserKnob {41 red_m l red T Grain2_2.red_m}
+ addUserKnob {41 green_m l green T Grain2_2.green_m}
+ addUserKnob {41 blue_m l blue T Grain2_2.blue_m}
+ addUserKnob {41 black T Grain2_2.black}
+ addUserKnob {26 ""}
+ addUserKnob {6 monocromatic +STARTLINE}
+ addUserKnob {7 saturation}
+ saturation 1
+ addUserKnob {41 size l "blur size" T Blur1.size}
+ addUserKnob {6 freezenoise l "freeze grain" +STARTLINE}
+ addUserKnob {6 outputgrainonly l "output grain only" +STARTLINE}
+ addUserKnob {26 ""}
+ addUserKnob {4 alphaoptions l "alpha options" M {"effect all" "apply through alpha only" "" ""}}
+ alphaoptions "apply through alpha only"
+ addUserKnob {41 maskinvert l "Invert alpha" -STARTLINE T Grain2_2.maskinvert}
+ addUserKnob {41 maskChannelInput l "" +STARTLINE T Merge27.maskChannelInput}
+ addUserKnob {41 invert_mask l invert -STARTLINE T Merge27.invert_mask}
+ addUserKnob {41 mix T Merge27.mix}
+ addUserKnob {20 info}
+ addUserKnob {26 _3 l "" +STARTLINE T "<span style=\"color:#aaa;font-family:sans-serif;font-size:7pt\">node created by <b><span style=\"color:#aaaa00\">Johannes Kretschmer</span></b> mail: Jolegodrum@t-online.de - Version 1.0 - 2022 / part of  <span style=\"color:#aaa;font-family:sans-serif\"><b><span style=\"color:#ffaf24\">MANGO SUITE</span></b>"}
+}
+ Input {
+  inputs 0
+  name obj
+  xpos 500
+  ypos -730
+ }
+ Dot {
+  name Dot53
+  xpos 534
+  ypos -486
+ }
+set Nc33bf800 [stack 0]
+ Dot {
+  name Dot5
+  xpos 354
+  ypos -486
+ }
+set Nc33bf400 [stack 0]
+ Constant {
+  inputs 0
+  color 1
+  name Constant1
+  xpos -40
+  ypos -754
+ }
+ Crop {
+  box {0 0 {parent.getres.uv.u} {parent.getres.uv.v}}
+  reformat true
+  crop false
+  name Crop2
+  xpos -40
+  ypos -650
+ }
+ Dot {
+  name Dot4
+  xpos -6
+  ypos -566
+ }
+set Nd5830000 [stack 0]
+ Copy {
+  inputs 2
+  from0 rgba.alpha
+  to0 rgba.alpha
+  name Copy1
+  xpos 140
+  ypos -496
+ }
+ Shuffle2 {
+  inputs 0
+  fromInput1 {{0} B}
+  fromInput2 {{0} B}
+  mappings "4 rgba.red 0 0 rgba.red 0 0 rgba.green 0 1 rgba.green 0 1 rgba.blue 0 2 rgba.blue 0 2 white -1 -1 rgba.alpha 0 3"
+  name Shuffle2
+  xpos -400
+  ypos -490
+ }
+push $Nd5830000
+ Copy {
+  inputs 2
+  from0 rgba.alpha
+  to0 rgba.alpha
+  name Copy2
+  xpos -220
+  ypos -496
+ }
+ Switch {
+  inputs 2
+  which {{parent.alphaoptions}}
+  name Switch1
+  xpos -40
+  ypos -410
+ }
+ Grain2 {
+  name Grain2_2
+  label "Kodak 5248"
+  selected true
+  xpos -40
+  ypos -336
+  red_m 0.42
+  black {0 0 0}
+  minimum {0 0 0}
+ }
+set Nc7cc6580 [stack 0]
+ Saturation {
+  saturation {{parent.saturation}}
+  name Saturation2
+  xpos -40
+  ypos -250
+ }
+ Saturation {
+  saturation 0
+  name Saturation1
+  xpos -40
+  ypos -170
+  disable {{!parent.monocromatic}}
+ }
+ Blur {
+  name Blur1
+  xpos -40
+  ypos -96
+ }
+ FrameHold {
+  firstFrame 1
+  name FrameHold1
+  xpos -40
+  ypos -16
+  disable {{!parent.freezenoise}}
+ }
+set Nc7cc6b00 [stack 0]
+ Dot {
+  name Dot3
+  xpos -6
+  ypos 314
+ }
+ Input {
+  inputs 0
+  name mask
+  xpos 681
+  ypos -10
+  number 1
+ }
+ Dot {
+  name Dot1
+  xpos 714
+  ypos 154
+ }
+push $Nc7cc6b00
+push $Nc33bf400
+ Dot {
+  name Dot6
+  xpos 354
+  ypos -86
+ }
+set Nc7b30400 [stack 0]
+ Dot {
+  name Dot7
+  xpos 174
+  ypos -86
+ }
+ Merge2 {
+  inputs 2
+  operation multiply
+  name Merge1
+  xpos 140
+  ypos -10
+ }
+ Dot {
+  name Dot8
+  xpos 174
+  ypos 154
+ }
+push $Nc7b30400
+ Merge2 {
+  inputs 2
+  operation minus
+  name Merge2
+  xpos 320
+  ypos 151
+ }
+push $Nc33bf800
+ Remove {
+  channels alpha
+  name Remove1
+  xpos 500
+  ypos -256
+ }
+ Merge2 {
+  inputs 2+1
+  operation plus
+  maskChannelInput -rgba.alpha
+  invert_mask true
+  name Merge27
+  xpos 500
+  ypos 150
+ }
+set Nc7b31c00 [stack 0]
+ Switch {
+  inputs 2
+  which {{parent.outputgrainonly}}
+  name Switch2
+  xpos 500
+  ypos 311
+ }
+ Crop {
+  box {0 0 {parent.getres.uv.u} {parent.getres.uv.v}}
+  name Crop1
+  xpos 500
+  ypos 390
+ }
+ Output {
+  name Output1
+  xpos 500
+  ypos 522
+ }
+ NoOp {
+  inputs 0
+  name getres
+  xpos 680
+  ypos 390
+  hide_input true
+  addUserKnob {20 User}
+  addUserKnob {30 uv}
+  uv {{"\[value input.format.r]"} {"\[value input.format.t]"}}
+ }
+push $Nc7b31c00
+push 0
+push $Nc7cc6580
+ Viewer {
+  inputs 3
+  frame_range 1001-1001
+  monitorOutNDISenderName "NukeX - untitled - Viewer1"
+  name Viewer1
+  xpos -31
+  ypos 473
+ }
+end_group

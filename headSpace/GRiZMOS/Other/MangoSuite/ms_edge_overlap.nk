@@ -1,0 +1,259 @@
+set cut_paste_input [stack 0]
+version 14.0 v2
+push 0
+push 0
+push $cut_paste_input
+Group {
+ inputs 3
+ name MS_edge_overlap
+ tile_color 0xefb500ff
+ note_font "Verdana Bold Italic"
+ selected true
+ xpos 1326
+ ypos 3549
+ addUserKnob {20 _1 l properties}
+ addUserKnob {26 _5 l "" +STARTLINE T "<span style=\"color:#aaa;font-family:sans-serif\"><b><span style=\"color:#ffaf24\">MS_Edge Overlap v.1.0</span></b>"}
+ addUserKnob {26 ""}
+ addUserKnob {6 unmult l "unpremult source" +STARTLINE}
+ unmult true
+ addUserKnob {7 edgethickness_1 l "edge thickness" R 0 20}
+ edgethickness_1 8
+ addUserKnob {41 bluredge l "blur edge" T Blur20.size}
+ addUserKnob {6 premultresult l "premult result" +STARTLINE}
+ premultresult true
+ addUserKnob {26 "" +STARTLINE}
+ addUserKnob {41 blurbg l "blur BG" T Blur1.size}
+ addUserKnob {26 ""}
+ addUserKnob {6 usesolidcolor l "use solid color" t "use a solid color instead of the background\ncolor information. BG input doesn't need to be\nconnected when this box is checked." +STARTLINE}
+ addUserKnob {41 format l "set format" T Constant2.format}
+ addUserKnob {41 color T Constant2.color}
+ addUserKnob {26 ""}
+ addUserKnob {26 "" l mask T ""}
+ addUserKnob {41 maskChannelMask l "" -STARTLINE T Merge29.maskChannelMask}
+ addUserKnob {41 inject -STARTLINE T Merge29.inject}
+ addUserKnob {41 invert_mask l invert -STARTLINE T Merge29.invert_mask}
+ addUserKnob {41 fringe -STARTLINE T Merge29.fringe}
+ addUserKnob {41 mix T Merge29.mix}
+ addUserKnob {20 _2 l info}
+ addUserKnob {26 _3 l "" +STARTLINE T "This node overlaps the background over the\nedges of the foreground object. This can be\nuseful to offset roto edges or hide weird \nedges that after keying.\n\n"}
+ addUserKnob {26 _4 l "" +STARTLINE T "<span style=\"color:#aaa;font-family:sans-serif;font-size:7pt\">node created by <b><span style=\"color:#aaaa00\">Johannes Kretschmer</span></b> mail: Jolegodrum@t-online.de - Version 1.0 - 2022 / part of  <span style=\"color:#aaa;font-family:sans-serif\"><b><span style=\"color:#ffaf24\">MANGO SUITE</span></b>\n\n"}
+}
+ Input {
+  inputs 0
+  name mask
+  xpos 155
+  ypos 1311
+  number 1
+  addUserKnob {20 User}
+  addUserKnob {6 connected +STARTLINE}
+  connected {{"\[exists input1]" x29 0}}
+ }
+ Dot {
+  name Dot1
+  xpos 189
+  ypos 1406
+ }
+ Input {
+  inputs 0
+  name object
+  xpos -254
+  ypos 115
+ }
+ Dot {
+  name Dot6
+  xpos -220
+  ypos 205
+ }
+set Nb4f91000 [stack 0]
+ Dot {
+  name Dot8
+  xpos -67
+  ypos 205
+ }
+ Dot {
+  name Dot7
+  xpos -67
+  ypos 381
+ }
+push $Nb4f91000
+ Unpremult {
+  name Unpremult1
+  xpos -254
+  ypos 285
+ }
+ Switch {
+  inputs 2
+  which {{!parent.unmult x1 0 x97 1}}
+  name Switch1
+  xpos -254
+  ypos 378
+ }
+ Dot {
+  name Dot109
+  xpos -220
+  ypos 459
+ }
+set Nb898c400 [stack 0]
+ Dot {
+  name Dot3
+  xpos -220
+  ypos 788
+ }
+set Nb898c800 [stack 0]
+ FilterErode {
+  channels rgba
+  size -10
+  name FilterErode1
+  xpos -157
+  ypos 785
+ }
+push $Nb898c400
+ Dot {
+  name Dot2
+  xpos 13
+  ypos 459
+ }
+ Invert {
+  name Invert7
+  xpos -21
+  ypos 509
+ }
+ FilterErode {
+  size {{(parent.edgethickness_1-6)*-1}}
+  name FilterErode4
+  xpos -21
+  ypos 595
+ }
+ Blur {
+  size 8
+  name Blur20
+  xpos -21
+  ypos 669
+ }
+ Merge2 {
+  inputs 2
+  operation mask
+  name Merge1
+  xpos -21
+  ypos 785
+ }
+ Constant {
+  inputs 0
+  channels rgb
+  color 1
+  name Constant2
+  selected true
+  xpos 433
+  ypos 847
+ }
+ Dot {
+  name Dot25
+  xpos 467
+  ypos 1005
+ }
+ Input {
+  inputs 0
+  name BG
+  xpos 275
+  ypos 726
+  number 2
+ }
+ Blur {
+  name Blur1
+  xpos 275
+  ypos 883
+ }
+ Switch {
+  inputs 2
+  which {{parent.usesolidcolor}}
+  name Switch4
+  xpos 275
+  ypos 1002
+ }
+ Copy {
+  inputs 2
+  from0 rgba.alpha
+  to0 rgba.alpha
+  name Copy2
+  xpos -21
+  ypos 997
+ }
+ Premult {
+  name Premult4
+  xpos -21
+  ypos 1036
+ }
+ Dot {
+  name Dot112
+  xpos 13
+  ypos 1258
+ }
+push $Nb898c800
+ Merge2 {
+  inputs 2+1
+  name Merge29
+  xpos -254
+  ypos 1403
+ }
+set Nb89ec800 [stack 0]
+ Viewer {
+  frame_range 1-100
+  name Viewer1
+  xpos 51
+  ypos 1611
+ }
+push $Nb898c400
+ Dot {
+  name Dot5
+  xpos -377
+  ypos 459
+ }
+ Dot {
+  name Dot4
+  xpos -377
+  ypos 1533
+ }
+push $Nb89ec800
+ Copy {
+  inputs 2
+  from0 rgba.alpha
+  to0 rgba.alpha
+  name Copy1
+  xpos -254
+  ypos 1525
+ }
+ Dot {
+  name Dot9
+  xpos -220
+  ypos 1667
+ }
+set Nb8a1dc00 [stack 0]
+ Dot {
+  name Dot11
+  xpos -110
+  ypos 1667
+ }
+ Premult {
+  name Premult1
+  xpos -144
+  ypos 1738
+ }
+ Dot {
+  name Dot10
+  xpos -110
+  ypos 1814
+ }
+push $Nb8a1dc00
+ Switch {
+  inputs 2
+  which {{parent.premultresult}}
+  name Switch2
+  xpos -254
+  ypos 1811
+ }
+ Output {
+  name Output1
+  xpos -254
+  ypos 1931
+ }
+end_group

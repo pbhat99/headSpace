@@ -1,0 +1,137 @@
+set cut_paste_input [stack 0]
+version 14.0 v2
+push $cut_paste_input
+Group {
+ name VIEWER_INPUT
+ tile_color 0xefb500ff
+ note_font "Verdana Bold Italic"
+ selected true
+ xpos -455
+ ypos -162
+ addUserKnob {20 User}
+ addUserKnob {26 _1 l "" +STARTLINE T "<span style=\"color:#aaa;font-family:sans-serif\"><b><span style=\"color:#ffaf24\">Viewer Input v.1.0</span></b>"}
+ addUserKnob {26 ""}
+ addUserKnob {26 _2 l "" +STARTLINE T "change the node label to <span style=\"color:#aaa;font-family:sans-serif\"><span style=\"color:#ffaf24\">\"VIEWER_INPUT\"</span>"}
+ addUserKnob {26 ""}
+ addUserKnob {26 csp1 l "<b><span style=\"color:#00aaff\">Colorspace</span> <span style=\"color:#ffff00\">IN\n</span>"}
+ addUserKnob {41 channels T Colorspace1.channels}
+ addUserKnob {41 colorspace_in l input T Colorspace1.colorspace_in}
+ addUserKnob {41 illuminant_in l "" -STARTLINE T Colorspace1.illuminant_in}
+ addUserKnob {41 primary_in l "" -STARTLINE T Colorspace1.primary_in}
+ addUserKnob {41 colorspace_out l output T Colorspace1.colorspace_out}
+ addUserKnob {41 illuminant_out l "" -STARTLINE T Colorspace1.illuminant_out}
+ addUserKnob {41 primary_out l "" -STARTLINE T Colorspace1.primary_out}
+ addUserKnob {41 swap l "swap input/output" T Colorspace1.swap}
+ addUserKnob {41 bradford_matrix l "Bradford matrix" -STARTLINE T Colorspace1.bradford_matrix}
+ addUserKnob {26 ""}
+ addUserKnob {41 channels_1 l channels T Colorspace2.channels}
+ addUserKnob {41 colorspace_in_1 l input T Colorspace2.colorspace_in}
+ addUserKnob {41 illuminant_in_1 l "" -STARTLINE T Colorspace2.illuminant_in}
+ addUserKnob {41 primary_in_1 l "" -STARTLINE T Colorspace2.primary_in}
+ addUserKnob {41 colorspace_out_1 l output T Colorspace2.colorspace_out}
+ addUserKnob {41 illuminant_out_1 l "" -STARTLINE T Colorspace2.illuminant_out}
+ addUserKnob {41 primary_out_1 l "" -STARTLINE T Colorspace2.primary_out}
+ addUserKnob {41 swap_1 l "swap input/output" T Colorspace2.swap}
+ addUserKnob {41 bradford_matrix_1 l "Bradford matrix" -STARTLINE T Colorspace2.bradford_matrix}
+ addUserKnob {26 ""}
+ addUserKnob {26 _4 l "<b><span style=\"color:#00aaff\">vectorfield</span>"}
+ addUserKnob {6 enable +STARTLINE}
+ addUserKnob {41 vfield_file l "vectorfield file" T Vectorfield1.vfield_file}
+ addUserKnob {41 reload T Vectorfield1.reload}
+ addUserKnob {41 file_type l "file type" T Vectorfield1.file_type}
+ addUserKnob {41 interpolation T Vectorfield1.interpolation}
+ addUserKnob {41 gpuExtrapolate l "GPU extrapolate" -STARTLINE T Vectorfield1.gpuExtrapolate}
+ addUserKnob {41 colorspaceIn l "colorspace in" T Vectorfield1.colorspaceIn}
+ addUserKnob {41 colorspaceOut l "colorspace out" T Vectorfield1.colorspaceOut}
+ addUserKnob {26 ""}
+ addUserKnob {20 grade_1 l Grade n 1}
+ addUserKnob {41 blackpoint T Grade1.blackpoint}
+ addUserKnob {41 whitepoint T Grade1.whitepoint}
+ addUserKnob {41 black l lift T Grade1.black}
+ addUserKnob {41 white l gain T Grade1.white}
+ addUserKnob {41 multiply T Grade1.multiply}
+ addUserKnob {41 gamma T Grade1.gamma}
+ addUserKnob {41 add l offset T Grade1.add}
+ addUserKnob {41 saturation T Saturation1.saturation}
+ addUserKnob {41 white_clamp l "white clamp" T Grade1.white_clamp}
+ addUserKnob {41 black_clamp l "black clamp" -STARTLINE T Grade1.black_clamp}
+ addUserKnob {20 endGroup n -1}
+ addUserKnob {20 _3 l "colorspace out" +INVISIBLE n 1}
+ _3 0
+ addUserKnob {26 csp3 l "<b><span style=\"color:#00aaff\">Colorspace</span> <span style=\"color:#ffff00\">OUT\n</span>"}
+ addUserKnob {41 channels_2 l channels T Colorspace3.channels}
+ addUserKnob {41 colorspace_in_2 l input T Colorspace3.colorspace_in}
+ addUserKnob {41 illuminant_in_2 l "" -STARTLINE T Colorspace3.illuminant_in}
+ addUserKnob {41 primary_in_2 l "" -STARTLINE T Colorspace3.primary_in}
+ addUserKnob {41 colorspace_out_2 l output T Colorspace3.colorspace_out}
+ addUserKnob {41 illuminant_out_2 l "" -STARTLINE T Colorspace3.illuminant_out}
+ addUserKnob {41 primary_out_2 l "" -STARTLINE T Colorspace3.primary_out}
+ addUserKnob {41 swap_2 l "swap input/output" T Colorspace3.swap}
+ addUserKnob {41 bradford_matrix_2 l "Bradford matrix" -STARTLINE T Colorspace3.bradford_matrix}
+ addUserKnob {26 ""}
+ addUserKnob {41 channels_3 l channels T Colorspace4.channels}
+ addUserKnob {41 colorspace_in_3 l input T Colorspace4.colorspace_in}
+ addUserKnob {41 illuminant_in_3 l "" -STARTLINE T Colorspace4.illuminant_in}
+ addUserKnob {41 primary_in_3 l "" -STARTLINE T Colorspace4.primary_in}
+ addUserKnob {41 colorspace_out_3 l output T Colorspace4.colorspace_out}
+ addUserKnob {41 illuminant_out_3 l "" -STARTLINE T Colorspace4.illuminant_out}
+ addUserKnob {41 primary_out_3 l "" -STARTLINE T Colorspace4.primary_out}
+ addUserKnob {41 swap_3 l "swap input/output" T Colorspace4.swap}
+ addUserKnob {41 bradford_matrix_3 l "Bradford matrix" -STARTLINE T Colorspace4.bradford_matrix}
+ addUserKnob {20 endGroup_2 l endGroup n -1}
+ addUserKnob {20 info l Info}
+ addUserKnob {26 text l "" +STARTLINE T "<span style=\"color:#aaa;font-family:sans-serif;font-size:7pt\">node created by <b><span style=\"color:#aaaa00\">Johannes Kretschmer</span></b> mail: Jolegodrum@t-online.de - Version 1.0 - 2022 / part of  <span style=\"color:#aaa;font-family:sans-serif\"><b><span style=\"color:#ffaf24\">MANGO SUITE</span></b>\n"}
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos -304
+  ypos -371
+ }
+ Colorspace {
+  name Colorspace1
+  xpos -304
+  ypos -321
+ }
+ Colorspace {
+  name Colorspace2
+  xpos -304
+  ypos -289
+ }
+ Vectorfield {
+  version 1
+  name Vectorfield1
+  selected true
+  xpos -304
+  ypos -155
+  disable {{!parent.enable}}
+ }
+ Grade {
+  black -0.001
+  multiply 1.12
+  black_clamp false
+  name Grade1
+  xpos -304
+  ypos -131
+ }
+ Saturation {
+  name Saturation1
+  xpos -304
+  ypos -107
+ }
+ Colorspace {
+  name Colorspace3
+  xpos -304
+  ypos 58
+ }
+ Colorspace {
+  name Colorspace4
+  xpos -304
+  ypos 94
+ }
+ Output {
+  name Output1
+  xpos -304
+  ypos 166
+ }
+end_group

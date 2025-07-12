@@ -1,0 +1,399 @@
+set cut_paste_input [stack 0]
+version 15.0 v3
+push $cut_paste_input
+Group {
+ name MS_vignette
+ tile_color 0xefb500ff
+ note_font "Verdana Bold Italic"
+ selected true
+ xpos -5260
+ ypos -410
+ addUserKnob {20 settings}
+ addUserKnob {26 _1 l "" +STARTLINE T "<span style=\"color:#aaa;font-family:sans-serif\"><b><span style=\"color:#ffaf24\">MS_Vignette v.1.0</span></b>"}
+ addUserKnob {26 ""}
+ addUserKnob {26 masksettings l "<b>mask settings</b>"}
+ addUserKnob {6 viewmask l "view mask" t "displays a preview of the edge matte used for the effect" +STARTLINE}
+ addUserKnob {41 disable_2 l "invert mask" -STARTLINE T Invert3.disable}
+ addUserKnob {41 scale T Transform1.scale}
+ addUserKnob {7 blursize l "blur size" R 0 1000}
+ blursize 500
+ addUserKnob {26 colorchange l "<b>brightness change</b>"}
+ addUserKnob {6 enablecolorchange l enable +STARTLINE}
+ enablecolorchange true
+ addUserKnob {41 white l gain T MS_brightness.white}
+ addUserKnob {41 add l offset T MS_brightness.add}
+ addUserKnob {41 gamma T MS_brightness.gamma}
+ addUserKnob {41 saturation T Saturation1.saturation}
+ addUserKnob {26 edgecolor l "<b>edge color blur</b>"}
+ addUserKnob {6 enable1 l enable +STARTLINE}
+ addUserKnob {41 channels T Blur2.channels}
+ addUserKnob {41 size T Blur2.size}
+ addUserKnob {26 edgedirectionalblur l "<b>edge blur</b>"}
+ addUserKnob {6 enablegodrays l enable +STARTLINE}
+ enablegodrays true
+ addUserKnob {7 zoomblur l "zoom blur" R 0 0.005}
+ zoomblur 0.0025
+ addUserKnob {7 rotblur l "rotational blur" R 0 0.2}
+ rotblur 0.05
+ addUserKnob {26 ""}
+ addUserKnob {6 crop +STARTLINE}
+ crop true
+ addUserKnob {20 info}
+ addUserKnob {26 _2 l "" +STARTLINE T "<br><span style=\"color:#aaa;font-family:sans-serif;font-size:7pt\">node created by <b><span style=\"color:#aaaa00\">Johannes Kretschmer</span></b> mail: Jolegodrum@t-online.de - Version 1.0 - 2024 / part of  <span style=\"color:#aaa;font-family:sans-serif\"><b><span style=\"color:#ffaf24\">MANGO SUITE</span></b>\n"}
+ addUserKnob {26 _3 l "" +STARTLINE T "<br><a href=\"https://youtu.be/PxVHC596qhU\"><b><span style=\"color:#aaa\"><i>watch tutorial</span></b></a>"}
+}
+ Input {
+  inputs 0
+  name mask
+  xpos -760
+  ypos -10
+  number 1
+ }
+ Invert {
+  name Invert2
+  xpos -760
+  ypos 64
+  disable true
+ }
+ Dot {
+  name Dot7
+  xpos -726
+  ypos 153
+ }
+ Reformat {
+  inputs 0
+  format "1920 1080 0 0 1920 1080 1 HD_1080"
+  name Reformat2
+  xpos -580
+  ypos -410
+ }
+ Roto {
+  output alpha
+  cliptype none
+  curves {{{v x3f99999a}
+  {f 0}
+  {n
+   {layer Root
+    {f 2097664}
+    {t x44f00000 x44870000}
+    {a pt1x 0 pt1y 0 pt2x 0 pt2y 0 pt3x 0 pt3y 0 pt4x 0 pt4y 0 ptex00 0 ptex01 0 ptex02 0 ptex03 0 ptex10 0 ptex11 0 ptex12 0 ptex13 0 ptex20 0 ptex21 0 ptex22 0 ptex23 0 ptex30 0 ptex31 0 ptex32 0 ptex33 0 ptof1x 0 ptof1y 0 ptof2x 0 ptof2y 0 ptof3x 0 ptof3y 0 ptof4x 0 ptof4y 0 pterr 0 ptrefset 0 ptmot x40800000 ptref 0}
+    {curvegroup Ellipse1 512 bezier
+     {{cc
+       {f 8192}
+       {p
+        {xc3ef1e60}
+        {x44702720 xc3a2ae20}
+        {x43ef1e80}
+        {0 xc3ef1e80}
+        {x44e45138 x44072440}
+        {0 x43ef1e80}
+        {x43ef1e80}
+        {x44702720 x44afcfc8}
+        {xc3ef1e60}
+        {0 x43ef1e80}
+        {x42bd5e80 x44072440}
+        {0 xc3ef1e80}}}
+      {cc
+       {f 8192}
+       {p
+        {xc3ef1e60}
+        {}
+        {x43ef1e80}
+        {0 xc3ef1e80}
+        {}
+        {0 x43ef1e80}
+        {x43ef1e80}
+        {}
+        {xc3ef1e60}
+        {0 x43ef1e80}
+        {}
+        {0 xc3ef1e80}}}}
+     {tx 1 x446ff99a x44071334}
+     {a osw x41200000 osf 0 str 1 spx x44f00000 spy x44870000 sb 1 tt x40e00000}}}}}}
+  toolbox {selectAll {
+  { selectAll str 1 ssx 1 ssy 1 sf 1 }
+  { createBezier str 1 ssx 1 ssy 1 sf 1 sb 1 tt 4 }
+  { createBezierCusped str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { createBSpline str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { createEllipse str 1 ssx 1 ssy 1 sf 1 sb 1 tt 7 }
+  { createRectangle str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { createRectangleCusped str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { brush str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { eraser src 2 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { clone src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { reveal src 3 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { dodge src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { burn src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { blur src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { sharpen src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+  { smear src 1 str 1 ssx 1 ssy 1 sf 1 sb 1 }
+} }
+  toolbar_brush_hardness 0.200000003
+  toolbar_source_transform_scale {1 1}
+  toolbar_source_transform_center {1920 1080}
+  colorOverlay {0 0 0 0}
+  lifetime_type "all frames"
+  motionblur_shutter_offset_type centred
+  source_black_outside true
+  name Roto1
+  xpos -580
+  ypos -336
+ }
+ Reformat {
+  type "to box"
+  box_width {{parent.input_resolution.uv.u}}
+  box_height {{parent.input_resolution.uv.v}}
+  box_fixed true
+  pbb true
+  name Reformat1
+  xpos -580
+  ypos -250
+ }
+ Blur {
+  size {{parent.blursize}}
+  crop false
+  name Blur1
+  xpos -580
+  ypos -176
+ }
+ Transform {
+  scale 0.8
+  center {{parent.input_resolution.uv/2} {parent.input_resolution.uv/2}}
+  name Transform1
+  xpos -580
+  ypos -90
+ }
+ Shuffle2 {
+  fromInput1 {{0} B}
+  fromInput2 {{0} B}
+  mappings "4 rgba.alpha 0 3 rgba.red 0 0 rgba.alpha 0 3 rgba.green 0 1 rgba.alpha 0 3 rgba.blue 0 2 rgba.alpha 0 3 rgba.alpha 0 3"
+  name Shuffle2
+  xpos -580
+  ypos -10
+ }
+ Invert {
+  name Invert1
+  xpos -580
+  ypos 64
+ }
+ Merge2 {
+  inputs 2
+  operation stencil
+  name Merge1
+  xpos -580
+  ypos 150
+ }
+ Dot {
+  name Dot5
+  xpos -547
+  ypos 233
+ }
+set Nf0f52800 [stack 0]
+ Dot {
+  name Dot6
+  xpos -547
+  ypos 313
+ }
+set Nf0f52c00 [stack 0]
+ Dot {
+  name Dot4
+  xpos -547
+  ypos 473
+ }
+set Nf0f53000 [stack 0]
+ Dot {
+  name Dot2
+  xpos -547
+  ypos 553
+ }
+set Nf0f53400 [stack 0]
+ Invert {
+  name Invert3
+  xpos -580
+  ypos 624
+ }
+ Dot {
+  name Dot3
+  xpos -547
+  ypos 713
+ }
+push $Nf0f53400
+push $Nf0f53000
+push $Nf0f52c00
+push $Nf0f52800
+ Input {
+  inputs 0
+  name Input1
+  xpos -400
+  ypos 70
+ }
+ Dot {
+  name Dot1
+  xpos -367
+  ypos 153
+ }
+set Nea156400 [stack 0]
+ Blur {
+  inputs 1+1
+  channels {rgba.red -rgba.green -rgba.blue none}
+  size 1.4
+  name Blur2
+  xpos -400
+  ypos 230
+  disable {{!parent.enable1}}
+ }
+set Nea156800 [stack 0]
+ GodRays {
+  inputs 1+1
+  rotate {{(parent.GodRays1.rotate)*-1}}
+  scale {{parent.zoomblur+1}}
+  center {{"\[value input.format.r]/2"} {"\[value input.format.t]/2"}}
+  name GodRays2
+  xpos -220
+  ypos 304
+  disable {{!parent.enablegodrays}}
+ }
+push $Nf0f52c00
+push $Nea156800
+ GodRays {
+  inputs 1+1
+  rotate {{parent.rotblur}}
+  scale {{parent.zoomblur+1}}
+  center {{"\[value input.format.r]/2"} {"\[value input.format.t]/2"}}
+  name GodRays1
+  xpos -400
+  ypos 304
+  disable {{!parent.enablegodrays}}
+ }
+ Merge2 {
+  inputs 2
+  operation max
+  name Merge2
+  selected true
+  xpos -400
+  ypos 390
+ }
+ Group {
+  inputs 2
+  name MS_brightness
+  tile_color 0xefb500ff
+  note_font "Verdana Bold Italic"
+  xpos -400
+  ypos 470
+  disable {{!parent.enablecolorchange}}
+  addUserKnob {20 grade}
+  addUserKnob {6 color_rgb_panelDropped l "panel dropped state" +HIDDEN +STARTLINE}
+  addUserKnob {26 _4 l "" +STARTLINE T "<span style=\"color:#aaa;font-family:sans-serif\"><b><span style=\"color:#ffaf24\">MS_Brightness v.1.0</span></b>"}
+  addUserKnob {26 ""}
+  addUserKnob {41 blackpoint T GradeBRIGHT.blackpoint}
+  addUserKnob {41 whitepoint T GradeBRIGHT.whitepoint}
+  addUserKnob {41 black l lift T GradeBRIGHT.black}
+  addUserKnob {41 white l gain T GradeBRIGHT.white}
+  addUserKnob {41 multiply T GradeBRIGHT.multiply}
+  addUserKnob {41 add l offset T GradeBRIGHT.add}
+  addUserKnob {41 gamma T GradeBRIGHT.gamma}
+  addUserKnob {41 reverse T GradeBRIGHT.reverse}
+  addUserKnob {41 black_clamp l "black clamp" -STARTLINE T GradeBRIGHT.black_clamp}
+  addUserKnob {41 white_clamp l "white clamp" -STARTLINE T GradeBRIGHT.white_clamp}
+  addUserKnob {26 "" l mask T ""}
+  addUserKnob {41 maskChannelInput l "" -STARTLINE T GradeBRIGHT.maskChannelInput}
+  addUserKnob {41 inject -STARTLINE T GradeBRIGHT.inject}
+  addUserKnob {41 invert_mask l invert -STARTLINE T GradeBRIGHT.invert_mask}
+  addUserKnob {41 fringe -STARTLINE T GradeBRIGHT.fringe}
+  addUserKnob {41 unpremult l "(un)premult by" T GradeBRIGHT.unpremult}
+  addUserKnob {41 invert_unpremult l invert -STARTLINE T GradeBRIGHT.invert_unpremult}
+  addUserKnob {26 "" l "mix luminance" T ""}
+  addUserKnob {41 enable_mix_luminance l "" -STARTLINE T GradeBRIGHT.enable_mix_luminance}
+  addUserKnob {41 mix_luminance l "" -STARTLINE T GradeBRIGHT.mix_luminance}
+  addUserKnob {41 mix T GradeBRIGHT.mix}
+  addUserKnob {20 _2 l info}
+  addUserKnob {26 _5 l "" +STARTLINE T "This nodelets you affect just the brightness\nwithout changing the saturation like a normal\ngrade would do.\n\n"}
+  addUserKnob {26 _3 l "" +STARTLINE T "<span style=\"color:#aaa;font-family:sans-serif;font-size:7pt\">node created by <b><span style=\"color:#aaaa00\">Johannes Kretschmer</span></b> mail: Jolegodrum@t-online.de - Version 1.0 - 2022 / part of  <span style=\"color:#aaa;font-family:sans-serif\"><b><span style=\"color:#ffaf24\">MANGO SUITE</span></b>\n"}
+ }
+  Input {
+   inputs 0
+   name mask
+   xpos -241
+   ypos 250
+   number 1
+   addUserKnob {20 User}
+   addUserKnob {6 connected +STARTLINE}
+   connected {{"\[exists input1]"}}
+  }
+  Dot {
+   name Dot9
+   xpos -208
+   ypos 547
+  }
+  Input {
+   inputs 0
+   name Input1
+   xpos -565
+   ypos 310
+  }
+  Colorspace {
+   colorspace_out HSV
+   name Colorspace13
+   xpos -565
+   ypos 470
+  }
+  Grade {
+   inputs 1+1
+   channels {-rgba.red -rgba.green rgba.blue none}
+   white 0.9
+   maskChannelInput {{{parent.GradeMaster.maskChannelInput}}}
+   unpremult {{{parent.GradeMaster.unpremult}}}
+   name GradeBRIGHT
+   selected true
+   xpos -565
+   ypos 544
+  }
+  Colorspace {
+   colorspace_in HSV
+   name Colorspace14
+   xpos -565
+   ypos 636
+  }
+  Output {
+   name Output1
+   xpos -565
+   ypos 790
+  }
+ end_group
+ Saturation {
+  inputs 1+1
+  name Saturation1
+  xpos -400
+  ypos 550
+ }
+ Switch {
+  inputs 2
+  which {{parent.viewmask}}
+  name Switch1
+  xpos -400
+  ypos 710
+ }
+ Crop {
+  box {0 0 {parent.input_resolution.uv.u} {parent.input_resolution.uv.v}}
+  name Crop1
+  xpos -400
+  ypos 789
+  disable {{!parent.crop}}
+ }
+ Output {
+  name Output1
+  xpos -400
+  ypos 869
+ }
+push $Nea156400
+ NoOp {
+  name input_resolution
+  xpos -220
+  ypos 151
+  addUserKnob {20 User}
+  addUserKnob {30 uv}
+  uv {{"\[value input.format.r]"} {"\[value input.format.t]"}}
+  addUserKnob {6 color_rgba_panelDropped l "panel dropped state" +HIDDEN +STARTLINE}
+  addUserKnob {6 color_rgb_panelDropped l "panel dropped state" +HIDDEN +STARTLINE}
+ }
+end_group
