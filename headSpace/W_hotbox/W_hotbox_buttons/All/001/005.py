@@ -52,8 +52,8 @@ def reformThat():
     #if one of the nodes happens to have one, use that node. 
     if len(selection) == 2:
         for i in selection[::-1]:
-	    if i.Class() != 'Read' and 'format' in i.knobs():
-	        reformatNode = i
+            if i.Class() != 'Read' and 'format' in i.knobs():
+                reformatNode = i
                 selection.remove(i)
                 break
                 
