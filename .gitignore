@@ -1,16 +1,8 @@
 
 *.pyc
-uistate.ini
-FileChooser_Favorites.pref
-recent_files
-Scripts/tab_stats.dat
-KS3/py_state.txt
 *.autosave
-ScriptEditorHistory.xml
-Cattery/*
 headSpace/stamps/includes/tab_stats.dat
-
-
+_old/
 
 
 # Windows
