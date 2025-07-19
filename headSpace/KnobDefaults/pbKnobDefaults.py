@@ -17,6 +17,11 @@ nuke.knobDefault('PostageStamp.hide_input','1')
 nuke.knobDefault('DirBlurWrapper.BlurType','linear')
 
 # BBox
+# No Clip to format
+bBox = ["Merge2", "Keymix", "Copy", "ChannelMerge"]
+for node in bBox:
+    nuke.knobDefault(f"{node}.bbox", "B")
+
 nuke.knobDefault('Merge2.bbox','B')
 nuke.knobDefault('Keymix.bbox','B')
 
