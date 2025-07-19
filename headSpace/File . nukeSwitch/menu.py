@@ -1,0 +1,2 @@
+nuke.menu("Nuke").addCommand('File/re-Launch Nuke Script', 'import nukeSwitch ; nukeSwitch.reLaunchNuke()', index = -3, icon = 'pbicon.png')
+nuke.menu("Nuke").addCommand('File/Switch nukeX', 'import nukeSwitch ; nukeSwitch.nukeXSwitch()', index = -4, icon = 'pbicon.png')
