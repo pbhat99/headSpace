@@ -17,7 +17,9 @@ def pbAutoLabel():
         nuke.knob("this.indicators", str(ind))
     
     aLabel = []
+
     n = nuke.thisNode()
+
     if n.Class() == "Defocus":
         addIndicators()
         aLabel.append(n.name() + ' [' + str(round(n['defocus'].value(), 2)).strip('.0')+ ']')
@@ -32,13 +34,44 @@ def pbAutoLabel():
         aLabel.append(n["label"].evaluate() or "")
         return "\n".join(aLabel).strip()
 
-    if n.Class() == "Transform":
+    if n.Class() in ("Transform"):
         addIndicators()
         aLabel.append(n.name())
         aLabel if n["invert_matrix"].value() == False else aLabel.append('[inverted]')
         aLabel if n["motionblur"].value() == False else aLabel.append('[mb : ' + str(n['motionblur'].value()).rstrip('.0') + ' ~ ' +  str(n['shutter'].value()).rstrip('.0') + ']')
         aLabel.append(n["label"].evaluate() or "")
         return "\n".join(aLabel).strip()
+
+    if n.Class() in ("CornerPin2D"):
+        addIndicators()
+        aLabel.append(n.name())
+        aLabel if n["invert"].value() == False else aLabel.append('[inverted]')
+        aLabel if n["motionblur"].value() == False else aLabel.append('[mb : ' + str(n['motionblur'].value()).rstrip('.0') + ' ~ ' +  str(n['shutter'].value()).rstrip('.0') + ']')
+        aLabel.append(n["label"].evaluate() or "")
+        return "\n".join(aLabel).strip()
+
+    if n.Class() in ("Tracker4"):
+        addIndicators()
+        aLabel.append(n.name() + ' [' + trimTo2Dec(n['reference_frame'].value()) + ']' )
+        aLabel if n["transform"].value() == 'none' else aLabel.append(n["transform"].value())
+        aLabel if n["motionblur"].value() == False else aLabel.append('[mb : ' + str(n['motionblur'].value()).rstrip('.0') + ' ~ ' +  str(n['shutter'].value()).rstrip('.0') + ']')
+        aLabel.append(n["label"].evaluate() or "")
+        return "\n".join(aLabel).strip()
+
+
+    # if n.Class() == "Mirror2":
+    #     addIndicators()
+    #     if n["flip"].value() == True:
+    #         icnFlip = '[&#8644;]'
+    #     elif n["flop"].value() == True:
+    #         icnFlop = '[&#8645;]'
+    #     else:
+    #         icnFlip = ''
+    #         icnFlop = ''
+    #     aLabel.append(n.name())
+    #     aLabel.append(icnFlip + icnFlop)
+    #     aLabel.append(n["label"].evaluate() or "")
+    #     return "\n".join(aLabel).strip()
 
     if n.Class() == "TimeClip":
         addIndicators()
@@ -54,7 +87,7 @@ def pbAutoLabel():
         aLabel.append(n["label"].evaluate() or "")
         return "\n".join(aLabel).strip()
 
-    if n.Class() == "Remove":
+    if n.Class() in ("Remove"):
         addIndicators()
         aLabel.append(n.name() + ' [' + str(n['operation'].value())+ ']')
         aLabel if n["channels"].value() == "none" else aLabel.append('(' + str(n["channels"].value() + ')'))
