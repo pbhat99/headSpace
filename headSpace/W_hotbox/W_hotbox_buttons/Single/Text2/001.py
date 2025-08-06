@@ -2,9 +2,9 @@
 #
 # AUTOMATICALLY GENERATED FILE TO BE USED BY W_HOTBOX
 #
-# NAME: scriptName
+# NAME: Label
 #
 #----------------------------------------------------------------------------------------------------------
 
-for i in nuke.selectedNodes():
-        i.knob('message').setValue("[lindex [split [file rootname [python nuke.root().knob('name').value()]] /] end]")
+for n in nuke.selectedNodes():
+    n['label'].setValue('[value message]')

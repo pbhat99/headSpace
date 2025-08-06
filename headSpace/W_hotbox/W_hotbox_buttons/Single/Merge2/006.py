@@ -2,16 +2,18 @@
 #
 # AUTOMATICALLY GENERATED FILE TO BE USED BY W_HOTBOX
 #
-# NAME: rgb
+# NAME: conjoint/disjoint/over
 #
 #----------------------------------------------------------------------------------------------------------
 
 for i in nuke.selectedNodes():
-    if i.knob('Achannels').value() == 'alpha':
-        i.knob('Achannels').setValue('rgba')
-        i.knob('Bchannels').setValue('rgba')
-    elif i.knob('Achannels').value() == 'rgba':
-        i.knob('Bchannels').setValue('all')
-        i.knob('Bchannels').setValue('all')
+    if i.knob('operation').value() == 'over':
+        i.knob('operation').setValue('conjoint-over')
+    elif i.knob('operation').value() == 'conjoint-over':
+        i.knob('operation').setValue('disjoint-over')
+    elif i.knob('operation').value() == 'disjoint-over':
+        i.knob('operation').setValue('over')
     else:
-        i.knob('Achannels').setValue('alpha')
+        i.knob('operation').setValue('over')
+        
+        

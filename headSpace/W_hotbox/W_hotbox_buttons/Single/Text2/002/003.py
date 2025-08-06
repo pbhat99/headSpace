@@ -2,15 +2,9 @@
 #
 # AUTOMATICALLY GENERATED FILE TO BE USED BY W_HOTBOX
 #
-# NAME: TR
+# NAME: scriptName
 #
 #----------------------------------------------------------------------------------------------------------
 
-safeArea = nuke.root()['format'].value().width()*.005+nuke.root()['format'].value().height()*.005
-
 for i in nuke.selectedNodes():
-    
-    i.knob('xjustify').setValue('right')
-    i.knob('yjustify').setValue('top')
-    
-    i.knob('box').setValue([safeArea,safeArea,nuke.root()['format'].value().width()-safeArea,nuke.root()['format'].value().height()-safeArea])
+        i.knob('message').setValue("[lindex [split [file rootname [python nuke.root().knob('name').value()]] /] end]")
