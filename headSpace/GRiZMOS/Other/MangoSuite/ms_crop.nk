@@ -1,0 +1,82 @@
+set cut_paste_input [stack 0]
+version 15.1 v6
+push $cut_paste_input
+Group {
+ name ms_crop
+ tile_color 0xefb500ff
+ note_font "Verdana Bold Italic"
+ selected true
+ xpos 320
+ ypos -1130
+ addUserKnob {20 settings}
+ addUserKnob {26 _1 l "" +STARTLINE T "<span style=\"color:#aaa;font-family:sans-serif\"><b><span style=\"color:#ffaf24\">MS_Crop v.1.0</span></b>"}
+ addUserKnob {26 "" +STARTLINE}
+ addUserKnob {4 cropto l "crop to" M {format bbox}}
+ addUserKnob {6 ref l reformat t "\nReformats to the bounding box. \nThis will not filter the footage since it is just growing or shrinking the existing format " -STARTLINE}
+ addUserKnob {7 soft l softness R 0 100}
+ addUserKnob {7 growbox l grow R -200 200}
+ addUserKnob {6 aspect l "keep aspect ratio" t "\nWhen this is checked the grow slider will grow the formats bounds (width and height) differently to maintain the aspect ratio.\nThe value of the grow slider then refers to pixels in width." -STARTLINE}
+ aspect true
+ addUserKnob {20 info}
+ addUserKnob {26 _2 l "" +STARTLINE T "<br><span style=\"color:#aaa;font-family:sans-serif;font-size:7pt\">node created by <b><span style=\"color:#aaaa00\">Johannes Kretschmer</span></b> mail: Jolegodrum@t-online.de - Version 1.0 - 2025 / part of  <span style=\"color:#aaa;font-family:sans-serif\"><b><span style=\"color:#ffaf24\">MANGO SUITE</span></b>\n"}
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos 140
+  ypos -810
+ }
+set Na9fa7400 [stack 0]
+ NoOp {
+  name get
+  xpos 140
+  ypos -650
+  addUserKnob {20 User}
+  addUserKnob {30 uv}
+  uv {{"\[value input.format.r]"} {"\[value input.format.t]"}}
+  addUserKnob {7 asp l "format aspect" R 0 3}
+  asp {{"uv.u/uv.v<0 ? uv.v/uv.u : uv.u/uv.v"}}
+ }
+set N81c04800 [stack 0]
+ Crop {
+  box {{"((\[value input.bbox.r]-\[value input.format.r])*-1)-growbox"} {"aspect==1 ? ((\[value input.bbox.t]-\[value input.format.t])*-1)-(growbox/get.asp) : ((\[value input.bbox.t]-\[value input.format.t])*-1)-(growbox)"} {"(\[value input.bbox.r])+growbox"} {"aspect==1 ? (\[value input.bbox.t])+(growbox/get.asp) : (\[value input.bbox.t])+(growbox)"}}
+  softness {{parent.soft}}
+  reformat {{parent.ref}}
+  name Crop3
+  label bbox
+  xpos 320
+  ypos -576
+ }
+push $N81c04800
+ Crop {
+  box {{0-growbox} {"aspect==1 ? 0-(growbox/get.asp) : 0-growbox"} {"\[value input.format.r]+growbox"} {"aspect==1 ? \[value input.format.t]+(growbox/get.asp) : \[value input.format.t]+growbox"}}
+  softness {{parent.soft}}
+  reformat {{parent.ref}}
+  name Crop1
+  label format
+  xpos -40
+  ypos -576
+ }
+ Switch {
+  inputs 2
+  which {{parent.cropto}}
+  name Switch1
+  xpos 140
+  ypos -490
+ }
+ Output {
+  name Output1
+  xpos 140
+  ypos -330
+ }
+push $Na9fa7400
+ Viewer {
+  frame_range 1000-1240
+  viewerProcess "sRGB (ACES)"
+  monitorOutNDISenderName "NukeX - crosshair update - Viewer1"
+  name Viewer1
+  xpos -580
+  ypos -890
+  hide_input true
+ }
+end_group

@@ -1,0 +1,213 @@
+set cut_paste_input [stack 0]
+version 15.1 v6
+push $cut_paste_input
+Group {
+ name ms_multiramp
+ tile_color 0xefb500ff
+ note_font "Verdana Bold Italic"
+ selected true
+ xpos -400
+ ypos -410
+ addUserKnob {20 settings}
+ addUserKnob {26 text l "" +STARTLINE T "<span style=\"color:#aaa;font-family:sans-serif\"><b><span style=\"color:#ffaf24\">MS_Multiramp v.1.0</span></b>"}
+ addUserKnob {26 ""}
+ addUserKnob {12 topleft l "top left"}
+ topleft {50 250}
+ addUserKnob {6 enable1 l enable -STARTLINE}
+ addUserKnob {12 topright l "top right"}
+ topright {400 250}
+ addUserKnob {12 bottomright l "bottom right"}
+ bottomright {400 50}
+ addUserKnob {6 enable2 l enable -STARTLINE}
+ addUserKnob {12 bottomleft l "bottom left"}
+ bottomleft {50 50}
+ addUserKnob {41 setToCurrentFrame l "freeze on current frame" T FrameHold1.setToCurrentFrame}
+ addUserKnob {6 enablefreeze l "" -STARTLINE}
+ enablefreeze true
+ addUserKnob {26 ""}
+ addUserKnob {7 range t "\nrange of gradient/ramp" R 0.05 1}
+ range 0.9
+ addUserKnob {4 mergemode l mode t "\ndecide wheter colors are being overed or averaged\n" M {over average}}
+ addUserKnob {6 smoothramp l "smooth ramp" -STARTLINE}
+ smoothramp true
+ addUserKnob {20 info}
+ addUserKnob {26 _1 l "" +STARTLINE T "<br><span style=\"color:#aaa;font-family:sans-serif;font-size:7pt\">node created by <b><span style=\"color:#aaaa00\">Johannes Kretschmer</span></b> mail: Jolegodrum@t-online.de - Version 1.0 - 2025 / part of  <span style=\"color:#aaa;font-family:sans-serif\"><b><span style=\"color:#ffaf24\">MANGO SUITE</span></b>\n"}
+}
+ Input {
+  inputs 0
+  name Input1
+  xpos 320
+  ypos -650
+ }
+ NoOp {
+  name picker
+  xpos 320
+  ypos -489
+  addUserKnob {20 User}
+  addUserKnob {18 topleft1 l "top left"}
+  topleft1 {{"\[sample this red topleft.x topleft.y]"} {"\[sample this green topleft.x topleft.y]"} {"\[sample this blue topleft.x topleft.y]"}}
+  addUserKnob {6 topleft1_panelDropped l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 color_rgb_panelDropped l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {18 topright1 l "top right"}
+  topright1 {{"\[sample this red topright.x topright.y]"} {"\[sample this green topleft.x topleft.y]"} {"\[sample this blue topright.x topright.y]"}}
+  addUserKnob {6 topright1_panelDropped l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 color_rgb_1_panelDropped l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {18 bottomright1 l "bottom right"}
+  bottomright1 {{"\[sample this red bottomright.x bottomright.y]"} {"\[sample this green bottomright.x bottomright.y]"} {"\[sample this blue bottomright.x bottomright.y]"}}
+  addUserKnob {6 bottomright1_panelDropped l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 color_rgb_2_panelDropped l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {18 bottomleft1 l "bottom left"}
+  bottomleft1 {{"\[sample this red bottomleft.x bottomleft.y]"} {"\[sample this green bottomleft.x bottomleft.y]"} {"\[sample this blue bottomleft.x bottomleft.y]"}}
+  addUserKnob {6 bottomleft1_panelDropped l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 color_rgb_3_panelDropped l "panel dropped state" -STARTLINE +HIDDEN}
+ }
+ Remove {
+  name Remove1
+  xpos 320
+  ypos -416
+ }
+ Dot {
+  name Dot1
+  xpos 353
+  ypos -327
+ }
+set Naee4ec00 [stack 0]
+ Ramp {
+  p0 {{lerp(parent.topright,topright,range*-1+1)} {lerp(parent.topright,topright,range*-1+1)}}
+  p1 {{parent.bottomleft} {parent.bottomleft}}
+  type smooth
+  name Ramp4
+  tile_color 0xe9ff55ff
+  label "Bottom Left"
+  xpos 1040
+  ypos -176
+ }
+ Colorspace {
+  colorspace_in sRGB
+  name Colorspace4
+  xpos 1040
+  ypos -90
+  disable {{!parent.smoothramp}}
+ }
+ Grade {
+  white {{parent.picker.bottomleft1} {parent.picker.bottomleft1} {parent.picker.bottomleft1} {parent.picker.bottomleft1}}
+  name Grade4
+  xpos 1040
+  ypos 70
+ }
+set Naee4f800 [stack 0]
+push $Naee4ec00
+ Ramp {
+  p0 {{lerp(parent.topleft,bottomright,range*-1+1)} {lerp(parent.topleft,bottomright,range*-1+1)}}
+  p1 {{parent.bottomright} {parent.bottomright}}
+  type smooth
+  name Ramp3
+  tile_color 0xffd455ff
+  label "Bottom Right"
+  xpos 680
+  ypos -175
+ }
+ Colorspace {
+  colorspace_in sRGB
+  name Colorspace3
+  xpos 680
+  ypos -90
+  disable {{!parent.smoothramp}}
+ }
+ Grade {
+  white {{parent.picker.bottomright1} {parent.picker.bottomright1} {parent.picker.bottomright1} {parent.picker.bottomright1}}
+  name Grade3
+  xpos 680
+  ypos 70
+ }
+set Na7b72400 [stack 0]
+push 0
+push $Naee4ec00
+ Ramp {
+  p0 {{lerp(parent.bottomright,topleft,range*-1+1)} {lerp(parent.bottomright,topleft,range*-1+1)}}
+  p1 {{parent.topleft} {parent.topleft}}
+  type smooth
+  name Ramp2
+  tile_color 0xff5555ff
+  label "Top Left"
+  xpos -400
+  ypos -175
+ }
+ Colorspace {
+  colorspace_in sRGB
+  name Colorspace1
+  xpos -400
+  ypos -90
+  disable {{!parent.smoothramp}}
+ }
+ Grade {
+  white {{parent.picker.topleft1} {parent.picker.topleft1} {parent.picker.topleft1} {parent.picker.topleft1}}
+  name Grade1
+  xpos -400
+  ypos 70
+ }
+set Na7b73000 [stack 0]
+push $Naee4ec00
+ Ramp {
+  p0 {{"lerp(parent.bottomleft,topright,range*-1+1)\n"} {lerp(parent.bottomleft,topright,range*-1+1)}}
+  p1 {{parent.topright} {parent.topright}}
+  type smooth
+  name Ramp1
+  tile_color 0xff9455ff
+  label "Top Right"
+  xpos -40
+  ypos -175
+ }
+ Colorspace {
+  colorspace_in sRGB
+  name Colorspace2
+  xpos -40
+  ypos -90
+  disable {{!parent.smoothramp}}
+ }
+ Grade {
+  white {{parent.picker.topright1} {parent.picker.topright1} {parent.picker.topright1} {parent.picker.topright1}}
+  name Grade2
+  xpos -40
+  ypos 70
+ }
+set Na7b73c00 [stack 0]
+ Merge2 {
+  inputs 4+1
+  operation average
+  name Merge1
+  xpos -40
+  ypos 230
+ }
+push $Na7b73000
+push $Naee4f800
+push $Na7b72400
+push 0
+push $Na7b73c00
+push 0
+ Merge2 {
+  inputs 5+1
+  name Merge2
+  xpos 680
+  ypos 230
+ }
+ Switch {
+  inputs 2
+  which {{parent.mergemode}}
+  name Switch1
+  xpos 320
+  ypos 310
+ }
+ FrameHold {
+  firstFrame 1001
+  name FrameHold1
+  xpos 320
+  ypos 384
+  disable {{!parent.enablefreeze}}
+ }
+ Output {
+  name Output1
+  xpos 320
+  ypos 710
+ }
+end_group

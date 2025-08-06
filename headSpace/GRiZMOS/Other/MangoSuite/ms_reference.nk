@@ -1,15 +1,13 @@
 set cut_paste_input [stack 0]
-version 15.1 v3
-push 0
+version 15.1 v6
 push $cut_paste_input
 Group {
- inputs 2
- name MS_reference
+ name MS_reference1
  tile_color 0xefb500ff
  note_font "Verdana Bold Italic"
  selected true
- xpos -40
- ypos -118
+ xpos -940
+ ypos 870
  addUserKnob {20 settings}
  addUserKnob {26 _2 l "" +STARTLINE T "<span style=\"color:#aaa;font-family:sans-serif\"><b><span style=\"color:#ffaf24\">MS_Reference v.1.0</span></b>"}
  addUserKnob {26 ""}
@@ -17,7 +15,7 @@ Group {
  position {960 540}
  addUserKnob {22 setcenter l "set center" -STARTLINE T "n = nuke.thisGroup()\nw = n.width()\nh = n.height()\nprint (w,h)\nn\['position'].setValue(\[w/2,h/2])"}
  addUserKnob {7 scale1 l scale R 0 2}
- scale1 1
+ scale1 0.8
  addUserKnob {7 rotation1 l rotate R -180 180}
  addUserKnob {41 mix T Merge1.mix}
  addUserKnob {26 ""}
@@ -38,36 +36,41 @@ Group {
   inputs 0
   name ref
   xpos -580
-  ypos -410
+  ypos -490
   number 1
  }
- Reformat {
-  type "to box"
-  box_width {{parent.NoOp1.inres1.u}}
-  box_height 2610
-  box_pixel_aspect {{parent.NoOp1.pixlsp}}
-  black_outside true
-  pbb true
-  name Reformat1
-  label width
+ Shuffle2 {
+  fromInput1 {{0} B}
+  fromInput2 {{0} B}
+  mappings "4 rgba.red 0 0 rgba.red 0 0 rgba.green 0 1 rgba.green 0 1 rgba.blue 0 2 rgba.blue 0 2 white -1 -1 rgba.alpha 0 3"
+  name Shuffle2
+  label "\[value in1]"
   xpos -580
-  ypos -256
+  ypos -336
  }
  NoOp {
   name NoOp2
   xpos -580
-  ypos -170
+  ypos -250
   addUserKnob {20 User}
   addUserKnob {30 inres2 l inres}
   inres2 {{"\[value input.format.r]"} {"\[value input.format.t]"}}
   addUserKnob {7 inasp l "in aspect ratio" R 0 10}
   inasp {{inres2.u/inres2.v}}
  }
- Transform {
-  translate {0 {((abs((NoOp1.inres1.v)-(NoOp2.inres2.v)))/2)*-1}}
-  name Transform2
+ Reformat {
+  type "to box"
+  box_width {{parent.NoOp1.inres1.u}}
+  box_height {{parent.NoOp1.inres1.v}}
+  box_fixed true
+  box_pixel_aspect {{parent.NoOp1.pixlsp}}
+  resize height
+  black_outside true
+  pbb true
+  name Reformat1
+  label width
   xpos -580
-  ypos -90
+  ypos -176
  }
  Transform {
   rotate {{parent.rotation1*-1}}
@@ -87,13 +90,13 @@ Group {
   xpos -580
   ypos 64
  }
-set Ne38cf000 [stack 0]
+set N7933a800 [stack 0]
  Constant {
   inputs 0
   color 1
   format "8192 6144 0 0 8192 6144 1 8K_CubeMap"
   name Constant1
-  xpos 141
+  xpos 140
   ypos -434
  }
  Reformat {
@@ -103,10 +106,10 @@ set Ne38cf000 [stack 0]
   box_fixed true
   pbb true
   name Reformat2
-  xpos 141
+  xpos 140
   ypos -330
  }
-set Ne38cf800 [stack 0]
+set Nd7231c00 [stack 0]
  Dot {
   name Dot3
   xpos 354
@@ -117,7 +120,7 @@ set Ne38cf800 [stack 0]
   xpos 354
   ypos -168
  }
-push $Ne38cf800
+push $Nd7231c00
  Transform {
   translate {{parent.wipe.x-(NoOp1.inres1.u) x1000 0} {parent.wipe.y-(NoOp1.inres1.v/2)}}
   rotate {{parent.wiperot*-1 x1000 0}}
@@ -125,24 +128,24 @@ push $Ne38cf800
   center {{"\[value input.format.r]" x1000 0} {"\[value input.format.t]/2" x1000 0}}
   name Transform4
   label "wipe pos"
-  xpos 141
+  xpos 140
   ypos -256
  }
  CopyBBox {
   inputs 2
   name CopyBBox1
-  xpos 141
+  xpos 140
   ypos -170
  }
-push $Ne38cf800
+push $Nd7231c00
  Dot {
   name Dot4
-  xpos -6
-  ypos -328
+  xpos -7
+  ypos -327
  }
  Dot {
   name Dot5
-  xpos -6
+  xpos -7
   ypos -87
  }
  Switch {
@@ -152,7 +155,7 @@ push $Ne38cf800
   xpos 140
   ypos -90
  }
-set Ne39b0500 [stack 0]
+set N65bf200 [stack 0]
  Dot {
   name Dot7
   xpos 352
@@ -171,14 +174,14 @@ set Ne39b0500 [stack 0]
   xpos 320
   ypos 150
  }
-set Ne32d0000 [stack 0]
+set Ncf2b3400 [stack 0]
  Dilate {
   size {{parent.stroke.value}}
   name Dilate1
   xpos 500
   ypos 144
  }
-push $Ne32d0000
+push $Ncf2b3400
  Dilate {
   size -1
   name Dilate2
@@ -212,13 +215,13 @@ push $Ne32d0000
   xpos 533
   ypos 473
  }
-push $Ne39b0500
+push $N65bf200
  Dot {
   name Dot6
   xpos 174
   ypos 233
  }
-push $Ne38cf000
+push $N7933a800
  Dot {
   name Dot1
   xpos -548
@@ -233,7 +236,7 @@ push $Ne38cf000
  NoOp {
   name NoOp1
   xpos -220
-  ypos -410
+  ypos -330
   addUserKnob {20 User}
   addUserKnob {30 inres1 l inres}
   inres1 {{"\[value input.format.r]"} {"\[value input.format.t]"}}

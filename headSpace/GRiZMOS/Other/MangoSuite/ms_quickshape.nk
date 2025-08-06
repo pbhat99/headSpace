@@ -6,14 +6,15 @@ Group {
  tile_color 0xefb500ff
  note_font "Verdana Bold Italic"
  selected true
- xpos -40
- ypos -330
+ xpos 140
+ ypos -170
  addUserKnob {20 settings l shape}
  addUserKnob {26 _1 l "" +STARTLINE T "<span style=\"color:#aaa;font-family:sans-serif\"><b><span style=\"color:#ffaf24\">MS_Quick Shape v.1.0</span></b>"}
  addUserKnob {26 ""}
  addUserKnob {41 format l "output format" T Reformat1.format}
  addUserKnob {26 ""}
  addUserKnob {4 shape M {N-Gon circle cross star "" ""}}
+ shape circle
  addUserKnob {6 cfill l fill -STARTLINE}
  addUserKnob {26 ""}
  addUserKnob {7 cradius l radius}
@@ -21,11 +22,13 @@ Group {
  addUserKnob {7 cthickness l thickness}
  cthickness 0.1
  addUserKnob {7 crossrot l rotation R -180 180}
+ addUserKnob {41 skewX l "skew X" T Transform2.skewX}
+ addUserKnob {41 skewY l "skew Y" T Transform2.skewY}
  addUserKnob {26 ""}
  addUserKnob {3 ncorners l corners}
- ncorners 6
+ ncorners 4
  addUserKnob {26 ""}
- addUserKnob {26 "" +STARTLINE}
+ addUserKnob {26 ""}
  addUserKnob {20 info}
  addUserKnob {26 _2 l "" +STARTLINE T "<br><span style=\"color:#aaa;font-family:sans-serif;font-size:7pt\">node created by <b><span style=\"color:#aaaa00\">Johannes Kretschmer</span></b> mail: Jolegodrum@t-online.de - Version 1.0 - 2025 / part of  <span style=\"color:#aaa;font-family:sans-serif\"><b><span style=\"color:#ffaf24\">MANGO SUITE</span></b>\n"}
 }
@@ -92,7 +95,7 @@ Group {
   xpos -7
   ypos -327
  }
-set Naf68c400 [stack 0]
+set Nbbfbcc00 [stack 0]
  Dot {
   name Dot4
   xpos 1073
@@ -103,7 +106,7 @@ set Naf68c400 [stack 0]
   xpos 1073
   ypos 473
  }
-push $Naf68c400
+push $Nbbfbcc00
  Dot {
   name Dot11
   xpos 352
@@ -123,20 +126,12 @@ push $Naf68c400
   xpos 320
   ypos -10
  }
- Transform {
-  rotate {{parent.crossrot}}
-  center {{parent.Crop1.box.r/2} {parent.Crop1.box.r/2}}
-  name Transform3
-  label rotation
-  xpos 320
-  ypos 304
- }
  Dot {
   name Dot10
   xpos 353
   ypos 473
  }
-push $Naf68c400
+push $Nbbfbcc00
  Dot {
   name Dot6
   xpos -367
@@ -157,7 +152,7 @@ push $Naf68c400
   xpos -400
   ypos -16
  }
-set N93948000 [stack 0]
+set Nbc00ec00 [stack 0]
  Dot {
   name Dot12
   xpos -547
@@ -168,8 +163,8 @@ set N93948000 [stack 0]
   xpos -547
   ypos 153
  }
-push $N93948000
-push $N93948000
+push $Nbc00ec00
+push $Nbc00ec00
  Dot {
   name Dot13
   xpos -187
@@ -198,6 +193,7 @@ push $N93948000
   xpos -400
   ypos 150
  }
+set Nb8b80000 [stack 0]
  Dot {
   name Dot14
   xpos -367
@@ -212,7 +208,7 @@ push $N93948000
   ypos -30
   hide_input true
  }
-set Naf6be800 [stack 0]
+set Nbbfbd800 [stack 0]
  Cylinder {
   inputs 0
   rows 0
@@ -227,7 +223,7 @@ set Naf6be800 [stack 0]
   ypos -170
   hide_input true
  }
-push $Naf68c400
+push $Nbbfbcc00
  Dot {
   name Dot3
   xpos -1087
@@ -238,7 +234,7 @@ push $Naf68c400
   xpos -1087
   ypos -167
  }
-set Naf6bf400 [stack 0]
+set Ncb039000 [stack 0]
 add_layer {motionvector motionvector.red motionvector.green motionvector.blue}
 add_layer {position position.red position.green position.blue}
 add_layer {normal normal.red normal.green normal.blue}
@@ -265,14 +261,14 @@ add_layer {normal normal.red normal.green normal.blue}
   xpos -1300
   ypos 64
  }
-set Nab25ec00 [stack 0]
+set Ncb038400 [stack 0]
  Dot {
   name Dot9
   xpos -1267
   ypos 313
  }
-push $Nab25ec00
-push $Naf6be800
+push $Ncb038400
+push $Nbbfbd800
  Cylinder {
   inputs 0
   rows 0
@@ -288,8 +284,8 @@ push $Naf6be800
   ypos -170
   hide_input true
  }
-set Naf6bec00 [stack 0]
-push $Naf6bf400
+set Nbbf6e800 [stack 0]
+push $Ncb039000
  ScanlineRender {
   inputs 3
   conservative_shader_sampling false
@@ -321,21 +317,12 @@ push $Naf6bf400
   ypos 230
   disable {{parent.cfill}}
  }
-set Na18f6800 [stack 0]
  Switch {
   inputs 2
   which {{parent.cfill}}
   name Switch3
   xpos -1120
   ypos 310
- }
- Transform {
-  rotate {{parent.crossrot}}
-  center {{parent.Crop1.box.r/2} {parent.Crop1.box.r/2}}
-  name Transform2
-  label rotation
-  xpos -1120
-  ypos 384
  }
  Dot {
   name Dot1
@@ -348,6 +335,14 @@ set Na18f6800 [stack 0]
   name Switch1
   xpos -40
   ypos 710
+ }
+ Transform {
+  rotate {{parent.crossrot}}
+  center {{parent.Crop1.box.r/2} {parent.Crop1.box.r/2}}
+  name Transform2
+  label rotation
+  xpos -40
+  ypos 784
  }
  Transform {
   scale {{1/parent.res.aspect} 1}
@@ -365,7 +360,7 @@ set Na18f6800 [stack 0]
   xpos -40
   ypos 1430
  }
-set Na18f7400 [stack 0]
+set Ncafea400 [stack 0]
  Output {
   name Output1
   xpos -40
@@ -391,25 +386,6 @@ set Na18f7400 [stack 0]
   addUserKnob {7 aspect R 0 3}
   aspect {{"\[value pixel_aspect]"}}
  }
-push $Naf6bec00
-push 0
-push 0
-push 0
-push 0
-push 0
-push $Na18f7400
-push 0
-push $Na18f6800
- Viewer {
-  inputs 9
-  frame_range 1000-1240
-  viewerProcess "sRGB (ACES)"
-  monitorOutNDISenderName "NukeX - quick shape_01 - Viewer1"
-  name Viewer1
-  xpos -580
-  ypos 1590
-  hide_input true
- }
  Flare {
   inputs 0
   position {578 487}
@@ -422,5 +398,24 @@ push $Na18f6800
   name Flare1
   xpos 860
   ypos -10
+ }
+push $Nbbf6e800
+push 0
+push 0
+push 0
+push 0
+push 0
+push $Ncafea400
+push 0
+push $Nb8b80000
+ Viewer {
+  inputs 9
+  frame_range 1000-1240
+  viewerProcess "sRGB (ACES)"
+  monitorOutNDISenderName "NukeX - untitled - Viewer1"
+  name Viewer1
+  xpos -580
+  ypos 1590
+  hide_input true
  }
 end_group

@@ -1,140 +1,153 @@
 set cut_paste_input [stack 0]
-version 15.1 v3
+version 15.1 v6
 Dot {
  inputs 0
- name Dot40
+ name Dot37
+ label " Glare"
+ note_font "Verdana Bold"
+ note_font_size 18
+ selected true
+ xpos -5767
+ ypos 713
+}
+Dot {
+ inputs 0
+ name Dot38
  label "\n\nocclusion mask"
  note_font "Verdana Bold"
  note_font_size 20
  selected true
- xpos -7
- ypos -887
+ xpos -6127
+ ypos 953
 }
+push 0
 Dot {
- inputs 0
- name Dot42
+ name Dot39
  label " Center3"
  note_font "Verdana Bold"
  note_font_size 18
  note_font_color 0xe9ff55ff
  selected true
- xpos 173
- ypos -1127
+ xpos -5947
+ ypos 713
 }
 Dot {
- name Dot43
+ name Dot40
  selected true
- xpos 173
- ypos -1047
+ xpos -5947
+ ypos 793
 }
+push 0
 Dot {
- inputs 0
- name Dot44
+ name Dot41
  label " Center 2"
  note_font "Verdana Bold"
  note_font_size 18
  note_font_color 0xe9ff55ff
  selected true
- xpos -7
- ypos -1127
+ xpos -6127
+ ypos 713
 }
 Dot {
- name Dot45
+ name Dot42
  selected true
- xpos -7
- ypos -1047
+ xpos -6127
+ ypos 793
 }
+push $cut_paste_input
 Dot {
- inputs 0
- name Dot46
+ name Dot43
  label " Center 1"
  note_font "Verdana Bold"
  note_font_size 18
  note_font_color 0xe9ff55ff
  selected true
- xpos -188
- ypos -1127
+ xpos -6307
+ ypos 713
 }
 Dot {
- name Dot47
+ name Dot44
  selected true
- xpos -188
- ypos -1047
+ xpos -6307
+ ypos 793
 }
 Dot {
  inputs 0
- name Dot48
+ name Dot45
  label " Flare 3"
  note_font "Verdana Bold"
  note_font_size 18
  note_font_color 0x55bfffff
  selected true
- xpos 893
- ypos -1127
+ xpos -5227
+ ypos 713
 }
 Dot {
- name Dot49
+ name Dot46
  selected true
- xpos 893
- ypos -1047
+ xpos -5227
+ ypos 793
 }
 Dot {
  inputs 0
- name Dot50
+ name Dot47
  label " Flare 2"
  note_font "Verdana Bold"
  note_font_size 18
  note_font_color 0x55bfffff
  selected true
- xpos 713
- ypos -1127
+ xpos -5407
+ ypos 713
 }
 Dot {
- name Dot51
+ name Dot48
  selected true
- xpos 713
- ypos -1047
+ xpos -5407
+ ypos 793
 }
 Dot {
  inputs 0
- name Dot52
+ name Dot49
  label " Flare 1"
  note_font "Verdana Bold"
  note_font_size 18
  note_font_color 0x55bfffff
  selected true
- xpos 533
- ypos -1127
+ xpos -5587
+ ypos 713
 }
 Dot {
- name Dot53
+ name Dot50
  selected true
- xpos 533
- ypos -1047
+ xpos -5587
+ ypos 793
 }
-push $cut_paste_input
 Dot {
- name Dot54
+ inputs 0
+ name Dot51
  label "  mask"
  note_font "Verdana Bold"
  note_font_size 20
  selected true
- xpos 532
- ypos -887
+ xpos -5407
+ ypos 953
 }
 Group {
- inputs 8
- name MS_arrange_flares
- knobChanged "n = nuke.thisNode()\nk = nuke.thisKnob()\n\n\n#Ruler\nif k.name()==\"guideframe\":\n    if k.value()== 1:\n     n\[\"ruler1\"].setVisible(True)\n    \n    else: \n     n\[\"ruler1\"].setVisible(False)\n\n\n#Rainbow element relative stretch\nif k.name()==\"relstretchrb\":\n    if k.value()== 1:\n     n\[\"flip_4\"].setVisible(True)\n     n\[\"rbtype\"].setVisible(True)\n     n\[\"stretchmultrb\"].setVisible(True)\n    \n    else: \n     n\[\"rbtype\"].setVisible(False)\n     n\[\"stretchmultrb\"].setVisible(False)\n     n\[\"flip_4\"].setVisible(False)\n    \n#flare 1 relative scale\nif k.name()==\"relscale_1\":\n    if k.value()== 1:\n     n\[\"type_1\"].setVisible(True)\n     n\[\"relscalemult_1\"].setVisible(True)\n    \n    else: \n     n\[\"type_1\"].setVisible(False)\n     n\[\"relscalemult_1\"].setVisible(False)\n\n#flare 1 relative stretch\nif k.name()==\"relstretch1\":\n    if k.value()== 1:\n     n\[\"flip_1\"].setVisible(True)\n     n\[\"stretchtype1\"].setVisible(True)\n     n\[\"relstretchmult_1\"].setVisible(True)\n    \n    else: \n     n\[\"stretchtype1\"].setVisible(False)\n     n\[\"relstretchmult_1\"].setVisible(False)\n     n\[\"flip_1\"].setVisible(False)\n\n    \n#flare 2 relative scale\nif k.name()==\"relscale_2\":\n    if k.value()== 1:\n     n\[\"type_2\"].setVisible(True)\n     n\[\"relscalemult_2\"].setVisible(True)\n    \n    else: \n     n\[\"type_2\"].setVisible(False)\n     n\[\"relscalemult_2\"].setVisible(False)\n\n#flare 2 relative stretch\nif k.name()==\"relstretch2\":\n    if k.value()== 1:\n     n\[\"flip_2\"].setVisible(True)\n     n\[\"stretchtype2\"].setVisible(True)\n     n\[\"relstretchmult_2\"].setVisible(True)\n    \n    else: \n     n\[\"stretchtype2\"].setVisible(False)\n     n\[\"relstretchmult_2\"].setVisible(False)\n     n\[\"flip_2\"].setVisible(False)\n\n    \n#flare 3 relative scale\nif k.name()==\"relscale_3\":\n    if k.value()== 1:\n     n\[\"type_3\"].setVisible(True)\n     n\[\"relscalemult_3\"].setVisible(True)\n    \n    else: \n     n\[\"type_3\"].setVisible(False)\n     n\[\"relscalemult_3\"].setVisible(False)\n\n#flare 3 relative stretch\nif k.name()==\"relstretch3\":\n    if k.value()== 1:\n     n\[\"flip_3\"].setVisible(True)\n     n\[\"stretchtype3\"].setVisible(True)\n     n\[\"relstretchmult_3\"].setVisible(True)\n    \n    else: \n     n\[\"stretchtype3\"].setVisible(False)\n     n\[\"relstretchmult_3\"].setVisible(False)\n     n\[\"flip_3\"].setVisible(False)\n\n\n#Center 1 relative stretch\nif k.name()==\"relrot\":\n    if k.value()== 1:\n     n\[\"invrot\"].setVisible(True)\n     n\[\"rotmult\"].setVisible(True)\n    \n    else: \n     n\[\"invrot\"].setVisible(False)\n     n\[\"rotmult\"].setVisible(False)\n    \n#Center 2 relative stretch\nif k.name()==\"relrot_4\":\n    if k.value()== 1:\n     n\[\"invrot1\"].setVisible(True)\n     n\[\"rotmult1\"].setVisible(True)\n    \n    else: \n     n\[\"invrot1\"].setVisible(False)\n     n\[\"rotmult1\"].setVisible(False)\n\n#Center 3 relative stretch\nif k.name()==\"relrot_5\":\n    if k.value()== 1:\n     n\[\"invrot2\"].setVisible(True)\n     n\[\"rotmult2\"].setVisible(True)\n    \n    else: \n     n\[\"invrot2\"].setVisible(False)\n     n\[\"rotmult2\"].setVisible(False)\n\n\n#Rainbow relative scale\nif k.name()==\"relscalerb\":\n    if k.value()== 1:\n     n\[\"type_4\"].setVisible(True)\n     n\[\"relscalemult_4\"].setVisible(True)\n    \n    else: \n     n\[\"type_4\"].setVisible(False)\n     n\[\"relscalemult_4\"].setVisible(False)\n \n# Rainbow fade to center   \nif k.name()==\"fadetocenter\":\n    if k.value()== 1:\n     n\[\"maxfade\"].setVisible(True)\n     n\[\"minfade\"].setVisible(True)\n    \n    else: \n     n\[\"maxfade\"].setVisible(False)\n     n\[\"minfade\"].setVisible(False)    \n    \n    \n#Shimmer 1 fade to center\nif k.name()==\"ffc_2\":\n    if k.value()== 1:\n     n\[\"cl_shimmer_1\"].setVisible(True)\n    \n    else: \n     n\[\"cl_shimmer_1\"].setVisible(False)\n\n#Shimmer 2 fade to center\nif k.name()==\"ffc_3\":\n    if k.value()== 1:\n     n\[\"cl_shimmer_2\"].setVisible(True)\n    \n    else: \n     n\[\"cl_shimmer_2\"].setVisible(False) \n\n#Flare 1 fade to center\nif k.name()==\"ftc_1\":\n    if k.value()== 1:\n     n\[\"ftc_4\"].setVisible(True)\n    \n    else: \n     n\[\"ftc_4\"].setVisible(False) \n\n#Flare 2 fade to center\nif k.name()==\"ftc_2\":\n    if k.value()== 1:\n     n\[\"ftc_5\"].setVisible(True)\n    \n    else: \n     n\[\"ftc_5\"].setVisible(False) \n\n#Flare 3 fade to center\nif k.name()==\"ftc_3\":\n    if k.value()== 1:\n     n\[\"ftc_6\"].setVisible(True)\n    \n    else: \n     n\[\"ftc_6\"].setVisible(False) \n\n#Bloom fade to center\nif k.name()==\"ffc_1\":\n    if k.value()== 1:\n     n\[\"cl_bloom_n\"].setVisible(True)\n    \n    else: \n     n\[\"cl_bloom_n\"].setVisible(False)\n\n"
+ inputs 9
+ name MS_arrange_flares4
+ knobChanged "n = nuke.thisNode()\nk = nuke.thisKnob()\n\n\n#Ruler\nif k.name()==\"guideframe\":\n    if k.value()== 1:\n     n\[\"ruler1\"].setVisible(True)\n    \n    else: \n     n\[\"ruler1\"].setVisible(False)\n\n\n#Rainbow element relative stretch\nif k.name()==\"relstretchrb\":\n    if k.value()== 1:\n     n\[\"flip_4\"].setVisible(True)\n     n\[\"rbtype\"].setVisible(True)\n     n\[\"stretchmultrb\"].setVisible(True)\n    \n    else: \n     n\[\"rbtype\"].setVisible(False)\n     n\[\"stretchmultrb\"].setVisible(False)\n     n\[\"flip_4\"].setVisible(False)\n    \n#flare 1 relative scale\nif k.name()==\"relscale_1\":\n    if k.value()== 1:\n     n\[\"type_1\"].setVisible(True)\n     n\[\"relscalemult_1\"].setVisible(True)\n    \n    else: \n     n\[\"type_1\"].setVisible(False)\n     n\[\"relscalemult_1\"].setVisible(False)\n\n#flare 1 relative stretch\nif k.name()==\"relstretch1\":\n    if k.value()== 1:\n     n\[\"flip_1\"].setVisible(True)\n     n\[\"stretchtype1\"].setVisible(True)\n     n\[\"relstretchmult_1\"].setVisible(True)\n    \n    else: \n     n\[\"stretchtype1\"].setVisible(False)\n     n\[\"relstretchmult_1\"].setVisible(False)\n     n\[\"flip_1\"].setVisible(False)\n\n    \n#flare 2 relative scale\nif k.name()==\"relscale_2\":\n    if k.value()== 1:\n     n\[\"type_2\"].setVisible(True)\n     n\[\"relscalemult_2\"].setVisible(True)\n    \n    else: \n     n\[\"type_2\"].setVisible(False)\n     n\[\"relscalemult_2\"].setVisible(False)\n\n#flare 2 relative stretch\nif k.name()==\"relstretch2\":\n    if k.value()== 1:\n     n\[\"flip_2\"].setVisible(True)\n     n\[\"stretchtype2\"].setVisible(True)\n     n\[\"relstretchmult_2\"].setVisible(True)\n    \n    else: \n     n\[\"stretchtype2\"].setVisible(False)\n     n\[\"relstretchmult_2\"].setVisible(False)\n     n\[\"flip_2\"].setVisible(False)\n\n    \n#flare 3 relative scale\nif k.name()==\"relscale_3\":\n    if k.value()== 1:\n     n\[\"type_3\"].setVisible(True)\n     n\[\"relscalemult_3\"].setVisible(True)\n    \n    else: \n     n\[\"type_3\"].setVisible(False)\n     n\[\"relscalemult_3\"].setVisible(False)\n\n#flare 3 relative stretch\nif k.name()==\"relstretch3\":\n    if k.value()== 1:\n     n\[\"flip_3\"].setVisible(True)\n     n\[\"stretchtype3\"].setVisible(True)\n     n\[\"relstretchmult_3\"].setVisible(True)\n    \n    else: \n     n\[\"stretchtype3\"].setVisible(False)\n     n\[\"relstretchmult_3\"].setVisible(False)\n     n\[\"flip_3\"].setVisible(False)\n\n\n#Center 1 relative stretch\nif k.name()==\"relrot\":\n    if k.value()== 1:\n     n\[\"invrot\"].setVisible(True)\n     n\[\"rotmult\"].setVisible(True)\n    \n    else: \n     n\[\"invrot\"].setVisible(False)\n     n\[\"rotmult\"].setVisible(False)\n    \n#Center 2 relative stretch\nif k.name()==\"relrot_4\":\n    if k.value()== 1:\n     n\[\"invrot1\"].setVisible(True)\n     n\[\"rotmult1\"].setVisible(True)\n    \n    else: \n     n\[\"invrot1\"].setVisible(False)\n     n\[\"rotmult1\"].setVisible(False)\n\n#Center 3 relative stretch\nif k.name()==\"relrot_5\":\n    if k.value()== 1:\n     n\[\"invrot2\"].setVisible(True)\n     n\[\"rotmult2\"].setVisible(True)\n    \n    else: \n     n\[\"invrot2\"].setVisible(False)\n     n\[\"rotmult2\"].setVisible(False)\n\n    \n#Center 1 mirror\nif k.name()==\"movean1\":\n    if k.value()== 1:\n     n\[\"moveanmult1\"].setVisible(True)\n    \n    else: \n     n\[\"moveanmult1\"].setVisible(False)\n\nif k.name()==\"movean4\":\n    if k.value()== 1:\n     n\[\"moveanmult6\"].setVisible(True)\n    \n    else: \n     n\[\"moveanmult6\"].setVisible(False)\n\n#Center 2 mirror\nif k.name()==\"movean2\":\n    if k.value()== 1:\n     n\[\"moveanmult2\"].setVisible(True)\n    \n    else: \n     n\[\"moveanmult2\"].setVisible(False)\n\nif k.name()==\"movean5\":\n    if k.value()== 1:\n     n\[\"moveanmult5\"].setVisible(True)\n    \n    else: \n     n\[\"moveanmult5\"].setVisible(False)\n\n#Center 3 mirror\nif k.name()==\"movean3\":\n    if k.value()== 1:\n     n\[\"moveanmult3\"].setVisible(True)\n    \n    else: \n     n\[\"moveanmult3\"].setVisible(False)\n\nif k.name()==\"movean6\":\n    if k.value()== 1:\n     n\[\"moveanmult4\"].setVisible(True)\n    \n    else: \n     n\[\"moveanmult4\"].setVisible(False)\n\n#Rainbow relative scale\nif k.name()==\"relscalerb\":\n    if k.value()== 1:\n     n\[\"type_4\"].setVisible(True)\n     n\[\"relscalemult_4\"].setVisible(True)\n    \n    else: \n     n\[\"type_4\"].setVisible(False)\n     n\[\"relscalemult_4\"].setVisible(False)\n \n# Rainbow fade to center   \nif k.name()==\"fadetocenter\":\n    if k.value()== 1:\n     n\[\"maxfade\"].setVisible(True)\n     n\[\"minfade\"].setVisible(True)\n    \n    else: \n     n\[\"maxfade\"].setVisible(False)\n     n\[\"minfade\"].setVisible(False)    \n    \n    \n#Shimmer 1 fade to center\nif k.name()==\"ffc_2\":\n    if k.value()== 1:\n     n\[\"cl_shimmer_1\"].setVisible(True)\n    \n    else: \n     n\[\"cl_shimmer_1\"].setVisible(False)\n\n#Shimmer 2 fade to center\nif k.name()==\"ffc_3\":\n    if k.value()== 1:\n     n\[\"cl_shimmer_2\"].setVisible(True)\n    \n    else: \n     n\[\"cl_shimmer_2\"].setVisible(False) \n\n#Flare 1 fade to center\nif k.name()==\"ftc_1\":\n    if k.value()== 1:\n     n\[\"ftc_4\"].setVisible(True)\n    \n    else: \n     n\[\"ftc_4\"].setVisible(False) \n\n#Flare 2 fade to center\nif k.name()==\"ftc_2\":\n    if k.value()== 1:\n     n\[\"ftc_5\"].setVisible(True)\n    \n    else: \n     n\[\"ftc_5\"].setVisible(False) \n\n#Flare 3 fade to center\nif k.name()==\"ftc_3\":\n    if k.value()== 1:\n     n\[\"ftc_6\"].setVisible(True)\n    \n    else: \n     n\[\"ftc_6\"].setVisible(False) \n\n#Bloom fade to center\nif k.name()==\"ffc_1\":\n    if k.value()== 1:\n     n\[\"cl_bloom_n\"].setVisible(True)\n    \n    else: \n     n\[\"cl_bloom_n\"].setVisible(False)\n\n"
  tile_color 0xefb500ff
  note_font "Verdana Bold Italic"
  selected true
- xpos 320
- ypos -890
+ xpos -5799
+ ypos 950
  addUserKnob {20 settings}
- addUserKnob {26 _1 l "" +STARTLINE T "<span style=\"color:#aaa;font-family:sans-serif\"><b><span style=\"color:#ffaf24\">MS_Arrange Flares v.1.0</span></b>"}
+ addUserKnob {26 _1 l "" +STARTLINE T "<span style=\"color:#aaa;font-family:sans-serif\"><b><span style=\"color:#ffaf24\">MS_Arrange Flares v.1.3</span></b>"}
  addUserKnob {26 ""}
  addUserKnob {41 format T Constant2.format}
+ addUserKnob {7 growbbox l "&nbsp;adjust bbox&nbsp;" R 0 500}
+ growbbox 100
+ addUserKnob {6 cropout l "" -STARTLINE}
  addUserKnob {41 flarecenter_1 l "&nbsp;&nbsp;<span style=\"color:#0f0\"><b>flare center</span>" T center_1.flarecenter}
  addUserKnob {6 guideframe l "&nbsp;&nbsp;<i><span style=\"color:#aa2\">guide frame</span>" t "\nshow the guide frame overlay" -STARTLINE}
  guideframe true
@@ -153,6 +166,7 @@ Group {
  addUserKnob {7 offsetfade l "offset fade" t "offsets the fade start to start later" R 0 100}
  offsetfade 20
  addUserKnob {6 occlusion l "enable occlusion input" t "\nWill use the alpha of the occlusion input to automatically fade the lensflare. \nThe alpha needs to represent the object that is in front of the light source." +STARTLINE}
+ addUserKnob {4 occlusiontype l "fade type" t "fade = simple fading (opacity)\nfade + mask = will mask the center flares by a circular mask which scales based on the occlusion masks alpha value" M {fade "fade + mask" "" "" "" "" "" "" "" "" ""}}
  addUserKnob {7 bltran l falloff t "\nThis essentially applies a blur to the occlusion mask so that the fade will have a wider range and smoother transition.\n\nUsually values over 10 will make the flare bleed in too much into the foreground object.\n" R 0 10}
  bltran 5
  addUserKnob {7 shiftfade l "shift occlusion" t "\nThis will grow the occlusion inputs alpha so that the fade of the flare starts earlier.\nThis is a great option to counter when the flare bleeds into the FG objects too much when the falloff is higher then 0." R 0 10}
@@ -178,11 +192,6 @@ Group {
  addUserKnob {7 popoffset l "pop offset" t "\nDistance in pixels the pop start is offsetted\n\nThis can be uselful when lens distortion is applied after the flare. \nSo the flare will be distorted and with it the pop area. \nWith this slider you can move the pop area outwards again to be at the format border." R 0 100}
  addUserKnob {4 popdirection l "&nbsp;direction&nbsp;" t "\noutwards - will move the pop start to the outside of the frame\n\ninwards - will move it to the inside of the frame" -STARTLINE M {outwards inwards "" "" "" "" "" ""}}
  popdirection inwards
- addUserKnob {26 bbox l "<span style=\"color:#bb7d01\"><b>bbox</span>"}
- addUserKnob {7 growbbox l "&nbsp;adjust bbox&nbsp;" R 0 500}
- growbbox 100
- addUserKnob {6 cropout l "" -STARTLINE}
- cropout true
  addUserKnob {26 ""}
  addUserKnob {26 mask l "<span style=\"color:#bb7d01\"><b>mask</span>"}
  addUserKnob {26 "" l mask T ""}
@@ -210,10 +219,12 @@ Group {
  addUserKnob {41 rotate_2 l rotate T Transform7.rotate}
  addUserKnob {41 defocus T Defocus1.defocus}
  addUserKnob {41 value_3 l brightness T Multiply7.value}
- addUserKnob {6 movean1 l "mirror x" t "\nmirrors the flare to the other side of x to simulate anamorph movement" +STARTLINE}
- addUserKnob {6 movean4 l "mirror y" t "\nmirrors the flare to the other side of y to simulate anamorph movement" -STARTLINE}
- addUserKnob {7 moveanmult1 l "mirror mult" R -2 2}
+ addUserKnob {6 movean1 l "&nbsp;&nbsp;mirror <b>x" t "\nmirrors the flare to the other side of x to simulate anamorph movement" +STARTLINE}
+ addUserKnob {7 moveanmult1 l "mult <b>x" +HIDDEN R -2 2}
  moveanmult1 1
+ addUserKnob {6 movean4 l "&nbsp;&nbsp;mirror<b> y" t "\nmirrors the flare to the other side of y to simulate anamorph movement" +STARTLINE}
+ addUserKnob {7 moveanmult6 l "mult <b>y" +HIDDEN R -2 2}
+ moveanmult6 1
  addUserKnob {6 relrot l rotation +STARTLINE}
  addUserKnob {6 invrot l "invert rotation" -STARTLINE +HIDDEN}
  addUserKnob {7 rotmult l strength t "\nrotation strength" +HIDDEN}
@@ -221,15 +232,18 @@ Group {
  addUserKnob {26 ""}
  addUserKnob {26 text_4 l "<span style=\"color:#ff0\"><b>Center 2</span>"}
  addUserKnob {6 enablecenter1 l enable +STARTLINE}
+ enablecenter1 true
  addUserKnob {6 useaspect4 l "use aspect" -STARTLINE}
  addUserKnob {41 scale_4 l "<span style=\"color:#bb7d01\"><i>scale</span>" T Transform10.scale}
  addUserKnob {41 rotate_4 l rotate T Transform10.rotate}
  addUserKnob {41 defocus_1 l defocus T Defocus2.defocus}
  addUserKnob {41 value_4 l brightness T Multiply9.value}
- addUserKnob {6 movean2 l "mirror x" t "\nmirrors the flare to the other side of x to simulate anamorph movement" +STARTLINE}
- addUserKnob {6 movean5 l "mirror y" t "\nmirrors the flare to the other side of y to simulate anamorph movement" -STARTLINE}
- addUserKnob {7 moveanmult2 l "mirror mult" R -2 2}
+ addUserKnob {6 movean2 l "&nbsp;&nbsp;mirror<b> x" t "\nmirrors the flare to the other side of x to simulate anamorph movement" +STARTLINE}
+ addUserKnob {7 moveanmult2 l "mult <b>x" +HIDDEN R -2 2}
  moveanmult2 1
+ addUserKnob {6 movean5 l "&nbsp;&nbsp;mirror<b> y" t "\nmirrors the flare to the other side of y to simulate anamorph movement" +STARTLINE}
+ addUserKnob {7 moveanmult5 l "mult <b>y" +HIDDEN R -2 2}
+ moveanmult5 1
  addUserKnob {6 relrot_4 l rotation +STARTLINE}
  addUserKnob {6 invrot1 l "invert rotation" -STARTLINE +HIDDEN}
  addUserKnob {7 rotmult1 l strength t "\nrotation strength" +HIDDEN}
@@ -237,15 +251,18 @@ Group {
  addUserKnob {26 ""}
  addUserKnob {26 text_5 l "<span style=\"color:#ff0\"><b>Center 3</span>"}
  addUserKnob {6 enablecenter2 l enable +STARTLINE}
+ enablecenter2 true
  addUserKnob {6 useaspect5 l "use aspect" -STARTLINE}
  addUserKnob {41 scale_5 l "<span style=\"color:#bb7d01\"><i>scale</span>" T Transform26.scale}
  addUserKnob {41 rotate_5 l rotate T Transform26.rotate}
  addUserKnob {41 defocus_2 l defocus T Defocus3.defocus}
  addUserKnob {41 value_5 l brightness T Multiply11.value}
- addUserKnob {6 movean3 l "mirror x" t "\nmirrors the flare to the other side of x to simulate anamorph movement" +STARTLINE}
- addUserKnob {6 movean6 l "mirror y" t "\nmirrors the flare to the other side of y to simulate anamorph movement" -STARTLINE}
- addUserKnob {7 moveanmult3 l "mirror mult" R -2 2}
+ addUserKnob {6 movean3 l "&nbsp;&nbsp;mirror<b> x" t "\nmirrors the flare to the other side of x to simulate anamorph movement" +STARTLINE}
+ addUserKnob {7 moveanmult3 l "mult <b>x" +HIDDEN R -2 2}
  moveanmult3 1
+ addUserKnob {6 movean6 l "&nbsp;&nbsp;mirror<b> y" t "\nmirrors the flare to the other side of y to simulate anamorph movement" +STARTLINE}
+ addUserKnob {7 moveanmult4 l "mult <b>y" +HIDDEN R -2 2}
+ moveanmult4 1
  addUserKnob {6 relrot_5 l rotation +STARTLINE}
  addUserKnob {6 invrot2 l "invert rotation" -STARTLINE +HIDDEN}
  addUserKnob {7 rotmult2 l strength t "\nrotation strength" +HIDDEN}
@@ -274,7 +291,7 @@ Group {
  addUserKnob {41 scale l "<span style=\"color:#bb7d01\"><i>scale</span>" T Transform2.scale}
  addUserKnob {7 slide l "<span style=\"color:#bb7d01\"><i>position</span>" R -3 5}
  slide -0.6
- addUserKnob {41 translate T Transform2.translate}
+ addUserKnob {41 translate T Transform85.translate}
  addUserKnob {41 rotate T Transform2.rotate}
  addUserKnob {41 size l blur T Blur1.size}
  addUserKnob {41 saturation_6 l saturation T Saturation7.saturation}
@@ -307,7 +324,7 @@ Group {
  addUserKnob {41 scale_1 l "<span style=\"color:#bb7d01\"><i>scale</span>" T Transform1.scale}
  addUserKnob {7 slide1 l "<span style=\"color:#bb7d01\"><i>position</span>" R -3 5}
  slide1 0.2
- addUserKnob {41 translate_1 l translate T Transform1.translate}
+ addUserKnob {41 translate_1 l translate T Transform86.translate}
  addUserKnob {41 rotate_1 l rotate T Transform1.rotate}
  addUserKnob {41 size_1 l blur T Blur2.size}
  addUserKnob {41 saturation_7 l saturation T Saturation8.saturation}
@@ -340,7 +357,7 @@ Group {
  addUserKnob {41 scale_3 l "<span style=\"color:#bb7d01\"><i>scale</span>" T Transform11.scale}
  addUserKnob {7 slide2 l "<span style=\"color:#bb7d01\"><i>position</span>" R -3 5}
  slide2 1
- addUserKnob {41 translate_2 l translate T Transform11.translate}
+ addUserKnob {41 translate_2 l translate T Transform87.translate}
  addUserKnob {41 rotate_3 l rotate T Transform11.rotate}
  addUserKnob {41 size_2 l blur T Blur4.size}
  addUserKnob {41 saturation_8 l saturation T Saturation9.saturation}
@@ -371,6 +388,7 @@ Group {
  addUserKnob {41 scale_6 l "<span style=\"color:#bb7d01\"><i>scale</span>" T Transform48.scale}
  addUserKnob {7 movecopy11 l "<span style=\"color:#bb7d01\"><i>position</span>" R -3 5}
  movecopy11 1.4
+ addUserKnob {41 translate_3 l translate T Transform48.translate}
  addUserKnob {41 rotate_6 l rotate T Transform48.rotate}
  addUserKnob {41 size_4 l blur T Blur5.size}
  addUserKnob {41 saturation T Saturation1.saturation}
@@ -382,6 +400,7 @@ Group {
  addUserKnob {41 scale_7 l "<span style=\"color:#bb7d01\"><i>scale</span>" T Transform47.scale}
  addUserKnob {7 movecopy12 l "<span style=\"color:#bb7d01\"><i>position</span>" R -3 5}
  movecopy12 0.9
+ addUserKnob {41 translate_4 l translate T Transform47.translate}
  addUserKnob {41 rotate_7 l rotate T Transform47.rotate}
  addUserKnob {41 size_5 l blur T Blur6.size}
  addUserKnob {41 saturation_1 l saturation T Saturation2.saturation}
@@ -396,6 +415,7 @@ Group {
  addUserKnob {41 scale_8 l "<span style=\"color:#bb7d01\"><i>scale</span>" T Transform50.scale}
  addUserKnob {7 movecopy21 l "<span style=\"color:#bb7d01\"><i>position</span>" R -3 5}
  movecopy21 1.7
+ addUserKnob {41 translate_5 l translate T Transform50.translate}
  addUserKnob {41 rotate_8 l rotate T Transform50.rotate}
  addUserKnob {41 size_6 l blur T Blur7.size}
  addUserKnob {41 saturation_2 l saturation T Saturation3.saturation}
@@ -407,6 +427,7 @@ Group {
  addUserKnob {41 scale_9 l "<span style=\"color:#bb7d01\"><i>scale</span>" T Transform49.scale}
  addUserKnob {7 movecopy22 l "<span style=\"color:#bb7d01\"><i>position</span>" R -3 5}
  movecopy22 1.9
+ addUserKnob {41 translate_6 l translate T Transform49.translate}
  addUserKnob {41 rotate_9 l rotate T Transform49.rotate}
  addUserKnob {41 size_7 l blur T Blur8.size}
  addUserKnob {41 saturation_3 l saturation T Saturation4.saturation}
@@ -421,6 +442,7 @@ Group {
  addUserKnob {41 scale_10 l "<span style=\"color:#bb7d01\"><i>scale</span>" T Transform51.scale}
  addUserKnob {7 movecopy31 l "<span style=\"color:#bb7d01\"><i>position</span>" R -3 5}
  movecopy31 2.1
+ addUserKnob {41 translate_7 l translate T Transform51.translate}
  addUserKnob {41 rotate_10 l rotate T Transform51.rotate}
  addUserKnob {41 size_8 l blur T Blur9.size}
  addUserKnob {41 saturation_4 l saturation T Saturation5.saturation}
@@ -432,6 +454,7 @@ Group {
  addUserKnob {41 scale_11 l "<span style=\"color:#bb7d01\"><i>scale</span>" T Transform52.scale}
  addUserKnob {7 movecopy32 l "<span style=\"color:#bb7d01\"><i>position</span>" R -3 5}
  movecopy32 2.3
+ addUserKnob {41 translate_8 l translate T Transform52.translate}
  addUserKnob {41 rotate_11 l rotate T Transform52.rotate}
  addUserKnob {41 size_9 l blur T Blur10.size}
  addUserKnob {41 saturation_5 l saturation T Saturation6.saturation}
@@ -550,20 +573,23 @@ Group {
  excludestrength 2.5
  addUserKnob {7 mixexclusion l mix}
  mixexclusion 1
- addUserKnob {20 bloom}
- addUserKnob {6 enablebloom l enable +STARTLINE}
+ addUserKnob {20 glare}
+ addUserKnob {6 enablebloom l enable t "\nwhen using the custom input for a texture make sure that the texture has the desired overscan" +STARTLINE}
  enablebloom true
+ addUserKnob {4 bloomtype l "" -STARTLINE M {solid "custom input" both "" ""}}
  addUserKnob {6 ffc_1 l "fade from center" t "\nwhen enabled the shape will fade in as is comes closer to the format center" +STARTLINE}
  ffc_1 true
  addUserKnob {12 cl_bloom_n l min/max t "\nmin = percentage of the guideframe where the fade in starts\n\nmax = percentage where the asset is completely faded in\n\nTo visualize it enable the guideframe overlay."}
  cl_bloom_n {80 0}
  addUserKnob {41 color_2 l color T Constant4.color}
- addUserKnob {7 mixbloom l mix}
+ addUserKnob {7 mixbloom l "mix solid"}
  mixbloom 0.2
+ addUserKnob {7 customin l "mix custom" t "\ncustom input"}
+ customin 1
  addUserKnob {20 info}
- addUserKnob {26 _2 l "" +STARTLINE T "<br><span style=\"color:#aaa;font-family:sans-serif;font-size:7pt\">node created by <b><span style=\"color:#aaaa00\">Johannes Kretschmer</span></b> mail: Jolegodrum@t-online.de - Version 1.1 - 2025 / part of  <span style=\"color:#aaa;font-family:sans-serif\"><b><span style=\"color:#ffaf24\">MANGO SUITE</span></b><br>\n"}
- addUserKnob {26 _3 l "" +STARTLINE T "<br><a href=\"https://youtu.be/JBCQGOQ4ZCY\"><b><span style=\"color:#aaa\"><i>watch tutorial</span></b></a>&nbsp;&nbsp;&nbsp;"}
- addUserKnob {22 updatenotes l "update notes" -STARTLINE T "nuke.message(\"Version 1.1:<br>- fixed guide frames overlay middle cross which was not centered with some formats<br>- added 'mirror mult' slider for all center assets<br>- 'display mask' checker for exclusion mask added\")"}
+ addUserKnob {26 _2 l "" +STARTLINE T "<br><span style=\"color:#aaa;font-family:sans-serif;font-size:7pt\">node created by <b><span style=\"color:#aaaa00\">Johannes Kretschmer</span></b> mail: Jolegodrum@t-online.de - Version 1.3 - 2025 / part of  <span style=\"color:#aaa;font-family:sans-serif\"><b><span style=\"color:#ffaf24\">MANGO SUITE</span></b><br>\n"}
+ addUserKnob {26 _3 l "" +STARTLINE T "<br><a href=\"https://youtu.be/JBCQGOQ4ZCY\"><b><span style=\"color:#aaa\"><i>watch tutorial</span></b></a>&nbsp;&nbsp;&nbsp;<br>"}
+ addUserKnob {22 updatenotes l "update notes" T "nuke.message(\"<b>Version 1.1:</b><br>- fixed guide frames overlay middle cross which was not centered with some formats<br>- added 'mirror mult' slider for all center assets<br>- 'display mask' checker for exclusion mask added<br>- added 'fade type' dropdown to the fading tab in general settings<br><br><b>Version 1.2:</b><br>- added individual translate options to all copied pieces<br>- added glare input (accessible in bloom tab)<br>- minor interface changes<br><br><b>Version 1.3:</b><br>- added individual mult sliders for x and y center mirroring<br>- minor interface changes\")" +STARTLINE}
 }
  BackdropNode {
   inputs 0
@@ -589,7 +615,7 @@ Group {
   label <center>bloom
   note_font "Verdana Bold"
   note_font_size 42
-  xpos -1834
+  xpos -2013
   ypos 5864
   bdwidth 714
   bdheight 713
@@ -613,10 +639,10 @@ Group {
   label "<center><b>center flares"
   note_font Verdana
   note_font_size 40
-  xpos -1771
+  xpos -1910
   ypos -804
   border_width 10
-  bdwidth 641
+  bdwidth 780
   bdheight 1531
   addUserKnob {20 "Backdrop Settings"}
   addUserKnob {3 padding l Padding}
@@ -869,16 +895,6 @@ Group {
  }
  NoOp {
   inputs 0
-  name clampfr
-  xpos -1480
-  ypos 6310
-  hide_input true
-  addUserKnob {20 User}
-  addUserKnob {12 cl_bloom l clamp}
-  cl_bloom {{parent.cl_bloom_n.x} {parent.cl_bloom_n.y}}
- }
- NoOp {
-  inputs 0
   name zoom_ctrl
   tile_color 0xff5555ff
   note_font "Verdana Bold"
@@ -900,23 +916,6 @@ Group {
   addUserKnob {7 mincl l end}
   mincl {{parent.minfade}}
  }
- Input {
-  inputs 0
-  name occlusion
-  xpos -40
-  ypos 6070
-  number 7
-  addUserKnob {20 User}
- }
- Shuffle2 {
-  fromInput1 {{0} B}
-  fromInput2 {{0} B}
-  mappings "4 rgba.alpha 0 3 rgba.red 0 0 rgba.alpha 0 3 rgba.green 0 1 rgba.alpha 0 3 rgba.blue 0 2 rgba.alpha 0 3 rgba.alpha 0 3"
-  name Shuffle3
-  label "\[value in1]"
-  xpos -40
-  ypos 6144
- }
  Constant {
   inputs 0
   name Constant2
@@ -934,95 +933,18 @@ Group {
   xpos -907
   ypos 233
  }
-set N245f6800 [stack 0]
+set N3d9ee800 [stack 0]
  Dot {
   name Dot2
   xpos -727
   ypos 233
  }
-set N245f6c00 [stack 0]
- Dot {
-  name Dot46
-  xpos 713
-  ypos 233
- }
- Shuffle2 {
-  fromInput1 {{0} B}
-  fromInput2 {{0} B}
-  mappings "4 white -1 -1 rgba.red 0 0 white -1 -1 rgba.green 0 1 white -1 -1 rgba.blue 0 2 black -1 -1 rgba.alpha 0 3"
-  name Shuffle2
-  label "\[value in1]"
-  xpos 680
-  ypos 6224
- }
- Dot {
-  name Dot29
-  xpos 713
-  ypos 6312
- }
- Merge2 {
-  inputs 2
-  operation screen
-  bbox B
-  name Merge36
-  xpos -40
-  ypos 6310
- }
- Shuffle2 {
-  fromInput1 {{0} B}
-  fromInput2 {{0} B}
-  mappings "4 rgba.alpha 0 3 rgba.red 0 0 rgba.alpha 0 3 rgba.green 0 1 rgba.alpha 0 3 rgba.blue 0 2 rgba.alpha 0 3 rgba.alpha 0 3"
-  name Shuffle5
-  label "\[value in1]"
-  xpos -40
-  ypos 6384
- }
- Clamp {
-  channels rgba
-  name Clamp2
-  xpos -40
-  ypos 6464
- }
- Dilate {
-  channels rgba
-  size {{parent.shiftfade}}
-  name Dilate5
-  xpos -40
-  ypos 6550
- }
- Blur {
-  channels rgba
-  size {{parent.bltran}}
-  name Blur21
-  xpos -40
-  ypos 6630
- }
- Expression {
-  channel3 alpha
-  expr3 "isinf(a) ? 1:a"
-  name Expression1
-  xpos -40
-  ypos 6710
- }
- NoOp {
-  name occlude
-  note_font "Verdana Bold"
-  xpos -40
-  ypos 6790
-  addUserKnob {20 User}
-  addUserKnob {12 sampler}
-  sampler {{parent.center_1.flarecenter} {parent.center_1.flarecenter}}
-  addUserKnob {18 sval l "sample value"}
-  sval {{"occlusion==1 ? \[sample this alpha sampler.x sampler.y] : 1"} 0 0}
-  addUserKnob {6 sval_panelDropped l "panel dropped state" -STARTLINE +HIDDEN}
-  addUserKnob {6 color_rgb_panelDropped l "panel dropped state" +HIDDEN +STARTLINE}
- }
-push $N245f6c00
+set N3d9eec00 [stack 0]
  NoOp {
   name get_res
   tile_color 0xff5f00ff
   xpos -760
-  ypos 310
+  ypos 311
   addUserKnob {20 User}
   addUserKnob {30 res l "input resolution"}
   res {{"\[value input.format.r]"} {"\[value input.format.t]"}}
@@ -1044,6 +966,7 @@ push $N245f6c00
   name Dot8
   xpos -728
   ypos 7753
+  hide_input true
  }
  Reformat {
   inputs 0
@@ -1057,13 +980,13 @@ push $N245f6c00
   ypos 6791
   hide_input true
  }
-set N285d6000 [stack 0]
+set N3d9ef800 [stack 0]
  Dot {
   name Dot48
   xpos -1807
   ypos 6793
  }
-set N285d6800 [stack 0]
+set N3da0e000 [stack 0]
  Dot {
   name Dot36
   xpos -2166
@@ -1077,7 +1000,7 @@ set N285d6800 [stack 0]
   xpos -2198
   ypos 6950
  }
-set N285d7000 [stack 0]
+set N3da0e800 [stack 0]
  Crop {
   box {{0+range1} {0+range1} {parent.Reformat10.box_width-range1} {parent.Reformat10.box_height-range1}}
   name Crop5
@@ -1087,7 +1010,7 @@ set N285d7000 [stack 0]
   addUserKnob {7 range1 l range}
   range1 4
  }
-push $N285d7000
+push $N3da0e800
  Merge2 {
   inputs 2
   operation from
@@ -1105,7 +1028,7 @@ push $N285d7000
   xpos -1447
   ypos 7513
  }
-set N24604000 [stack 0]
+set N3da0f800 [stack 0]
  Reformat {
   inputs 0
   format "3840 2160 0 0 3840 2160 1 UHD_4K"
@@ -1135,7 +1058,7 @@ set N24604000 [stack 0]
   autofit_bbox false
   initial_cursor_position {{36.39978027 501.1999512}
     }
-  group_animations {{0} imported: 0 selected: items: "root transform/"}
+  group_animations {{0} imported: 0 selected: 0 items: "root transform/"}
   animation_layers {{1 11 960 540 0 0 1 1 0 0 0 0}
     }
   name Text1
@@ -1165,7 +1088,7 @@ set N24604000 [stack 0]
   autofit_bbox false
   initial_cursor_position {{36.39978027 501.1999512}
     }
-  group_animations {{0} imported: 0 selected: items: "root transform/"}
+  group_animations {{0} imported: 0 selected: 0 items: "root transform/"}
   animation_layers {{1 11 960 540 0 0 1 1 0 0 0 0}
     }
   name Text2
@@ -1183,7 +1106,7 @@ set N24604000 [stack 0]
   xpos -1840
   ypos 7430
  }
-push $N285d6800
+push $N3da0e000
  Radial {
   area {{"(\[value input.format.r]/2)-(\[value input.format.r]/180)"} {"(\[value input.format.t]/2)-(\[value input.format.r]/180*get_res.inaspect)"} {"(\[value input.format.r]/2)+(\[value input.format.r]/180)"} {"(\[value input.format.t]/2)+(\[value input.format.r]/180*get_res.inaspect)"}}
   softness 0
@@ -1196,19 +1119,19 @@ push $N285d6800
   xpos -1807
   ypos 7113
  }
-push $N285d6000
+push $N3d9ef800
  Dot {
   name Dot50
   xpos -1268
   ypos 6874
  }
-set N2099e400 [stack 0]
+set N3da33c00 [stack 0]
  Dot {
   name Dot51
   xpos -1448
   ypos 6874
  }
-set N2099e800 [stack 0]
+set N3da7a000 [stack 0]
  Dot {
   name Dot52
   xpos -1628
@@ -1234,7 +1157,7 @@ set N2099e800 [stack 0]
   xpos -1628
   ypos 7194
  }
-push $N2099e800
+push $N3da7a000
  Grid {
   number {20 0}
   size 6
@@ -1248,7 +1171,7 @@ push $N2099e800
   xpos -1481
   ypos 7110
  }
-push $N2099e400
+push $N3da33c00
  Grid {
   number {0 1}
   size 4
@@ -1288,7 +1211,7 @@ push $N2099e400
   xpos -1301
   ypos 7510
  }
-push $N24604000
+push $N3da0f800
  Switch {
   inputs 2
   which {{parent.ruler1}}
@@ -1307,55 +1230,61 @@ push $N24604000
   xpos -367
   ypos 793
  }
-set N3625e000 [stack 0]
+set N3daad800 [stack 0]
  Dot {
   name Dot13
   xpos -367
   ypos 873
  }
-set N3625e400 [stack 0]
+set N3daadc00 [stack 0]
  Dot {
   name Dot16
   xpos -367
   ypos 953
  }
-set N3625e800 [stack 0]
+set N3daea000 [stack 0]
  Dot {
   name Dot6
   xpos -367
   ypos 1433
  }
-set N3625ec00 [stack 0]
+set N3daea400 [stack 0]
  Dot {
   name Dot7
   xpos -367
   ypos 1513
  }
-set N3625f000 [stack 0]
+set N3daea800 [stack 0]
  Dot {
   name Dot12
   xpos -367
   ypos 1593
  }
-set N3625f400 [stack 0]
+set N3daeac00 [stack 0]
  Dot {
   name Dot42
   xpos -367
   ypos 3273
  }
-set N3625f800 [stack 0]
+set N3daeb000 [stack 0]
  Dot {
   name Dot43
   xpos -367
   ypos 3353
  }
-set N3625fc00 [stack 0]
+set N3daeb400 [stack 0]
  Dot {
   name Dot41
   xpos -367
   ypos 5673
  }
-set N36278000 [stack 0]
+set N3daeb800 [stack 0]
+ Dot {
+  name Dot14
+  xpos -367
+  ypos 6313
+ }
+set N3daebc00 [stack 0]
  Dot {
   name Dot44
   xpos -367
@@ -1366,19 +1295,19 @@ set N36278000 [stack 0]
   color {1 0.9 0.6 1}
   format {{{parent.Constant2.format}}}
   name Constant4
-  xpos -1660
+  xpos -1839
   ypos 6046
  }
  AdjBBox {
   numpixels {{parent.growbbox}}
   name AdjBBox4
-  xpos -1660
+  xpos -1839
   ypos 6150
  }
  Multiply {
   value 0.1
   name Multiply30
-  xpos -1660
+  xpos -1839
   ypos 6224
  }
  Multiply {
@@ -1386,13 +1315,13 @@ set N36278000 [stack 0]
   name Multiply29
   tile_color 0xe9ff55ff
   label "fade from center"
-  xpos -1660
+  xpos -1839
   ypos 6298
   disable {{!parent.ffc_1}}
  }
  Dot {
   name Dot45
-  xpos -1627
+  xpos -1806
   ypos 6473
  }
  Multiply {
@@ -1400,11 +1329,11 @@ set N36278000 [stack 0]
   name Multiply34
   tile_color 0xb4aaffff
   label "auto fade"
-  xpos -1300
+  xpos -1479
   ypos 6458
   disable {{!parent.enableautofade}}
  }
-push $N36278000
+push $N3daeb800
  Reformat {
   inputs 0
   format "4096 4096 0 0 4096 4096 1 square_4k"
@@ -1413,7 +1342,7 @@ push $N36278000
   ypos 3738
   hide_input true
  }
-set Nb3db8000 [stack 0]
+set N3ead5c00 [stack 0]
  Dot {
   name Dot39
   xpos -2167
@@ -1493,7 +1422,7 @@ set Nb3db8000 [stack 0]
   xpos -2200
   ypos 4538
  }
- set Cb3de1000 [stack 0]
+ set C3eb2ec00 [stack 0]
  Crop {
   box {{parent.growbbox*-1} {parent.growbbox*-1} {parent.get_res.res.u+growbbox} {parent.get_res.res.v+growbbox}}
   name Crop3
@@ -1505,7 +1434,7 @@ set Nb3db8000 [stack 0]
   xpos -2169
   ypos 4707
  }
-push $Nb3db8000
+push $N3ead5c00
  Dot {
   name Dot37
   xpos -1808
@@ -1583,7 +1512,7 @@ push $Nb3db8000
   xpos -1840
   ypos 4384
  }
-push $Nb3db8000
+push $N3ead5c00
  Radial {
   area {0 0 4096 4096}
   softness 0
@@ -1674,7 +1603,7 @@ push $Nb3db8000
   xpos -1840
   ypos 4544
  }
-clone $Cb3de1000 {
+clone $C3eb2ec00 {
   xpos -1840
   ypos 4618
   selected false
@@ -1768,25 +1697,25 @@ clone $Cb3de1000 {
    xpos -188
    ypos 153
   }
-set Nb3eb5000 [stack 0]
+set N3ec1cc00 [stack 0]
   Dot {
    name Dot14
    xpos -7
    ypos 153
   }
-set Nb3eb5400 [stack 0]
+set N3ec1d000 [stack 0]
   Dot {
    name Dot13
    xpos -7
    ypos 393
   }
-push $Nb3eb5000
+push $N3ec1cc00
   Invert {
    name Invert1
    xpos -220
    ypos 228
   }
-push $Nb3eb5400
+push $N3ec1d000
   Switch {
    inputs 2
    which {{parent.invert}}
@@ -1806,13 +1735,13 @@ push $Nb3eb5400
    xpos -187
    ypos 473
   }
-set Nb3ef8000 [stack 0]
+set N3ec1dc00 [stack 0]
   Dot {
    name Dot3
    xpos -187
    ypos 633
   }
-set Nb3ef8400 [stack 0]
+set N3ec5e000 [stack 0]
   Dot {
    name Dot6
    xpos -187
@@ -1829,7 +1758,7 @@ set Nb3ef8400 [stack 0]
    xpos -547
    ypos 310
   }
-set Nb3ef9000 [stack 0]
+set N3ec5ec00 [stack 0]
   Dot {
    name Dot5
    xpos -727
@@ -1840,9 +1769,9 @@ set Nb3ef9000 [stack 0]
    xpos -727
    ypos 712
   }
-push $Nb3ef8400
-push $Nb3ef8000
-push $Nb3ef9000
+push $N3ec5e000
+push $N3ec1dc00
+push $N3ec5ec00
   Colorspace {
    colorspace_out HSV
    name Colorspace13
@@ -1954,7 +1883,7 @@ push $Nb3ef9000
   ypos 5658
   disable {{!parent.enableautofade}}
  }
-push $N245f6800
+push $N3d9ee800
  Dot {
   name Dot31
   xpos -1872
@@ -2004,14 +1933,14 @@ push $N245f6800
   xpos -1838
   ypos 3190
  }
-set Nb5b69400 [stack 0]
+set N3ecf5000 [stack 0]
  Dot {
   name Dot55
   xpos -1806
   ypos 3433
  }
-push $N3625fc00
-push $Nb5b69400
+push $N3daeb400
+push $N3ecf5000
  Reformat {
   inputs 0
   type "to box"
@@ -2046,18 +1975,18 @@ push $Nb5b69400
   xpos -2019
   ypos 2630
  }
-clone $Cb3de1000 {
+clone $C3eb2ec00 {
   xpos -2019
   ypos 2698
   selected false
  }
-set Nb5b97000 [stack 0]
+set N3ed26c00 [stack 0]
  Dilate {
   name Dilate3
   xpos -1894
   ypos 2778
  }
-push $Nb5b97000
+push $N3ed26c00
  Merge2 {
   inputs 2
   operation stencil
@@ -2071,8 +2000,8 @@ push $Nb5b97000
   xpos -2019
   ypos 2858
  }
-push $Nb5b97000
-push $N3625f400
+push $N3ed26c00
+push $N3daeac00
  Input {
   inputs 0
   name f3
@@ -2149,13 +2078,13 @@ push $N3625f400
   ypos -575
   disable {{!parent.relscale_3}}
  }
-set Nb5c02000 [stack 0]
+set N3ed69c00 [stack 0]
  Dot {
   name Dot26
   xpos -3967
   ypos -566
  }
-set Nb5c02400 [stack 0]
+set N3ed9e000 [stack 0]
  Dot {
   name Dot17
   xpos -4147
@@ -2187,7 +2116,7 @@ set Nb5c02400 [stack 0]
   xpos -4180
   ypos -176
  }
-clone $Cb3de1000 {
+clone $C3eb2ec00 {
   xpos -4179
   ypos -16
   selected false
@@ -2212,8 +2141,8 @@ clone $Cb3de1000 {
   xpos -4147
   ypos 473
  }
-set Nb5c30800 [stack 0]
-push $Nb5c02400
+set N3edd8400 [stack 0]
+push $N3ed9e000
  Transform {
   scale 0.6
   center {{parent.get_res.formatcenter} {parent.get_res.formatcenter}}
@@ -2240,7 +2169,7 @@ push $Nb5c02400
   xpos -3998
   ypos -176
  }
-clone $Cb3de1000 {
+clone $C3eb2ec00 {
   xpos -3998
   ypos -16
   selected false
@@ -2265,8 +2194,13 @@ clone $Cb3de1000 {
   xpos -3967
   ypos 393
  }
-set Nb5c64800 [stack 0]
-push $Nb5c02000
+set N3ee16400 [stack 0]
+push $N3ed69c00
+ Transform {
+  name Transform87
+  xpos -3822
+  ypos -490
+ }
  Transform {
   scale {{1+(((sin((0.5+focus)*2))/30)*((get_res.res.u)/100))*focmult}}
   center {{parent.get_res.formatcenter} {parent.get_res.formatcenter}}
@@ -2284,7 +2218,7 @@ push $Nb5c02000
   xpos -3820
   ypos -176
  }
-clone $Cb3de1000 {
+clone $C3eb2ec00 {
   xpos -3820
   ypos -16
   selected false
@@ -2309,7 +2243,7 @@ clone $Cb3de1000 {
   xpos -3820
   ypos 384
  }
-set Nb5ca6400 [stack 0]
+set N3ee5c400 [stack 0]
  Merge2 {
   inputs 2
   operation multiply
@@ -2318,8 +2252,8 @@ set Nb5ca6400 [stack 0]
   ypos 468
   disable {{"enablecopies==1 ? !parent.copy31:1"}}
  }
-push $Nb5c64800
-push $Nb5ca6400
+push $N3ee16400
+push $N3ee5c400
  Merge2 {
   inputs 2
   operation min
@@ -2328,8 +2262,8 @@ push $Nb5ca6400
   ypos 470
   disable {{"enablecopies==1 ? !parent.copy31:1"}}
  }
-push $Nb5c64800
-push $Nb5ca6400
+push $N3ee16400
+push $N3ee5c400
  Merge2 {
   inputs 2
   operation plus
@@ -2345,7 +2279,7 @@ push $Nb5ca6400
   xpos -3820
   ypos 550
  }
-set Nb5c9aa00 [stack 0]
+set N3ee66500 [stack 0]
  Merge2 {
   inputs 2
   operation multiply
@@ -2354,8 +2288,8 @@ set Nb5c9aa00 [stack 0]
   ypos 630
   disable {{"enablecopies==1 ? !parent.copy32:1"}}
  }
-push $Nb5c30800
-push $Nb5c9aa00
+push $N3edd8400
+push $N3ee66500
  Merge2 {
   inputs 2
   operation min
@@ -2364,8 +2298,8 @@ push $Nb5c9aa00
   ypos 630
   disable {{"enablecopies==1 ? !parent.copy32:1"}}
  }
-push $Nb5c30800
-push $Nb5c9aa00
+push $N3edd8400
+push $N3ee66500
  Merge2 {
   inputs 2
   operation plus
@@ -2430,7 +2364,7 @@ push $Nb5c9aa00
   xpos -3788
   ypos 1593
  }
-push $N3625f000
+push $N3daea800
  Input {
   inputs 0
   name f2
@@ -2507,13 +2441,13 @@ push $N3625f000
   ypos -576
   disable {{!parent.relscale_2}}
  }
-set Nb5d33c00 [stack 0]
+set N3eee3c00 [stack 0]
  Dot {
   name Dot19
   xpos -3427
   ypos -567
  }
-set Nb653a000 [stack 0]
+set N3ef1e000 [stack 0]
  Dot {
   name Dot20
   xpos -3607
@@ -2545,7 +2479,7 @@ set Nb653a000 [stack 0]
   xpos -3640
   ypos -176
  }
-clone $Cb3de1000 {
+clone $C3eb2ec00 {
   xpos -3639
   ypos -16
   selected false
@@ -2570,8 +2504,8 @@ clone $Cb3de1000 {
   xpos -3607
   ypos 473
  }
-set Nb6570400 [stack 0]
-push $Nb653a000
+set N3ef5a400 [stack 0]
+push $N3ef1e000
  Transform {
   scale 0.7
   center {{parent.get_res.formatcenter} {parent.get_res.formatcenter}}
@@ -2598,7 +2532,7 @@ push $Nb653a000
   xpos -3460
   ypos -176
  }
-clone $Cb3de1000 {
+clone $C3eb2ec00 {
   xpos -3459
   ypos -16
   selected false
@@ -2623,8 +2557,13 @@ clone $Cb3de1000 {
   xpos -3427
   ypos 393
  }
-set Nb65a4400 [stack 0]
-push $Nb5d33c00
+set N3ef96400 [stack 0]
+push $N3eee3c00
+ Transform {
+  name Transform86
+  xpos -3282
+  ypos -490
+ }
  Transform {
   scale {{1+(((sin((0.3+focus)*2))/30)*((get_res.res.u)/100))*focmult}}
   center {{parent.get_res.formatcenter} {parent.get_res.formatcenter}}
@@ -2642,7 +2581,7 @@ push $Nb5d33c00
   xpos -3280
   ypos -176
  }
-clone $Cb3de1000 {
+clone $C3eb2ec00 {
   xpos -3279
   ypos -16
   selected false
@@ -2667,7 +2606,7 @@ clone $Cb3de1000 {
   xpos -3280
   ypos 384
  }
-set Nb65e0000 [stack 0]
+set N3efd6400 [stack 0]
  Merge2 {
   inputs 2
   operation multiply
@@ -2676,8 +2615,8 @@ set Nb65e0000 [stack 0]
   ypos 470
   disable {{"enablecopies==1 ? !parent.copy21:1"}}
  }
-push $Nb65a4400
-push $Nb65e0000
+push $N3ef96400
+push $N3efd6400
  Merge2 {
   inputs 2
   operation min
@@ -2686,8 +2625,8 @@ push $Nb65e0000
   ypos 470
   disable {{"enablecopies==1 ? !parent.copy21:1"}}
  }
-push $Nb65a4400
-push $Nb65e0000
+push $N3ef96400
+push $N3efd6400
  Merge2 {
   inputs 2
   operation plus
@@ -2703,7 +2642,7 @@ push $Nb65e0000
   xpos -3280
   ypos 550
  }
-set Nb65d1900 [stack 0]
+set N3efcf400 [stack 0]
  Merge2 {
   inputs 2
   operation min
@@ -2712,8 +2651,8 @@ set Nb65d1900 [stack 0]
   ypos 630
   disable {{"enablecopies==1 ? !parent.copy22:1"}}
  }
-push $Nb6570400
-push $Nb65d1900
+push $N3ef5a400
+push $N3efcf400
  Merge2 {
   inputs 2
   operation min
@@ -2722,8 +2661,8 @@ push $Nb65d1900
   ypos 630
   disable {{"enablecopies==1 ? !parent.copy22:1"}}
  }
-push $Nb6570400
-push $Nb65d1900
+push $N3ef5a400
+push $N3efcf400
  Merge2 {
   inputs 2
   operation plus
@@ -2788,7 +2727,7 @@ push $Nb65d1900
   xpos -3248
   ypos 1513
  }
-push $N3625ec00
+push $N3daea400
  Input {
   inputs 0
   name f1
@@ -2865,13 +2804,13 @@ push $N3625ec00
   ypos -574
   disable {{!parent.relscale_1}}
  }
-set Nb665f800 [stack 0]
+set N3f05dc00 [stack 0]
  Dot {
   name Dot24
   xpos -2889
   ypos -566
  }
-set Nb665fc00 [stack 0]
+set N3f092000 [stack 0]
  Dot {
   name Dot25
   xpos -3070
@@ -2903,7 +2842,7 @@ set Nb665fc00 [stack 0]
   xpos -3100
   ypos -176
  }
-clone $Cb3de1000 {
+clone $C3eb2ec00 {
   xpos -3099
   ypos -16
   selected false
@@ -2929,8 +2868,8 @@ clone $Cb3de1000 {
   xpos -3068
   ypos 473
  }
-set Nb66cc000 [stack 0]
-push $Nb665fc00
+set N3f0ce400 [stack 0]
+push $N3f092000
  Transform {
   scale 0.8
   center {{parent.get_res.formatcenter} {parent.get_res.formatcenter}}
@@ -2957,7 +2896,7 @@ push $Nb665fc00
   xpos -2920
   ypos -176
  }
-clone $Cb3de1000 {
+clone $C3eb2ec00 {
   xpos -2920
   ypos -16
   selected false
@@ -2982,8 +2921,13 @@ clone $Cb3de1000 {
   xpos -2887
   ypos 393
  }
-set Nb6704000 [stack 0]
-push $Nb665f800
+set N3f108400 [stack 0]
+push $N3f05dc00
+ Transform {
+  name Transform85
+  xpos -2741
+  ypos -490
+ }
  Transform {
   scale {{1+(((sin((3+focus)*2))/30)*((get_res.res.u)/100))*focmult}}
   center {{parent.get_res.formatcenter} {parent.get_res.formatcenter}}
@@ -3001,7 +2945,7 @@ push $Nb665f800
   xpos -2740
   ypos -176
  }
-clone $Cb3de1000 {
+clone $C3eb2ec00 {
   xpos -2739
   ypos -16
   selected false
@@ -3026,7 +2970,7 @@ clone $Cb3de1000 {
   xpos -2739
   ypos 384
  }
-set Nb6705c00 [stack 0]
+set N3f144400 [stack 0]
  Merge2 {
   inputs 2
   operation multiply
@@ -3035,8 +2979,8 @@ set Nb6705c00 [stack 0]
   ypos 470
   disable {{"enablecopies==1 ? !parent.copy11:1"}}
  }
-push $Nb6704000
-push $Nb6705c00
+push $N3f108400
+push $N3f144400
  Merge2 {
   inputs 2
   operation min
@@ -3045,8 +2989,8 @@ push $Nb6705c00
   ypos 470
   disable {{"enablecopies==1 ? !parent.copy11:1"}}
  }
-push $Nb6704000
-push $Nb6705c00
+push $N3f108400
+push $N3f144400
  Merge2 {
   inputs 2
   operation plus
@@ -3062,7 +3006,7 @@ push $Nb6705c00
   xpos -2739
   ypos 550
  }
-set Nb741c800 [stack 0]
+set N3f13e300 [stack 0]
  Merge2 {
   inputs 2
   operation multiply
@@ -3071,8 +3015,8 @@ set Nb741c800 [stack 0]
   ypos 630
   disable {{"enablecopies==1 ? !parent.copy12:1"}}
  }
-push $Nb66cc000
-push $Nb741c800
+push $N3f0ce400
+push $N3f13e300
  Merge2 {
   inputs 2
   operation min
@@ -3081,8 +3025,8 @@ push $Nb741c800
   ypos 630
   disable {{"enablecopies==1 ? !parent.copy12:1"}}
  }
-push $Nb66cc000
-push $Nb741c800
+push $N3f0ce400
+push $N3f13e300
  Merge2 {
   inputs 2
   operation plus
@@ -3188,8 +3132,8 @@ push $Nb741c800
   ypos 310
  }
  Transform {
-  scale {{parent.popmasksize}}
-  center {{parent.get_res.formatcenter} {parent.get_res.formatcenter}}
+  scale {{parent.popmasksize x29 0}}
+  center {{parent.get_res.formatcenter x29 0} {parent.get_res.formatcenter x29 0}}
   name Transform37
   tile_color 0xaaffbfff
   label "pop size"
@@ -3208,7 +3152,7 @@ push $Nb741c800
   xpos -2167
   ypos 1112
  }
-set Nb74c1800 [stack 0]
+set N3f214000 [stack 0]
  Shuffle2 {
   fromInput1 {{0} B}
   fromInput2 {{0} B}
@@ -3218,7 +3162,83 @@ set Nb74c1800 [stack 0]
   xpos -2200
   ypos 1264
  }
-push $N3625e800
+push $N3daea000
+push $N3d9ee800
+ NoOp {
+  name center_1
+  tile_color 0xdfff00ff
+  note_font "Verdana Bold"
+  xpos -940
+  ypos 311
+  addUserKnob {20 User}
+  addUserKnob {12 flarecenter l "flare center"}
+  flarecenter {300 300}
+ }
+set N3f214800 [stack 0]
+ Dot {
+  name Dot9
+  xpos -1986
+  ypos 554
+  hide_input true
+ }
+ Reformat {
+  inputs 0
+  format "512 512 0 0 512 512 1 square_512"
+  name Reformat20
+  xpos -1840
+  ypos 145
+  hide_input true
+ }
+ Radial {
+  area {128 128 384 384}
+  name Radial9
+  xpos -1840
+  ypos 231
+ }
+ Reformat {
+  type "to box"
+  box_width {{parent.get_res.res.u}}
+  box_height {{parent.get_res.res.v}}
+  box_fixed true
+  box_pixel_aspect {{parent.get_res.inaspect}}
+  resize height
+  pbb true
+  name Reformat21
+  xpos -1840
+  ypos 311
+ }
+ Transform {
+  scale {{(parent.occlude.sval.r*-6)+6 x30 0}}
+  center {{parent.get_res.formatcenter x30 0} {parent.get_res.formatcenter x30 0}}
+  name Transform84
+  label "fade size"
+  xpos -1840
+  ypos 385
+ }
+ Transform {
+  translate {{(parent.center_1.flarecenter)-((get_res.res.u)/2)} {(parent.center_1.flarecenter)-((get_res.res.v)/2)}}
+  center {{parent.get_res.res.u} {parent.get_res.res.v}}
+  name Transform30
+  xpos -1840
+  ypos 471
+ }
+ CopyBBox {
+  inputs 2
+  name CopyBBox5
+  xpos -1840
+  ypos 551
+ }
+ Invert {
+  name Invert3
+  xpos -1840
+  ypos 625
+ }
+ Dot {
+  name Dot57
+  xpos -1806
+  ypos 794
+ }
+set N3f235400 [stack 0]
  Input {
   inputs 0
   name c3
@@ -3276,14 +3296,14 @@ push $N3625e800
   disable {{!parent.useaspect5}}
  }
  Transform {
-  translate {{"movean6==1 ? (((parent.center_1.flarecenter)-((get_res.res.u)/2))*-1)*moveanmult3 : ((parent.center_1.flarecenter)-((get_res.res.u)/2))"} {"movean3==1 ? (((parent.center_1.flarecenter)-((get_res.res.v)/2))*-1)*moveanmult3 : ((parent.center_1.flarecenter)-((get_res.res.v)/2))"}}
+  translate {{"movean6==1 ? (((parent.center_1.flarecenter)-((get_res.res.u)/2))*-1)*moveanmult4 : ((parent.center_1.flarecenter)-((get_res.res.u)/2))"} {"movean3==1 ? (((parent.center_1.flarecenter)-((get_res.res.v)/2))*-1)*moveanmult3 : ((parent.center_1.flarecenter)-((get_res.res.v)/2))"}}
   center {{parent.get_res.res.u} {parent.get_res.res.v}}
   name Transform25
   label "+ mirror"
   xpos -1660
   ypos -96
  }
-clone $Cb3de1000 {
+clone $C3eb2ec00 {
   xpos -1661
   ypos 64
   selected false
@@ -3334,12 +3354,16 @@ clone $Cb3de1000 {
   xpos -1660
   ypos 625
  }
- Dot {
-  name Dot15
-  xpos -1627
-  ypos 953
+ Merge2 {
+  inputs 2
+  operation stencil
+  name Merge52
+  xpos -1660
+  ypos 951
+  disable {{!parent.occlusiontype}}
  }
-push $N3625e400
+push $N3daadc00
+push $N3f235400
  Input {
   inputs 0
   name c2
@@ -3397,14 +3421,14 @@ push $N3625e400
   disable {{!parent.useaspect4}}
  }
  Transform {
-  translate {{"movean5==1 ? (((parent.center_1.flarecenter)-((get_res.res.u)/2))*-1)*moveanmult2 : ((parent.center_1.flarecenter)-((get_res.res.u)/2))"} {"movean2==1 ? (((parent.center_1.flarecenter)-((get_res.res.v)/2))*-1)*moveanmult2 : ((parent.center_1.flarecenter)-((get_res.res.v)/2))"}}
+  translate {{"movean5==1 ? (((parent.center_1.flarecenter)-((get_res.res.u)/2))*-1)*moveanmult5 : ((parent.center_1.flarecenter)-((get_res.res.u)/2))"} {"movean2==1 ? (((parent.center_1.flarecenter)-((get_res.res.v)/2))*-1)*moveanmult2 : ((parent.center_1.flarecenter)-((get_res.res.v)/2))"}}
   center {{parent.get_res.res.u} {parent.get_res.res.v}}
   name Transform83
   label "+ mirror"
   xpos -1481
   ypos -96
  }
-clone $Cb3de1000 {
+clone $C3eb2ec00 {
   xpos -1481
   ypos 64
   selected false
@@ -3454,12 +3478,16 @@ clone $Cb3de1000 {
   xpos -1481
   ypos 625
  }
- Dot {
-  name Dot14
-  xpos -1447
-  ypos 873
+ Merge2 {
+  inputs 2
+  operation stencil
+  name Merge53
+  xpos -1480
+  ypos 871
+  disable {{!parent.occlusiontype}}
  }
-push $N3625e000
+push $N3daad800
+push $N3f235400
  Input {
   inputs 0
   name c1
@@ -3517,14 +3545,14 @@ push $N3625e000
   disable {{!parent.useaspect}}
  }
  Transform {
-  translate {{"movean4==1 ? (((parent.center_1.flarecenter)-((get_res.res.u)/2))*-1)*moveanmult1 : ((parent.center_1.flarecenter)-((get_res.res.u)/2))"} {"movean1==1 ? (((parent.center_1.flarecenter)-((get_res.res.v)/2))*-1)*moveanmult1 : ((parent.center_1.flarecenter)-((get_res.res.v)/2))"}}
+  translate {{"movean4==1 ? (((parent.center_1.flarecenter)-((get_res.res.u)/2))*-1)*moveanmult6 : ((parent.center_1.flarecenter)-((get_res.res.u)/2))"} {"movean1==1 ? (((parent.center_1.flarecenter)-((get_res.res.v)/2))*-1)*moveanmult1 : ((parent.center_1.flarecenter)-((get_res.res.v)/2))"}}
   center {{parent.get_res.res.u} {parent.get_res.res.v}}
   name Transform9
   label "+ mirror"
   xpos -1301
   ypos -96
  }
-clone $Cb3de1000 {
+clone $C3eb2ec00 {
   xpos -1301
   ypos 64
   selected false
@@ -3575,22 +3603,15 @@ clone $Cb3de1000 {
   xpos -1300
   ypos 625
  }
- Dot {
-  name Dot9
-  xpos -1267
-  ypos 793
+ Merge2 {
+  inputs 2
+  operation stencil
+  name Merge54
+  xpos -1300
+  ypos 791
+  disable {{!parent.occlusiontype}}
  }
-push $N245f6800
- NoOp {
-  name center_1
-  tile_color 0xdfff00ff
-  note_font "Verdana Bold"
-  xpos -940
-  ypos 310
-  addUserKnob {20 User}
-  addUserKnob {12 flarecenter l "flare center"}
-  flarecenter {300 300}
- }
+push $N3f214800
  Merge2 {
   inputs 2+1
   operation plus
@@ -3627,15 +3648,15 @@ push $N245f6800
   ypos 950
   disable {{!parent.enablecenter2}}
  }
-set N2ab05800 [stack 0]
+set N3f3c8c00 [stack 0]
  Merge2 {
   inputs 2
   name Merge8
   xpos -1120
   ypos 1270
  }
-push $Nb74c1800
-push $N2ab05800
+push $N3f214000
+push $N3f3c8c00
  Multiply {
   inputs 1+1
   value {{parent.popbrightness}}
@@ -3645,8 +3666,8 @@ push $N2ab05800
   ypos 1104
   disable {{!parent.enableedgepop}}
  }
-push $Nb74c1800
-push $N2ab05800
+push $N3f214000
+push $N3f3c8c00
  Multiply {
   inputs 1+1
   value {{parent.popbrightness}}
@@ -3710,7 +3731,7 @@ push $N2ab05800
   xpos -908
   ypos 2553
  }
-set N2ab3d400 [stack 0]
+set N3f418800 [stack 0]
  Dot {
   name Dot35
   xpos -2319
@@ -3736,7 +3757,7 @@ set N2ab3d400 [stack 0]
   xpos -1840
   ypos 1990
  }
-set N2ab82400 [stack 0]
+set N3f419800 [stack 0]
  Transform {
   translate {{"moverel1==1 ? invrelmove1==1 ? (((get_res.res.u/2)+(center_1.flarecenter*-1))*(relmove.value*strengthoffset)*-1) : ((get_res.res.u/2)+(center_1.flarecenter*-1))*(relmove.value*strengthoffset) : 0"} {"moverel1==1 ? invrelmove1==1 ? (((get_res.res.v/2)+(center_1.flarecenter*-1))*(relmove.value*strengthoffset)*-1) : ((get_res.res.v/2)+(center_1.flarecenter*-1))*(relmove.value*strengthoffset) : 0"}}
   scale {1 1.5}
@@ -3746,7 +3767,7 @@ set N2ab82400 [stack 0]
   xpos -2020
   ypos 1991
  }
-clone $Cb3de1000 {
+clone $C3eb2ec00 {
   xpos -2020
   ypos 2064
   selected false
@@ -3902,7 +3923,7 @@ clone $Cb3de1000 {
    xpos -367
    ypos -887
   }
-set N2ac10400 [stack 0]
+set N3f483800 [stack 0]
   Dot {
    name Dot2
    xpos -727
@@ -3913,7 +3934,7 @@ set N2ac10400 [stack 0]
    xpos -726
    ypos -166
   }
-set N2ac10c00 [stack 0]
+set N3f4c2000 [stack 0]
   Shuffle2 {
    fromInput1 {{0} B}
    fromInput2 {{0} B}
@@ -3927,19 +3948,19 @@ set N2ac10c00 [stack 0]
    xpos -726
    ypos -6
   }
-set N2ac11400 [stack 0]
+set N3f4c2800 [stack 0]
   Dot {
    name Dot7
    xpos -726
    ypos 713
   }
-push $N2ac10400
+push $N3f483800
   Dot {
    name Dot21
    xpos 354
    ypos -886
   }
-set N2ac11c00 [stack 0]
+set N3f4c3000 [stack 0]
   Input {
    inputs 0
    name mask
@@ -3957,14 +3978,14 @@ set N2ac11c00 [stack 0]
    xpos -220
    ypos -16
   }
-push $N2ac11400
-push $N2ac10400
+push $N3f4c2800
+push $N3f483800
   Dot {
    name Dot29
    xpos -367
    ypos -727
   }
-set N2ac2cc00 [stack 0]
+set N3f4e8000 [stack 0]
   Dot {
    name Dot16
    xpos -187
@@ -3979,7 +4000,7 @@ set N2ac2cc00 [stack 0]
    xpos -220
    ypos -656
   }
-set N2ac2d400 [stack 0]
+set N3f4e8800 [stack 0]
   Dot {
    name Dot19
    xpos -7
@@ -4001,7 +4022,7 @@ set N2ac2d400 [stack 0]
    xpos -7
    ypos -488
   }
-push $N2ac2d400
+push $N3f4e8800
   GodRays {
    channels rgb
    scale {{1+(Add1.value)}}
@@ -4031,7 +4052,7 @@ push $N2ac2d400
    ypos -328
   }
 push 0
-push $N2ac2cc00
+push $N3f4e8000
   Dot {
    name Dot17
    xpos -550
@@ -4067,7 +4088,7 @@ push $N2ac2cc00
    xpos -548
    ypos -326
   }
-push $N2ac2cc00
+push $N3f4e8000
   Shuffle2 {
    fromInput1 {{0} B}
    fromInput2 {{0} B}
@@ -4106,14 +4127,14 @@ push $N2ac2cc00
    xpos -400
    ypos -15
   }
-set N2ac8d400 [stack 0]
-push $N2ac10c00
+set N3f54a800 [stack 0]
+push $N3f4c2000
   Dot {
    name Dot4
    xpos -546
    ypos -166
   }
-push $N2ac8d400
+push $N3f54a800
   Copy {
    inputs 2
    from0 rgba.alpha
@@ -4129,7 +4150,7 @@ push $N2ac8d400
    xpos -400
    ypos 150
   }
-set N2ac5a800 [stack 0]
+set N3f508d00 [stack 0]
   Merge2 {
    inputs 2
    operation difference
@@ -4169,20 +4190,20 @@ set N2ac5a800 [stack 0]
    xpos -186
    ypos 474
   }
-set Nb8daf400 [stack 0]
+set N3f590800 [stack 0]
   Dot {
    name Dot26
    xpos -186
    ypos 554
   }
-push $Nb8daf400
-push $N2ac5a800
+push $N3f590800
+push $N3f508d00
   Dot {
    name Dot27
    xpos -367
    ypos 394
   }
-set Nb8dafc00 [stack 0]
+set N3f591000 [stack 0]
   Grade {
    inputs 1+1
    white 1.02
@@ -4197,7 +4218,7 @@ set Nb8dafc00 [stack 0]
    xpos -400
    ypos 550
   }
-push $Nb8dafc00
+push $N3f591000
   Dot {
    name Dot28
    xpos -546
@@ -4233,7 +4254,7 @@ push $Nb8dafc00
    xpos -400
    ypos 994
   }
-push $N2ac11c00
+push $N3f4c3000
   Dot {
    name Dot20
    label " input"
@@ -4295,8 +4316,8 @@ push $N2ac11c00
   ypos 3338
   disable {{!parent.enableautofade}}
  }
-push $N3625f800
-push $Nb5b69400
+push $N3daeb000
+push $N3ecf5000
  Reformat {
   inputs 0
   type "to box"
@@ -4331,18 +4352,18 @@ push $Nb5b69400
   xpos -1659
   ypos 2630
  }
-clone $Cb3de1000 {
+clone $C3eb2ec00 {
   xpos -1659
   ypos 2698
   selected false
  }
-set Nb8e44c00 [stack 0]
+set N3f626000 [stack 0]
  Dilate {
   name Dilate4
   xpos -1783
   ypos 2778
  }
-push $Nb8e44c00
+push $N3f626000
  Merge2 {
   inputs 2
   operation stencil
@@ -4356,15 +4377,15 @@ push $Nb8e44c00
   xpos -1659
   ypos 2864
  }
-push $Nb8e44c00
-push $N2ab3d400
+push $N3f626000
+push $N3f418800
  Dot {
   name Dot34
   xpos -1267
   ypos 2552
   hide_input true
  }
-push $N2ab82400
+push $N3f419800
  Transform {
   translate {{"moverel1==1 ? invrelmove1==1 ? (((get_res.res.u/2)+(center_1.flarecenter*-1))*(relmove.value)*-1) : ((get_res.res.u/2)+(center_1.flarecenter*-1))*(relmove.value) : 0"} {"moverel1==1 ? invrelmove1==1 ? (((get_res.res.v/2)+(center_1.flarecenter*-1))*(relmove.value)*-1) : ((get_res.res.v/2)+(center_1.flarecenter*-1))*(relmove.value) : 0"}}
   scale {0.9 1}
@@ -4374,7 +4395,7 @@ push $N2ab82400
   xpos -1660
   ypos 1990
  }
-clone $Cb3de1000 {
+clone $C3eb2ec00 {
   xpos -1660
   ypos 2064
   selected false
@@ -4530,7 +4551,7 @@ clone $Cb3de1000 {
    xpos -367
    ypos -887
   }
-set Nb8eb5c00 [stack 0]
+set N3f695000 [stack 0]
   Dot {
    name Dot2
    xpos -727
@@ -4541,7 +4562,7 @@ set Nb8eb5c00 [stack 0]
    xpos -726
    ypos -166
   }
-set Nb8ef8400 [stack 0]
+set N3f695800 [stack 0]
   Shuffle2 {
    fromInput1 {{0} B}
    fromInput2 {{0} B}
@@ -4555,19 +4576,19 @@ set Nb8ef8400 [stack 0]
    xpos -726
    ypos -6
   }
-set Nb8ef8c00 [stack 0]
+set N3f6ce000 [stack 0]
   Dot {
    name Dot7
    xpos -726
    ypos 713
   }
-push $Nb8eb5c00
+push $N3f695000
   Dot {
    name Dot21
    xpos 354
    ypos -886
   }
-set Nb8ef9400 [stack 0]
+set N3f6ce800 [stack 0]
   Input {
    inputs 0
    name mask
@@ -4585,14 +4606,14 @@ set Nb8ef9400 [stack 0]
    xpos -220
    ypos -16
   }
-push $Nb8ef8c00
-push $Nb8eb5c00
+push $N3f6ce000
+push $N3f695000
   Dot {
    name Dot29
    xpos -367
    ypos -727
   }
-set Nb8f12400 [stack 0]
+set N3f6cf800 [stack 0]
   Dot {
    name Dot16
    xpos -187
@@ -4607,7 +4628,7 @@ set Nb8f12400 [stack 0]
    xpos -220
    ypos -656
   }
-set Nb8f12c00 [stack 0]
+set N3f6ee000 [stack 0]
   Dot {
    name Dot19
    xpos -7
@@ -4629,7 +4650,7 @@ set Nb8f12c00 [stack 0]
    xpos -7
    ypos -488
   }
-push $Nb8f12c00
+push $N3f6ee000
   GodRays {
    channels rgb
    scale {{1+(Add1.value)}}
@@ -4659,7 +4680,7 @@ push $Nb8f12c00
    ypos -328
   }
 push 0
-push $Nb8f12400
+push $N3f6cf800
   Dot {
    name Dot17
    xpos -550
@@ -4695,7 +4716,7 @@ push $Nb8f12400
    xpos -548
    ypos -326
   }
-push $Nb8f12400
+push $N3f6cf800
   Shuffle2 {
    fromInput1 {{0} B}
    fromInput2 {{0} B}
@@ -4734,14 +4755,14 @@ push $Nb8f12400
    xpos -400
    ypos -15
   }
-set Nb8f7cc00 [stack 0]
-push $Nb8ef8400
+set N3f75c000 [stack 0]
+push $N3f695800
   Dot {
    name Dot4
    xpos -546
    ypos -166
   }
-push $Nb8f7cc00
+push $N3f75c000
   Copy {
    inputs 2
    from0 rgba.alpha
@@ -4757,7 +4778,7 @@ push $Nb8f7cc00
    xpos -400
    ypos 150
   }
-set Nb8f38800 [stack 0]
+set N3f706d00 [stack 0]
   Merge2 {
    inputs 2
    operation difference
@@ -4797,20 +4818,20 @@ set Nb8f38800 [stack 0]
    xpos -186
    ypos 474
   }
-set Nb8fbac00 [stack 0]
+set N3f79c000 [stack 0]
   Dot {
    name Dot26
    xpos -186
    ypos 554
   }
-push $Nb8fbac00
-push $Nb8f38800
+push $N3f79c000
+push $N3f706d00
   Dot {
    name Dot27
    xpos -367
    ypos 394
   }
-set Nb8fbb400 [stack 0]
+set N3f79c800 [stack 0]
   Grade {
    inputs 1+1
    white 1.02
@@ -4825,7 +4846,7 @@ set Nb8fbb400 [stack 0]
    xpos -400
    ypos 550
   }
-push $Nb8fbb400
+push $N3f79c800
   Dot {
    name Dot28
    xpos -546
@@ -4861,7 +4882,7 @@ push $Nb8fbb400
    xpos -400
    ypos 994
   }
-push $Nb8ef9400
+push $N3f6ce800
   Dot {
    name Dot20
    label " input"
@@ -4918,7 +4939,7 @@ push $Nb8ef9400
   ypos 3258
   disable {{!parent.enableautofade}}
  }
-push $N2ab3d400
+push $N3f418800
  Merge2 {
   inputs 2+1
   operation plus
@@ -4962,6 +4983,12 @@ push $N2ab3d400
   ypos 5670
   disable {{!parent.rainbow}}
  }
+ Dot {
+  name Dot56
+  xpos -907
+  ypos 6233
+ }
+set N3f7fb000 [stack 0]
  Merge2 {
   inputs 2+1
   operation plus
@@ -4970,9 +4997,87 @@ push $N2ab3d400
   Bchannels rgb
   mix {{parent.mixbloom*mixall}}
   name Merge29
-  xpos -940
-  ypos 6470
+  xpos -1120
+  ypos 6471
   disable {{!parent.enablebloom}}
+ }
+set N3f7fb400 [stack 0]
+push $N3daebc00
+ Input {
+  inputs 0
+  name bloom_tex
+  xpos -1479
+  ypos 5991
+  number 8
+ }
+ Reformat {
+  type "to box"
+  box_width {{parent.get_res.res.u}}
+  box_height {{parent.get_res.res.v}}
+  box_fixed true
+  box_pixel_aspect {{parent.get_res.inaspect}}
+  pbb true
+  name Reformat22
+  xpos -1479
+  ypos 6071
+ }
+ Multiply {
+  value {{"((clamp(((((measure.distance*2)*100)/(get_res.res.u))-(clampfr.cl_bloom.y))/(clampfr.cl_bloom.x-clamp_from.mincl), 0, 1))*-1)+1"}}
+  name Multiply39
+  tile_color 0xe9ff55ff
+  label "fade from center"
+  xpos -1479
+  ypos 6139
+  disable {{!parent.ffc_1}}
+ }
+ Multiply {
+  value {{clamp(1-(1*(get_res.formdist)/fadedistance))}}
+  name Multiply40
+  tile_color 0xb4aaffff
+  label "auto fade"
+  xpos -1479
+  ypos 6219
+  disable {{!parent.enableautofade}}
+ }
+ Dot {
+  name Dot15
+  xpos -1445
+  ypos 6312
+ }
+push $N3f7fb000
+ Merge2 {
+  inputs 2+1
+  operation plus
+  bbox B
+  Achannels rgb
+  Bchannels rgb
+  mix {{parent.customin*mixall}}
+  name Merge51
+  xpos -1120
+  ypos 6310
+  disable {{!parent.enablebloom}}
+ }
+set N3f82f000 [stack 0]
+ Merge2 {
+  inputs 2
+  operation plus
+  bbox B
+  Achannels rgb
+  Bchannels rgb
+  mix {{parent.mixbloom*mixall}}
+  name Merge55
+  xpos -940
+  ypos 6391
+  disable {{!parent.enablebloom}}
+ }
+push $N3f82f000
+push $N3f7fb400
+ Switch {
+  inputs 3
+  which {{parent.bloomtype}}
+  name Switch9
+  xpos -940
+  ypos 6550
  }
  Multiply {
   value {{(parent.occlude.sval.r*-1)+1}}
@@ -4980,7 +5085,7 @@ push $N2ab3d400
   label "occlusion ctrl"
   note_font "Verdana Bold"
   xpos -940
-  ypos 6696
+  ypos 7179
   disable {{!parent.occlusion}}
  }
  Merge2 {
@@ -5008,5 +5113,109 @@ push $N2ab3d400
   name Output1
   xpos -940
   ypos 7990
+ }
+ Input {
+  inputs 0
+  name occlusion
+  xpos -40
+  ypos 6070
+  number 7
+  addUserKnob {20 User}
+ }
+ Shuffle2 {
+  fromInput1 {{0} B}
+  fromInput2 {{0} B}
+  mappings "4 rgba.alpha 0 3 rgba.red 0 0 rgba.alpha 0 3 rgba.green 0 1 rgba.alpha 0 3 rgba.blue 0 2 rgba.alpha 0 3 rgba.alpha 0 3"
+  name Shuffle3
+  label "\[value in1]"
+  xpos -40
+  ypos 6144
+ }
+push $N3d9eec00
+ Dot {
+  name Dot46
+  xpos 713
+  ypos 233
+ }
+ Shuffle2 {
+  fromInput1 {{0} B}
+  fromInput2 {{0} B}
+  mappings "4 white -1 -1 rgba.red 0 0 white -1 -1 rgba.green 0 1 white -1 -1 rgba.blue 0 2 black -1 -1 rgba.alpha 0 3"
+  name Shuffle2
+  label "\[value in1]"
+  xpos 680
+  ypos 6224
+ }
+ Dot {
+  name Dot29
+  xpos 713
+  ypos 6312
+ }
+ Merge2 {
+  inputs 2
+  operation screen
+  bbox B
+  name Merge36
+  xpos -40
+  ypos 6310
+ }
+ Shuffle2 {
+  fromInput1 {{0} B}
+  fromInput2 {{0} B}
+  mappings "4 rgba.alpha 0 3 rgba.red 0 0 rgba.alpha 0 3 rgba.green 0 1 rgba.alpha 0 3 rgba.blue 0 2 rgba.alpha 0 3 rgba.alpha 0 3"
+  name Shuffle5
+  label "\[value in1]"
+  xpos -40
+  ypos 6384
+ }
+ Clamp {
+  channels rgba
+  name Clamp2
+  xpos -40
+  ypos 6464
+ }
+ Dilate {
+  channels rgba
+  size {{parent.shiftfade}}
+  name Dilate5
+  xpos -40
+  ypos 6550
+ }
+ Blur {
+  channels rgba
+  size {{parent.bltran}}
+  name Blur21
+  xpos -40
+  ypos 6630
+ }
+ Expression {
+  channel3 alpha
+  expr3 "isinf(a) ? 1:a"
+  name Expression1
+  xpos -40
+  ypos 6710
+ }
+ NoOp {
+  name occlude
+  note_font "Verdana Bold"
+  xpos -40
+  ypos 6790
+  addUserKnob {20 User}
+  addUserKnob {12 sampler}
+  sampler {{parent.center_1.flarecenter} {parent.center_1.flarecenter}}
+  addUserKnob {18 sval l "sample value"}
+  sval {{"occlusion==1 ? \[sample this alpha sampler.x sampler.y] : 1"} 0 0}
+  addUserKnob {6 sval_panelDropped l "panel dropped state" -STARTLINE +HIDDEN}
+  addUserKnob {6 color_rgb_panelDropped l "panel dropped state" +HIDDEN +STARTLINE}
+ }
+ NoOp {
+  inputs 0
+  name clampfr
+  xpos -1659
+  ypos 6310
+  hide_input true
+  addUserKnob {20 User}
+  addUserKnob {12 cl_bloom l clamp}
+  cl_bloom {{parent.cl_bloom_n.x} {parent.cl_bloom_n.y}}
  }
 end_group

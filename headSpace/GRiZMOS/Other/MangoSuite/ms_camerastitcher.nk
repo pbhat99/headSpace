@@ -1,0 +1,38 @@
+set cut_paste_input [stack 0]
+version 15.1 v6
+push $cut_paste_input
+Camera3 {
+ translate {{"translatef==1 ?\nlerp(Camera\[value cam1].translate.x,Camera\[value cam2].translate.x,blend)\n:\nCamera\[value cam1].translate.x"} {"translatef==1 ?\nlerp(Camera\[value cam1].translate.y,Camera\[value cam2].translate.y,blend)\n:\nCamera\[value cam1].translate.y"} {"translatef==1 ?\nlerp(Camera\[value cam1].translate.z,Camera\[value cam2].translate.z,blend)\n:\nCamera\[value cam1].translate.z"}}
+ rotate {{"rotationf==1 ?\nlerp(Camera\[value cam1].rotate.x,Camera\[value cam2].rotate.x,blend)\n:\nCamera\[value cam1].rotate.x"} {"rotationf==1 ?\nlerp(Camera\[value cam1].rotate.y,Camera\[value cam2].rotate.y,blend)\n:\nCamera\[value cam1].rotate.y"} {"rotationf==1 ?\nlerp(Camera\[value cam1].rotate.z,Camera\[value cam2].rotate.z,blend)\n:\nCamera\[value cam1].rotate.z"}}
+ focal {{"focalf==1 ?\nlerp(Camera\[value cam1].focal,Camera\[value cam2].focal,blend)\n:\nCamera\[value cam1].focal"}}
+ haperture {{"Camera\[value cam1].haperture"}}
+ vaperture {{"Camera\[value cam1].vaperture"}}
+ focal_point {{"focald==1 ?\nlerp(Camera\[value cam1].focal_point,Camera\[value cam2].focal_point,blend)\n:\nCamera\[value cam1].focal_point"}}
+ fstop {{"stop==1 ?\nlerp(Camera\[value cam1].fstop,Camera\[value cam2].fstop,blend)\n:\nCamera\[value cam1].fstop"}}
+ name MS_Camera
+ tile_color 0xefb500ff
+ label stitcher
+ note_font "Verdana Bold"
+ selected true
+ xpos -30
+ ypos -190
+ addUserKnob {20 blending l BLENDING}
+ addUserKnob {26 _1 l "" +STARTLINE T "<br>Insert the numbers of your camera nodes here.<br> It only works when the camera nodes are named \"Camera\".<br>"}
+ addUserKnob {3 cam1 l "<b> <span style=\"color:#ff0\">Camera A "}
+ addUserKnob {3 cam2 l "<b>&nbsp;&nbsp;Camera <span style=\"color:#f00\">B &nbsp;" -STARTLINE}
+ addUserKnob {26 ""}
+ addUserKnob {26 _2 l "" +STARTLINE T "\n<b>If disabled values will be taken from <span style=\"color:#ff0\">Camera A!\n<br>"}
+ addUserKnob {6 translatef l translate t "\nblend between translate values of cam A and cam B" +STARTLINE}
+ translatef true
+ addUserKnob {6 rotationf l rotation t "\nblend between rotation values of cam A and cam B" +STARTLINE}
+ rotationf true
+ addUserKnob {6 focalf l "focal length" t "\nblend between focal length values of cam A and cam B" +STARTLINE}
+ focalf true
+ addUserKnob {6 focald l "focal distance" t "\nblend between focal distance values of cam A and cam B" +STARTLINE}
+ addUserKnob {6 stop l Fstop t "\nblend between Fstop values of cam A and cam B" +STARTLINE}
+ addUserKnob {26 ""}
+ addUserKnob {7 blend l "<span style=\"color:#ff0\"><b>blend" t "\nblends between the selected cameras"}
+ addUserKnob {20 info}
+ addUserKnob {26 text l "" +STARTLINE T "<br><span style=\"color:#aaa;font-family:sans-serif;font-size:7pt\">node created by <b><span style=\"color:#aaaa00\">Johannes Kretschmer</span></b> mail: Jolegodrum@t-online.de - Version 1.0 - 2025 / part of  <span style=\"color:#aaa;font-family:sans-serif\"><b><span style=\"color:#ffaf24\">MANGO SUITE</span></b>\n"}
+ addUserKnob {26 _3 l "" +STARTLINE T "<br><a href=\"https://youtu.be/Rqzf6qHQaAg\"><b><span style=\"color:#aaa\"><i>watch tutorial</span></b></a>"}
+}

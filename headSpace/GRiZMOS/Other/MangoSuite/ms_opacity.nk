@@ -1,13 +1,13 @@
 set cut_paste_input [stack 0]
-version 15.0 v3
+version 15.1 v6
 push $cut_paste_input
 Group {
- name MS_opcacity2
+ name MS_opacity
  tile_color 0xefb500ff
  note_font "Verdana Bold Italic"
  selected true
- xpos -39
- ypos -250
+ xpos -40
+ ypos -170
  addUserKnob {20 settings}
  addUserKnob {26 _1 l "" +STARTLINE T "<span style=\"color:#aaa;font-family:sans-serif\"><b><span style=\"color:#ffaf24\">MS_Opacity (Ae) v.1.0</span></b>"}
  addUserKnob {26 ""}
@@ -30,7 +30,7 @@ Group {
   xpos -6
   ypos -6
  }
-set N23de400 [stack 0]
+set Nbc87dc00 [stack 0]
  Dot {
   name Dot3
   xpos -6
@@ -47,7 +47,7 @@ set N23de400 [stack 0]
   xpos -366
   ypos -6
  }
-set Ncdd5400 [stack 0]
+set Nb0dd2800 [stack 0]
  Multiply {
   inputs 1+1
   channels rgba
@@ -56,8 +56,8 @@ set Ncdd5400 [stack 0]
   xpos -400
   ypos 71
  }
-push $N23de400
-push $Ncdd5400
+push $Nbc87dc00
+push $Nb0dd2800
  Multiply {
   inputs 1+1
   channels rgb
@@ -78,7 +78,7 @@ push $Ncdd5400
   xpos -400
   ypos 150
  }
-set N36f3800 [stack 0]
+set Nb0ddea00 [stack 0]
  Viewer {
   frame 46
   frame_range 1-100
@@ -87,7 +87,7 @@ set N36f3800 [stack 0]
   xpos -125
   ypos 419
  }
-push $N36f3800
+push $Nb0ddea00
  Output {
   name Output1
   xpos -400
