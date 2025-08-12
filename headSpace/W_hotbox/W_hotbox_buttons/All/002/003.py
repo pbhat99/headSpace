@@ -2,9 +2,8 @@
 #
 # AUTOMATICALLY GENERATED FILE TO BE USED BY W_HOTBOX
 #
-# NAME: Unlock
+# NAME: Count Selection
 #
 #----------------------------------------------------------------------------------------------------------
 
-for i in nuke.selectedNodes():
-    i.unlock()
+nuke.message('%s / %s nodes selected'%(len(nuke.selectedNodes()),len(nuke.allNodes())))

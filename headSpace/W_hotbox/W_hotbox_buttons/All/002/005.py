@@ -2,9 +2,10 @@
 #
 # AUTOMATICALLY GENERATED FILE TO BE USED BY W_HOTBOX
 #
-# NAME: Unlock
+# NAME: Nodes to py
 #
 #----------------------------------------------------------------------------------------------------------
 
-for i in nuke.selectedNodes():
-    i.unlock()
+import nodes_to_python
+
+nuke.display('nodes_to_python.create_python()', nuke.root(), 'Selected nodes as Python',1000)
