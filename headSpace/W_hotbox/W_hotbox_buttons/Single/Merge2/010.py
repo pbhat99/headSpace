@@ -2,13 +2,13 @@
 #
 # AUTOMATICALLY GENERATED FILE TO BE USED BY W_HOTBOX
 #
-# NAME: Next
+# NAME: <font size = 55> &#8612;
 #
 #----------------------------------------------------------------------------------------------------------
 
 for n in nuke.selectedNodes():
     op = int(n['operation'].getValue())
-    if op < 29:
-        n['operation'].setValue(op+1)
+    if op > 0:
+        n['operation'].setValue(op-1)
     else:
-        n['operation'].setValue(0)
+        n['operation'].setValue(29)
