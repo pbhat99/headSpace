@@ -2,17 +2,13 @@
 #
 # AUTOMATICALLY GENERATED FILE TO BE USED BY W_HOTBOX
 #
-# NAME: RV
+# NAME: Denoise
 #
 #----------------------------------------------------------------------------------------------------------
 
-import subprocess
-import shlex
-import wiz
-
-context = wiz.resolve_context(["mill-rv"])
-
-for node in nuke.selectedNodes("Write"):
-    command = context["command"]["rv"]
-    command += " " + node["file"].value()
-    subprocess.Popen(shlex.split(command), env=context["environ"])
+for i in nuke.selectedNodes():
+    topnode_name = nuke.tcl("full_name [topnode %s]" % i.name())
+    topnode = nuke.toNode(topnode_name)
+    filepath = topnode['file'].value()
+    filepath = filepath.replace("4096x2160", "Denoised")
+    i.knob('file').setValue(filepath)

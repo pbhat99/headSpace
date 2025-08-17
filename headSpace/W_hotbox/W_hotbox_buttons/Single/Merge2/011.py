@@ -2,7 +2,7 @@
 #
 # AUTOMATICALLY GENERATED FILE TO BE USED BY W_HOTBOX
 #
-# NAME: <font size = 55> &#8614;
+# NAME: <font size = 55> &#10565;
 #
 #----------------------------------------------------------------------------------------------------------
 
