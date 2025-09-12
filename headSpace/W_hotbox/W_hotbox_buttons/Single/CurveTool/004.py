@@ -2,11 +2,14 @@
 #
 # AUTOMATICALLY GENERATED FILE TO BE USED BY W_HOTBOX
 #
-# NAME: Create Grade
+# NAME: AutoCrop
 #
 #----------------------------------------------------------------------------------------------------------
 
 for i in nuke.selectedNodes():
-    gradeNode = nuke.createNode('Grade')
-    gradeNode.knob('white').fromScript(i.knob('intensitydata').toScript()) # animation
-    gradeNode['whitepoint'].setValue(i['intensitydata'].getValue()) # single current frame
+    
+    first_frame = nuke.root().firstFrame()
+    last_frame = nuke.root().lastFrame()
+
+    i.knob('operation').setValue('Auto Crop')
+    i.knob('go').execute()
