@@ -95,11 +95,49 @@ This includes various python tools & nuke Grizmos to work as a efficient composi
 
 ### GRiZMOS:
 
-*   GizmoPathManager from SpinVFX
-*   AitorEcheveste Tools
-*   nuke-vector-matrix
-*   pixelfudger3
-*   etc
+#### Filter
+
+*   **[Disturb](https://github.com/pbhat99/headSpace)**: Distorts the input image with a noise pattern.
+*   **[FFfiller_v01](https://github.com/pbhat99/headSpace)**: A tool to fill holes in the alpha channel.
+*   **[FireflyKiller](https://github.com/pbhat99/headSpace)**: Removes fireflies from the image.
+*   **[LensSim](https://github.com/pbhat99/headSpace)**: A quick tool to add some level of 'lens simulation' to any image, preferably CG imagery.
+
+#### Keyer
+
+*   **[ScreenXchange_pb](https://www.nukepedia.com/gizmos/keyer/screenxchange)**: This tool is NOT a Keyer, because it doesn't output a Matte, instead it replaces a Green or Bluescreen with Background using a different math than usual Keying.
+*   **[bm_EdgeMatte](https://github.com/BenMcEwan/nuke_public)**: Simple gizmo to get a clean, controllable outline (like Edge Detect) from any matte.
+*   **[Erode (round)](https://github.com/pbhat99/headSpace)**: Erodes the input image with a round filter.
+*   **[Erode_Fine](https://github.com/SpinVFX/spin_nuke_gizmos/)**: Erode an image with fine controls, as opposed to Nuke's default erode node.
+*   **[KeyChew](https://github.com/pbhat99/headSpace)**: A tool to chew the matte.
+*   **[Organic_edges](https://github.com/pbhat99/headSpace)**: Creates organic looking edges for your mattes.
+*   **[Perimeter_v1.0](https://www.nukepedia.com/gizmos/keyer/perimeter)**: Perimeter is an advanced edge matte generation tool.
+
+#### Other
+
+*   **[AitorEcheveste](https://github.com/pbhat99/headSpace)**: A collection of gizmos from Aitor Echeveste.
+    *   **aeAnamorphic**: A tool to simulate anamorphic lens distortion.
+    *   **aeBrokenEdges**: A tool to break the edges of a matte.
+    *   **aeBrokenShapes**: A tool to break shapes.
+    *   **aeDirtCG**: A tool to add dirt to CG elements.
+    *   **aeFiller**: A tool to fill holes in the alpha channel.
+    *   **aeMotionBlur**: A tool to add motion blur to an image.
+    *   **aePrefMaker**: A tool to create a prefix for your read nodes.
+    *   **aeRefracTHOR**: A tool to create refractions.
+    *   **aeRelight2D**: A tool to relight a 2D image.
+    *   **aeTransform**: A tool to transform an image.
+    *   **aeUVChart**: A tool to generate a UV chart.
+    *   **iSTMap**: A tool to apply a STMap to an image.
+    *   **iSTMap11**: A tool to apply a STMap to an image.
+*   **[MangoSuite](https://github.com/pbhat99/headSpace)**: A collection of gizmos from Johannes Kretschmer.
+    *   **ms_alphaeliminate**: This node will help to get rid of the little artifacts from the film plate noise that often stays after keying.
+    *   **ms_alphafromrange**: This node lets you select every color that is above or below a certain value.
+    *   **ms_antialias**: A tool to antialias an image.
+    *   **ms_arrangeflares**: A tool to arrange flares.
+    *   **ms_blendtransforms**: This node can blend between two different transformations.
+    *   **ms_blendtransformslegacy**: This node can blend between two different transformations.
+    *   **ms_brightness**: This node lets you affect just the brightness without changing the saturation like a normal grade would do.
+    *   **ms_brightnesscontrast**: This node lets you affect the brightness and contrast of an image without changing the saturation.
+    *   **ms_calculator**: A calculator for various Nuke specific calculations.
 
 ## Credits:
 
