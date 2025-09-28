@@ -1,6 +1,7 @@
 import os
 import re
 import nuke
+import nukescripts
 
 def superRead():
     """
@@ -12,21 +13,22 @@ def superRead():
     if not selected_nodes:
         # No selection - run recursive load
         recursive_read()
-    elif len(selected_nodes) == 1:
-        node = selected_nodes[0]
-        node_class = node.Class()
-        
-        # Check for write nodes
-        if node_class in ['Write', 'WriteGeo', 'DeepWrite']:
-            read_from_write_path(node)
-        # Check for read nodes
-        elif node_class in ['Read', 'ReadGeo', 'DeepRead', 'Camera']:
-            update_to_latest_version(node)
-        # Check other nodes with file knobs
-        else:
-            handle_file_knob_node(node)
     else:
-        nuke.message("Please select only one node or no nodes")
+        for p in selected_nodes:
+            node_class = p.Class()
+
+            # Check for write nodes
+            if node_class in ['Write', 'WriteGeo', 'DeepWrite']:
+                read_from_write_path(p)
+
+            # Check for read nodes
+            elif node_class in ['Read', 'ReadGeo', 'DeepRead', 'Camera']:
+                update_to_latest_version(p)
+
+            # Check other nodes with file knobs
+            else:
+                handle_file_knob_node(p)
+
 
 def recursive_read():
     selected_path = nuke.getFilename("Please Select Root Folder")
@@ -41,50 +43,67 @@ def recursive_read():
     results = os.walk(directory, followlinks=True)
     for dirpath, _, _ in results:
         filepaths = nuke.getFileNameList(dirpath)
+
         for filepath in filepaths:
-            full_file_path = os.path.join(dirpath, filepath)
+            print (filepath)
+            full_file_path = dirpath + '/' + filepath #os.path.join(dirpath, filepath) 
             if not os.path.isdir(full_file_path):
                 file_paths.append(full_file_path)
-            file_paths.sort() #edited
+                file_paths.sort() #edited
+
     for file_path_info in file_paths:
-        results = file_path_info.split(" ")
-        print results
         try:
+            # sequences
+            results = file_path_info.split(" ")
             file_path, frame_range = results
-            print "Frame Range:", frame_range
             start_frame, end_frame = frame_range.split("-")
+            nuke.nodes.Read(file=file_path, first=int(start_frame), last=int(end_frame))
         except ValueError:
-            pass
-        else:
-            nuke.nodes.Read(file=file_path, first=start_frame, last=end_frame)
+            # single frame or video files
+            read_node = nuke.createNode("Read")
+            read_node.knob('file').fromUserText(file_path_info)
+            
 
 def read_from_write_path(write_node):
-    """
-    Creates a read node from write node's output path
-    """
     try:
         file_path = write_node['file'].value()
+        folder = os.path.dirname(file_path)
+        video_extensions = ['.mov', '.mp4', '.avi']
+        file_ext = os.path.splitext(file_path)[1].lower()
+        project_start_frame = str(nuke.root()['first_frame'].value())
+
         if not file_path:
             nuke.message("Write node has no file path")
             return
         
-        # Get frame range from write node
-        first_frame = write_node['first'].value() if 'first' in write_node.knobs() else nuke.root()['first_frame'].value()
-        last_frame = write_node['last'].value() if 'last' in write_node.knobs() else nuke.root()['last_frame'].value()
+        # Check for video file extensions
         
-        # Create appropriate read node
-        if write_node.Class() == 'Write':
-            read_node = nuke.nodes.Read(file=file_path, first=int(first_frame), last=int(last_frame))
+        # working needs code cleanup
+        elif write_node.Class() == 'Write':
+            if file_ext in video_extensions:
+                read_node = nuke.createNode("Read")
+                read_node.knob('file').fromUserText(file_path)
+                read_node.knob('frame_mode').setValue('1')
+                read_node.knob('frame').setValue(project_start_frame)
+            else:
+                for seq in nuke.getFileNameList(folder):
+                    read_node = nuke.createNode('Read')
+                    read_node.knob('file').fromUserText(folder + '/' + seq)
+
         elif write_node.Class() == 'WriteGeo':
-            read_node = nuke.nodes.ReadGeo2(file=file_path, first=int(first_frame), last=int(last_frame))
+            read_node = nuke.nodes.ReadGeo2(file=file_path)
+
+
         elif write_node.Class() == 'DeepWrite':
-            read_node = nuke.nodes.DeepRead(file=file_path, first=int(first_frame), last=int(last_frame))
+            for seq in nuke.getFileNameList(folder):
+                read_node = nuke.createNode('DeepRead')
+                read_node.knob('file').fromUserText(folder + '/' + seq)
         
-        # Position read node near write node
-        read_node.setXpos(write_node.xpos() + 200)
-        read_node.setYpos(write_node.ypos())
+
+        read_node.setXpos(write_node.xpos() + 100)
+        read_node.setYpos(write_node.ypos() + 100)
         
-        nuke.message("Created read node from write path")
+        print ("Created read node from write path")
         
     except Exception as e:
         nuke.message("Error creating read from write: {}".format(str(e)))
@@ -96,9 +115,9 @@ def get_version_info(file_path):
     """
     # Common version patterns: v001, v01, _001, etc.
     version_patterns = [
-        r'(.+[vV])(\d+)(.+)',  # v001, V001
-        r'(.+_)(\d+)(.+)',     # _001
-        r'(.+\.)(\d+)(\..+)'   # .001.
+        r'(_v|_V)(\d+)',  # v001, V001
+        #r'(.+_)(\d+)(.+)',     # _001
+        #r'(.+\.)(\d+)'   # .001.
     ]
     
     for pattern in version_patterns:
@@ -111,6 +130,7 @@ def get_version_info(file_path):
 def find_latest_version(file_path):
     """
     Find the latest version of a file
+    Fixed to handle slashes properly and ensure proper path joining
     """
     base_path, current_version, extension = get_version_info(file_path)
     
@@ -124,7 +144,8 @@ def find_latest_version(file_path):
     # Look for all versions
     versions = []
     for filename in os.listdir(directory):
-        full_path = os.path.join(directory, filename)
+        # Properly join directory and filename with '/'
+        full_path = directory + '/' + filename
         test_base, test_version, test_ext = get_version_info(full_path)
         
         if (test_base and test_ext and 
@@ -160,11 +181,11 @@ def update_to_latest_version(read_node):
             # Update to latest version
             read_node['file'].setValue(latest_path)
             read_node['reload'].execute()
-            nuke.message("Updated to version {} (was version {})".format(latest_version, current_ver_num))
+            print ("Updated to version {} (was version {})".format(latest_version, current_ver_num))
         else:
             # Already latest, just reload
             read_node['reload'].execute()
-            nuke.message("Already latest version ({}). Reloaded.".format(latest_version))
+            print ("Already latest version ({}). Reloaded.".format(latest_version))
             
     except Exception as e:
         nuke.message("Error updating version: {}".format(str(e)))
@@ -203,7 +224,7 @@ def handle_file_knob_node(node):
         
         if latest_path != file_path:
             file_knob.setValue(latest_path)
-            nuke.message("Updated to version {} (was version {})".format(latest_version, current_ver_num))
+            print ("Updated to version {} (was version {})".format(latest_version, current_ver_num))
         else:
             nuke.message("Already latest version ({})".format(latest_version))
     else:
@@ -218,7 +239,7 @@ def handle_file_knob_node(node):
             read_node.setXpos(node.xpos() + 200)
             read_node.setYpos(node.ypos())
             
-            nuke.message("Created read node from file path")
+            print ("Created read node from file path")
             
         except Exception as e:
             nuke.message("Error creating read: {}".format(str(e)))
