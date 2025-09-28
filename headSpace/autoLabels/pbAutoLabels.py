@@ -2,10 +2,12 @@ import nuke
 import os
 
 def trimTo2Dec(value):
+    def _one(x):
+        s = "{:.2f}".format(x)
+        return s.rstrip('0').rstrip('.') if '.' in s else s
     if isinstance(value, (list, tuple)):
-        return ", ".join(str("{0:.2f}".format(x)).rstrip('.0') for x in value)
-    else:
-        return str(round(value, 2)).rstrip('.0')
+        return ", ".join(_one(x) for x in value)
+    return _one(value)
 
 def pbAutoLabel():
     def addIndicators():
