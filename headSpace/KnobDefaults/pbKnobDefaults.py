@@ -32,6 +32,7 @@ nuke.knobDefault('Multiply.invert_mask','0')
 
 nuke.knobDefault('EXPTool.mode','0')
 nuke.knobDefault('Blur.size','2')
+nuke.knobDefault('Switch.which','1')
 
 # font sizes
 nuke.knobDefault("BackdropNode.note_font_size","55")
