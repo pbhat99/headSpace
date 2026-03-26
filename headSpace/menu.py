@@ -15,10 +15,10 @@ def menuMaker():
 	if len(sub) > 1:
 		sub = sub[:-1]
 		sub = '/'.join(sub) + '/'
-		menu = main + '/' + sub
+		menu = f"{main}/{sub}"
 	else:
 		sub = ''
-		menu = main + '/'
+		menu = f"{main}/"
 	return menu
 
 def openWeb(webLink):
@@ -44,9 +44,9 @@ p.addCommand( '-', '', '')
 
 # About
 about = 'HeadSpace v0.2.5 \n \n Collected by: Prasannakumar T Bhat \n \n Last Updated : 20 june 2025'
-nuke.menu('Nuke').addCommand(mainMenu + '/Help/About', 'nuke.message(about)', icon='pbicon.png')
+nuke.menu('Nuke').addCommand(f"{mainMenu}/Help/About", 'nuke.message(about)', icon='pbicon.png')
 # Help
-nuke.menu('Nuke').addCommand(mainMenu + '/Help/GitHub', 'openWeb("https://github.com/pbhat99/pb.nuke/releases")', icon='pbicon.png')
+nuke.menu('Nuke').addCommand(f"{mainMenu}/Help/GitHub", 'openWeb("https://github.com/pbhat99/pb.nuke/releases")', icon='pbicon.png')
 
 
 

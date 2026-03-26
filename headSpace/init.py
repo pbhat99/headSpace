@@ -18,7 +18,7 @@ def initAddPath():
 
 
 if nuke.GUI:
-    nuke.tprint('Loading Custom Tools by Prasannakumar T Bhat\n' + __file__) # Let me confirm loading of this file in nuke terminal
+    nuke.tprint(f'Loading Custom Tools by Prasannakumar T Bhat\n{__file__}') # Let me confirm loading of this file in nuke terminal
     initAddPath()
 else:
     nuke.tprint('skipped (no GUI)')
@@ -29,15 +29,15 @@ def savePreferencesToFile():
     Pythonic alternative to the 'ok' button of the preferences panel.
     '''
 
-    nukeFolder = os.path.expanduser('~') + '/.nuke/'
-    preferencesFile = nukeFolder + 'preferences%i.%i.nk' %(nuke.NUKE_VERSION_MAJOR,nuke.NUKE_VERSION_MINOR)
+    nukeFolder = f"{os.path.expanduser('~')}/.nuke/"
+    preferencesFile = f"{nukeFolder}preferences{nuke.NUKE_VERSION_MAJOR}.{nuke.NUKE_VERSION_MINOR}.nk"
 
     preferencesNode = nuke.toNode('preferences')
 
     customPrefences = preferencesNode.writeKnobs( nuke.WRITE_USER_KNOB_DEFS | nuke.WRITE_NON_DEFAULT_ONLY | nuke.TO_SCRIPT | nuke.TO_VALUE )
     customPrefences = customPrefences.replace('\n','\n  ')
 
-    preferencesCode = 'Preferences {\n inputs 0\n name Preferences%s\n}' %customPrefences 
+    preferencesCode = f'Preferences {{\n inputs 0\n name Preferences{customPrefences}\n}}'
 
     # write to file
     openPreferencesFile = open( preferencesFile , 'w' )
