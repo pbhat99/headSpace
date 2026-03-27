@@ -22,9 +22,6 @@ bBox = ["Merge2", "Keymix", "Copy", "ChannelMerge"]
 for node in bBox:
     nuke.knobDefault(f"{node}.bbox", "B")
 
-nuke.knobDefault('Merge2.bbox','B')
-nuke.knobDefault('Keymix.bbox','B')
-
 nuke.knobDefault('zoom_window_behaviour', '3')
 
 nuke.knobDefault('Multiply.value','0')
@@ -73,8 +70,8 @@ nuke.knobDefault('Copy.to0','none')
 nuke.knobDefault('Copy.channels','alpha')
 
 # B to alpha 
-nuke.knobDefault('Shuffle.onCreate',"nk = nuke.thisNode()['in2'].setValue('alpha')")
-nuke.knobDefault('Shuffle2.onCreate',"nk = nuke.thisNode()['in2'].setValue('alpha')")
+#nuke.knobDefault('Shuffle.onCreate',"nk = nuke.thisNode()['in2'].setValue('alpha')")
+#nuke.knobDefault('Shuffle2.onCreate',"nk = nuke.thisNode()['in2'].setValue('alpha')")
 
 #remove/keep
 nuke.knobDefault('Remove.channels','rgba')
