@@ -2,10 +2,10 @@
 #
 # AUTOMATICALLY GENERATED FILE TO BE USED BY W_HOTBOX
 #
-# NAME: Render this frame
+# NAME: Expand(+)
 #
 #----------------------------------------------------------------------------------------------------------
 
 for i in nuke.selectedNodes():
-        curFrame = int(nuke.knob("frame"))
-        nuke.execute(i.name(), curFrame, curFrame)
+    boxValue = i.knob('box').value()
+    i.knob('box').setValue((boxValue[0]-20,boxValue[1]-20,boxValue[2]+20,boxValue[3]+20))

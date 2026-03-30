@@ -2,10 +2,9 @@
 #
 # AUTOMATICALLY GENERATED FILE TO BE USED BY W_HOTBOX
 #
-# NAME: Render this frame
+# NAME: alpha
 #
 #----------------------------------------------------------------------------------------------------------
 
 for i in nuke.selectedNodes():
-        curFrame = int(nuke.knob("frame"))
-        nuke.execute(i.name(), curFrame, curFrame)
+	i.knob('channels').setValue('alpha')

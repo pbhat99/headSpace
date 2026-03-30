@@ -2,27 +2,44 @@
 #
 # AUTOMATICALLY GENERATED FILE TO BE USED BY W_HOTBOX
 #
-# NAME: Set Project
+# NAME: Convert to ReadGeo
 #
 #----------------------------------------------------------------------------------------------------------
 
-node = nuke.selectedNode()
+nodeClass = 'ReadGeo'
 
-first = node.knob('first').value()
-last = node.knob('last').value()
-Format = node.knob('format').value()
-fps = node.metadata('input/frame_rate')
-rng = last-first
+selection = nuke.selectedNodes()
 
-if rng == 0: last = 99 
+for node in selection:
 
-nuke.Root().knob('first_frame').setValue(first)
-nuke.Root().knob('last_frame').setValue(last)
-nuke.Root().knob('lock_range').setValue(True)
-nuke.Root().knob('format').setValue(Format)
-nuke.Root().knob('fps').setValue(fps)
+  
+    #save position
+    position = [node.xpos(),node.ypos()]
+    
+    #save path
+    fPath = node.knob('file').value()
 
-if nuke.frame() not in range(first,last+1):
-    nuke.frame(first)
+    #make sure no nodes are selected
+    for i in nuke.selectedNodes():
+        i.knob('selected').setValue(False)
 
-print (fps)
+    #create new node
+    newNode = nuke.createNode(nodeClass)
+            
+    newNode.knob('selected').setValue(False)
+
+
+    #reconnect outputs
+    node.knob('selected').setValue(True)
+    tmpDotNode = nuke.createNode('Dot')
+    node.knob('selected').setValue(False)
+    
+    tmpDotNode.setInput(0,newNode)
+    nuke.delete(tmpDotNode)
+        
+    #delete original
+    nuke.delete(node)
+        
+    newNode.setXpos(position[0])
+    newNode.setYpos(position[1])
+    newNode.knob('file').setValue(fPath)

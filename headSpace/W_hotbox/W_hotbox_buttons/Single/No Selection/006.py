@@ -2,10 +2,9 @@
 #
 # AUTOMATICALLY GENERATED FILE TO BE USED BY W_HOTBOX
 #
-# NAME: Version to latest
+# NAME: Close Groups
 #
 #----------------------------------------------------------------------------------------------------------
 
-import nukescripts
-for i in nuke.selectedNodes():
-        nukescripts.version_latest()
+for i in nuke.allNodes("Group"):
+    i['show_group_view'].setValue(False)

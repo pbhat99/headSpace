@@ -2,14 +2,12 @@
 #
 # AUTOMATICALLY GENERATED FILE TO BE USED BY W_HOTBOX
 #
-# NAME: Rename
+# NAME: Localise
 #
 #----------------------------------------------------------------------------------------------------------
 
 for i in nuke.selectedNodes():
-
-    path =  i.knob('file').value()
-    path = path.split('/')[-1]
-    path = path.split('.')[0]
-    print path
-    i.knob('name').setValue(path)
+    if i.knob('localizationPolicy').value() == 'off':
+        i.knob('localizationPolicy').setValue('on')
+    else:
+        i.knob('localizationPolicy').setValue('off')

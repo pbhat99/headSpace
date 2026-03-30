@@ -12,3 +12,4 @@ for i in nuke.selectedNodes():
       i.knob('center').setValue('true')
       i.knob('rows').setExpression('ceil(inputs/columns)')
       i.knob('columns').setExpression('ceil(sqrt(inputs))')
+      i.knob('roworder').setExpression('TopBottom')

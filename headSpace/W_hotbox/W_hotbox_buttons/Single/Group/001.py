@@ -2,10 +2,10 @@
 #
 # AUTOMATICALLY GENERATED FILE TO BE USED BY W_HOTBOX
 #
-# NAME: Render this frame
+# NAME: Group View
 #
 #----------------------------------------------------------------------------------------------------------
 
 for i in nuke.selectedNodes():
-        curFrame = int(nuke.knob("frame"))
-        nuke.execute(i.name(), curFrame, curFrame)
+    invertKnob = i.knob('disable_group_view')
+    invertKnob.setValue(1-int(invertKnob.value()))

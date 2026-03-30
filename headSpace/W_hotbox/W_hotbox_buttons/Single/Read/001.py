@@ -2,42 +2,27 @@
 #
 # AUTOMATICALLY GENERATED FILE TO BE USED BY W_HOTBOX
 #
-# NAME: Shuffle Out
+# NAME: Set Project
 #
 #----------------------------------------------------------------------------------------------------------
 
-#for i in nuke.pluginPath():
-#     print (i + '\n')
+node = nuke.selectedNode()
 
-nodes = nuke.selectedNodes()
-layers = []
-crypto = []
-for node in nodes:
-   node['postage_stamp'].setValue(False)
-   if node.Class() == 'Read':
-    channels = node.channels()
-    layers = list( set([channel.split('.')[0] for channel in channels]) )
-    layers.sort()
-    if 'rgba' in layers:
-     layers.remove('rgba')
-    for i in layers:
-       if i.startswith('crypto'):
-           print (i)
-           crypto.append(i)
+first = node.knob('first').value()
+last = node.knob('last').value()
+Format = node.knob('format').value()
+fps = node.metadata('input/frame_rate')
+rng = last-first
 
-    layers = list(set(layers) - set(crypto))
-    layers.sort()
-    print (layers)
+if rng == 0: last = 99 
 
+nuke.Root().knob('first_frame').setValue(first)
+nuke.Root().knob('last_frame').setValue(last)
+nuke.Root().knob('lock_range').setValue(True)
+nuke.Root().knob('format').setValue(Format)
+nuke.Root().knob('fps').setValue(fps)
 
-    for layer in layers:
-       shuffleNode = nuke.nodes.Shuffle(label=layer,inputs=[node])
-       shuffleNode['in'].setValue( layer )
-#       shuffleNode['in2'].setValue('alpha')
-#       shuffleNode['alpha'].setValue( 'red2' )
-       shuffleNode['postage_stamp'].setValue(True)
-    else:
-      pass
+if nuke.frame() not in range(first,last+1):
+    nuke.frame(first)
 
-    if not crypto == []:
-       cryptomatte = nuke.nodes.Cryptomatte(inputs=[node])
+print (fps)
