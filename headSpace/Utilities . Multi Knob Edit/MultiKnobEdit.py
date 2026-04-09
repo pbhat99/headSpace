@@ -15,25 +15,33 @@
 import nuke
 
 try:
-    from PySide import QtGui, QtCore 
-    qt_dialog = QtGui.QDialog
-    qt_vbox_layout = QtGui.QVBoxLayout
-    qt_label = QtGui.QLabel
-    qt_application = QtGui.QApplication
-    qt_focus = QtGui.QFocusFrame
-except:
-    from PySide2 import QtGui, QtCore, QtWidgets
+    from PySide6 import QtGui, QtCore, QtWidgets
     qt_dialog = QtWidgets.QDialog
     qt_vbox_layout = QtWidgets.QVBoxLayout
     qt_label = QtWidgets.QLabel
     qt_application = QtWidgets.QApplication
     qt_focus = QtWidgets.QFocusFrame
+except ImportError:
+    try:
+        from PySide2 import QtGui, QtCore, QtWidgets
+        qt_dialog = QtWidgets.QDialog
+        qt_vbox_layout = QtWidgets.QVBoxLayout
+        qt_label = QtWidgets.QLabel
+        qt_application = QtWidgets.QApplication
+        qt_focus = QtWidgets.QFocusFrame
+    except ImportError:
+        from PySide import QtGui, QtCore 
+        qt_dialog = QtGui.QDialog
+        qt_vbox_layout = QtGui.QVBoxLayout
+        qt_label = QtGui.QLabel
+        qt_application = QtWidgets.QApplication
+        qt_focus = QtGui.QFocusFrame
 
 class toolStatusInfoMessage( qt_dialog ):
 
     def __init__(self, parent):
         super(toolStatusInfoMessage, self).__init__(parent)
-        self.setWindowFlags(QtCore.Qt.Window|QtCore.Qt.FramelessWindowHint|QtCore.Qt.WindowStaysOnTopHint)
+        self.setWindowFlags(QtCore.Qt.Window | QtCore.Qt.FramelessWindowHint | QtCore.Qt.WindowStaysOnTopHint)
         main_layout = qt_vbox_layout()
         label = qt_label("<font color=red size=4>multi knob edit mode activated</font>")
         main_layout.addWidget(label)
