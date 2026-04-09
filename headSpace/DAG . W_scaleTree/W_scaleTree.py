@@ -7,13 +7,19 @@
 
 import nuke
 import os
+import math
 from nukescripts import panels
 
-#Choose between PySide and PySide2 based on Nuke version
+#Choose between PySide, PySide2 and PySide6 based on Nuke version
 if nuke.NUKE_VERSION_MAJOR < 11:
 	from PySide import QtCore, QtGui, QtGui as QtWidgets
+	QAction = QtGui.QAction
+elif nuke.NUKE_VERSION_MAJOR >= 15:
+	from PySide6 import QtGui, QtCore, QtWidgets
+	QAction = QtGui.QAction
 else:
 	from PySide2 import QtGui, QtCore, QtWidgets
+	QAction = QtWidgets.QAction
 
 #----------------------------------------------------------------------------------------------------------
 #Add to menu.py:
@@ -58,7 +64,11 @@ class scaleTreeWidget(QtWidgets.QWidget):
         #Parameters
         #--------------------------------------------------------------------------------------------------
 
-        self.ignore = False
+        self.ignore = True
+        self.nodePositions = {}
+        self.undo = None
+        self.pivotX = 0
+        self.pivotY = 0
 
         #--------------------------------------------------------------------------------------------------
         #Sliders
@@ -72,7 +82,7 @@ class scaleTreeWidget(QtWidgets.QWidget):
         self.uniformSlider = QtWidgets.QSlider(QtCore.Qt.Horizontal)
         self.uniformSlider.setMinimum(0)
         self.uniformSlider.setMaximum(self.maxSlider)
-        self.uniformSlider.setValue(self.maxSlider/2)
+        self.uniformSlider.setValue(self.maxSlider//2)
 
         self.uniformSlider.sliderPressed.connect(self.scanTree)
         self.uniformSlider.sliderMoved.connect(lambda: self.scaleTree(self.uniformSlider,['horizontal','vertical']))
@@ -82,7 +92,7 @@ class scaleTreeWidget(QtWidgets.QWidget):
         self.horizontalSlider = QtWidgets.QSlider(QtCore.Qt.Horizontal)
         self.horizontalSlider.setMinimum(0)
         self.horizontalSlider.setMaximum(self.maxSlider)
-        self.horizontalSlider.setValue(self.maxSlider/2)
+        self.horizontalSlider.setValue(self.maxSlider//2)
 
         self.horizontalSlider.sliderPressed.connect(self.scanTree)
         self.horizontalSlider.valueChanged.connect(lambda: self.scaleTree(self.horizontalSlider,['horizontal']))
@@ -92,11 +102,21 @@ class scaleTreeWidget(QtWidgets.QWidget):
         self.verticalSlider = QtWidgets.QSlider(QtCore.Qt.Horizontal)
         self.verticalSlider.setMinimum(0)
         self.verticalSlider.setMaximum(self.maxSlider)
-        self.verticalSlider.setValue(self.maxSlider/2)
+        self.verticalSlider.setValue(self.maxSlider//2)
 
         self.verticalSlider.sliderPressed.connect(self.scanTree)
         self.verticalSlider.valueChanged.connect(lambda: self.scaleTree(self.verticalSlider,['vertical']))
         self.verticalSlider.sliderReleased.connect(self.resetSlider)
+
+        #rotation
+        self.rotationSlider = QtWidgets.QSlider(QtCore.Qt.Horizontal)
+        self.rotationSlider.setMinimum(-90)
+        self.rotationSlider.setMaximum(90)
+        self.rotationSlider.setValue(0)
+
+        self.rotationSlider.sliderPressed.connect(self.scanTree)
+        self.rotationSlider.valueChanged.connect(lambda: self.rotateTree(self.rotationSlider))
+        self.rotationSlider.sliderReleased.connect(self.resetSlider)
 
         #add to layout
         sliderLayout.addSpacing(25)
@@ -107,6 +127,9 @@ class scaleTreeWidget(QtWidgets.QWidget):
         sliderLayout.addWidget(self.horizontalSlider)
         sliderLayout.addWidget(QtWidgets.QLabel('Vertical'))
         sliderLayout.addWidget(self.verticalSlider)
+        sliderLayout.addSpacing(25)
+        sliderLayout.addWidget(QtWidgets.QLabel('Rotation'))
+        sliderLayout.addWidget(self.rotationSlider)
 
         #--------------------------------------------------------------------------------------------------
         #Spacing
@@ -127,6 +150,25 @@ class scaleTreeWidget(QtWidgets.QWidget):
         distributionButtonLayout.addWidget(self.verticalButton)
         distributionButtonLayout.addStretch()
 
+        #mirror
+        mirrorLayout = QtWidgets.QVBoxLayout()
+        mirrorButtonLayout = QtWidgets.QHBoxLayout()
+
+        self.mirrorXButton = QtWidgets.QPushButton('Mirror X')
+        self.mirrorYButton = QtWidgets.QPushButton('Mirror Y')
+
+        self.mirrorXButton.clicked.connect(lambda: self.mirrorTree('x'))
+        self.mirrorYButton.clicked.connect(lambda: self.mirrorTree('y'))
+
+        mirrorButtonLayout.addStretch()
+        mirrorButtonLayout.addWidget(self.mirrorXButton)
+        mirrorButtonLayout.addSpacing(10)
+        mirrorButtonLayout.addWidget(self.mirrorYButton)
+        mirrorButtonLayout.addStretch()
+
+        mirrorLayout.addWidget(QtWidgets.QLabel('Mirror'))
+        mirrorLayout.addLayout(mirrorButtonLayout)
+
         distributionLayout.addWidget(QtWidgets.QLabel('Distribute Evenly'))
         distributionLayout.addLayout(distributionButtonLayout)
 
@@ -139,6 +181,8 @@ class scaleTreeWidget(QtWidgets.QWidget):
         masterLayout.addSpacing(25)
         masterLayout.addLayout(sliderLayout)
         masterLayout.addSpacing(25)
+        masterLayout.addLayout(mirrorLayout)
+        masterLayout.addSpacing(10)
         masterLayout.addLayout(distributionLayout)
         masterLayout.addSpacing(10)
         masterLayout.addStretch()
@@ -151,9 +195,9 @@ class scaleTreeWidget(QtWidgets.QWidget):
 
         #quit
         try:
-            self.closeAction = QtWidgets.QAction(self)
+            self.closeAction = QAction(self)
             shortcut = nuke.menu('Nuke').findItem('Edit/Node/W_scaleTree').shortcut()
-            self.closeAction.setShortcut(QtGui.QKeySequence().fromString(shortcut))
+            self.closeAction.setShortcut(QtGui.QKeySequence(shortcut))
             self.closeAction.triggered.connect(self.close)
             self.addAction(self.closeAction)
         except:
@@ -161,10 +205,10 @@ class scaleTreeWidget(QtWidgets.QWidget):
 
         #corners
 
-        self.setPivotActionTL = QtWidgets.QAction(self)
-        self.setPivotActionTR = QtWidgets.QAction(self)
-        self.setPivotActionBL = QtWidgets.QAction(self)
-        self.setPivotActionBR = QtWidgets.QAction(self)
+        self.setPivotActionTL = QAction(self)
+        self.setPivotActionTR = QAction(self)
+        self.setPivotActionBL = QAction(self)
+        self.setPivotActionBR = QAction(self)
 
         self.setPivotActionTL.setShortcut(QtGui.QKeySequence(QtCore.Qt.Key_1))
         self.setPivotActionTR.setShortcut(QtGui.QKeySequence(QtCore.Qt.Key_2))
@@ -185,7 +229,7 @@ class scaleTreeWidget(QtWidgets.QWidget):
 
         #Spawn widget at current location of cursor
         self.adjustSize()
-        self.move(QtGui.QCursor().pos() - QtCore.QPoint((self.width()/2),(self.height()/2)))
+        self.move(QtGui.QCursor().pos() - QtCore.QPoint((self.width()//2),(self.height()//2)))
 
         #set pivot to center
         self.setPivotWidget.allButtons[4].mouseReleaseEvent('')
@@ -204,8 +248,10 @@ class scaleTreeWidget(QtWidgets.QWidget):
             if w.isVisible():
                 windowTitle = w.windowTitle()
                 if windowTitle != 'Node Graph':
-                    rootNode = nuke.toNode(windowTitle.split(' ')[0])
-                    break
+                    node = nuke.toNode(windowTitle.split(' ')[0])
+                    if node:
+                        rootNode = node
+                        break
 
         return rootNode
 
@@ -279,6 +325,11 @@ class scaleTreeWidget(QtWidgets.QWidget):
 
                     self.nodePositions[node] = (selectionX, selectionY, selectionW, selectionH, offsetX, offsetY, offsetW, offsetH)
 
+                    allXpos.append(selectionX)
+                    allXpos.append(selectionW)
+                    allYpos.append(selectionY)
+                    allYpos.append(selectionH)
+
                 else:
                     #if backdrop is empty, threat it as any other node
                     x = node.xpos()+(node.screenWidth()/2)
@@ -338,19 +389,127 @@ class scaleTreeWidget(QtWidgets.QWidget):
                 else:
                     if 'horizontal' in mode:
 
-                        newPos = int(self.pivotX - ((self.pivotX - self.nodePositions[i][0]) * multiplier)) + self.nodePositions[i][4]
-                        newWidth = int((self.pivotX - ((self.pivotX - self.nodePositions[i][2]) * multiplier)) + self.nodePositions[i][6] ) - newPos
+                        newPos = int(self.pivotX - ((self.pivotX - self.nodePositions[i][0]) * multiplier) + self.nodePositions[i][4])
+                        newWidth = int(self.pivotX - ((self.pivotX - self.nodePositions[i][2]) * multiplier) + self.nodePositions[i][6] - newPos)
 
                         i.knob('bdwidth').setValue(newWidth)
                         i.setXpos(newPos)
 
                     if 'vertical' in mode:
 
-                        newPos = int(self.pivotY - ((self.pivotY - self.nodePositions[i][1]) * multiplier)) + self.nodePositions[i][5]
-                        newHeight = int((self.pivotY - ((self.pivotY - self.nodePositions[i][3]) * multiplier)) + self.nodePositions[i][7] ) - newPos
+                        newPos = int(self.pivotY - ((self.pivotY - self.nodePositions[i][1]) * multiplier) + self.nodePositions[i][5])
+                        newHeight = int(self.pivotY - ((self.pivotY - self.nodePositions[i][3]) * multiplier) + self.nodePositions[i][7] - newPos)
 
                         i.knob('bdheight').setValue(newHeight)
                         i.setYpos(newPos)
+
+    def rotateTree(self, slider):
+        '''
+        Rotate the currently selected nodes around the pivot.
+        '''
+
+        if not self.ignore:
+
+            angle = float(slider.value())
+            theta = math.radians(angle)
+
+            cos_theta = math.cos(theta)
+            sin_theta = math.sin(theta)
+
+            for i in self.nodePositions.keys():
+                
+                if len(self.nodePositions[i]) == 2:
+                    dx = self.nodePositions[i][0] - self.pivotX
+                    dy = self.nodePositions[i][1] - self.pivotY
+
+                    new_x = self.pivotX + (dx * cos_theta - dy * sin_theta)
+                    new_y = self.pivotY + (dx * sin_theta + dy * cos_theta)
+
+                    screenWidth = i.screenWidth() / 2
+                    screenHeight = i.screenHeight() / 2
+
+                    i.setXpos(int(new_x - screenWidth))
+                    i.setYpos(int(new_y - screenHeight))
+                
+                else:
+                    x1, y1 = self.nodePositions[i][0], self.nodePositions[i][1]
+                    x2, y2 = self.nodePositions[i][2], self.nodePositions[i][3]
+                    
+                    corners = [
+                        (x1, y1),
+                        (x2, y1),
+                        (x1, y2),
+                        (x2, y2)
+                    ]
+                    
+                    new_corners = []
+                    for cx, cy in corners:
+                        cdx = cx - self.pivotX
+                        cdy = cy - self.pivotY
+                        new_cx = self.pivotX + (cdx * cos_theta - cdy * sin_theta)
+                        new_cy = self.pivotY + (cdx * sin_theta + cdy * cos_theta)
+                        new_corners.append((new_cx, new_cy))
+                        
+                    min_x = min(c[0] for c in new_corners)
+                    max_x = max(c[0] for c in new_corners)
+                    min_y = min(c[1] for c in new_corners)
+                    max_y = max(c[1] for c in new_corners)
+                    
+                    newPos_x = int(min_x + self.nodePositions[i][4])
+                    newPos_y = int(min_y + self.nodePositions[i][5])
+                    newWidth = int(max_x + self.nodePositions[i][6] - newPos_x)
+                    newHeight = int(max_y + self.nodePositions[i][7] - newPos_y)
+                    
+                    i.knob('bdwidth').setValue(newWidth)
+                    i.knob('bdheight').setValue(newHeight)
+                    i.setXpos(newPos_x)
+                    i.setYpos(newPos_y)
+
+    def mirrorTree(self, axis):
+        '''
+        Mirror the currently selected nodes around the pivot.
+        '''
+
+        self.scanTree()
+
+        if self.ignore:
+            return
+
+        #change undo name
+        self.undo.end()
+        self.undo = nuke.Undo()
+        self.undo.begin("Mirror Nodes " + axis.upper())
+
+        multiplier = -1.0
+
+        for i in self.nodePositions.keys():
+            if len(self.nodePositions[i]) == 2:
+                if axis == 'x':
+                    screenWidth = i.screenWidth()/2
+                    newPos = int(self.pivotX - ((self.pivotX - self.nodePositions[i][0]) * multiplier) - screenWidth)
+                    i.setXpos(newPos)
+                else:
+                    screenHeight = i.screenHeight()/2
+                    newPos = int(self.pivotY - ((self.pivotY - self.nodePositions[i][1]) * multiplier) - screenHeight)
+                    i.setYpos(newPos)
+            else:
+                if axis == 'x':
+                    x1 = int(self.pivotX - ((self.pivotX - self.nodePositions[i][0]) * multiplier) + self.nodePositions[i][4])
+                    x2 = int(self.pivotX - ((self.pivotX - self.nodePositions[i][2]) * multiplier) + self.nodePositions[i][6])
+                    newPos = min(x1, x2)
+                    newWidth = max(x1, x2) - newPos
+                    i.knob('bdwidth').setValue(newWidth)
+                    i.setXpos(newPos)
+                else:
+                    y1 = int(self.pivotY - ((self.pivotY - self.nodePositions[i][1]) * multiplier) + self.nodePositions[i][5])
+                    y2 = int(self.pivotY - ((self.pivotY - self.nodePositions[i][3]) * multiplier) + self.nodePositions[i][7])
+                    newPos = min(y1, y2)
+                    newHeight = max(y1, y2) - newPos
+                    i.knob('bdheight').setValue(newHeight)
+                    i.setYpos(newPos)
+
+        self.undo.end()
+        self.undo = None
 
     def resetSlider(self):
         #reset the sliders when the user releases the mouse.
@@ -358,9 +517,10 @@ class scaleTreeWidget(QtWidgets.QWidget):
 
         currentIgnoreValue = self.ignore
         self.ignore = True
-        self.uniformSlider.setValue(self.maxSlider/2)
-        self.horizontalSlider.setValue(self.maxSlider/2)
-        self.verticalSlider.setValue(self.maxSlider/2)
+        self.uniformSlider.setValue(self.maxSlider//2)
+        self.horizontalSlider.setValue(self.maxSlider//2)
+        self.verticalSlider.setValue(self.maxSlider//2)
+        self.rotationSlider.setValue(0)
         self.ignore = currentIgnoreValue
 
         if self.undo:
@@ -408,7 +568,7 @@ class scaleTreeWidget(QtWidgets.QWidget):
             newPos = minPos + index * stepSize
             for node in allPositionsDict[i]:
 
-                node.knob(axis+'pos').setValue( newPos- self.getScreenSize(node,axis))
+                node.knob(axis+'pos').setValue(int(newPos- self.getScreenSize(node,axis)))
 
         self.undo.end()
         self.undo = None
@@ -427,7 +587,7 @@ class pivotWidget(QtWidgets.QGridLayout):
         self.setSpacing(0)
         for i in range(9):
             button = pivotButton(self,i)
-            self.addWidget(button,i/3,i%3)
+            self.addWidget(button,i//3,i%3)
             self.allButtons.append(button)
 
         self.pivot = (.5,.5)
@@ -461,7 +621,7 @@ class pivotButton(QtWidgets.QLabel):
     def mouseReleaseEvent(self,event):
         #set pivot
         self.parent.updateButtons(self.position)
-        self.parent.pivot = [(self.position%3)/2.0,(self.position/3)/2.0]
+        self.parent.pivot = [(self.position%3)/2.0,(self.position//3)/2.0]
 
     def update(self,buttonID):
         '''
