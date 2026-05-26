@@ -1,0 +1,18 @@
+set cut_paste_input [stack 0]
+version 12.2 v8
+push $cut_paste_input
+NoOp {
+ name ScriptOrganizer
+ tile_color 0x5691ccff
+ selected true
+ xpos 151
+ ypos 10
+ addUserKnob {20 User l "Script Organizer"}
+ addUserKnob {3 speed l "Speed (px/sec)"}
+ speed 5
+ addUserKnob {3 pileSize l "Pile size"}
+ pileSize 50
+ addUserKnob {22 sort l Organize T "import math,threading\nminDist = nuke.thisNode().knob('pileSize').value()\nspeed = nuke.thisNode().knob('speed').value()\n\n\n\n\ndef currentPos(a):\n centerX = int( a.knob('xpos').value() + a.screenWidth()/2)\n centerY = int( a.knob('ypos').value() + a.screenHeight()/2)\n return \[centerX, centerY]\n\n\ndef checkDistance(a,b):\n\tax = currentPos(a)\[0]\n\tay = currentPos(a)\[1]\n\tbx = currentPos(b)\[0]\n\tby = currentPos(b)\[1]\n\tdist = int(math.sqrt((ax-bx)*(ax-bx)+(ay-by)*(ay-by)))\n\treturn dist\n\ndef findClosest(node):\n\tthis = node\n\tneighboursDict = \{\}\n\tfor n in nuke.allNodes(this.Class()):\n\t\tif checkDistance(this,n)>minDist:\n\t\t\tneighboursDict\[n] = checkDistance(this,n)\n\t\telse:\n\t\t\tpass\n\tsortedNeighbours = sorted(neighboursDict.items(), key=lambda x: x\[1])\n\tif len(sortedNeighbours)==0:\n\t\tpass\n\telse:\n\t\tclosestNode = list(sortedNeighbours)\[0]\[0]\n\t\treturn closestNode\n\ndef chaseStuff(stalker,target):\n\t\tstalkerx = currentPos(stalker)\[0]\n\t\tstalkery = currentPos(stalker)\[1]\n\t\ttargetx = currentPos(target)\[0]\n\t\ttargety = currentPos(target)\[1]\n\n\n\t\tdist = checkDistance(stalker,target)\n\t\tdistX = targetx-stalkerx\n\t\tdistY = targety-stalkery\n\t\tif min(abs(distX),abs(distY))== 0:\n\t\t\tmodifier = 1\n\t\telse:\n\t\t\tmodifier = max(abs(distY)/dist,abs(distX)/dist)\n\n\t\tdeltax = math.ceil((distX/dist)*speed*modifier)\n\t\tdeltay = math.ceil((distY/dist)*speed*modifier)\n\n\n\t\tstalker.setXYpos(int(stalkerx-stalker.screenWidth()/2+deltax),int(stalkery-stalker.screenHeight()/2+deltay))\n\ndef sort():\n\tfor n in nuke.allNodes():\n\t\tif findClosest(n) is None:\n\t\t\tpass\n\t\telse:\n\t\t\tchaseStuff(n,findClosest(n))\n\n\ndef disconnect():\n for n in nuke.allNodes():\n    for i in range(n.inputs()):\n        n.setInput(i, None)\n\n\n\ndef loop():\n\tsort()\n\tthreading.Timer(.01,loop).start()\ndisconnect()\nloop()\n" +STARTLINE}
+ addUserKnob {26 ""}
+ addUserKnob {26 credit l "by uselesscompthings" T "\nMateusz Krząstek"}
+}

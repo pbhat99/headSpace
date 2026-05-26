@@ -1,0 +1,8 @@
+NoOp {
+name Rain
+tile_color 0x6983c7ff
+addUserKnob {20 User}
+addUserKnob {22 rain l "it's raining grades" T "import random\n\ndef what():\n nuke.nodes.Grade().setXYpos(random.randint(-5000,5000),random.randint(-5000,5000))\n threading.Timer(.1, what).start()\n \nwhat()\n" +STARTLINE}
+addUserKnob {22 STOPIT l "STOP IT" T "nuke.message ('Sorry, this button does absolutely nothing. You are on your own. Good luck')" +STARTLINE}
+addUserKnob {26 credit l "by uselesscompthings"}
+}

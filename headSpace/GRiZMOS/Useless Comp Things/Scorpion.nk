@@ -1,0 +1,11 @@
+NoOp {
+name Scorpion
+tile_color 0xffea00ff
+label "\[value labelski]"
+note_font_size 20
+addUserKnob {20 User}
+addUserKnob {22 getHere l "Get Over Here!" T "import time, threading, math\nminRadius = 100\nspeed = 100\ndef currentPos(a):\n\tcenterX = int( a.knob('xpos').value() + a.screenWidth()/2)\n\tcenterY = int( a.knob('ypos').value() + a.screenHeight()/2)\n\treturn \[centerX, centerY]\n\ndef checkDistance(a,b):\n\tax = currentPos(a)\[0]\n\tay = currentPos(a)\[1]\n\tbx = currentPos(b)\[0]\n\tby = currentPos(b)\[1]\n\tdist = int(math.sqrt((ax-bx)*(ax-bx)+(ay-by)*(ay-by)))\n\treturn dist\n\ndef chaseStuff(stalker,target,increment):\n\tstalkerx = currentPos(stalker)\[0]\n\tstalkery = currentPos(stalker)\[1]\n\ttargetx = currentPos(target)\[0]\n\ttargety = currentPos(target)\[1]\n\n\n\tdist = checkDistance(stalker,target)\n\tdistX = targetx-stalkerx\n\tdistY = targety-stalkery\n\n\tdeltax = math.ceil((distX/dist)*increment)\n\tdeltay = math.ceil((distY/dist)*increment)\n\n\n\tstalker.setXYpos(int(stalkerx-stalker.screenWidth()/2+deltax),int(stalkery-stalker.screenHeight()/2+deltay))\n\n\n\nthis = nuke.thisNode()\nthis.knob('label').setValue('\[value labelski]')\nthis.knob('labelski').setValue(0)\ndistList = \[]\nnodeList = \[]\n\nfor n in nuke.allNodes():\n\tif n == this or checkDistance(n,this)<minRadius:\n\t\tpass\n\telse:\n\t\tdistList.append(checkDistance(n,this))\n\n\nfor n in nuke.allNodes():\n\tif checkDistance(n,this) == min(distList):\n\t\tnodeList.append(n)\n\n\ntarget = nodeList\[0]\n\nif len(nodeList)==0:\n\tpass\nelse:\n\ttarget.setInput(0,this)\n\ndistance = checkDistance(target,this)\n\n\n\ndef grab():\n\tif checkDistance(target,this) >= minRadius:\n\t\ttry:\n\t\t\tchaseStuff(target,this,speed)\n\t\t\tthreading.Timer(.1,grab).start()\n\t\texcept:\n\t\t\tthis.knob('labelski').setValue(1)\n\telse:\n\t\tthis.knob('labelski').setValue(1)\n\t\ttarget.setInput(0,None)\n\n\ngrab()\n" +STARTLINE}
+addUserKnob {4 labelski l INVISIBLE +INVISIBLE M {"GET OVER HERE!!" " " "" ""}}
+labelski " "
+addUserKnob {26 credit l "by @uselesscompthings"}
+}

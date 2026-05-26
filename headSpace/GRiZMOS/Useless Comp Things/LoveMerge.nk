@@ -1,0 +1,9 @@
+Merge2 {
+inputs 2
+name Merge1
+knobChanged "this = nuke.thisNode()\nignoreList = \[\[0,0],\[0,1],\[0,5],\[0,6],\[0,7],\[0,11],\[0,12],\[1,0],\[1,6],\[1,12],\[5,0],\[5,12],\[6,0],\[6,1],\[6,11],\[6,12],\[7,0],\[7,0],\[7,1],\[7,2],\[7,10],\[7,11],\[7,12],\[8,0],\[8,1],\[8,2],\[8,3],\[8,9],\[8,10],\[8,11],\[8,12],\[9,0],\[9,1],\[9,2],\[9,3],\[9,4],\[9,8],\[9,9],\[9,10],\[9,11],\[9,12],\[10,0],\[10,1],\[10,2],\[10,3],\[10,4],\[10,5],\[10,7],\[10,8],\[10,9],\[10,10],\[10,11],\[10,12]]\nspacing = int(nuke.toNode('preferences').knob('dot_node_scale').value())*6\ndef makeDot(x,y):\n\tthis = nuke.thisNode()\n\tdot = nuke.nodes.Dot()\n\tdot.knob('tile_color').setValue(2819096831)\n\tdot.knob('hide_input').setValue(1)\n\tdot.setXYpos(int(x),int(y))\n\tdot.setName(this.name()+'dot')\ndef makeHeart():\n\tcenter = \[this.xpos()+this.screenWidth(),this.ypos()+(this.screenHeight()/2)-6*spacing]\n\tfor i in range(0,11):\n\t\tfor j in range(0,13):\n\t\t\tif \[i,j] not in ignoreList:\n\t\t\t\tmakeDot(center\[0]+30+j*spacing,center\[1]+i*spacing)\ndef chunkList():\n\tn = nuke.thisNode()\n\tchunkList = \[]\n\tfor chunk in nuke.allNodes('Dot'):\n\t\tif chunk.name().startswith(n.name()+'dot'):\n\t\t\tchunkList.append(chunk)\n\treturn chunkList\n\ndef inputChange():\n\tn = nuke.thisNode()\n\tk = nuke.thisKnob()\n\tif k.name() == 'inputChange':\n\t\tif n.input(0) is None or n.input(1) is None:\n\t\t\tn.knob('tile_color').setValue(nuke.defaultNodeColor(n.Class()))\n\t\t\ttry:\n\t\t\t\tfor chunk in chunkList():\n\t\t\t\t\tnuke.delete(chunk)\n\t\t\texcept:\n\t\t\t\tpass\n\t\telse:\n\t\t\tif len(chunkList()) == 0:\n\t\t\t\tmakeHeart()\n\t\t\t\tn.knob('tile_color').setValue(2819096831)\n\t\t\telse:\n\t\t\t\tpass\n\ninputChange()"
+tile_color 0x4b5ec600
+addUserKnob {20 User l UselessCompThings}
+addUserKnob {26 ""}
+addUserKnob {26 credit l "by uselesscompthings" T "\nMateusz Krząstek"}
+}

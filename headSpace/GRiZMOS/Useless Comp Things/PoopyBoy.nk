@@ -1,0 +1,17 @@
+NoOp {
+name PoopyBoy
+onCreate nuke.thisNode().knob('start').execute()
+onDestroy nuke.thisNode().knob('stop').execute()
+tile_color 0x59350dff
+note_font_color 0xa39149ff
+hide_input true
+addUserKnob {20 User}
+addUserKnob {26 poopCount l "You made" T 0}
+addUserKnob {26 poops l "" -STARTLINE T " poops "}
+addUserKnob {22 reset l Reset -STARTLINE T "this = nuke.thisNode()\nthis.knob('poopCount').setValue('0')\nthis.knob('poops').setValue(' poops ')\nfor n in nuke.allNodes('Dot'):\n\tif n.name().startswith('poo'):\n\t\tnuke.delete(n)"}
+addUserKnob {26 ""}
+addUserKnob {26 instructions l Instructions T "Use arrows to move\nPress z to poop"}
+addUserKnob {22 start l INVISIBLE +INVISIBLE T "menubar = nuke.menu(\"Nuke\");\nm = menubar.addMenu('PoopyBoy')\nm.addCommand('Up', \"moveUp()\" , 'up')\nm.addCommand('Down', \"moveDown()\" , 'down')\nm.addCommand('Left', \"moveLeft()\" , 'left')\nm.addCommand('Right', \"moveRight()\" , 'right') \nm.addCommand('Shoot', \"poop()\" , 'z') \nthisNode = nuke.thisNode()\nstepSize = 20\ndef currentPos(a):\n\tcenterX = int( a.knob('xpos').value()+ a.screenWidth()/2)\n\tcenterY = int( a.knob('ypos').value()+ a.screenHeight()/2)\n\treturn \[centerX, centerY]\ndef moveUp():\n\tthisNode.setYpos(int(thisNode.ypos() - stepSize))\t\t\t\ndef moveDown():\n\tthisNode.setYpos(int(thisNode.ypos() + stepSize))\t\t\t\t\ndef moveRight():\n\tthisNode.setXpos(int(thisNode.xpos() + stepSize))\t\t\t\t\ndef moveLeft():\n\tthisNode.setXpos(int(thisNode.xpos() - stepSize))\ndef poop(color =int(2270429439)):\n\tp1 = nuke.nodes.Dot()\n\tp1.setName('poo')\n\tp1.knob('tile_color').setValue(color)\n\tp1.knob('hide_input').setValue(True)\n\tp1.setXYpos(currentPos(thisNode)\[0],currentPos(thisNode)\[1])\n\tp2 = nuke.nodes.Dot()\n\tp2.setName('poo')\n\tp2.knob('tile_color').setValue(color)\n\tp2.knob('hide_input').setValue(True)\n\tp2.setXYpos(currentPos(thisNode)\[0]+20,currentPos(thisNode)\[1])\t\n\tp3 = nuke.nodes.Dot()\n\tp3.setName('poo')\n\tp3.knob('tile_color').setValue(color)\n\tp3.knob('hide_input').setValue(True)\n\tp3.setXYpos(currentPos(thisNode)\[0]+3,currentPos(thisNode)\[1]-5)\t\n\tp4 = nuke.nodes.Dot()\n\tp4.setName('poo')\n\tp4.knob('tile_color').setValue(color)\n\tp4.knob('hide_input').setValue(True)\n\tp4.setXYpos(currentPos(thisNode)\[0]+13,currentPos(thisNode)\[1]-5)\t\n\tp5 = nuke.nodes.Dot()\n\tp5.setName('poo')\n\tp5.knob('tile_color').setValue(color)\n\tp5.knob('hide_input').setValue(True)\n\tp5.setXYpos(currentPos(thisNode)\[0]+8,currentPos(thisNode)\[1]-11)\t\n\tp6 = nuke.nodes.Dot()\n\tp6.setName('poo')\n\tp6.knob('tile_color').setValue(color)\n\tp6.knob('hide_input').setValue(True)\n\tp6.setXYpos(currentPos(thisNode)\[0]+11,currentPos(thisNode)\[1])\n\ti = int(thisNode.knob('poopCount').value())\n\tthisNode.knob('poopCount').setValue(str(i+1))\n\tif int(thisNode.knob('poopCount').value()) == 1:\n\t\tthisNode.knob('poops').setValue(' poop ')\n\telse:\n\t\tthisNode.knob('poops').setValue(' poops ')" +STARTLINE}
+addUserKnob {22 stop l INVISIBLE -STARTLINE +INVISIBLE T "nuke.menu('Nuke').removeItem('PoopyBoy')\n"}
+addUserKnob {26 credit l "by uselesscompthings"}
+}

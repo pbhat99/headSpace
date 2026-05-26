@@ -1,0 +1,11 @@
+NoOp {
+name BlackHole
+knobChanged "if nuke.thisKnob().name() in \['xpos','ypos']:\n\tthis = nuke.thisNode()\n\tfor n in nuke.allNodes():\n\t\tif n == this:\n\t\t\tpass\n\t\telse:\n\t\t\timport math\n\t\t\tcenterX = this.knob('xpos').value()+(this.screenWidth()/2)\n\t\t\tcenterY = this.knob('ypos').value()+(this.screenHeight()/2)\n\t\t\tradius = this.knob('radius').value()\n\t\t\tx = n.knob('xpos').value()+(n.screenWidth()/2)\n\t\t\ty = n.knob('ypos').value()+(n.screenHeight()/2)\n\t\t\tdistX = abs(x-centerX)\n\t\t\tdistY = abs(y - centerY)\n\t\t\tif distX<radius and distY<radius:\n\t\t\t\tnuke.delete(n)\n\t\t\t\tp = this.knob('note_font_size').value()\n\t\t\t\tthis.knob('note_font_size').setValue(p+1)\n\t\t\t\tl = this.knob('label').value()\n\t\t\t\tthis.knob('label').setValue(l+'YUM ')\n\t\t\t\tthis.knob('radius').setValue(radius+2)"
+tile_color 0xff
+note_font_size 10
+addUserKnob {20 User}
+addUserKnob {22 reset l Reset T "this = nuke.thisNode()\nthis.knob('label').setValue('')\nthis.knob('note_font_size').setValue(10)\nthis.knob('radius').setValue(50)" +STARTLINE}
+addUserKnob {3 radius l INVISIBLE +INVISIBLE}
+radius 50
+addUserKnob {26 credit l "by uselesscompthings"}
+}

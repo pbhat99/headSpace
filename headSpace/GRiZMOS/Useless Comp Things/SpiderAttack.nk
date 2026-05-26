@@ -1,0 +1,11 @@
+NoOp {
+name SpiderAttack
+onDestroy "nuke.thisNode().knob('restore').execute()"
+tile_color 0xff
+addUserKnob {20 SpiderAttack}
+addUserKnob {22 restore l INVISIBLE +INVISIBLE T "this = nuke.thisNode()\nknobNames = \['ArrowColorLeft', 'ArrowColorRight', 'ArrowColorUp', 'ArrowColorDown']\nknobVals = eval(this.knob('arrowColors').value())\ntry:\n\tfor i in range (0,4):\n\t\tnuke.toNode('preferences').knob(knobNames\[i]).setValue(knobVals\[i])\nexcept:\n\tpass\n\t\n" +STARTLINE}
+addUserKnob {1 arrowColors l INVISIBLE +INVISIBLE}
+addUserKnob {22 spiderAttack l Attack! T "this = nuke.thisNode()\n\nfor n in nuke.allNodes():\n otherNodes = \[]\n for m in nuke.allNodes():\n if m is not n:\n otherNodes.append(m)\n i = 0\n for node in otherNodes:\n n.setInput(i,node)\n i += 1\n\nknobNames = \['ArrowColorLeft', 'ArrowColorRight', 'ArrowColorUp', 'ArrowColorDown']\nknobVals = \[]\nfor kn in knobNames:\n\tknobVals.append(nuke.toNode('preferences').knob(kn).value())\n\nthis.knob('arrowColors').setValue(str(knobVals))\n\nfor kn in knobNames:\n\tnuke.toNode('preferences').knob(kn).setValue(4294967295)" +STARTLINE}
+addUserKnob {26 ""}
+addUserKnob {26 credit l "by uselesscompthings" T "\nMateusz Krząstek"}
+}

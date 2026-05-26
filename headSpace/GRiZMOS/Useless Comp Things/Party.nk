@@ -1,0 +1,8 @@
+NoOp {
+name Party
+tile_color 0xffed00ff
+note_font_size 10
+addUserKnob {20 User}
+addUserKnob {22 PARTY l "Start a PARTY!" -STARTLINE T "import random\nfor n in nuke.allNodes():\n\tif n == nuke.thisNode():\n\t\tpass\n\telse:\n\t\tn.knob('tile_color').setValue(random.randint(1,4000000000))\ndef auto():\n\timport random\n\tfor n in nuke.allNodes():\n\t\tx = n.knob('xpos').value()\n\t\ty = n.knob('ypos').value()\n\t\tn.setXYpos(int(x+random.randint(-25,25)),int(y+random.randint(-25,25)))\n\tthreading.Timer(.5,auto).start()\nauto()"}
+addUserKnob {26 credit l "by uselesscompthings"}
+}

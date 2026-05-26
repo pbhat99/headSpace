@@ -1,0 +1,7 @@
+Multiply {
+value {1 1 1 1}
+value_panelDropped true
+name Multiply
+knobChanged "if nuke.thisKnob().name() == 'value':\n\tthis = nuke.thisNode()\n\tdef RGBtoTILE(R,G,B):\n\t\treturn int('%02x%02x%02x%02x' % (R*255,G*255,B*255,255), 16 )\n\tnuke.toNode('preferences').knob('UIBackColor').setValue(int(RGBtoTILE(this.knob('value').value()\[0],this.knob('value').value()\[1],this.knob('value').value()\[2])))\n\tnuke.toNode('preferences').knob('DAGBackColor').setValue(int(RGBtoTILE(this.knob('value').value()\[0],this.knob('value').value()\[1],this.knob('value').value()\[2])))"
+label "Just a regular Multiply.\nAbsolutely nothing sketchy about the value slider"
+}

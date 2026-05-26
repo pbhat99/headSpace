@@ -1,0 +1,8 @@
+NoOp {
+name WhoDis
+tile_color 0x69b5ff
+note_font "Verdana Bold"
+addUserKnob {20 User l Who}
+addUserKnob {22 swap l "I dunno" T "import random\nthis = nuke.thisNode()\ndef swap():\n\t#Make a list of letters of every node's name\n\tnames = \[]\n\tfor n in nuke.allNodes():\n\t\tif n != this:\n\t\t\tletters = \[]\n\t\t\tfor letter in n.name():\n\t\t\t\tif letter.isalpha() == True:\n\t\t\t\t\tletters.append(letter)\n\t\t\tnewName = ''.join(letters)\n\t\t\tnames.append(newName)\n\trandom.shuffle(names)\n\tfor n in nuke.allNodes():\n\t\tif n != this:\n\t\t\tn.setName(names.pop())\nswap()" +STARTLINE}
+addUserKnob {26 credit l "by uselesscompthings" T "\nMateusz Krząstek"}
+}

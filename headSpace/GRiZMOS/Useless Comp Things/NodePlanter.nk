@@ -1,0 +1,15 @@
+NoOp {
+name NodePlanter
+onCreate nuke.thisNode().knob('start').execute()
+onDestroy nuke.thisNode().knob('stop').execute()
+tile_color 0x243406ff
+note_font_color 0xbed88aff
+hide_input true
+addUserKnob {20 User}
+addUserKnob {1 nodeType l "Node class to plant:"}
+addUserKnob {26 ""}
+addUserKnob {26 instructions l Instructions T "Use arrows to move\nPress z to plant a node"}
+addUserKnob {22 start l INVISIBLE +INVISIBLE T "#Add menu and shortcuts\n\nmenubar = nuke.menu(\"Nuke\");\nm = menubar.addMenu('NodePlanter')\nm.addCommand('Up', \"moveUp()\" , 'up')\nm.addCommand('Down', \"moveDown()\" , 'down')\nm.addCommand('Left', \"moveLeft()\" , 'left')\nm.addCommand('Right', \"moveRight()\" , 'right') \nm.addCommand('Plant', \"plant()\" , 'z') \n\n\nthis = nuke.thisNode().name()\nthisNode = nuke.thisNode()\nstepSize = 20\n\n#Movement\n\ndef moveUp():\n\tthisNode.setYpos(int(thisNode.ypos() - stepSize))\t\t\t\ndef moveDown():\n\tthisNode.setYpos(int(thisNode.ypos() + stepSize))\t\t\t\t\ndef moveRight():\n\tthisNode.setXpos(int(thisNode.xpos() + stepSize))\t\t\t\t\ndef moveLeft():\n\tthisNode.setXpos(int(thisNode.xpos() - stepSize))\n\n\ndef plant():\n\ttry:\n\t\tnClass = thisNode.knob('nodeType').value()\n\t\tplant = nuke.createNode(nClass, inpanel = False)\n\t\tplant.setSelected(False)\n\t\tplant.setXYpos(int(thisNode.knob('xpos').value()+10), int(thisNode.knob('ypos').value()+10))\n\texcept:\n\t\tnuke.message('Wrong node class')\n" +STARTLINE}
+addUserKnob {22 stop l INVISIBLE -STARTLINE +INVISIBLE T "nuke.menu('Nuke').removeItem('NodePlanter')\n"}
+addUserKnob {26 credit l "by @uselesscompthings"}
+}

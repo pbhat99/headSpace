@@ -1,0 +1,11 @@
+NoOp {
+name SubZero
+knobChanged "if nuke.thisKnob().name() in \['xpos','ypos']:\n\tthis = nuke.thisNode()\n\tfor n in nuke.allNodes():\n\t\tif n == this:\n\t\t\tpass\n\t\telse:\n\t\t\timport math\n\t\t\tcenterX = this.knob('xpos').value()+(this.screenWidth()/2)\n\t\t\tcenterY = this.knob('ypos').value()+(this.screenHeight()/2)\n\t\t\tradius = this.knob('radius').value()\n\t\t\tx = n.knob('xpos').value()+(n.screenWidth()/2)\n\t\t\ty = n.knob('ypos').value()+(n.screenHeight()/2)\n\t\t\tdistX = abs(x-centerX)\n\t\t\tdistY = abs(y - centerY)\n\t\t\tif distX<radius and distY<radius:\n\t\t\t\tn.knob('tile_color').setValue(1889921791)\n\t\t\t\tn.knob('note_font_color').setValue(4294967295)\n\t\t\t\tn.knob('note_font_color').setValue(4294967295)\n\t\t\t\ttry:\n\t\t\t\t\tn.lock()\n\t\t\t\texcept:\n\t\t\t\t\tk = n.knobs()\n\t\t\t\t\tfor knobName in k:\n\t\t\t\t\t\tn[knobName].setEnabled(False)\n\t\t\t\t\t\tn['xpos'].setEnabled(False)"
+tile_color 0x4ca9ffff
+note_font_size 20
+note_font_color 0xdfefffff
+addUserKnob {20 User}
+addUserKnob {3 radius l Radius}
+radius 10
+addUserKnob {26 credit l "by uselesscompthings"}
+}

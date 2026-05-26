@@ -1,0 +1,166 @@
+#! C:/Program Files/Nuke10.5v1/nuke-10.5.1.dll -nx
+version 10.5 v1
+define_window_layout_xml {<?xml version="1.0" encoding="UTF-8"?>
+<layout version="1.0">
+    <window x="0" y="0" w="1352" h="793" screen="0">
+        <splitter orientation="1">
+            <split size="40"/>
+            <dock id="" hideTitles="1" activePageId="Toolbar.1">
+                <page id="Toolbar.1"/>
+            </dock>
+            <split size="887" stretch="1"/>
+            <splitter orientation="2">
+                <split size="731"/>
+                <dock id="" activePageId="DAG.1" focus="true">
+                    <page id="DAG.1"/>
+                    <page id="Curve Editor.1"/>
+                    <page id="DopeSheet.1"/>
+                </dock>
+            </splitter>
+            <split size="401"/>
+            <dock id="" activePageId="Properties.1">
+                <page id="Properties.1"/>
+            </dock>
+        </splitter>
+    </window>
+</layout>
+}
+Root {
+ inputs 0
+ name "C:/Users/mateu/Desktop/UselessCompThings/OUTER SPACE SIMULATOR.nk"
+ format "2048 1556 0 0 2048 1556 1 2K_Super_35(full-ap)"
+ proxy_type scale
+ proxy_format "1024 778 0 0 1024 778 1 1K_Super_35(full-ap)"
+ colorManagement Nuke
+ workingSpaceLUT linear
+ monitorLut sRGB
+ int8Lut sRGB
+ int16Lut sRGB
+ logLut Cineon
+ floatLut linear
+}
+BackdropNode {
+ inputs 0
+ name BackdropNode1
+ knobChanged "if nuke.thisKnob().name() == 'bodies':\n\tthis = nuke.thisNode()\n\tcolours = \[0, 3398126847L, 3398168575L, 2739154943L, 3049666815L, 3049706495L, 2459079423L, 40013567, 960467711, 616338175]\n\tlen = int(this.knob('bodies').value())\n\tmax = 10\n\tfor i in range(1,len+1):\n\t\tif nuke.toNode('m%s'%i) is None:\n\t\t\tm = nuke.nodes.Axis()\n\t\t\tm.knob('tile_color').setValue(colours\[i])\n\t\t\tm.setName('m%s'%i)\n\t\t\tm.setXYpos(int(this.xpos()+i*80),int(this.ypos()+100))\n\tfor i in range(len+1,max):\n\t\tif nuke.toNode('m%s'%i) is not None:\n\t\t\tnuke.delete(nuke.toNode('m%s'%i))\n\tfor knob in this.knobs():\n\t\tfor i in range(1,len+1):\n\t\t\tsuffix = '_%s'%i\n\t\t\tif knob.endswith(suffix):\n\t\t\t\tthis.knob(knob).setVisible(True)\n\t\tfor i in range(len+1,max):\n\t\t\tsuffix = '_%s'%i\n\t\t\tif knob.endswith(suffix):\n\t\t\t\tthis.knob(knob).setVisible(False)"
+ tile_color 0x212121ff
+ label "<Center>Outer Space Simulator"
+ note_font "Open Sans"
+ note_font_size 200
+ xpos -48479
+ ypos -123113
+ bdwidth 2680
+ bdheight 1609
+ addUserKnob {20 User l "Outer Space Simulator"}
+ addUserKnob {22 go l start T "this = nuke.thisNode() \nthis.knob('cycle').setValue(0)\nlen = int(this.knob('bodies').value())\n\nfor i in range (1,len+1):\n\tvelKnobName ='vel_%s' %i\n\tthis.knob(velKnobName).setValue(\[0,0])\nthis.knob('start').execute()\n" +STARTLINE}
+ addUserKnob {22 start l INVISIBLE +INVISIBLE T "import math,threading\n\nthis = nuke.thisNode()\nlen = int(this.knob('bodies').value())\n\n#Creating variables for node objects\nnodes_dict = dict()\n\nfor i in range(1,len+1):\n\tnode_name = 'm%s' % i\n\tnodes_dict\[node_name] = nuke.toNode(node_name)\n\nthis.knob('run').setValue(1)\ninterval = 0.05\n\ndef center(node):\n\tcenter = \[node.xpos()+node.screenWidth()/2, node.ypos()+node.screenHeight()/2]\n\treturn center\n\ndef distance(n1,n2):\n\tn1x = center(n1)\[0]\n\tn1y = center(n1)\[1]\n\tn2x = center(n2)\[0]\n\tn2y = center(n2)\[1]\n\tdistance = int(math.sqrt((n1x-n2x)*(n1x-n2x)+(n1y-n2y)*(n1y-n2y)))\n\treturn distance\n\n\ndef move():\n\n\tcycle = this.knob('cycle').value()\n\tthis.knob('cycle').setValue(cycle+1)\n\n\tmass_dict = dict()\n\tfor i in range(1,len+1):\n   \t\tmassVar = 'mass_%s' % i\n    \tmass_dict\[massVar] = this.knob(massVar).value()\n\n\n\tif this.knob('cycle').value() == 1:\n\t\t#Setting initial velocity if the simulation just started\n\t\tspeed_dict = dict()\n\t\tangle_dict = dict()\n\t\tvelX_dict = dict()\n\t\tvelY_dict = dict()\n\t\tfor i in range(1,len+1):\n\t\t\tspeedVar=  'speed_%s' %i\n\t\t\tangleVar= 'angle_%s' %i\n\n\t\t\tspeed_dict\[speedVar] = this.knob(speedVar).value()\n\t\t\tangle_dict\[angleVar] = this.knob(angleVar).value()\n\n\t\t\tvelXVar = 'velx_%s' % i\n\t\t\tvelYVar = 'vely_%s' % i\n\n\t\t\tvelX_dict\[velXVar] = math.cos(math.radians(angle_dict.get(angleVar)))*speed_dict.get(speedVar)\n\t\t\tvelY_dict\[velYVar] = -math.sin(math.radians(angle_dict.get(angleVar)))*speed_dict.get(speedVar)\n\n\t\t\tvelKnobName = 'vel_%s' %i\n\t\t\tthis.knob(velKnobName).setValue(\[velX_dict.get(velXVar),velY_dict.get(velYVar)])\n\n\telse:\n\t\tpass\n\n\t#Gravitational constant (very arbitrary number)\n\tG = 100\n\tdeltaVelocity_dict = dict()\n\n\tfor i in range (1,len+1):\n\t\tfor j in range(1,len+1):\n\t\t\tif i == j:\n\t\t\t\tpass\n\t\t\telse:\n\t\t\t\tparentNodeName = 'm%s' %str(i)\n\t\t\t\tchildNodeName = 'm%s' %str(j)\n\t\t\t\tparentNode = nodes_dict.get(parentNodeName)\n\t\t\t\tchildNode = nodes_dict.get(childNodeName)\n\t\t\t\tchildMass = this.knob('mass_%s'%j).value()\n\n\n\t\t\t\tdeltaVelocityVar = 'dv%s' %str(i)+str(j)\n\t\t\t\tdeltaVelocity_dict\[deltaVelocityVar] = \[(-G*interval*childMass*(center(parentNode)\[0]-center(childNode)\[0]))/math.pow(distance(parentNode,childNode),3),(-G*interval*childMass*(center(parentNode)\[1]-center(childNode)\[1]))/math.pow(distance(parentNode,childNode),3)]\n\t\t\t\tprint 'deltavelocity:'\n\t\t\t\tprint deltaVelocity_dict.get(deltaVelocityVar)\n\n\n\t#Adding velocity vectors for each parent, then finishing up by calculating distance travelled per time interval, and assigning new positions\t\t\t\n\tfinalVelocity_dict = dict()\n\tfor i in range(1,len+1):\n\n\t\tfinalVelocity = 'dv%s'+str(i)\n\t\tvelListX = \[]\n\t\tvelListY = \[]\n\t\tfor j in range(1,len+1):\n\t\t\tif i == j:\n\t\t\t\tpass\n\t\t\telse:\n\t\t\t\tvelVector = 'dv%s'%str(i)+str(j)\n\t\t\t\tvelListX.append(deltaVelocity_dict.get(velVector)\[0])\n\t\t\t\tvelListY.append(deltaVelocity_dict.get(velVector)\[1])\n\t\t\t\t\n\t\tfinalVelocity = \[sum(velListX),sum(velListY)]\t\n\n\t\tvelKnobName ='vel_%s' %i\n\t\tvelKnob = this.knob(velKnobName).value()\n\n\t\tthis.knob(velKnobName).setValue(\[(velKnob\[0]+finalVelocity\[0]), (velKnob\[1]+finalVelocity\[1])])\n\n\n\t\tvelKnob = this.knob(velKnobName).value()\n\n\t\tnodeName = 'm%s' %i\n\t\tnuke.toNode(nodeName).setXYpos(int(nuke.toNode(nodeName).xpos()+(velKnob\[0]*interval)),int(nuke.toNode(nodeName).ypos()+(velKnob\[1]*interval)))\ndef loop():\n\tif this.knob('run').value() != 1:\n\t\tpass\n\telse:\n\t\tmove()\n\t\tthreading.Timer(interval,loop).start()\n\n\nloop()" +STARTLINE}
+ addUserKnob {22 pause l pause/resume -STARTLINE T "this = nuke.thisNode()\nif this.knob('run').value()==1:\n\tthis.knob('run').setValue(0)\nelse:\n\tthis.knob('start').execute()"}
+ addUserKnob {22 stop -STARTLINE T "this = nuke.thisNode()\nthis.knob('run').setValue(0)\nthis.knob('cycle').setValue(0)\n\nfor i in range (1,len+1):\n\tvelKnobName ='vel_%s' %i\n\tthis.knob(velKnobName).setValue(\[0,0])"}
+ addUserKnob {4 bodies l "Number of Bodies" M {2 3 4 5 6 7 8 9 "" ""}}
+ addUserKnob {22 resetNodes l "Reset Positions" -STARTLINE T "this = nuke.thisNode()\nlen = int(this.knob('bodies').value())\nfor i in range(1,len+1):\n\tnode = nuke.toNode('m%s'%i)\n\tif node is not None:\n\t\tnode.setXYpos(int(this.xpos()+i*80),int(this.ypos()+100))"}
+ addUserKnob {3 oldBodies l INVISIBLE +INVISIBLE}
+ oldBodies 3
+ addUserKnob {20 Object_1 l "Object 1" n 1}
+ addUserKnob {7 mass_1 l mass R 0 1000}
+ mass_1 4000000
+ addUserKnob {7 angle_1 l "Initial angle" R 0 360}
+ addUserKnob {7 speed_1 l "Initial speed" R 0 50}
+ addUserKnob {20 endGroup_1 l endGroup n -1}
+ addUserKnob {20 Object_2 l "Object 2" n 1}
+ addUserKnob {7 mass_2 l mass R 0 1000}
+ mass_2 200000
+ addUserKnob {7 angle_2 l "Initial angle" R 0 360}
+ angle_2 90
+ addUserKnob {7 speed_2 l "Initial speed" R 0 50}
+ speed_2 500
+ addUserKnob {20 endGroup_2 l endGroup n -1}
+ addUserKnob {20 Object_3 l "Object 3" +HIDDEN n 1}
+ addUserKnob {7 mass_3 l mass +HIDDEN R 0 1000}
+ mass_3 20000
+ addUserKnob {7 angle_3 l "Initial angle" +HIDDEN R 0 360}
+ angle_3 270
+ addUserKnob {7 speed_3 l "Initial speed" +HIDDEN R 0 50}
+ speed_3 300
+ addUserKnob {20 endGroup_3 l endGroup +HIDDEN n -1}
+ addUserKnob {20 Object_4 l "Object 4" +HIDDEN n 1}
+ addUserKnob {7 mass_4 l mass +HIDDEN R 0 1000}
+ mass_4 2280
+ addUserKnob {7 angle_4 l "Initial angle" +HIDDEN R 0 360}
+ angle_4 71
+ addUserKnob {7 speed_4 l "Initial speed" +HIDDEN R 0 50}
+ speed_4 70
+ addUserKnob {20 endGroup_4 l endGroup +HIDDEN n -1}
+ addUserKnob {20 Object_5 l "Object 5" +HIDDEN n 1}
+ addUserKnob {7 mass_5 l mass +HIDDEN R 0 1000}
+ mass_5 16120
+ addUserKnob {7 angle_5 l "Initial angle" +HIDDEN R 0 360}
+ angle_5 74
+ addUserKnob {7 speed_5 l "Initial speed" +HIDDEN R 0 50}
+ speed_5 27
+ addUserKnob {20 endGroup_5 l endGroup +HIDDEN n -1}
+ addUserKnob {20 Object_6 l "Object 6" +HIDDEN n 1}
+ Object_6 0
+ addUserKnob {7 mass_6 l mass +HIDDEN R 0 1000}
+ mass_6 6220
+ addUserKnob {7 angle_6 l "Initial angle" +HIDDEN R 0 360}
+ angle_6 146
+ addUserKnob {7 speed_6 l "Initial speed" +HIDDEN R 0 50}
+ speed_6 260
+ addUserKnob {20 endGroup_6 l endGroup +HIDDEN n -1}
+ addUserKnob {20 Object_7 l "Object 7" +HIDDEN n 1}
+ Object_7 0
+ addUserKnob {7 mass_7 l mass +HIDDEN R 0 1000}
+ mass_7 30280
+ addUserKnob {7 angle_7 l "Initial angle" +HIDDEN R 0 360}
+ angle_7 140
+ addUserKnob {7 speed_7 l "Initial speed" +HIDDEN R 0 50}
+ speed_7 80
+ addUserKnob {20 endGroup_7 l endGroup +HIDDEN n -1}
+ addUserKnob {20 Object_8 l "Object 8" +HIDDEN n 1}
+ Object_8 0
+ addUserKnob {7 mass_8 l mass +HIDDEN R 0 1000}
+ mass_8 49220
+ addUserKnob {7 angle_8 l "Initial angle" +HIDDEN R 0 360}
+ angle_8 272
+ addUserKnob {7 speed_8 l "Initial speed" +HIDDEN R 0 50}
+ speed_8 27
+ addUserKnob {20 endGroup_8 l endGroup +HIDDEN n -1}
+ addUserKnob {20 Object_9 l "Object 9" +HIDDEN n 1}
+ Object_9 0
+ addUserKnob {7 mass_9 l mass +HIDDEN R 0 1000}
+ mass_9 6220
+ addUserKnob {7 angle_9 l "Initial angle" +HIDDEN R 0 360}
+ angle_9 90
+ addUserKnob {7 speed_9 l "Initial speed" +HIDDEN R 0 50}
+ speed_9 160
+ addUserKnob {20 endGroup_9 l endGroup +HIDDEN n -1}
+ addUserKnob {20 stuff l data n 1}
+ stuff 0
+ addUserKnob {3 run l INVISIBLE +INVISIBLE}
+ addUserKnob {3 cycle l INVISIBLE +INVISIBLE}
+ addUserKnob {12 vel_1 l "m1 current velocity"}
+ addUserKnob {12 vel_2 l "m2 current velocity"}
+ addUserKnob {12 vel_3 l "m3 current velocity" +HIDDEN}
+ addUserKnob {12 vel_4 l "m4 current velocity" +HIDDEN}
+ addUserKnob {12 vel_5 l "m5 current velocity" +HIDDEN}
+ addUserKnob {12 vel_6 l "m6 current velocity" +HIDDEN}
+ addUserKnob {12 vel_7 l "m7 current velocity" +HIDDEN}
+ addUserKnob {12 vel_8 l "m8 current velocity" +HIDDEN}
+ addUserKnob {12 vel_9 l "m9 current velocity" +HIDDEN}
+ addUserKnob {20 endGroup n -1}
+ addUserKnob {26 credit l "by @uselesscompthings" T "\nMateusz Krząstek"}
+}
+Axis2 {
+ inputs 0
+ name m1
+ tile_color 0xca8b4cff
+ xpos -48399
+ ypos -123013
+}
+Axis2 {
+ inputs 0
+ name m2
+ tile_color 0x2628eff
+ xpos -48319
+ ypos -123013
+}

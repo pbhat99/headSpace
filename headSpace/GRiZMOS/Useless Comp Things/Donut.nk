@@ -1,0 +1,10 @@
+NoOp {
+name Donut
+onCreate 'nuke.thisNode().knob('round').execute()'
+tile_color 0xa05600ff
+addUserKnob {20 User}
+addUserKnob {3 radius}
+radius 2000
+addUserKnob {22 round l Roundify -STARTLINE T "import math\nallNodes = nuke.allNodes()\ncenterX = nuke.thisNode().xpos()\ncenterY = nuke.thisNode().ypos()\nradius = nuke.thisNode().knob('radius').value()\nnodeList = \[]\nfor n in allNodes:\n\tif n == nuke.thisNode():\n\t\tpass\n\telse:\n\t\tnodeList.append(n)\ntotal = len(nodeList)\ndef circle():\n\tif len(nodeList) == 0:\n\t\tpass\n\telse:\n\t\tn = nodeList\[-1] \n\t\tx = n.knob('xpos').value()\n\t\ty = n.knob('ypos').value()\n\t\tdistX = x-centerX\n\t\tdistY = y-centerY\n\t\tdist = int(math.sqrt(distX*distX+distY*distY))\n\t\tn.setXpos(int(centerX+radius*math.cos(math.radians((len(nodeList)/total)*360))))\n\t\tn.setYpos(int(centerY+radius*math.sin(math.radians((len(nodeList)/total)*360))))\n\t\tnodeList.remove(n)\n\t\tthreading.Timer(.1,circle).start()\ncircle()"}
+addUserKnob {26 credit l "by uselesscompthings"}
+}

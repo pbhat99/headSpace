@@ -1,0 +1,4 @@
+Multiply {
+name Multiply1
+knobChanged "if nuke.thisKnob().name() in ['xpos','ypos']:\n\tnukescripts.node_copypaste()"
+}

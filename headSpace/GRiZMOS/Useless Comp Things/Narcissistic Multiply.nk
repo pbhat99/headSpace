@@ -1,0 +1,8 @@
+set cut_paste_input [stack 0]
+push $cut_paste_input
+Multiply {
+value 0.6
+name Narcissistic_Multiply
+knobChanged "if nuke.thisKnob().name() == 'value':\n\tthis = nuke.thisNode()\n\n\tdef findBelow(node):\n\t\tclasses = \['Saturation', 'Multiply', 'Grade', 'ColorCorrect', 'HueCorrect', 'ColorLookup']\n\t\tfor n in node:\n\t\t\tif n.Class() in classes:\n\t\t\t\teject(node)\n\t\t\telse:\n\t\t\t\ttry:\n\t\t\t\t\tfor n in node:\n\t\t\t\t\t\tfindBelow(n.dependent())\n\t\t\t\texcept:\n\t\t\t\t\tpass\n\n\tdef eject(node):\n\t for n in nuke.allNodes():\n\t n.setSelected(False)\n\t for n in node:\n\t \tn.setSelected(True)\n\t try:\n\t nuke.extractSelected()\n\t except:\n\t pass\n\t for n in nuke.allNodes():\n\t n.setSelected(False)\n\n\tfindBelow(this.dependent())"
+note_font "Verdana Bold"
+}

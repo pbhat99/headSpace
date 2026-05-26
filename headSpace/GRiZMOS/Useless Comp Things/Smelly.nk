@@ -1,0 +1,12 @@
+NoOp {
+name Smelly
+knobChanged "if nuke.thisKnob().name() in ['xpos','ypos']:\n\timport math\n\tthis = nuke.thisNode()\n\tradius = this.knob('radius').value()\n\tdef currentPos(a):\n\t\tcenterX = int( a.knob('xpos').value() + a.screenWidth()/2)\n\t\tcenterY = int( a.knob('ypos').value() + a.screenHeight()/2)\n\t\treturn [centerX, centerY]\n\tdef checkDistance(a,b):\n\t\tax = currentPos(a)[0]\n\t\tay = currentPos(a)[1]\n\t\tbx = currentPos(b)[0]\n\t\tby = currentPos(b)[1]\n\t\tdist = int(math.sqrt((ax-bx)*(ax-bx)+(ay-by)*(ay-by)))\n\t\treturn dist\n\tdef pushStuff(source,target):\n\t\tsourcex = currentPos(source)[0]\n\t\tsourcey = currentPos(source)[1]\n\t\ttargetx = currentPos(target)[0]\n\t\ttargety = currentPos(target)[1]\n\t\tdist = checkDistance(source,target)\n\t\tdistX = targetx-sourcex\n\t\tdistY = targety-sourcey\n\t\tdeltax = math.ceil((distX/dist)*math.sqrt(radius+1-dist))\n\t\tdeltay = math.ceil((distY/dist)*math.sqrt(radius+1-dist))\n\t\ttarget.setXYpos(int(targetx-target.screenWidth()/2+deltax),int(targety-target.screenHeight()/2+deltay))\n\tfor n in nuke.allNodes():\n\t\tif checkDistance(this,n)>radius or n.name() == this.name():\n\t\t\tpass\n\t\telse:\n\t\t\tpushStuff(this,n)"
+tile_color 0x3e5400ff
+note_font_size 15
+note_font_color 0xe2e156ff
+hide_input true
+addUserKnob {20 User}
+addUserKnob {3 radius l "Smell Radius"}
+radius 200
+addUserKnob {26 credit l "by @uselesscompthings"}
+}

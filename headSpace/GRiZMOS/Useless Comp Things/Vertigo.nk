@@ -1,0 +1,7 @@
+NoOp {
+name Vertigo
+tile_color 0xff
+addUserKnob {20 User}
+addUserKnob {22 GO T "import threading \nthis = nuke.thisNode()\ndef currentPos(a):\n\tcenterX = int( a.knob('xpos').value() + a.screenWidth()/2)\n\tcenterY = int( a.knob('ypos').value() + a.screenHeight()/2)\n\treturn \[centerX, centerY]\n\ndef zoom():\n\tx = currentPos(this)\[0]\n\ty = currentPos(this)\[1]\n\tnuke.zoom((nuke.zoom() + 0.1)%10,\[x,y])\n\tthreading.Timer(.1,zoom).start()\nzoom()\t" +STARTLINE}
+addUserKnob {26 credit l "by @uselesscompthings"}
+}

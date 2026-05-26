@@ -1,0 +1,72 @@
+set cut_paste_input [stack 0]
+push $cut_paste_input
+Group {
+name TactileTransform
+onCreate "nuke.thisNode().knob('center').setValue(\[nuke.root().format().width()/2,nuke.root().format().height()/2])"
+knobChanged "if nuke.thisKnob().name() in \['xpos','ypos']:\n\tthis = nuke.thisNode()\n\tthis.knob('translate').setValue(\[this.xpos()-this.knob('offset').value(0),-this.ypos()-this.knob('offset').value(1)])"
+tile_color 0xa57aaaff
+xpos 182
+ypos 48
+addUserKnob {20 TactileTransform l "Tactile Transform"}
+addUserKnob {41 matrix T Transform1.matrix}
+addUserKnob {41 translate T Transform1.translate}
+addUserKnob {22 Reset -STARTLINE T "this = nuke.thisNode()\nthis.knob('offset').setValue(\[this.xpos(),-this.ypos()])\nthis.knob('translate').setValue(\[0,0])"}
+addUserKnob {41 rotate T Transform1.rotate}
+addUserKnob {41 scale T Transform1.scale}
+addUserKnob {41 skewX l "skew X" T Transform1.skewX}
+addUserKnob {41 skewY l "skew Y" T Transform1.skewY}
+addUserKnob {41 skew_order l "skew order" T Transform1.skew_order}
+addUserKnob {41 center T Transform1.center}
+addUserKnob {41 invert_matrix l invert T Transform1.invert_matrix}
+addUserKnob {41 filter T Transform1.filter}
+addUserKnob {41 clamp -STARTLINE T Transform1.clamp}
+addUserKnob {41 black_outside l "black outside" -STARTLINE T Transform1.black_outside}
+addUserKnob {41 motionblur T Transform1.motionblur}
+addUserKnob {41 shutter T Transform1.shutter}
+addUserKnob {41 shutteroffset l "shutter offset" T Transform1.shutteroffset}
+addUserKnob {41 shuttercustomoffset l "" -STARTLINE T Transform1.shuttercustomoffset}
+addUserKnob {26 ""}
+addUserKnob {12 offset l INVISIBLE +INVISIBLE}
+offset {-541 -280}
+addUserKnob {26 credit l "by @uselesscompthings"}
+}
+Input {
+inputs 0
+name Input1
+}
+Transform {
+translate {723 232}
+scale {1 1}
+center {1024 778}
+name Transform1
+}
+Output {
+name Output1
+}
+end_group
+set N6664880 [stack 0]
+Dot {
+name RotationDot
+knobChanged "if nuke.thisKnob().name() in \['xpos','ypos']:\n\timport math\n\tthis = nuke.thisNode()\n\tsource = this.input(0)\n\tdistX = this.xpos()-source.xpos()\n\tdistY = this.ypos()-source.ypos()\n\tsource.knob('rotate').setValue((-1)*math.degrees(math.atan2(distY,distX)))"
+tile_color 0xff00ffff
+selected true
+xpos 469
+ypos 48
+}
+push $N6664880
+Dot {
+name ScaleYDot
+knobChanged "if nuke.thisKnob().name() == 'xpos':\n\tthis = nuke.thisNode()\n\tsource = this.input(0)\n\tdiff = this.xpos()-source.xpos()\n\tif diff == 0:\n\t\tsource.knob('scale').setValue(\[0,source.knob('scale').value(0)])\n\telse:\n\t\tsource.knob('scale').setValue(\[diff/100,source.knob('scale').value(1)])"
+tile_color 0xff0000ff
+selected true
+xpos 282
+ypos {{"\[python \{nuke.thisNode().input(0).ypos()+(nuke.thisNode().input(0).screenHeight()-nuke.thisNode().screenHeight())/2\}]" x1 52}}
+}
+push $N6664880
+Dot {
+name ScaleXDot
+knobChanged "if nuke.thisKnob().name() == 'ypos':\n\tthis = nuke.thisNode()\n\tsource = this.input(0)\n\tdiff = this.ypos()-source.ypos()\n\tif diff == 0:\n\t\tsource.knob('scale').setValue(\[source.knob('scale').value(0),0])\n\telse:\n\t\tsource.knob('scale').setValue(\[source.knob('scale').value(0),diff/100])"
+tile_color 0xff00ff
+xpos {{"\[python \{nuke.thisNode().input(0).xpos()+(nuke.thisNode().input(0).screenWidth()-nuke.thisNode().screenWidth())/2\}]" x1 216}}
+ypos 148
+}

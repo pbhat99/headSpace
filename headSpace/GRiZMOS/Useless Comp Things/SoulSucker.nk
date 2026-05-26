@@ -1,0 +1,11 @@
+NoOp {
+name SoulSucker
+knobChanged "if nuke.thisKnob().name() in \['xpos','ypos']:\n\tthis = nuke.thisNode()\n\tcol = this.knob('tile_color').value()\n\tfor n in nuke.allNodes():\n\t\tif n == this or n.Class() == 'NoOp':\n\t\t\tpass\n\t\telse:\n\t\t\timport math\n\t\t\tcenterX = this.knob('xpos').value()+(this.screenWidth()/2)\n\t\t\tcenterY = this.knob('ypos').value()+(this.screenHeight()/2)\n\t\t\tradius = this.knob('radius').value()\n\t\t\tx = n.knob('xpos').value()+(n.screenWidth()/2)\n\t\t\ty = n.knob('ypos').value()+(n.screenHeight()/2)\n\t\t\tdistX = abs(x-centerX)\n\t\t\tdistY = abs(y - centerY)\n\t\t\tif distX<radius and distY<radius:\n\t\t\t\tnName = n.knob('name').value()\n\t\t\t\tk = nuke.nodes.NoOp()\n\t\t\t\tk.setXYpos(int(n.knob('xpos').value()),int(n.knob('ypos').value()))\n\t\t\t\tnuke.delete(n)\n\t\t\t\tthis.knob('name').setValue(nName)"
+tile_color 0x484645ff
+label SoulSucker
+note_font_size 20
+addUserKnob {20 User l SoulSucker}
+addUserKnob {3 radius +INVISIBLE}
+radius 10
+addUserKnob {26 credit l "by @uselesscompthings"}
+}

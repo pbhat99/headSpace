@@ -1,0 +1,14 @@
+NoOp {
+name Barrel_Roll
+tile_color 0x3e2e15ff
+note_font "Verdana Bold Bold"
+note_font_color 0xfffffeff
+addUserKnob {20 User l "Barrel Roll"}
+addUserKnob {22 getSelection l "Grab center of node selection" T "this = nuke.thisNode()\nif len(nuke.selectedNodes())>0:\n\tcenterX = sum(\[node.knob('xpos').value()+node.screenWidth()/2 for node in nuke.selectedNodes()])/len(nuke.selectedNodes())\n\tcenterY = sum(\[node.knob('ypos').value()+node.screenHeight()/2 for node in nuke.selectedNodes()])/len(nuke.selectedNodes())\n\tthis.knob('center').setValue(\[centerX,centerY])\nelse:\n\tpass\n" +STARTLINE}
+addUserKnob {12 center l pivot}
+addUserKnob {26 spacer l " " T " "}
+addUserKnob {7 angle l INVISIBLE +INVISIBLE R 0 360}
+addUserKnob {22 rotate l Roll T "import math, threading, json\nthis = nuke.thisNode()\ncenterX = this.knob('center').value()\[0]\ncenterY = this.knob('center').value()\[1]\nthis.knob('angle').setValue(0)\nnodeDict = \{\}\nfor n in nuke.selectedNodes():\n nodeDict \[n] = \[n.knob('xpos').value(),n.knob('ypos').value()]\n\n\n\n\n\n\n\ndef roll():\n\n\tfor n in nodeDict:\n\t\tx = int(nodeDict.get(n)\[0] + n.screenWidth()/2)\n\t\ty = int(nodeDict.get(n)\[1] + n.screenHeight()/2)\n\t\tdistX = x-centerX\n\t\tdistY = y-centerY\n\t\tdist = math.sqrt((x-centerX)*(x-centerX)+(y-centerY)*(y-centerY))\n\t\tangle = math.degrees(math.atan2(distX,distY))\n\n\t\tnewAngle = angle + this.knob('angle').value()\n\t\tn.setXpos(int(centerX+math.sin(math.radians(newAngle))*dist-n.screenWidth()/2))\n\t\tn.setYpos(int(centerY+math.cos(math.radians(newAngle))*dist-n.screenHeight()/2))\t\n\n\ndef loop():\n\tthis.knob('angle').setValue(this.knob('angle').value()+1)\n\tif this.knob('angle').value()<=360:\n\t\troll()\n\t\tthreading.Timer(.01,loop).start()\nloop()\n\t" +STARTLINE}
+addUserKnob {26 ""}
+addUserKnob {26 credit l "by uselesscompthings" T "\nMateusz Krząstek"}
+}

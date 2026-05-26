@@ -1,0 +1,8 @@
+NoOp {
+name EarthQuake
+knobChanged "if nuke.thisKnob().name() in \['xpos','ypos']:\n\timport random\n\tfor n in nuke.allNodes():\n\t\tx=n.knob('xpos').value()\n\t\ty=n.knob('ypos').value()\n\t\tn.setXYpos(int(x+random.randint(-20,20)),int(y+random.randint(-20,20)))"
+tile_color 0x2a231bff
+addUserKnob {20 User}
+addUserKnob {26 ""}
+addUserKnob {26 credit l "by uselesscompthings"}
+}
