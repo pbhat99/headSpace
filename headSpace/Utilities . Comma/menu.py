@@ -20,4 +20,4 @@ def makeComma():
         nuke.createNode("Comma")
 
 mainMenu = menuMaker()
-nuke.menu("Nuke").addCommand(mainMenu + 'Comma','makeComma()',',',icon='Comma.png',index=6)
+nuke.menu("Nuke").addCommand(mainMenu + 'Comma','makeComma()',',',icon='Comma.png',index=6, shortcutContext=2)
