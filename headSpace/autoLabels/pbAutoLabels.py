@@ -1,3 +1,4 @@
+import collections
 import nuke
 import os
 import math
@@ -41,30 +42,27 @@ def pbAutoLabel():
         aLabel.append(n["label"].evaluate() or "")
         return "\n".join(aLabel).strip()
 
-    if n.Class() in ("Transform", "CornerPin2D"):
+    if n.Class() in ("Transform", "CornerPin2D", "Card3D", "MotionBlur2D", "Tracker4"):
         addIndicators()
-        aLabel.append(n.name())
-        # Check for inverted state (different knob names per node)
-        inv = n.knob("invert_matrix") or n.knob("invert")
-        if inv and inv.value():
-            aLabel.append('[inverted]')
-        if n["motionblur"].value():
-            aLabel.append(f"[mb : {str(n['motionblur'].value()).rstrip('.0')} ~ {str(n['shutter'].value()).rstrip('.0')}]")
+        if n.Class() == "Tracker4":
+            aLabel.append(f"{n.name()} [{n['reference_frame'].value()}]")
+            transform = n["transform"].value()
+            if transform != "none":
+                aLabel.append(transform)
+        else:
+            aLabel.append(n.name())
+            inv = n.knob("invert_matrix") or n.knob("invert")
+            if inv and inv.value():
+                aLabel.append("[inverted]")
+        motionblur , shutter = n.knob("motionblur") , n.knob("shutter")
+        if n.Class() == "MotionBlur2D" or (motionblur and motionblur.value()):
+            aLabel.append(f"[mb : {n['shutteroffset'].value()} ~ {trimTo2Dec(shutter.value())}]")
+
         aLabel.append(n["label"].evaluate() or "")
         return "\n".join(aLabel).strip()
 
-    if n.Class() in ("Tracker4"):
-        addIndicators()
-        aLabel.append(f"{n.name()} [{trimTo2Dec(n['reference_frame'].value())}]")
-        if n["transform"].value() != 'none':
-            aLabel.append(n["transform"].value())
-        if n["motionblur"].value():
-            aLabel.append(f"[mb : {str(n['motionblur'].value()).rstrip('.0')} ~ {str(n['shutter'].value()).rstrip('.0')}]")
-        aLabel.append(n["label"].evaluate() or "")
-        return "\n".join(aLabel).strip()
 
-
-    if n.Class() in ("Mirror", "Mirror2"):
+    if n.Class() == "Mirror2":
         addIndicators()
         aLabel.append(n.name())
         m_label = []
@@ -109,15 +107,47 @@ def pbAutoLabel():
     if n.Class() in ("Remove"):
         addIndicators()
         aLabel.append(f"{n.name()} [{n['operation'].value()}]")
-        if n["channels"].value() != "none":
-            aLabel.append(f'({n["channels"].value()})')
-        if n["channels2"].value() != "none":
-            aLabel.append(f'({n["channels2"].value()})')
-        if n["channels3"].value() != "none":
-            aLabel.append(f'({n["channels3"].value()})')
-        if n["channels4"].value() != "none":
-            aLabel.append(f'({n["channels4"].value()})')
+        for knob in ("channels", "channels2", "channels3", "channels4"):
+            value = n[knob].value()
+            if value != "none":
+                aLabel.append(f"({value})")
         aLabel.append(n["label"].evaluate() or "")
         return "\n".join(aLabel).strip()
-       
+
+    # if n.Class() in ("Shuffle2"):
+    #     addIndicators()
+    #     out_layer = n["out1"].value()
+    #     mappings = n["mappings"].value()
+    #     src_channels, dst_channels, src_layers = [],[],[]
+
+    #     for m in mappings:
+    #         try:
+    #             src, dst = m[1], m[2] 
+    #             src_layer, src_chan = src.split(".")
+    #             dst_layer, dst_chan = dst.split(".")
+    #             # collect unique source layers
+    #             if src_layer not in src_layers:
+    #                 src_layers.append(src_layer)
+    #             # skip black inputs
+    #             if src_layer == "black":
+    #                 continue
+    #             src_channels.append(src_chan)
+    #             dst_channels.append(dst_chan)
+    #         except:
+    #             pass
+
+    #     src_layer_text = "-".join(src_layers) if src_layers else "?"
+
+    #     aLabel.append("%s [%s -> %s]\n%s -> %s" % (
+    #         n.name(),
+    #         src_layer_text,
+    #         n["out1"].value(),
+    #         "-".join(src_channels),
+    #         "-".join(dst_channels)
+    #     ))
+    #     aLabel.append(n["label"].evaluate() or "")
+    #     return "\n".join(aLabel).strip()
+
+
+
 nuke.addAutolabel(pbAutoLabel)
