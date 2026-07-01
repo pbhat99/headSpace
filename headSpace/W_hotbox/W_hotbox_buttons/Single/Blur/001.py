@@ -2,14 +2,11 @@
 #
 # AUTOMATICALLY GENERATED FILE TO BE USED BY W_HOTBOX
 #
-# NAME: Alpha/rgba/All
+# NAME: Alpha for roto
 #
 #----------------------------------------------------------------------------------------------------------
 
-for i in nuke.selectedNodes():
-    if i.knob('channels').value() == 'alpha':
-        i.knob('channels').setValue('rgba')
-    elif i.knob('channels').value() == 'rgba':
-        i.knob('channels').setValue('all')
-    else:
-        i.knob('channels').setValue('alpha')
+for sel in nuke.allNodes('Roto'):
+    for each in sel.dependent():
+        if each.Class()=="Blur":
+            each['channels'].setValue("alpha")
