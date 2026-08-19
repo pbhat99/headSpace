@@ -6,7 +6,7 @@
 #
 #----------------------------------------------------------------------------------------------------------
 
-nodeClass = 'chromaMerge7'
+nodeClass = 'chromaMerge'
 
 selection = nuke.selectedNodes()
 
